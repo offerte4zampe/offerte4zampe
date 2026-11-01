@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-01T12:55:35.509916+00:00",
+  "generated_at": "2026-11-01T18:50:34.396127+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 14,
-  "with_third_store_lead": 26,
+  "at_target": 16,
+  "with_third_store_lead": 24,
   "categories": {
-    "umido": 123,
+    "umido": 121,
     "snack": 59,
-    "crocchette": 107,
+    "crocchette": 109,
     "lettiere": 11
   },
   "priority_offer_ids": [
@@ -61,8 +61,6 @@
     "animaliapet:46976683409751",
     "animaliapet:46976684556631",
     "animaliapet:46976685244759",
-    "animaliapet:46976686489943",
-    "animaliapet:46976686948695",
     "animaliapet:46976687210839",
     "animaliapet:46976687407447",
     "animaliapet:46976687571287",
@@ -136,7 +134,6 @@
     "bauzaar:56819875840325",
     "bauzaar:56819879543109",
     "bauzaar:56819879641413",
-    "bauzaar:56819880100165",
     "bauzaar:56820022509893",
     "bauzaar:56820022542661",
     "bauzaar:56820022575429",
@@ -341,7 +338,6 @@
     "bauzaar:58245822742853",
     "bauzaar:58411825004869",
     "bauzaar:58411829920069",
-    "bauzaar:58411831198021",
     "bauzaar:58411831918917",
     "bauzaar:58411832181061",
     "bauzaar:58411832213829",
@@ -554,8 +550,6 @@
     "webpet:52568949621076",
     "webpet:52568954601812",
     "webpet:52568955552084",
-    "webpet:52569129025876",
-    "webpet:52569129058644",
     "webpet:52569129189716",
     "webpet:52569129222484",
     "webpet:52569129288020",
@@ -630,27 +624,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-1741881e547f118eec1d",
-      "name": "Monge Supreme Sterilised Tonno Triglia e Fagiolini Bustine 80g Gatti",
-      "brand": "Monge",
-      "category": "umido",
-      "species": "gatto",
-      "format": "80 g",
-      "url": "https://offerte4zampe.it/prodotto/monge-supreme-sterilised-tonno-triglia-e-fagiolini-bustine-80g-gatti-08009470006811-8eec1d",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976686489943",
-        "webpet:52569129025876"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56819880100165"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-269ffd590bacf80c2572",
       "name": "Monge Supreme Sterilised Tonno con Calamari Lattina 80g Gatti",
       "brand": "Monge",
@@ -709,27 +682,6 @@
       ],
       "candidate_offer_ids": [
         "paco:4242"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-655e61680b71c790be04",
-      "name": "Monge Supreme Sterilised Tonno Quinoa e Fagiolini Bustine 80g Gatti",
-      "brand": "Monge",
-      "category": "umido",
-      "species": "gatto",
-      "format": "80 g",
-      "url": "https://offerte4zampe.it/prodotto/monge-supreme-sterilised-tonno-quinoa-e-fagiolini-bustine-80g-gatti-08009470007788-90be04",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976686948695",
-        "webpet:52569129058644"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:58411831198021"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1227,6 +1179,46 @@
         "animaliapet:46976541950295",
         "isola-dei-tesori:000181425",
         "bauzaar:56961724383557"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-3ee7f25a7b409b603d9f",
+      "name": "Monge Maxi Adult Pollo 12Kg Crocchette Cani",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-maxi-adult-pollo-12kg-crocchette-cani-08009470004411-603d9f",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976541557079",
+        "paco:2995",
+        "bauzaar:56820456423749"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-4c2f52c6cbc92f4ccffe",
+      "name": "Monge All Breed Adult Coniglio, Riso e Patate 12Kg Crocchette",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-all-breed-adult-coniglio-riso-e-patate-12kg-crocchette-08009470011150-4ccffe",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976541393239",
+        "paco:3275",
+        "bauzaar:56820290781509"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
