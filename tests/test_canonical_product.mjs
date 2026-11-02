@@ -47,3 +47,18 @@ test('name based matches are disclosed and carry no invented confidence percenta
 });
 
 test('rendered observations are absolute and HTML must revalidate',async()=>{const r=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+product.slug),env(),now);const html=await r.text();assert(html.includes('<time datetime="2026-10-28T11:00:00Z">'));assert(!/\d+ ore? fa/.test(html));assert.equal(r.headers.get('Cache-Control'),'public, max-age=0, must-revalidate');assert.equal(r.headers.get('Cloudflare-CDN-Cache-Control'),'no-store');});
+
+test('indexable product uses verified local image in Open Graph metadata',async()=>{
+ const p={...product,image_local:'/img/p/0123456789abcdef01234567-400.webp'};
+ const socialTemplate=template.replace('</head>','<meta property="og:type" content="website"><meta property="og:image" content="https://offerte4zampe.it/assets/social-home.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/png"><meta property="og:image:alt" content="Generic"><meta name="twitter:image" content="https://offerte4zampe.it/assets/social-home.png"></head>');
+ const e=env(p),original=e.ASSETS.fetch;
+ e.ASSETS.fetch=async request=>{const path=new URL(request.url).pathname;if(path==='/prodotto')return new Response(socialTemplate,{headers:{'Content-Type':'text/html'}});if(path===p.image_local)return new Response(null,{status:200});return original(request)};
+ const html=await (await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug),e,now)).text();
+ assert.match(html,/property="og:type" content="product"/);
+ assert.match(html,/property="og:image" content="https:\/\/offerte4zampe.it\/img\/p\/0123456789abcdef01234567-400.webp"/);
+ assert.match(html,/property="og:image:type" content="image\/webp"/);
+ assert.match(html,/property="og:image:alt" content="Brand Adult 2 kg"/);
+ assert.match(html,/name="twitter:image" content="https:\/\/offerte4zampe.it\/img\/p\/0123456789abcdef01234567-400.webp"/);
+ const single={...p,offers:[a]};const noindex=await (await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug),env(single),now)).text();
+ assert(!noindex.includes('property="og:type" content="product"'));
+});
