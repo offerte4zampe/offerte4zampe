@@ -82,6 +82,20 @@ def enrich(html, pages, home=False):
         return value.replace('</ul>', links + '</ul>', 1)
     html = re.sub(r'<footer\b[^>]*>.*?</footer>', footer, html, flags=re.S)
     if home:
+        # Commercial discovery hub: stable links to indexable landing pages.
+        promoted = [
+            ('/confronta-cibo', 'Confronta i prezzi', 'Prezzi rilevati nei negozi e costo unitario per scegliere lo stesso prodotto.'),
+            ('/confronti-prodotti', 'Confronti multinegozio', 'Schede con prodotti e formati confrontabili tra diversi negozi.'),
+            ('/marche', 'Offerte per marca', 'Trova prodotti e offerte delle marche disponibili nel catalogo.'),
+            ('/black-friday-animali', 'Black Friday animali', 'Come riconoscere gli sconti reali e confrontare prezzi, costo al kg e spedizione.'),
+        ]
+        promo_cards = ''.join('<article class="feature"><h3><a href="' + escape(url) + '">' + escape(label) + '</a></h3><p>' + escape(desc) + '</p></article>' for url, label, desc in promoted if url in active)
+        if promo_cards:
+            promo = '<section id="home-shopping-paths" class="section"><div class="wrap"><h2 class="section-title">Trova offerte e confronti utili</h2><p>Parti dai prezzi rilevati e verifica il formato prima di acquistare.</p><div class="feature-grid">' + promo_cards + '</div></div></section>'
+            if 'id="home-shopping-paths"' in html:
+                html = re.sub(r'<section id="home-shopping-paths".*?</section>', lambda _: promo, html, count=1, flags=re.S)
+            else:
+                html = html.replace('</main>', promo + '</main>', 1)
         cards = ''.join(f'<article class="feature"><h3><a href="/{slug}">{label}</a></h3><p>{text}</p></article>' for slug, label, text in GUIDES if '/' + slug in active)
         if cards:
             section = '<section id="home-guides" class="section alt"><div class="wrap"><span class="kicker">Prima del prossimo acquisto</span><h2 class="section-title">Guide per confrontare meglio.</h2><p>Controlli pratici ed esempi del catalogo per valutare confezioni, spedizione e prezzi.</p><div class="feature-grid">' + cards + '</div><p><a href="/guide-risparmio">Tutte le guide al risparmio →</a> · <a href="/osservatorio-prezzi">Osservatorio dei prezzi rilevati →</a></p></div></section>'
