@@ -45,6 +45,9 @@ test('Telegram product caption has concise HTML, safe escaping and hidden UTM UR
  assert.match(p.body.caption,/<b>74,39/);assert.match(p.body.caption,/<a href="https:\/\/offerte4zampe\.it\/prodotto\//);
  assert.match(p.body.caption,/utm_source=telegram&amp;utm_medium=social/);
  assert.doesNotMatch(p.body.caption,/Prezzo rilevato sul comparatore|\nhttps:\/\//);
+ assert.match(p.body.caption,/Confronta lo stesso formato per valutare correttamente il prezzo\./);
+ assert.equal((p.body.caption.match(/Confronta lo stesso formato/g)||[]).length,1);
+ assert.throws(()=>payload({...post,title:'X'.repeat(1200)},'@sconti4zampe'),/message_too_long/);
  assert.doesNotMatch(p.body.caption,/15 kg · 15 kg/);
  const escaped=payload({...post,title:'Prodotto <test> & "prova"'},'@sconti4zampe');
  assert.match(escaped.body.caption,/&lt;test&gt; &amp; &quot;prova&quot;/);
