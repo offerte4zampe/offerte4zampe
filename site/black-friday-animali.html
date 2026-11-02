@@ -40,4 +40,4 @@
  const link=document.createElement('a');link.href=o.product_url;link.className='btn secondary';link.textContent='Vedi prezzo e negozio';card.append(link);root.append(card);}
  }).catch(()=>{status.textContent='Prezzi momentaneamente non disponibili.';para(root,'Consulta il comparatore aggiornato per i prezzi correnti.');});
 })();
-</script><script src="/assets/site.js" defer></script></body></html>
+</script><script>document.getElementById("mobilemenu").addEventListener("click",function(){const nav=document.getElementById("navlinks");const expanded=this.getAttribute("aria-expanded")==="true";this.setAttribute("aria-expanded",String(!expanded));nav.classList.toggle("open",!expanded);});</script></body></html>
