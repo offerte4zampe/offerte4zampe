@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Build a conservative weekly newsletter from current catalog data; no invented discounts."""
+"""Build a conservative weekly newsletter; reject non-product and pet-size weights."""
 import datetime as dt
 import gzip
 import json
-import os
-import re
+import sys
 from pathlib import Path
-from urllib.parse import urlsplit
+from automation.weekly_offer_validation import validate_offer, validate_payload
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "site/data/catalog.json.gz"
@@ -19,63 +18,57 @@ def build(now=None):
     catalog = json.loads(gzip.decompress(CATALOG.read_bytes()))
     generated = dt.datetime.fromisoformat(catalog["generated_at"].replace("Z", "+00:00"))
     if generated.tzinfo is None or generated > now or now - generated > dt.timedelta(hours=12):
-        raise ValueError("Catalog is stale or has invalid timestamp")
-    seen = set()
-    offers = []
+        raise ValueError("Catalog stale or invalid timestamp")
+    seen, offers = set(), []
     for o in catalog.get("offers", []):
-        if not o.get("available") or not o.get("weight_kg"):
-            continue
-        if not o.get("title") or not o.get("merchant") or not o.get("url"):
-            continue
-        url = str(o["url"])
-        parts = urlsplit(url)
-        if parts.scheme != "https" or not parts.hostname or parts.username or parts.password:
+        if not o.get("available") or not o.get("title") or not o.get("merchant"):
             continue
         checked = o.get("checked_at")
-        if not checked:
-            continue
         try:
-            checked_at = dt.datetime.fromisoformat(checked.replace("Z", "+00:00"))
-        except (ValueError, AttributeError):
-            continue
-        if checked_at.tzinfo is None or checked_at > now or now - checked_at > dt.timedelta(hours=12):
-            continue
-        try:
+            checked_at = dt.datetime.fromisoformat(str(checked).replace("Z", "+00:00"))
             price = float(o["price"])
             weight = float(o["weight_kg"])
         except (ValueError, TypeError, KeyError):
             continue
-        if not (0 < price < 100000 and 0 < weight < 100):
+        if checked_at.tzinfo is None or checked_at > now or now - checked_at > dt.timedelta(hours=12):
             continue
-        key = (str(o["title"]).casefold(), str(o.get("variant", "")).casefold())
+        if not (0 < price < 100000):
+            continue
+        title = str(o["title"])[:180]
+        variant = str(o.get("variant") or "")[:80]
+        candidate = {
+            "name": title, "format": variant or title, "price": f"{price:.2f} €",
+            "shop": str(o["merchant"])[:100], "url": str(o.get("url") or ""),
+            "image": str(o.get("image") or ""), "category": str(o.get("category") or ""),
+            "weight_kg": weight, "unit_price": price / weight,
+        }
+        if not validate_offer(candidate):
+            continue
+        key = (title.casefold(), variant.casefold())
         if key in seen:
             continue
         seen.add(key)
-        offers.append({
-            "name": str(o["title"])[:180],
-            "format": (str(o.get("variant") or "")[:80] or f"{weight:g} kg"),
-            "price": f"{price:.2f} €",
-            "shop": str(o["merchant"])[:100],
-            "url": url,
-            "unit_price": price / weight
-        })
+        offers.append(candidate)
     offers.sort(key=lambda x: (x["unit_price"], x["name"]))
     selected = offers[:5]
     if len(selected) < 3:
-        raise ValueError("Insufficient fresh available products; fail closed")
+        raise ValueError("Fewer than 3 safe, fresh, photographed food/litter offers; publication blocked")
     result = {
+        "selection_version": 2,
         "verified_on": now.date().isoformat(),
         "subject": f"Offerte da fiutare · {now:%d/%m/%Y}",
-        "offers": [{k:v for k,v in o.items() if k != "unit_price"} for o in selected],
-        "selection_note": "Products selected by lowest unit price, not claimed discounts. Catalog timestamps checked, merchant links not live-verified."
+        "offers": [{k: v for k, v in o.items() if k != "unit_price"} for o in selected],
+        "selection_note": "Catalog freshness and explicit package sizes checked; prices and images not independently live-verified at merchants."
     }
+    validate_payload(result)
     OUTPUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     return result
 
 if __name__ == "__main__":
     try:
         result = build()
-        print("Prepared", len(result["offers"]), "fresh catalog offers (not live merchant verified)")
+        print("Prepared", len(result["offers"]), "catalog offers (merchant pages not live-verified)")
     except (ValueError, KeyError, OSError) as exc:
         OUTPUT.unlink(missing_ok=True)
-        print("SKIP:", exc)
+        print("BLOCKED:", exc, file=sys.stderr)
+        sys.exit(1)
