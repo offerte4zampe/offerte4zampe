@@ -8,6 +8,7 @@ import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+from automation.weekly_offer_validation import validate_payload
 
 API = "https://api.brevo.com/v3"
 
@@ -29,9 +30,7 @@ def main():
     today = dt.datetime.now(dt.timezone.utc).date()
     if p.get("verified_on") != today.isoformat():
         raise ValueError("Offer verification must be dated today (UTC)")
-    offers = p.get("offers", [])
-    if not 3 <= len(offers) <= 5:
-        raise ValueError("Expected 3-5 verified offers")
+    offers = validate_payload(p)
     for offer in offers:
         if not all(offer.get(k) for k in ("name", "price", "shop", "url", "format")):
             raise ValueError("Incomplete offer")
@@ -52,7 +51,7 @@ def main():
         + ' · <a href="' + html.escape(o["url"], quote=True) + '">Vedi offerta</a></li>'
         for o in offers
     )
-    body = ("<html><body><h1>Offerte da fiutare</h1><p>Prezzi verificati il "
+    body = ("<html><body><h1>Offerte da fiutare</h1><p>Prezzi rilevati dal catalogo il "
             + today.isoformat() + "; spedizione esclusa salvo diversa indicazione.</p><ul>"
             + rows + "</ul><p>Alcuni link possono essere affiliati: potremmo ricevere una commissione senza costi aggiuntivi.</p>"
             + "<p>Ricevi questa email perché hai confermato l'iscrizione. "
