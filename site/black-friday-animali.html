@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Black Friday animali 2026: come capire se lo sconto è vero | Offerte a 4 Zampe</title>
+<meta name="description" content="Black Friday animali 2026: confronta prezzi rilevati, costo al kg e spedizione. Scopri come distinguere risparmi reali da sconti non verificati.">
+<meta name="robots" content="index,follow"><link rel="canonical" href="https://offerte4zampe.it/black-friday-animali">
+<link rel="stylesheet" href="/assets/style.css"><link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<meta property="og:type" content="article"><meta property="og:url" content="https://offerte4zampe.it/black-friday-animali"><meta property="og:title" content="Black Friday animali: come capire se lo sconto è vero"><meta property="og:description" content="Prezzi osservati, costo al kg, spedizione e regole per evitare i falsi sconti."><meta property="og:image" content="https://offerte4zampe.it/assets/social-home.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Black Friday animali: come capire se lo sconto è vero","inLanguage":"it-IT","mainEntityOfPage":"https://offerte4zampe.it/black-friday-animali","publisher":{"@type":"Organization","name":"Offerte a 4 Zampe"}}</script>
+</head><body><a class="skip" href="#main">Vai al contenuto</a>
+<header><div class="wrap nav"><a class="brand" href="/"><span class="brandname">Offerte a 4 Zampe</span></a><button class="mobilemenu" id="mobilemenu" aria-controls="navlinks" aria-expanded="false" aria-label="Apri navigazione">☰</button><nav class="navlinks" id="navlinks" aria-label="Principale"><a href="/">Home</a><a href="/confronta-cibo">Confronta prezzi</a><a href="/prodotti">Prodotti</a><a href="/guide-risparmio">Guide</a><a href="/codici-sconto">Codici sconto</a></nav></div></header>
+<main id="main"><section class="pagehero"><div class="wrap"><span class="eyebrow">Guida al risparmio · aggiornata durante l'anno</span><h1>Black Friday animali: come capire se lo sconto è vero</h1><p>Black Friday 2026: <strong>27 novembre</strong>. Cyber Monday: <strong>30 novembre</strong>. Qui trovi prezzi realmente rilevati dai cataloghi dei negozi, non percentuali promozionali inventate.</p><p><a class="btn" href="#prezzi">Confronta i prezzi osservati ↓</a></p></div></section>
+<section class="section"><div class="wrap content"><h2>Come riconoscere un'offerta conveniente</h2><p>Il cartellino «-40%» da solo non dimostra un risparmio: confronta il prezzo attuale con lo storico verificato dello stesso prodotto e formato, non con un prezzo di listino non documentato. Per alimenti e lettiere controlla il <strong>costo al kg</strong>; per gli acquisti online aggiungi le <strong>spese di consegna</strong> e gli eventuali supplementi.</p><p>Una confezione più grande può avere un costo al kg inferiore ma un costo totale maggiore. Confronta sempre la stessa ricetta, grammatura e codice prodotto. Le tariffe sotto riportate sono stime della spedizione standard: la conferma è al checkout.</p>
+<h2 id="prezzi">Prezzi bassi rilevati nei cataloghi</h2><p>Questa non è una classifica degli sconti Black Friday: sono alcuni dei prezzi unitari più bassi fra gli <strong>alimenti con peso verificato presenti nella selezione corrente della home</strong>. Non affermiamo che siano i minimi storici. Le date indicano quando il prezzo è stato rilevato.</p>
+<p id="bf-status" role="status">Caricamento dei prezzi dal catalogo…</p><div id="bf-offers" class="grid" aria-live="polite"></div><p class="micro">Prezzi e disponibilità non sono in tempo reale. Nessuna percentuale di sconto è mostrata senza un confronto storico verificabile. I collegamenti ai negozi presenti nelle schede possono essere affiliati.</p>
+<h2>Spedizione: cosa controllare</h2><p>Consegna standard, soglie di gratuità, peso dell'ordine, CAP speciali e servizi extra possono modificare il totale. Una tariffa non verificata viene indicata come «da verificare», mai come zero. Con più articoli dello stesso negozio la spedizione si calcola sull'ordine complessivo, non sommando automaticamente le stime per singolo prodotto.</p>
+<h2>Quando tornare su questa pagina</h2><p>Questo URL rimane stabile anche negli anni successivi. A novembre confronta nuovamente prezzi e condizioni prima dell'acquisto. Consulta anche il <a href="/confronta-cibo">comparatore completo</a>, lo <a href="/osservatorio-prezzi">storico osservato</a> e il <a href="/chi-siamo">metodo di rilevazione</a>.</p></div></section></main>
+<footer><div class="wrap"><p>Offerte a 4 Zampe · Informazioni commerciali e trasparenza: <a href="/chi-siamo">come funziona</a> · <a href="/privacy">Privacy</a></p></div></footer>
+<script>
+(function(){
+ const status=document.getElementById('bf-status'),root=document.getElementById('bf-offers');
+ const euro=n=>new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(n);
+ const para=(parent,text,cls)=>{const p=document.createElement('p');p.textContent=text;if(cls)p.className=cls;parent.append(p);return p};
+ function shipping(o,rules){const rule=rules?.merchants?.[o.merchant_id],now=Date.now();
+  if(!rule||rule.conflict||!Number.isFinite(Date.parse(rule.verified_until))||Date.parse(rule.verified_until)<now)return 'Da verificare';
+  if(Number.isFinite(rule.max_shipping_weight_kg)&&o.weight_kg>rule.max_shipping_weight_kg)return 'Da verificare';
+  if(Number.isFinite(rule.free_from)&&o.price>=rule.free_from)return euro(0);
+  if(Number.isFinite(rule.free_above)&&o.price>rule.free_above)return euro(0);
+  if(Number.isFinite(rule.boundary_unknown)&&o.price===rule.boundary_unknown)return 'Da verificare';
+  return Number.isFinite(rule.fee)?euro(rule.fee):'Da verificare';
+ }
+ Promise.all([fetch('/data/home.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('home');return r.json()}),fetch('/data/shipping-rules.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)]).then(([data,rules])=>{
+ const products=(data.offers||[]).filter(o=>o.available===true&&Number.isFinite(o.price)&&o.price>0&&Number.isFinite(o.weight_kg)&&o.weight_kg>0&&o.unit_price_unit==='kg'&&o.product_url&&/^\/prodotto\/[a-z0-9-]+$/.test(o.product_url)&&Number.isFinite(Date.parse(o.checked_at))&&Date.now()-Date.parse(o.checked_at)<36*3600000&&Date.parse(o.checked_at)<=Date.now()+300000);
+ products.sort((a,b)=>a.price/a.weight_kg-b.price/b.weight_kg);
+ const selected=[],brands=new Set();for(const o of products){if(brands.has(o.brand))continue;selected.push(o);brands.add(o.brand);if(selected.length===8)break;}
+ status.textContent='Selezione aggiornata dal catalogo: '+(data.generated_at?new Date(data.generated_at).toLocaleString('it-IT',{dateStyle:'medium',timeStyle:'short'}):'data non disponibile')+'.';
+ if(!selected.length){para(root,'Nessun prezzo recente con peso verificato disponibile. Consulta il comparatore completo.');return;}
+ for(const o of selected){const card=document.createElement('article');card.className='panel';const h=document.createElement('h3'),a=document.createElement('a');a.textContent=o.canonical_title||o.title;a.href=o.product_url;h.append(a);card.append(h);
+ para(card,o.merchant+' · '+o.weight_kg+' kg','micro');const strong=document.createElement('strong');strong.textContent=euro(o.price);card.append(strong);
+ para(card,'Costo unitario: '+euro(o.price/o.weight_kg)+'/kg');para(card,'Spedizione standard per una confezione: '+shipping(o,rules));para(card,'Rilevato il '+new Date(o.checked_at).toLocaleString('it-IT',{dateStyle:'short',timeStyle:'short'}),'micro');
+ const link=document.createElement('a');link.href=o.product_url;link.className='btn secondary';link.textContent='Vedi prezzo e negozio';card.append(link);root.append(card);}
+ }).catch(()=>{status.textContent='Prezzi momentaneamente non disponibili.';para(root,'Consulta il comparatore aggiornato per i prezzi correnti.');});
+})();
+</script><script src="/assets/site.js" defer></script></body></html>
