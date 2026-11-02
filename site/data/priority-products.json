@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-02T07:32:10.758148+00:00",
+  "generated_at": "2026-11-02T14:00:37.837999+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
   "at_target": 16,
-  "with_third_store_lead": 24,
+  "with_third_store_lead": 23,
   "categories": {
     "snack": 58,
     "crocchette": 111,
@@ -548,7 +548,6 @@
     "paco:882",
     "paco:955",
     "webpet:52568949621076",
-    "webpet:52568954601812",
     "webpet:52568955552084",
     "webpet:52569129189716",
     "webpet:52569129222484",
@@ -808,27 +807,6 @@
       ],
       "candidate_offer_ids": [
         "paco:4914"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-21cd9ddbafb6dc2e0e57",
-      "name": "Prolife Sensitive Umido Cane Medium/Large 400 g Coniglio e patate - confezione da 6 pezzi",
-      "brand": "Prolife",
-      "category": "umido",
-      "species": "cane",
-      "format": "2,4 kg",
-      "url": "https://offerte4zampe.it/prodotto/prolife-sensitive-umido-cane-medium-large-400-g-coniglio-e-patate-confezione-da-6-pezzi-08015579039681-2e0e57",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56962044821829",
-        "paco:1245"
-      ],
-      "candidate_offer_ids": [
-        "webpet:52568954601812"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -3849,6 +3827,25 @@
       "offer_ids": [
         "bauzaar:56820106821957",
         "paco:4983"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-21cd9ddbafb6dc2e0e57",
+      "name": "Prolife Sensitive Umido Cane Medium/Large 400 g Coniglio e patate - confezione da 6 pezzi",
+      "brand": "Prolife",
+      "category": "umido",
+      "species": "cane",
+      "format": "2,4 kg",
+      "url": "https://offerte4zampe.it/prodotto/prolife-sensitive-umido-cane-medium-large-400-g-coniglio-e-patate-confezione-da-6-pezzi-08015579039681-2e0e57",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56962044821829",
+        "paco:1245"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
