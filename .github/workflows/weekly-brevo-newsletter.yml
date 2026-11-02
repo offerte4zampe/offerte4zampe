@@ -20,9 +20,9 @@ jobs:
       - name: Regression tests
         run: python3 -m unittest discover -s tests -p 'test_weekly_newsletter.py' -v
       - name: Prepare fresh catalog selection
-        run: python3 automation/build_weekly_newsletter.py
+        run: python3 -m automation.build_weekly_newsletter
       - name: Build weekly article and social drafts
-        run: python3 automation/build_weekly_article_social.py
+        run: python3 -m automation.build_weekly_article_social
       - name: Publish article and store social drafts
         run: |
           git config user.name "github-actions[bot]"
@@ -39,4 +39,4 @@ jobs:
           BREVO_SEND_ENABLED: 'true'
           BREVO_SENDER: capobranco@offerte4zampe.it
           NEWSLETTER_PAYLOAD: newsletter-approved.json
-        run: python3 automation/send_brevo_newsletter.py
+        run: python3 -m automation.send_brevo_newsletter
