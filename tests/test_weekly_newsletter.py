@@ -33,7 +33,8 @@ class NewsletterBuilderTests(unittest.TestCase):
 
     def offer(self, n):
         return {
-            "title": f"Prodotto {n}", "variant": "2 kg",
+            "title": f"Crocchette cane alimento {n} 2kg", "variant": "2 kg",
+            "category": "alimenti secchi cane", "image": f"https://example.org/images/{n}.jpg",
             "merchant": "Negozio", "url": f"https://example.org/item/{n}",
             "available": True, "price": 12 + n, "weight_kg": 2
         }
@@ -43,6 +44,22 @@ class NewsletterBuilderTests(unittest.TestCase):
         result = newsletter.build(NOW)
         self.assertEqual(len(result["offers"]), 3)
         self.assertTrue(self.output.exists())
+
+    def test_rejects_collars_and_fishing_line_disguised_as_weight(self):
+        rows = [self.offer(i) for i in range(3)]
+        rows[0].update(title="Asso Doppia Forza Monofilo UltraSoft 83.0kg 1.10mm 60m", weight_kg=83, category="accessori")
+        rows[1].update(title="Camon Collare Barriera per Cane Olio di Neem <25kg", weight_kg=25, category="collari")
+        rows[2].update(title="Virbac Veggiedent Fresh L Snack Cani >30kg", weight_kg=30, category="snack")
+        self.write(rows)
+        with self.assertRaises(ValueError):
+            newsletter.build(NOW)
+
+    def test_rejects_missing_product_photos(self):
+        rows = [self.offer(i) for i in range(3)]
+        rows[0]["image"] = ""
+        self.write(rows)
+        with self.assertRaises(ValueError):
+            newsletter.build(NOW)
 
     def test_rejects_stale_catalog(self):
         self.write([self.offer(i) for i in range(3)], hours=24)
