@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-11-02T01:12:14.942979+00:00",
+  "generated_at": "2026-11-02T07:32:10.758148+00:00",
   "name_matching": {
-    "evaluated_offers": 17900,
-    "insufficient_characteristics": 9276,
-    "eligible_offers": 8624,
-    "attached_without_gtin": 11
+    "evaluated_offers": 17874,
+    "insufficient_characteristics": 9261,
+    "eligible_offers": 8613,
+    "attached_without_gtin": 10
   },
-  "gtin_multi_shop_products": 527,
-  "characteristic_multi_shop_products": 11,
+  "gtin_multi_shop_products": 524,
+  "characteristic_multi_shop_products": 10,
   "store_coverage": {
     "animaliapet": {
-      "offers": 3560,
-      "active_offers": 3548,
-      "missing_valid_gtin": 1939,
+      "offers": 3561,
+      "active_offers": 3549,
+      "missing_valid_gtin": 1931,
       "unverified_quantity": 0,
       "sales_unit_only": 1447,
-      "offers_in_multishop_products": 270
+      "offers_in_multishop_products": 271
     },
     "bauzaar": {
       "offers": 7088,
@@ -23,19 +23,19 @@
       "missing_valid_gtin": 444,
       "unverified_quantity": 0,
       "sales_unit_only": 2085,
-      "offers_in_multishop_products": 490
+      "offers_in_multishop_products": 486
     },
     "isola-dei-tesori": {
-      "offers": 4103,
-      "active_offers": 4103,
-      "missing_valid_gtin": 2781,
+      "offers": 4076,
+      "active_offers": 4076,
+      "missing_valid_gtin": 2763,
       "unverified_quantity": 0,
-      "sales_unit_only": 2638,
-      "offers_in_multishop_products": 211
+      "sales_unit_only": 2625,
+      "offers_in_multishop_products": 207
     },
     "paco": {
       "offers": 1203,
-      "active_offers": 800,
+      "active_offers": 796,
       "missing_valid_gtin": 1050,
       "unverified_quantity": 1050,
       "sales_unit_only": 1050,
@@ -44,19 +44,19 @@
     "webpet": {
       "offers": 1946,
       "active_offers": 1300,
-      "missing_valid_gtin": 1350,
+      "missing_valid_gtin": 1347,
       "unverified_quantity": 0,
       "sales_unit_only": 1666,
       "offers_in_multishop_products": 43
     }
   },
-  "products": 19682,
-  "active_products": 16274,
-  "offers": 17900,
-  "multi_shop_products": 538,
-  "multi_shop_percent": 3.31,
+  "products": 19693,
+  "active_products": 16247,
+  "offers": 17874,
+  "multi_shop_products": 534,
+  "multi_shop_percent": 3.29,
   "denominator": "active canonical products, distinct merchants with verified quantities; GTIN and characteristic matching reported separately; duplicate offers in one shop do not count",
-  "unattached_offers": 7258,
-  "candidate_pairs": 114,
+  "unattached_offers": 7231,
+  "candidate_pairs": 112,
   "automatic_match_rules": "GTIN and quantity, or exact normalized name plus brand and verified selling quantity; conflicting GTINs excluded"
 }
