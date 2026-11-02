@@ -17,7 +17,9 @@ export async function productPreview(request,env){
   const asset=await env.ASSETS.fetch(new Request(new URL('/prodotto',url.origin)));
   if(!asset.ok||!asset.headers.get('Content-Type')?.includes('text/html'))return asset;
   const headers=new Headers(asset.headers);for(const key of ['Content-Length','Content-Encoding','ETag','Last-Modified'])headers.delete(key);
-  headers.set('Cache-Control','public, max-age=300');
+  headers.set('Cache-Control','no-store');
+  headers.set('Cloudflare-CDN-Cache-Control','no-store');
+  headers.set('CDN-Cache-Control','no-store');
   return new Response(rewrite(await asset.text(),title,ids[0]),{status:200,headers});
  }catch{return env.ASSETS.fetch(request)}
 }
