@@ -46,7 +46,7 @@ test('name based matches are disclosed and carry no invented confidence percenta
  const p={...product,matching_method:'name_characteristics',gtin:'',indexable:false};const c=content(p,view(p,rules,now));assert(c.body.includes('Abbinamento per nome e caratteristiche'));assert(!c.schema.gtin13);assert(!c.body.includes('99%'));
 });
 
-test('rendered observations are absolute and HTML must revalidate',async()=>{const r=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+product.slug),env(),now);const html=await r.text();assert(html.includes('<time datetime="2026-10-28T11:00:00Z">'));assert(!/\d+ ore? fa/.test(html));assert.equal(r.headers.get('Cache-Control'),'public, max-age=0, must-revalidate');assert.equal(r.headers.get('Cloudflare-CDN-Cache-Control'),'no-store');});
+test('rendered observations are absolute and HTML must revalidate',async()=>{const r=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+product.slug),env(),now);const html=await r.text();assert(html.includes('<time datetime="2026-10-28T11:00:00Z">'));assert(!/\d+ ore? fa/.test(html));assert.equal(r.headers.get('Cache-Control'),'no-store');assert.equal(r.headers.get('Cloudflare-CDN-Cache-Control'),'no-store');});
 
 test('indexable product uses verified local image in Open Graph metadata',async()=>{
  const p={...product,image_local:'/img/p/0123456789abcdef01234567-400.webp'};
