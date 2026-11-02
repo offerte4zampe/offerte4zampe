@@ -85,6 +85,6 @@ export async function canonicalProduct(request,env,now=Date.now()){
  .replace('</head>',(indexable?'<script type="application/ld+json">'+JSON.stringify(page.schema).replace(/</g,'\\u003c')+'</script>':'')+'</head>');
  if(indexable)html=html.replace(/(<meta property="og:type" content=")[^"]*(">)/,'$1product$2');
  if(localImage)html=html.replace(/(<meta (?:property="og:image"|name="twitter:image") content=")[^"]*(">)/g,(_,a,b)=>a+esc(localImage)+b).replace(/(<meta property="og:image:(?:width|height)" content=")[^"]*(">)/g,(_,a,b)=>a+'400'+b).replace(/(<meta property="og:image:type" content=")[^"]*(">)/g,'$1image/webp$2');
- const headers={'X-Robots-Tag':indexable?'index, follow':'noindex, follow','Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=0, must-revalidate','Cloudflare-CDN-Cache-Control':'no-store','X-Product-Model':'canonical-v1'};
+ const headers={'X-Robots-Tag':indexable?'index, follow':'noindex, follow','Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Cloudflare-CDN-Cache-Control':'no-store','CDN-Cache-Control':'no-store','X-Product-Model':'canonical-v1'};
  return new Response(request.method==='HEAD'?null:html,{status:200,headers});
 }
