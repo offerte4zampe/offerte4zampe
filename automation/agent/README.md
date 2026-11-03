@@ -28,3 +28,14 @@ For CI or a machine-to-machine diagnostic, create a **dedicated least-privilege 
 Run isolated regression tests: `node --test automation/agent/*.test.mjs`.
 
 Only after the OAuth/token check and a scoped permissions review should a separate sandboxed Code Mode runtime be connected. Keep dynamic execution disabled for the public production Worker until tested.
+
+## Manual GitHub connectivity check (no production deploy)
+
+The workflow `.github/workflows/cloudflare-mcp-check.yml` can only be launched manually from the GitHub Actions tab. It requires an Actions repository secret named `CLOUDFLARE_MCP_TOKEN` (a limited Cloudflare user or account API token; **never paste the token into a chat or commit it**). For an account token, Cloudflare MCP documents that `Account Resources: Read` is necessary for automatic account identification. Prefer account/Workers read permissions only and restrict resources to the intended Cloudflare account.
+
+1. In GitHub repository Settings → Secrets and variables → Actions → New repository secret, create `CLOUDFLARE_MCP_TOKEN`.
+2. In Actions → `Cloudflare MCP connection check (read-only)` → Run workflow, select `main`.
+3. The job first runs offline agent regression tests and then calls only the MCP `initialize` method. Its output is a limited status; it does not invoke MCP tools, deploy, publish or verify access to a specific account resource.
+4. A successful handshake is only a transport/authentication preliminary check. Follow it with a separately authorized, read-only account-resource check before activating Code Mode.
+
+GitHub Actions never displays the token in the job's regular output, but it is passed to the workflow process, so review workflow changes and secret scope before running.
