@@ -44,6 +44,8 @@ class CouponTests(unittest.TestCase):
         self.assertTrue(partner_eligible(partner, now))
         html = render_partner_card(partner)
         self.assertIn('CIOTOLA30', html)
+        self.assertIn('ui.awin.com/images/upload/merchant/profile/121988.png', html)
+        self.assertIn('alt="Logo ufficiale Hygge Pet Food"', html)
         self.assertIn('non ancora provato nel carrello', html)
         self.assertNotIn('Provato nel carrello ·', html)
         self.assertFalse(partner_eligible(partner, dt.datetime(2028, 1, 1, tzinfo=dt.timezone.utc)))
