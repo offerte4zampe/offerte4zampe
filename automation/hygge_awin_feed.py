@@ -1,0 +1,120 @@
+"""Validate a private Hygge/Awin CSV(.gz) feed; emit normalized data for review.
+
+Never commit feed URLs, Awin download tokens or raw exports. This command does
+not publish offers or assert that CIOTOLA30 works.
+Usage: python automation/hygge_awin_feed.py /private/F3725.csv.gz /tmp/hygge-normalized.json
+"""
+import csv
+import datetime as dt
+import gzip
+import json
+import math
+import sys
+from pathlib import Path
+from urllib.parse import urlsplit
+
+MERCHANT_ID = "hygge"
+MERCHANT = "Hygge Pet Food"
+ALIASES = {
+    "id": ("merchant_product_id", "product_id", "aw_product_id"),
+    "title": ("product_name", "name", "title"),
+    "price": ("search_price", "store_price", "price"),
+    "url": ("merchant_deep_link", "merchant_product_url", "product_url", "aw_deep_link"),
+    "affiliate_url": ("aw_deep_link", "aw_product_link"),
+    "image": ("merchant_image_url", "aw_image_url", "product_image", "image_url"),
+    "brand": ("brand_name", "brand"),
+    "category": ("merchant_category", "category_name", "category"),
+    "gtin": ("ean", "gtin", "upc"),
+    "sku": ("merchant_product_id", "merchant_sku"),
+    "availability": ("in_stock", "stock_status", "availability"),
+    "currency": ("currency", "search_price_currency"),
+}
+
+def value(row, key):
+    for alias in ALIASES[key]:
+        found = row.get(alias)
+        if found is not None and str(found).strip():
+            return str(found).strip()
+    return ""
+
+def https_url(raw):
+    parsed = urlsplit(raw)
+    return bool(parsed.scheme == "https" and parsed.hostname and not parsed.username and not parsed.password)
+
+def parse_price(raw):
+    try:
+        v = float(raw.strip().replace(",", "."))
+    except (ValueError, AttributeError):
+        return None
+    return round(v, 2) if math.isfinite(v) and 0 < v < 100000 else None
+
+def stock(raw):
+    t = raw.strip().lower()
+    if t in ("1", "true", "yes", "y", "in stock", "instock", "available", "disponibile"):
+        return True
+    if t in ("0", "false", "no", "n", "out of stock", "outofstock", "unavailable", "esaurito"):
+        return False
+    return None
+
+def parse_rows(reader, checked_at):
+    headers = {h.lstrip("\ufeff").strip().lower() for h in (reader.fieldnames or [])}
+    for required in ("id", "title", "price", "url"):
+        if not any(alias in headers for alias in ALIASES[required]):
+            raise ValueError("Missing required Awin field: " + required)
+    outputs = []
+    rejected = {}
+    seen = set()
+    for original in reader:
+        row = {str(k or "").lstrip("\ufeff").strip().lower(): v for k,v in original.items()}
+        rid = value(row, "id")
+        title = value(row, "title")
+        price = parse_price(value(row, "price"))
+        url = value(row, "url")
+        currency = value(row, "currency")
+        if not rid or not title or price is None or not https_url(url) or (currency and currency.upper() != "EUR"):
+            rejected["invalid_identity_price_url_or_currency"] = rejected.get("invalid_identity_price_url_or_currency", 0) + 1
+            continue
+        if rid in seen:
+            raise ValueError("Duplicate merchant product ID: " + rid)
+        seen.add(rid)
+        available = stock(value(row, "availability"))
+        if available is None:
+            rejected["unverified_stock"] = rejected.get("unverified_stock", 0) + 1
+            continue
+        affiliate_url = value(row, "affiliate_url")
+        if affiliate_url and not https_url(affiliate_url):
+            rejected["invalid_affiliate_url"] = rejected.get("invalid_affiliate_url", 0) + 1
+            continue
+        img = value(row, "image")
+        outputs.append({
+            "id": MERCHANT_ID + ":" + rid, "merchant": MERCHANT, "merchant_id": MERCHANT_ID,
+            "title": title, "variant": "", "brand": value(row, "brand"),
+            "category": value(row, "category"), "price": price, "previous_price": None,
+            "available": available, "url": url, "affiliate_url": affiliate_url or None,
+            "image": img if https_url(img) else "", "sku": value(row, "sku"),
+            "gtin": value(row, "gtin"), "feed_gtin": value(row, "gtin"),
+            "weight_kg": None, "checked_at": checked_at,
+        })
+    if not outputs:
+        raise ValueError("No valid offers; old catalog must remain unchanged")
+    return outputs, rejected
+
+def import_file(path, checked_at=None):
+    checked_at = checked_at or dt.datetime.now(dt.timezone.utc).isoformat()
+    opener = gzip.open if str(path).endswith(".gz") else open
+    with opener(path, "rt", encoding="utf-8-sig", newline="") as f:
+        reader = csv.DictReader(f)
+        offers, rejected = parse_rows(reader, checked_at)
+    return {
+        "merchant_id": MERCHANT_ID, "source_type": "official_awin_feed",
+        "checked_at": checked_at, "offers": offers, "rejected": rejected,
+        "coupon": {"code": "CIOTOLA30", "verified": False, "discount_fraction": 0.30,
+                   "note": "Conditions and checkout validity must be verified before publishing"},
+    }
+
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        raise SystemExit("Usage: hygge_awin_feed.py INPUT.csv[.gz] OUTPUT.json")
+    result = import_file(sys.argv[1])
+    Path(sys.argv[2]).write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(json.dumps({"offers": len(result["offers"]), "rejected": result["rejected"]}))
