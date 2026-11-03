@@ -10,23 +10,25 @@ import gzip
 import json
 import math
 import sys
+import re
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
+from automation.update_catalog import weight
 
 MERCHANT_ID = "hygge"
 MERCHANT = "Hygge Pet Food"
 ALIASES = {
-    "id": ("merchant_product_id", "product_id", "aw_product_id"),
-    "title": ("product_name", "name", "title"),
-    "price": ("search_price", "store_price", "price"),
-    "url": ("merchant_deep_link", "merchant_product_url", "product_url", "aw_deep_link"),
+    "id": ("id", "merchant_product_id", "product_id", "aw_product_id"),
+    "title": ("title", "product_name", "name"),
+    "price": ("price", "search_price", "store_price"),
+    "url": ("link", "merchant_deep_link", "merchant_product_url", "product_url"),
     "affiliate_url": ("aw_deep_link", "aw_product_link"),
-    "image": ("merchant_image_url", "aw_image_url", "product_image", "image_url"),
-    "brand": ("brand_name", "brand"),
-    "category": ("merchant_category", "category_name", "category"),
-    "gtin": ("ean", "gtin", "upc"),
+    "image": ("image_link", "merchant_image_url", "aw_image_url", "product_image", "image_url"),
+    "brand": ("brand", "brand_name"),
+    "category": ("google_product_category", "merchant_category", "category_name", "category"),
+    "gtin": ("gtin", "ean", "upc"),
     "sku": ("merchant_product_id", "merchant_sku"),
-    "availability": ("in_stock", "stock_status", "availability"),
+    "availability": ("availability", "in_stock", "stock_status"),
     "currency": ("currency", "search_price_currency"),
 }
 
@@ -43,16 +45,18 @@ def https_url(raw):
 
 def parse_price(raw):
     try:
-        v = float(raw.strip().replace(",", "."))
+        cleaned = raw.strip().replace(",", ".")
+        cleaned = re.sub(r"\s+EUR$", "", cleaned, flags=re.IGNORECASE)
+        v = float(cleaned)
     except (ValueError, AttributeError):
         return None
     return round(v, 2) if math.isfinite(v) and 0 < v < 100000 else None
 
 def stock(raw):
     t = raw.strip().lower()
-    if t in ("1", "true", "yes", "y", "in stock", "instock", "available", "disponibile"):
+    if t in ("1", "true", "yes", "y", "in stock", "in_stock", "instock", "available", "disponibile"):
         return True
-    if t in ("0", "false", "no", "n", "out of stock", "outofstock", "unavailable", "esaurito"):
+    if t in ("0", "false", "no", "n", "out of stock", "out_of_stock", "outofstock", "unavailable", "esaurito"):
         return False
     return None
 
@@ -66,12 +70,14 @@ def parse_rows(reader, checked_at):
     seen = set()
     for original in reader:
         row = {str(k or "").lstrip("\ufeff").strip().lower(): v for k,v in original.items()}
+        if row.get("advertiser_id") != "121988":
+            raise ValueError("Unexpected Awin advertiser ID")
         rid = value(row, "id")
         title = value(row, "title")
         price = parse_price(value(row, "price"))
         url = value(row, "url")
         currency = value(row, "currency")
-        if not rid or not title or price is None or not https_url(url) or (currency and currency.upper() != "EUR"):
+        if not rid or not title or price is None or not https_url(url) or urlsplit(url).hostname != "hyggepetfood.com" or (currency and currency.upper() != "EUR"):
             rejected["invalid_identity_price_url_or_currency"] = rejected.get("invalid_identity_price_url_or_currency", 0) + 1
             continue
         if rid in seen:
@@ -82,7 +88,7 @@ def parse_rows(reader, checked_at):
             rejected["unverified_stock"] = rejected.get("unverified_stock", 0) + 1
             continue
         affiliate_url = value(row, "affiliate_url")
-        if affiliate_url and not https_url(affiliate_url):
+        if affiliate_url and (not https_url(affiliate_url) or urlsplit(affiliate_url).hostname != "www.awin1.com" or parse_qs(urlsplit(affiliate_url).query).get("awinaffid") != ["3126265"] or parse_qs(urlsplit(affiliate_url).query).get("awinmid") != ["121988"]):
             rejected["invalid_affiliate_url"] = rejected.get("invalid_affiliate_url", 0) + 1
             continue
         img = value(row, "image")
@@ -93,7 +99,7 @@ def parse_rows(reader, checked_at):
             "available": available, "url": url, "affiliate_url": affiliate_url or None,
             "image": img if https_url(img) else "", "sku": value(row, "sku"),
             "gtin": value(row, "gtin"), "feed_gtin": value(row, "gtin"),
-            "weight_kg": None, "checked_at": checked_at,
+            "weight_kg": weight(title), "checked_at": checked_at,
         })
     if not outputs:
         raise ValueError("No valid offers; old catalog must remain unchanged")
