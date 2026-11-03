@@ -8,7 +8,7 @@ test('operational status, never sends Telegram messages',async()=>{
   calls++;assert.equal(url,'https://offerte4zampe.it/api/telegram/status');assert.equal(opts.method,'GET');assert.equal(opts.redirect,'manual');
   return reply(base);
  }});
- assert.equal(calls,1);assert.deepEqual(r,{status:'telegram_operational',last_sent_day:'2026-11-03',sent_today:true});
+ assert.equal(calls,1);assert.deepEqual(r,{status:'telegram_operational',source:'custom_domain',last_sent_day:'2026-11-03',sent_today:true});
 });
 test('no fresh post today is not treated as failure',async()=>{
  const r=await checkTelegramStatus({now:Date.parse('2026-11-03T12:00:00Z'),transport:async()=>reply({...base,last_sent_day:'2026-11-02'})});
@@ -30,4 +30,20 @@ test('unexpected responses and redirects fail closed',async()=>{
 test('GitHub runner 403 is access denied, not Telegram outage',async()=>{
  const r=await checkTelegramStatus({transport:async()=>reply({error:'blocked'},403)});
  assert.deepEqual(r,{status:'status_access_denied',http_status:403});
+});
+
+test('403 at custom domain falls back only to validated workers.dev hostname',async()=>{
+ const called=[];
+ const r=await checkTelegramStatus({alternateHost:'zampachiara.petops.workers.dev',transport:async(url,opts)=>{
+  called.push(url);assert.equal(opts.method,'GET');assert.equal(opts.redirect,'manual');
+  if(url==='https://offerte4zampe.it/api/telegram/status')return reply({message:'blocked'},403);
+  return reply(base);
+ }});
+ assert.deepEqual(called,['https://offerte4zampe.it/api/telegram/status','https://zampachiara.petops.workers.dev/api/telegram/status']);
+ assert.equal(r.status,'telegram_operational');assert.equal(r.source,'workers_dev');
+});
+test('rejects malicious alternative host and never follows redirects',async()=>{
+ let calls=0;
+ const r=await checkTelegramStatus({alternateHost:'zampachiara.evil.com',transport:async()=>{calls++;return reply({},403)}});
+ assert.equal(calls,1);assert.equal(r.status,'invalid_alternate_host');
 });
