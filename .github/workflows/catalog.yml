@@ -107,7 +107,7 @@ jobs:
       - run: python automation/build_priority_products.py
       - name: Refresh catalogs including Hygge Awin
         env:
-          HYGGE_AWIN_FEED_URL: \${{ secrets.HYGGE_AWIN_FEED_URL }}
+          HYGGE_AWIN_FEED_URL: ${{ secrets.HYGGE_AWIN_FEED_URL }}
         run: python automation/update_catalog.py
       - run: python automation/enrich_catalog.py
       - run: node automation/normalize_catalog.cjs
