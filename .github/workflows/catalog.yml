@@ -10,6 +10,7 @@ on:
       - 'automation/cache_product_images.py'
       - 'automation/import_partner_feed.py'
       - 'automation/hygge_awin_feed.py'
+      - 'automation/hygge-snapshot.json'
       - 'tests/test_hygge_awin_feed.py'
       - 'automation/bauzaar_feed.py'
       - 'automation/isola_feed.py'
