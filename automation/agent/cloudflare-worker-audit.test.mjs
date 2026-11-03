@@ -17,9 +17,11 @@ function transport({worker=true,user=false,fail=false}={}){
   if(req.params?.name==='execute'){
    const code=req.params.arguments.code;
    assert.match(code,/method: "GET"/);assert.doesNotMatch(code,/method:\s*"(POST|DELETE|PUT|PATCH)"/);
+   assert.match(code,/zampachiara\/deployments/);
+   assert.match(code,/per_page=5/);
    assert.match(code,/zampachiara/);
    assert.equal(req.params.arguments.account_id,ACCOUNT);
-   return reply(tool(3,{api_success:!fail,worker_found:worker,modified_on:'2026-11-03T15:00:00Z'}));
+   return reply(tool(3,{api_success:!fail,worker_found:worker,modified_on:'2026-11-03T15:00:00Z',deploy_readable:true,latest_deploy_at:'2026-11-03T15:00:00Z',version_count:1}));
   }
   throw Error('unexpected request');
  }};
@@ -30,7 +32,7 @@ test('no token never connects',async()=>{
 });
 test('account-token read-only verification with no sensitive output',async()=>{
  const t=transport();const r=await auditCloudflareWorker({token:'fake',transport:t.fetch});
- assert.equal(r.status,'worker_verified');assert.equal(r.worker,'zampachiara');
+ assert.equal(r.status,'worker_verified');assert.equal(r.worker,'zampachiara');assert.equal(r.deploy_status,'available');assert.equal(r.active_version_count,1);
  assert.deepEqual(t.methods,['initialize','notifications/initialized','whoami','execute']);
  assert.equal(JSON.stringify(r).includes(ACCOUNT),false);
  assert.equal(JSON.stringify(r).includes('fake'),false);

@@ -39,3 +39,15 @@ The workflow `.github/workflows/cloudflare-mcp-check.yml` can only be launched m
 4. A successful handshake is only a transport/authentication preliminary check. Follow it with a separately authorized, read-only account-resource check before activating Code Mode.
 
 GitHub Actions never displays the token in the job's regular output, but it is passed to the workflow process, so review workflow changes and secret scope before running.
+
+## Extended Cloudflare monitor
+
+`.github/workflows/cloudflare-worker-monitor.yml` now checks the Worker on push/manual runs and daily at 09:15 UTC and 18:15 UTC (10:15/19:15 CET; 11:15/20:15 CEST). It performs:
+
+- **Deployment state:** Code Mode makes GET requests for Worker metadata and deployment history, reporting the most recent deployment time and number of serving versions. Missing deploy read access is reported as `deploy_status:not_accessible` rather than silently asserting success.
+- **Worker errors:** a fixed *read-only GraphQL query* to Cloudflare Analytics for aggregate requests/errors in the preceding 24 hours. The HTTP request is POST but contains only a `query`, never a GraphQL mutation. An alert triggers at 50+ requests, 5+ errors and error rate at least 5%. Without Analytics Read permission it reports `metrics_unavailable` / `metrics_not_authorized` (not zero errors) and leaves the identity/Worker check intact.
+- **Telegram:** public GET `/api/telegram/status`, checking initial test delivery, configured recipient, and durable-object halted state. No POST and no messages sent. A day without a new offer is not a failure if the publisher is healthy.
+
+Only aggregated numbers and sanitized statuses are printed, never credentials, Cloudflare account IDs or raw visitor logs. Missing Analytics permissions may require **Account Analytics: Read**, limited to this account. The workflow never mutates Cloudflare and does not deploy the Worker.
+
+Observe the Actions execution and confirm that `deploy_status` and `metrics.status` are `available` and `metrics_available` before considering those checks fully functioning. A workflow success with `not_accessible` means *partial coverage* only.
