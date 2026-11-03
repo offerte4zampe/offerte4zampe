@@ -18,3 +18,13 @@ Cloudflare docs: https://developers.cloudflare.com/agents/tools/codemode/
 Official API MCP: https://mcp.cloudflare.com/mcp
 
 No changes to `wrangler.jsonc`, production assets, cron triggers, or Workers routing are needed for this PR.
+
+## Cloudflare API MCP connection (prepared, NOT authorized)
+
+The official remote MCP endpoint is in `cloudflare-mcp.example.json`. Import that example in an MCP client supporting remote HTTP and complete Cloudflare OAuth there. No secrets or account access are present in this repository. The ChatGPT GitHub connector cannot complete Cloudflare OAuth on the user's behalf.
+
+For CI or a machine-to-machine diagnostic, create a **dedicated least-privilege Cloudflare API token**, grant only the read permissions required, and set it as `CLOUDFLARE_MCP_TOKEN` in a secure secret store (never in a committed config, workflow log or chat). Run `node automation/agent/cloudflare-mcp-probe.mjs` in that environment. The probe sends only the MCP `initialize` method, reports a status without response body, and does **not** prove that any account-specific tools have sufficient permissions. A successful probe is not authorization to deploy or publish.
+
+Run isolated regression tests: `node --test automation/agent/*.test.mjs`.
+
+Only after the OAuth/token check and a scoped permissions review should a separate sandboxed Code Mode runtime be connected. Keep dynamic execution disabled for the public production Worker until tested.
