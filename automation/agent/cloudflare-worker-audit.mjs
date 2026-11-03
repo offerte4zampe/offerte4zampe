@@ -1,3 +1,4 @@
+import {workerErrorMetrics} from './cloudflare-worker-errors.mjs';
 /** Account-scoped, read-only Cloudflare Worker audit via official Code Mode MCP.
  * Fixed tool sequence: initialize -> notifications/initialized -> whoami -> execute.
  * The execute code contains one hard-coded GET; no dynamic model-written code.
@@ -37,7 +38,7 @@ function embedded(v){
  if(!t||t.length>1048576)return null;
  try{return JSON.parse(t);}catch{return null;}
 }
-export async function auditCloudflareWorker({token,accountId,transport=fetch}={}){
+export async function auditCloudflareWorker({token,accountId,transport=fetch,metricsTransport=fetch,enableMetrics=false}={}){
  if(typeof token!=='string'||!token.trim())return {status:'missing_token'};
  if(accountId && !/^[a-f0-9]{32}$/i.test(accountId))return {status:'invalid_account_id'};
  let sessionId;
@@ -71,7 +72,9 @@ export async function auditCloudflareWorker({token,accountId,transport=fetch}={}
   const data=details?.result?.api_success!==undefined?details.result:details;
   if(exec?.id!==3||exec.result?.isError||data?.api_success!==true)return {status:'workers_read_failed'};
   if(data?.worker_found!==true)return {status:'worker_not_found'};
+  const metrics=enableMetrics?await workerErrorMetrics({token,accountId:resolved,transport:metricsTransport}):{status:'not_checked'};
   return {status:'worker_verified',worker:WORKER,modified_on:typeof data.modified_on==='string'?data.modified_on:null,
+   metrics,
    deploy_status:data.deploy_readable===true?(typeof data.latest_deploy_at==='string'?'available':'no_deployments'):'not_accessible',
    latest_deploy_at:typeof data.latest_deploy_at==='string'?data.latest_deploy_at:null,
    active_version_count:Number.isSafeInteger(data.version_count)?data.version_count:null};
@@ -81,7 +84,7 @@ export async function auditCloudflareWorker({token,accountId,transport=fetch}={}
  }
 }
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
- const r=await auditCloudflareWorker({token:process.env.CLOUDFLARE_MCP_TOKEN,accountId:process.env.CLOUDFLARE_ACCOUNT_ID});
+ const r=await auditCloudflareWorker({token:process.env.CLOUDFLARE_MCP_TOKEN,accountId:process.env.CLOUDFLARE_ACCOUNT_ID,enableMetrics:true});
  console.log(JSON.stringify(r));
- if(r.status!=='worker_verified')process.exitCode=1;
+ if(r.status!=='worker_verified'||r.metrics?.alert===true||r.deploy_status==='no_deployments')process.exitCode=1;
 }
