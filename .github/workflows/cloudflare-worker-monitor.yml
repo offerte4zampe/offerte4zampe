@@ -1,0 +1,39 @@
+name: Cloudflare Worker read-only monitor
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/agent/**'
+      - '.github/workflows/cloudflare-worker-monitor.yml'
+  schedule:
+    - cron: '47 6 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-worker-monitor
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run full agent offline tests
+        run: node --test automation/agent/*.test.mjs
+      - name: Ensure Cloudflare credential is present
+        env:
+          TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_MCP_TOKEN != '' }}
+        run: |
+          if [ "$TOKEN_PRESENT" != "true" ]; then
+            echo "::error::Missing CLOUDFLARE_MCP_TOKEN in repository Actions secrets"
+            exit 1
+          fi
+      - name: Verify connected account Worker via GET only
+        env:
+          CLOUDFLARE_MCP_TOKEN: ${{ secrets.CLOUDFLARE_MCP_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: node automation/agent/cloudflare-worker-audit.mjs
