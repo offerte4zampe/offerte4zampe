@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-11-03T01:10:31.068814+00:00",
-  "catalog_generated_at": "2026-11-03T01:09:46.023620+00:00",
+  "checked_at": "2026-11-03T07:17:33.416710+00:00",
+  "catalog_generated_at": "2026-11-03T07:16:48.694815+00:00",
   "method_version": 1,
   "method": "Controlli su tutte le offerte dei cinque negozi; verifica indipendente a campione e a rotazione tramite variante JSON esatta o schema prodotto vincolato a SKU/GTIN. HTTP200, feed riuscito e nome simile non certificano identità, prezzo o stock. Campione non rappresentativo statisticamente; risposte inconcludenti non sono successi. Prezzi e date originali non modificati.",
   "stores": [
@@ -35,6 +35,30 @@
             "net_weight_kg": 0.035,
             "variant_label": "35 gr (250 ml)",
             "exact_variant": "56819869548869"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56820220592453",
+          "source": "https://www.bauzaar.it/products/versele-laga-cuni-adult-complete.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 13.48,
+            "unit_price": 13.48,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "05410340613283",
+            "net_weight_kg": 1.75,
+            "variant_label": "1,75 kg",
+            "exact_variant": "56820220592453"
           },
           "detected_discrepancies": []
         },
@@ -87,6 +111,30 @@
           "detected_discrepancies": []
         },
         {
+          "id": "bauzaar:56820265517381",
+          "source": "https://www.bauzaar.it/products/oxbow-western-timothy.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 5.5,
+            "unit_price": 5.5,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "00744845401119",
+            "net_weight_kg": 0.425,
+            "variant_label": "425 gr",
+            "exact_variant": "56820265517381"
+          },
+          "detected_discrepancies": []
+        },
+        {
           "id": "bauzaar:56961166115141",
           "source": "https://www.bauzaar.it/products/cat-e-rina-lettiera-cat-igienica.js",
           "checked_at": "2026-11-02T07:32:58.562184+00:00",
@@ -107,30 +155,6 @@
             "net_weight_kg": 3.8,
             "variant_label": "12 lt (3,8 kg)",
             "exact_variant": "56961166115141"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56961717272901",
-          "source": "https://www.bauzaar.it/products/lettiera-igienica-agglomerante-profumata-bluefresh-petup.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 7.9,
-            "unit_price": 7.9,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08056098404284",
-            "net_weight_kg": 7.0,
-            "variant_label": "8 lt (7 kg)",
-            "exact_variant": "56961717272901"
           },
           "detected_discrepancies": []
         },
@@ -231,30 +255,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "bauzaar:56961772486981",
-          "source": "https://www.bauzaar.it/products/lindocat-crystal.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 8.98,
-            "unit_price": 8.98,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08006455005012",
-            "net_weight_kg": 2.0,
-            "variant_label": "5 lt (2 kg) Classic",
-            "exact_variant": "56961772486981"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "bauzaar:58411842502981",
           "source": "https://www.bauzaar.it/products/lindocat-crystal.js",
           "checked_at": "2026-11-02T19:02:00.875525+00:00",
@@ -298,30 +298,6 @@
             "net_weight_kg": 0.908,
             "variant_label": "908 gr",
             "exact_variant": "56961527021893"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56820048429381",
-          "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 7.89,
-            "unit_price": 7.89,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08011391147832",
-            "net_weight_kg": 2.5,
-            "variant_label": "5,5 lt (2,5 kg) Carboni attivi",
-            "exact_variant": "56820048429381"
           },
           "detected_discrepancies": []
         },
@@ -394,30 +370,6 @@
             "net_weight_kg": 14.0,
             "variant_label": "15 lt (14 kg)",
             "exact_variant": "56961772650821"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:58411840405829",
-          "source": "https://www.bauzaar.it/products/versele-laga-morbidovo-pastoncino-morbido-giallo.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 2.39,
-            "unit_price": 2.39,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08051277648213",
-            "net_weight_kg": 0.2,
-            "variant_label": "200 gr",
-            "exact_variant": "58411840405829"
           },
           "detected_discrepancies": []
         },
@@ -564,6 +516,54 @@
             "exact_variant": "56962148008261"
           },
           "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56961719697733",
+          "source": "https://www.bauzaar.it/products/lettiera-naturale-natural-derma-pet.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 7.89,
+            "unit_price": 7.89,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08388765850392",
+            "net_weight_kg": 2.8,
+            "variant_label": "6 lt (2,8 kg) Lavanda e Gelsomino",
+            "exact_variant": "56961719697733"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56961165099333",
+          "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 7.89,
+            "unit_price": 7.89,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08011391147825",
+            "net_weight_kg": 2.5,
+            "variant_label": "5,5 lt (2,5 kg) Thè verde",
+            "exact_variant": "56961165099333"
+          },
+          "detected_discrepancies": []
         }
       ],
       "sample_verified": 23,
@@ -574,12 +574,35 @@
       "id": "webpet",
       "source_status": "ok",
       "offers": 1946,
-      "available": 1301,
-      "with_valid_gtin": 609,
+      "available": 1299,
+      "with_valid_gtin": 613,
       "with_net_weight": 155,
       "quantity_unverified": 0,
       "field_issues": {},
       "page_verifications": [
+        {
+          "id": "webpet:53011079856468",
+          "source": "https://www.webpet.it/products/aqpetfriends-nappy-pet-basic-tappetino-assorbente-con-strisce-adesive-50-pz-box-x4.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 75.6,
+            "unit_price": 75.6,
+            "pack_count": 1,
+            "available": false,
+            "gtin": "08050327309302",
+            "net_weight_kg": null,
+            "variant_label": "60x90 cm",
+            "exact_variant": "53011079856468"
+          },
+          "detected_discrepancies": []
+        },
         {
           "id": "webpet:52569566576980",
           "source": "https://www.webpet.it/products/flamingo-collare-protettivo-per-cani-con-chiusura-a-strappo.js",
@@ -742,53 +765,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "webpet:52569207898452",
-          "source": "https://www.webpet.it/products/jbl-aqua-t-handy-puliscivetri-con-lama-in-acciaio-inossidabile-per-acquari.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 7.63,
-            "unit_price": 7.63,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "04014162615206",
-            "net_weight_kg": null,
-            "variant_label": "Default Title",
-            "exact_variant": "52569207898452"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "webpet:52569158746452",
-          "source": "https://www.webpet.it/products/aqpet-simply-led-100-set-acquario-acqua-dolce-completo-di-doppia-luce-led-filtro-e-riscaldatore-100l.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 179.0,
-            "unit_price": 179.0,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08050327307834",
-            "net_weight_kg": null,
-            "variant_label": "Default Title",
-            "exact_variant": "52569158746452"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "webpet:52569139937620",
           "source": "https://www.webpet.it/products/monge-gift-cat-appetito-difficile-ricco-in-maiale-fresco-con-rosa-canina-e-formaggio-soft-sticks-per-gatti-adulti-15g.js",
           "checked_at": "2026-11-02T19:02:00.875525+00:00",
@@ -810,29 +786,6 @@
             "net_weight_kg": 0.015,
             "variant_label": "Default Title",
             "exact_variant": "52569139937620"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "webpet:52569125421396",
-          "source": "https://www.webpet.it/products/aqpetfriends-giochi-per-cani-cool-it-refrigerante-melone.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 3.9,
-            "unit_price": 3.9,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08050327306769",
-            "net_weight_kg": null,
-            "variant_label": "Default Title",
-            "exact_variant": "52569125421396"
           },
           "detected_discrepancies": []
         },
@@ -948,6 +901,52 @@
             "net_weight_kg": null,
             "variant_label": "XSmall",
             "exact_variant": "52569060507988"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "webpet:52569059787092",
+          "source": "https://www.webpet.it/products/dashi-stripes3-viola-nero-neomesh-pettorina-reversibile-per-cani.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 16.19,
+            "unit_price": 16.19,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "05600969113800",
+            "net_weight_kg": null,
+            "variant_label": "Large",
+            "exact_variant": "52569059787092"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "webpet:52569040027988",
+          "source": "https://www.webpet.it/products/dashi-unicorn-collare-per-cani.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 6.6,
+            "unit_price": 6.6,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "05600969102156",
+            "net_weight_kg": null,
+            "variant_label": "XSmall",
+            "exact_variant": "52569040027988"
           },
           "detected_discrepancies": []
         },
@@ -1069,29 +1068,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "webpet:52568974393684",
-          "source": "https://www.webpet.it/products/aqpetfriends-giochi-per-cani-rope-corda-con-palla-in-cotone.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 3.9,
-            "unit_price": 3.9,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08050327303867",
-            "net_weight_kg": null,
-            "variant_label": "Default Title",
-            "exact_variant": "52568974393684"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "webpet:52568961778004",
           "source": "https://www.webpet.it/products/8in1-delights-chicken-bones-osso-di-pollo-da-masticare-per-cani.js",
           "checked_at": "2026-11-03T01:10:31.068814+00:00",
@@ -1136,6 +1112,29 @@
             "exact_variant": "52568903549268"
           },
           "detected_discrepancies": []
+        },
+        {
+          "id": "webpet:52568872255828",
+          "source": "https://www.webpet.it/products/aqpetfriends-cat-toy-topolino-colorato-rivestito-a-maglia.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 3.99,
+            "unit_price": 3.99,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08050327306387",
+            "net_weight_kg": null,
+            "variant_label": "Default Title",
+            "exact_variant": "52568872255828"
+          },
+          "detected_discrepancies": []
         }
       ],
       "sample_verified": 24,
@@ -1147,7 +1146,7 @@
       "source_status": "ok",
       "offers": 3558,
       "available": 3543,
-      "with_valid_gtin": 1656,
+      "with_valid_gtin": 1658,
       "with_net_weight": 1813,
       "quantity_unverified": 0,
       "field_issues": {},
@@ -1246,31 +1245,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "animaliapet:46976687079767",
-          "source": "https://www.animaliapet.eu/products/monge-monoprotein-kitten-anatra-400g-crocchette-gattini.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin",
-            "weight_kg"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 4.7,
-            "unit_price": 4.7,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08009470011082",
-            "net_weight_kg": 0.4,
-            "variant_label": "Default Title",
-            "exact_variant": "46976687079767"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "animaliapet:52838293438807",
           "source": "https://www.animaliapet.eu/products/almo-nature-megapack-jelly-tonno-e-calamari-6x70g-lattina-gatti-adulti-1.js",
           "checked_at": "2026-11-02T14:01:23.579792+00:00",
@@ -1343,31 +1317,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "animaliapet:46976702873943",
-          "source": "https://www.animaliapet.eu/products/trixie-dentifricio-a-carne-100g-per-cani.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin",
-            "weight_kg"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 4.6,
-            "unit_price": 4.6,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "04011905025452",
-            "net_weight_kg": 0.1,
-            "variant_label": "Default Title",
-            "exact_variant": "46976702873943"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "animaliapet:46976669188439",
           "source": "https://www.animaliapet.eu/products/tre-ponti-pettorina-easy-fit-fenicvotteri-mis-3-5-cani-e-cuccioli.js",
           "checked_at": "2026-11-02T14:01:23.579792+00:00",
@@ -1391,29 +1340,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "animaliapet:51719348289879",
-          "source": "https://www.animaliapet.eu/products/nobleza-pettine-rimuovipelo-portatite-per-cani-e-gatti-o7cm.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 3.99,
-            "unit_price": 3.99,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08719138199082",
-            "net_weight_kg": null,
-            "variant_label": "Default Title",
-            "exact_variant": "51719348289879"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "animaliapet:51584768704855",
           "source": "https://www.animaliapet.eu/products/nobleza-salviette-detergenti-allacqua-purificata-20pz-per-cani-e-gatti.js",
           "checked_at": "2026-11-02T14:01:23.579792+00:00",
@@ -1433,31 +1359,6 @@
             "net_weight_kg": null,
             "variant_label": "Default Title",
             "exact_variant": "51584768704855"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "animaliapet:51324835856727",
-          "source": "https://www.animaliapet.eu/products/trixie-soft-ice-rosso-con-pollo-snack-cani-50g.js",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin",
-            "weight_kg"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 1.7,
-            "unit_price": 1.7,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "04011905652726",
-            "net_weight_kg": 0.05,
-            "variant_label": "Default Title",
-            "exact_variant": "51324835856727"
           },
           "detected_discrepancies": []
         },
@@ -1557,6 +1458,29 @@
           "detected_discrepancies": []
         },
         {
+          "id": "animaliapet:49295066890583",
+          "source": "https://www.animaliapet.eu/products/ferplast-spazzola-cardatore-gro-5948-extra-large-per-cani.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 11.9,
+            "unit_price": 11.9,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08010690056593",
+            "net_weight_kg": null,
+            "variant_label": "Default Title",
+            "exact_variant": "49295066890583"
+          },
+          "detected_discrepancies": []
+        },
+        {
           "id": "animaliapet:49038322368855",
           "source": "https://www.animaliapet.eu/products/colley-guinzaglio-in-nylon-nero-140cm-cani.js",
           "checked_at": "2026-11-02T01:12:59.863382+00:00",
@@ -1624,6 +1548,53 @@
             "net_weight_kg": null,
             "variant_label": "Default Title",
             "exact_variant": "46976709132631"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "animaliapet:47783148159319",
+          "source": "https://www.animaliapet.eu/products/mordo-coffee-wood-gioco-da-tiro-l-26cm-150-200g-gioco-cane.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 12.9,
+            "unit_price": 12.9,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08052691741276",
+            "net_weight_kg": null,
+            "variant_label": "Default Title",
+            "exact_variant": "47783148159319"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "animaliapet:47407835873623",
+          "source": "https://www.animaliapet.eu/products/ferplast-amigo-tape-blu-bianco-guinzaglio-per-cani-flexi-taglia-s.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 19.9,
+            "unit_price": 19.9,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08010690134048",
+            "net_weight_kg": null,
+            "variant_label": "Default Title",
+            "exact_variant": "47407835873623"
           },
           "detected_discrepancies": []
         },
@@ -1722,6 +1693,31 @@
             "exact_variant": "46976558235991"
           },
           "detected_discrepancies": []
+        },
+        {
+          "id": "animaliapet:46976539984215",
+          "source": "https://www.animaliapet.eu/products/almo-nature-daily-agnello-e-patate-300g-cani-adulti.js",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin",
+            "weight_kg"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 1.99,
+            "unit_price": 1.99,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08001154124804",
+            "net_weight_kg": 0.3,
+            "variant_label": "Default Title",
+            "exact_variant": "46976539984215"
+          },
+          "detected_discrepancies": []
         }
       ],
       "sample_verified": 24,
@@ -1731,130 +1727,16 @@
     {
       "id": "isola-dei-tesori",
       "source_status": "ok",
-      "offers": 4076,
-      "available": 4076,
-      "with_valid_gtin": 1313,
-      "with_net_weight": 1154,
+      "offers": 4037,
+      "available": 4037,
+      "with_valid_gtin": 1297,
+      "with_net_weight": 1130,
       "quantity_unverified": 0,
       "field_issues": {},
       "page_verifications": [
         {
-          "id": "isola-dei-tesori:000185399",
-          "source": "https://www.isoladeitesori.it/prodotto/aqualovers-sabbia-quarzo-policromo-di-fiume-2-kg/000185399.html",
-          "checked_at": "2026-11-02T19:02:00.875525+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 2.99,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000185399"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000136108",
-          "source": "https://www.isoladeitesori.it/prodotto/camon-twist-in-pelle-9%2F10-mm-x-125-mm-100-pz./000136108.html",
-          "checked_at": "2026-11-02T01:12:59.863382+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 24.69,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000136108"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000184879",
-          "source": "https://www.isoladeitesori.it/prodotto/l%27isola-dei-tesori-cappottino-per-cani-aspen-tg.-25/000184879.html",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 32.13,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000184879"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000464011",
-          "source": "https://www.isoladeitesori.it/prodotto/trixie-dog-snack-dumbbells-con-petto-d%27anatra-80g/000464011.html",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 3.49,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000464011"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000162738",
-          "source": "https://www.isoladeitesori.it/prodotto/petup-cuscino-per-trasportino-italo-1/000162738.html",
-          "checked_at": "2026-11-02T19:02:00.875525+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 8.99,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000162738"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000152970",
-          "source": "https://www.isoladeitesori.it/prodotto/petup-pettorina-flash-taglia-1-nero/000152970.html",
-          "checked_at": "2026-11-03T01:10:31.068814+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 12.4,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000152970"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000181089",
-          "source": "https://www.isoladeitesori.it/prodotto/camon-pannolini-mutandina-tg.-xl/000181089.html",
+          "id": "isola-dei-tesori:000122279",
+          "source": "https://www.isoladeitesori.it/prodotto/vitakraft-multivitamin-uccelli-10-ml/000122279.html",
           "checked_at": "2026-11-02T07:32:58.562184+00:00",
           "status": "verified",
           "compared": [
@@ -1864,111 +1746,12 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 10.29,
+            "price": 4.59,
             "available": true,
             "gtin": "",
-            "exact_product": "000181089"
+            "exact_product": "000122279"
           },
           "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000112373",
-          "source": "https://www.isoladeitesori.it/prodotto/tetra-reptodelica-anchovies-1l/000112373.html",
-          "checked_at": "2026-11-03T01:10:31.068814+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 17.9,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000112373"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000155059",
-          "source": "https://www.isoladeitesori.it/prodotto/hunter-guinzaglio-solid-education-11%2F150-rosso/000155059.html",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 47.9,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000155059"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000118064",
-          "source": "https://www.isoladeitesori.it/prodotto/sera-aquarium-gravel-floredepot-substrate-47-kg/000118064.html",
-          "checked_at": "2026-11-02T07:32:58.562184+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 23.89,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000118064"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000190559",
-          "source": "https://www.isoladeitesori.it/prodotto/leo-pet-materassino-per-cani-ercole-tess.-oxford-verde-50-x-80-cm/000190559.html",
-          "checked_at": "2026-11-03T01:10:31.068814+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 59.9,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000190559"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000150092",
-          "source": "https://www.isoladeitesori.it/prodotto/sheba-creamy-cat-snack-salmone-4-x-12-gr/000150092.html",
-          "checked_at": "2026-11-02T19:02:00.875525+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [
-            "available"
-          ],
-          "reason": null,
-          "evidence": {
-            "price": 3.49,
-            "available": false,
-            "gtin": "",
-            "exact_product": "000150092"
-          },
-          "detected_discrepancies": [
-            "available"
-          ]
         },
         {
           "id": "isola-dei-tesori:000155063",
@@ -1990,9 +1773,9 @@
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000186084",
-          "source": "https://www.isoladeitesori.it/prodotto/newa-acquario-ego-full-nero-28-lt/000186084.html",
-          "checked_at": "2026-11-02T14:01:23.579792+00:00",
+          "id": "isola-dei-tesori:000185365",
+          "source": "https://www.isoladeitesori.it/prodotto/zolux-kit-sifone-in-out/000185365.html",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -2001,48 +1784,10 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 133.0,
+            "price": 39.9,
             "available": true,
             "gtin": "",
-            "exact_product": "000186084"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000181248",
-          "source": "https://www.isoladeitesori.it/prodotto/petup-toilette-chiusa-grisu%27-con-filtro/000181248.html",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 22.99,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000181248"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000190582",
-          "source": "https://www.isoladeitesori.it/prodotto/leo-pet-cuccia-rodi-otto-club-per-cani-60-x-70-cm/000190582.html",
-          "checked_at": "2026-11-02T01:12:59.863382+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 46.99,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000190582"
+            "exact_product": "000185365"
           },
           "detected_discrepancies": []
         },
@@ -2066,17 +1811,91 @@
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000181434",
-          "source": "https://www.isoladeitesori.it/prodotto/petup-lettiera-bianca-bluefresh-8-lt/000181434.html",
-          "checked_at": "2026-11-02T01:12:59.863382+00:00",
+          "id": "isola-dei-tesori:000112373",
+          "source": "https://www.isoladeitesori.it/prodotto/tetra-reptodelica-anchovies-1l/000112373.html",
+          "checked_at": "2026-11-03T01:10:31.068814+00:00",
           "status": "verified",
           "compared": [
             "price",
             "available"
           ],
-          "discrepancies": [
-            "price"
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 17.9,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000112373"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000181089",
+          "source": "https://www.isoladeitesori.it/prodotto/camon-pannolini-mutandina-tg.-xl/000181089.html",
+          "checked_at": "2026-11-02T07:32:58.562184+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
           ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 10.29,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000181089"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000152970",
+          "source": "https://www.isoladeitesori.it/prodotto/petup-pettorina-flash-taglia-1-nero/000152970.html",
+          "checked_at": "2026-11-03T01:10:31.068814+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 12.4,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000152970"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000115215",
+          "source": "https://www.isoladeitesori.it/prodotto/trixie-casetta-in-ceramica-per-roditori-17x8x8-cm/000115215.html",
+          "checked_at": "2026-11-02T14:01:23.579792+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 6.59,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000115215"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000181434",
+          "source": "https://www.isoladeitesori.it/prodotto/petup-lettiera-bianca-bluefresh-8-lt/000181434.html",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
           "reason": null,
           "evidence": {
             "price": 8.19,
@@ -2084,9 +1903,26 @@
             "gtin": "",
             "exact_product": "000181434"
           },
-          "detected_discrepancies": [
-            "price"
-          ]
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000158846",
+          "source": "https://www.isoladeitesori.it/prodotto/trixie-anello-a-forma-di-8-denta-fun-cm-35/000158846.html",
+          "checked_at": "2026-11-02T14:01:23.579792+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 5.69,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000158846"
+          },
+          "detected_discrepancies": []
         },
         {
           "id": "isola-dei-tesori:000150148",
@@ -2108,8 +1944,65 @@
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000122279",
-          "source": "https://www.isoladeitesori.it/prodotto/vitakraft-multivitamin-uccelli-10-ml/000122279.html",
+          "id": "isola-dei-tesori:000115947",
+          "source": "https://www.isoladeitesori.it/prodotto/leo-pet-tappetino-magic-mat-tg.m-45x60-cm/000115947.html",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 14.49,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000115947"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000136108",
+          "source": "https://www.isoladeitesori.it/prodotto/camon-twist-in-pelle-9%2F10-mm-x-125-mm-100-pz./000136108.html",
+          "checked_at": "2026-11-02T01:12:59.863382+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 24.69,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000136108"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000134249",
+          "source": "https://www.isoladeitesori.it/prodotto/doggyebag-the-love-collection---love-biscuit-60-gr/000134249.html",
+          "checked_at": "2026-11-02T19:02:00.875525+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 4.54,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000134249"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000118064",
+          "source": "https://www.isoladeitesori.it/prodotto/sera-aquarium-gravel-floredepot-substrate-47-kg/000118064.html",
           "checked_at": "2026-11-02T07:32:58.562184+00:00",
           "status": "verified",
           "compared": [
@@ -2119,16 +2012,16 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 4.59,
+            "price": 23.89,
             "available": true,
             "gtin": "",
-            "exact_product": "000122279"
+            "exact_product": "000118064"
           },
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000115215",
-          "source": "https://www.isoladeitesori.it/prodotto/trixie-casetta-in-ceramica-per-roditori-17x8x8-cm/000115215.html",
+          "id": "isola-dei-tesori:000186084",
+          "source": "https://www.isoladeitesori.it/prodotto/newa-acquario-ego-full-nero-28-lt/000186084.html",
           "checked_at": "2026-11-02T14:01:23.579792+00:00",
           "status": "verified",
           "compared": [
@@ -2138,10 +2031,10 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 6.59,
+            "price": 133.0,
             "available": true,
             "gtin": "",
-            "exact_product": "000115215"
+            "exact_product": "000186084"
           },
           "detected_discrepancies": []
         },
@@ -2169,8 +2062,8 @@
           ]
         },
         {
-          "id": "isola-dei-tesori:000134249",
-          "source": "https://www.isoladeitesori.it/prodotto/doggyebag-the-love-collection---love-biscuit-60-gr/000134249.html",
+          "id": "isola-dei-tesori:000185399",
+          "source": "https://www.isoladeitesori.it/prodotto/aqualovers-sabbia-quarzo-policromo-di-fiume-2-kg/000185399.html",
           "checked_at": "2026-11-02T19:02:00.875525+00:00",
           "status": "verified",
           "compared": [
@@ -2180,17 +2073,17 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 4.54,
+            "price": 2.99,
             "available": true,
             "gtin": "",
-            "exact_product": "000134249"
+            "exact_product": "000185399"
           },
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000158846",
-          "source": "https://www.isoladeitesori.it/prodotto/trixie-anello-a-forma-di-8-denta-fun-cm-35/000158846.html",
-          "checked_at": "2026-11-02T14:01:23.579792+00:00",
+          "id": "isola-dei-tesori:000190582",
+          "source": "https://www.isoladeitesori.it/prodotto/leo-pet-cuccia-rodi-otto-club-per-cani-60-x-70-cm/000190582.html",
+          "checked_at": "2026-11-02T01:12:59.863382+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -2199,28 +2092,167 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 5.69,
+            "price": 46.99,
             "available": true,
             "gtin": "",
-            "exact_product": "000158846"
+            "exact_product": "000190582"
           },
           "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000190559",
+          "source": "https://www.isoladeitesori.it/prodotto/leo-pet-materassino-per-cani-ercole-tess.-oxford-verde-50-x-80-cm/000190559.html",
+          "checked_at": "2026-11-03T01:10:31.068814+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 59.9,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000190559"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000162738",
+          "source": "https://www.isoladeitesori.it/prodotto/petup-cuscino-per-trasportino-italo-1/000162738.html",
+          "checked_at": "2026-11-02T19:02:00.875525+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 8.99,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000162738"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000150140",
+          "source": "https://www.isoladeitesori.it/prodotto/gimcat-nutri-pocket-anatra-60-gr/000150140.html",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [
+            "price"
+          ],
+          "reason": null,
+          "evidence": {
+            "price": 1.89,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000150140"
+          },
+          "detected_discrepancies": [
+            "price"
+          ]
         }
       ],
-      "sample_verified": 24,
+      "sample_verified": 22,
       "sample_inconclusive": 0,
-      "sample_discrepancies": 3
+      "sample_discrepancies": 2
     },
     {
       "id": "paco",
       "source_status": "ok",
-      "offers": 1203,
-      "available": 796,
-      "with_valid_gtin": 138,
-      "with_net_weight": 138,
-      "quantity_unverified": 1065,
+      "offers": 1228,
+      "available": 793,
+      "with_valid_gtin": 159,
+      "with_net_weight": 159,
+      "quantity_unverified": 1069,
       "field_issues": {},
       "page_verifications": [
+        {
+          "id": "paco:5848",
+          "source": "https://www.pacopetshop.it/it/inodorina/5848-inodorina-salviette-detergenti-profumate-per-cani-e-gatti.htm",
+          "checked_at": "2026-11-03T01:10:31.068814+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:4732",
+          "source": "https://www.pacopetshop.it/it/lily-s-kitchen/4732-lily-s-kitchen-adult-agnello-con-prezzemolo-per-cani.htm",
+          "checked_at": "2026-11-02T19:02:00.875525+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:6147",
+          "source": "https://www.pacopetshop.it/it/inaba/6147-dashi-delights-silky-broth-cibo-umido-per-gatti.htm",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:5832",
+          "source": "https://www.pacopetshop.it/it/kattovit/5832-kattovit-sensitive-cibo-umido-per-gatti.htm",
+          "checked_at": "2026-11-03T01:10:31.068814+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:5196",
+          "source": "https://www.pacopetshop.it/it/terra-felis/5196-terra-felis-cibo-umido-per-gatti-multiproteico.htm",
+          "checked_at": "2026-11-02T07:32:58.562184+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:5292",
+          "source": "https://www.pacopetshop.it/it/felinea/5292-felinea-active-tacchino-e-pollo-grain-free-per-gatti-adulti.htm",
+          "checked_at": "2026-11-02T01:12:59.863382+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 19.9,
+            "available": true,
+            "gtin": "00641094413279",
+            "exact_product": "5292",
+            "net_weight_kg": 1.5,
+            "variant_label": "Sacco da 1,5 kg",
+            "quantity_verified": true
+          },
+          "detected_discrepancies": []
+        },
         {
           "id": "paco:3578",
           "source": "https://www.pacopetshop.it/it/prolife-diet/3578-prolife-hypoallergenic-cibo-umido-per-gatti.htm",
@@ -2233,9 +2265,31 @@
           "detected_discrepancies": []
         },
         {
-          "id": "paco:3018",
-          "source": "https://www.pacopetshop.it/it/naturina/3018-naturina-easy-adult-cat-vaschette-cibo-umido-per-gatti.htm",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
+          "id": "paco:3475",
+          "source": "https://www.pacopetshop.it/it/brit-care/3475-brit-care-sensitive-cervo-e-patate-per-cani.htm",
+          "checked_at": "2026-11-03T01:10:31.068814+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:2664",
+          "source": "https://www.pacopetshop.it/it/forza10/2664-forza10-intestinal-colon-fase-2-per-cani.htm",
+          "checked_at": "2026-11-02T19:02:00.875525+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:2963",
+          "source": "https://www.pacopetshop.it/it/camon/2963-bauveg-biscotti-vegetali-per-cani.htm",
+          "checked_at": "2026-11-02T14:01:23.579792+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -2245,19 +2299,53 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 27.19,
+            "price": 6.29,
             "available": true,
-            "gtin": "08034034704704",
-            "exact_product": "3018",
-            "net_weight_kg": 3.2,
-            "variant_label": "Trota e Salmone · 32x100 gr",
+            "gtin": "08019808166070",
+            "exact_product": "2963",
+            "net_weight_kg": 0.3,
+            "variant_label": "Confezione da 300 gr",
             "quantity_verified": true
           },
           "detected_discrepancies": []
         },
         {
-          "id": "paco:5070",
-          "source": "https://www.pacopetshop.it/it/acana/5070-acana-homestead-harvest-per-gatti.htm",
+          "id": "paco:3847",
+          "source": "https://www.pacopetshop.it/it/farmina-nd/3847-farmina-nd-pumpkin-neutered-quaglia-zucca-e-melograno-per-gatti.htm",
+          "checked_at": "2026-11-02T14:01:23.579792+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:3091",
+          "source": "https://www.pacopetshop.it/it/purina-veterinary-diets/3091-purina-pro-plan-dm-diabetic-crocchette-per-gatti.htm",
+          "checked_at": "2026-11-02T07:32:58.562184+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 19.99,
+            "available": false,
+            "gtin": "07613035159822",
+            "exact_product": "3091",
+            "net_weight_kg": 1.5,
+            "variant_label": "Sacco da 1,5 kg",
+            "quantity_verified": true
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:5491",
+          "source": "https://www.pacopetshop.it/it/ownat/5491-ownat-just-grain-free-anatra-per-cani.htm",
           "checked_at": "2026-11-02T01:12:59.863382+00:00",
           "status": "verified",
           "compared": [
@@ -2268,20 +2356,65 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 22.95,
+            "price": 76.4,
             "available": true,
-            "gtin": "00064992714369",
-            "exact_product": "5070",
-            "net_weight_kg": 1.8,
-            "variant_label": "Sacco da 1,8 kg",
+            "gtin": "08429037014101",
+            "exact_product": "5491",
+            "net_weight_kg": 14.0,
+            "variant_label": "Sacco da 14 kg",
             "quantity_verified": true
           },
           "detected_discrepancies": []
         },
         {
-          "id": "paco:2066",
-          "source": "https://www.pacopetshop.it/it/camon/2066-fascia-igienica-per-cani-maschi.htm",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
+          "id": "paco:4297",
+          "source": "https://www.pacopetshop.it/it/veg-vegan-ethical-gourmet/4297-veg-vegan-per-cani-adulti.htm",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 56.89,
+            "available": true,
+            "gtin": "08031701114057",
+            "exact_product": "4297",
+            "net_weight_kg": 12.0,
+            "variant_label": "Sacco da 12 kg · Taglia Media e Grande",
+            "quantity_verified": true
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:5905",
+          "source": "https://www.pacopetshop.it/it/golosi/5905-golosi-pollo-e-tacchino-cibo-secco-per-gatti-adulti.htm",
+          "checked_at": "2026-11-02T07:32:58.562184+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:3771",
+          "source": "https://www.pacopetshop.it/it/monge/3771-monge-hairball-pollo-crocchette-per-gatti.htm",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:5707",
+          "source": "https://www.pacopetshop.it/it/trovet/5707-trovet-plus-renal-oxalate-cibo-umido-per-gatti.htm",
+          "checked_at": "2026-11-02T07:32:58.562184+00:00",
           "status": "inconclusive",
           "compared": [],
           "discrepancies": [],
@@ -2314,75 +2447,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "paco:5707",
-          "source": "https://www.pacopetshop.it/it/trovet/5707-trovet-plus-renal-oxalate-cibo-umido-per-gatti.htm",
-          "checked_at": "2026-11-02T07:32:58.562184+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:5905",
-          "source": "https://www.pacopetshop.it/it/golosi/5905-golosi-pollo-e-tacchino-cibo-secco-per-gatti-adulti.htm",
-          "checked_at": "2026-11-02T07:32:58.562184+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:2963",
-          "source": "https://www.pacopetshop.it/it/camon/2963-bauveg-biscotti-vegetali-per-cani.htm",
-          "checked_at": "2026-11-02T14:01:23.579792+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 6.29,
-            "available": true,
-            "gtin": "08019808166070",
-            "exact_product": "2963",
-            "net_weight_kg": 0.3,
-            "variant_label": "Confezione da 300 gr",
-            "quantity_verified": true
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:4902",
-          "source": "https://www.pacopetshop.it/it/prolife/4902-prolife-adult-sensitive-grain-free-sogliola-e-patate-per-cani-di-taglia-media-e-grande.htm",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin",
-            "weight_kg"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 64.45,
-            "available": true,
-            "gtin": "08015579035515",
-            "exact_product": "4902",
-            "net_weight_kg": 10.0,
-            "variant_label": "Sacco da 10 kg",
-            "quantity_verified": true
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "paco:5679",
           "source": "https://www.pacopetshop.it/it/farmina-vet-life/5679-farmina-vet-life-obesity-cibo-umido-per-cani.htm",
           "checked_at": "2026-11-02T01:12:59.863382+00:00",
@@ -2406,52 +2470,8 @@
           "detected_discrepancies": []
         },
         {
-          "id": "paco:3475",
-          "source": "https://www.pacopetshop.it/it/brit-care/3475-brit-care-sensitive-cervo-e-patate-per-cani.htm",
-          "checked_at": "2026-11-03T01:10:31.068814+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:5848",
-          "source": "https://www.pacopetshop.it/it/inodorina/5848-inodorina-salviette-detergenti-profumate-per-cani-e-gatti.htm",
-          "checked_at": "2026-11-03T01:10:31.068814+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:3847",
-          "source": "https://www.pacopetshop.it/it/farmina-nd/3847-farmina-nd-pumpkin-neutered-quaglia-zucca-e-melograno-per-gatti.htm",
-          "checked_at": "2026-11-02T14:01:23.579792+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:5832",
-          "source": "https://www.pacopetshop.it/it/kattovit/5832-kattovit-sensitive-cibo-umido-per-gatti.htm",
-          "checked_at": "2026-11-03T01:10:31.068814+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:5292",
-          "source": "https://www.pacopetshop.it/it/felinea/5292-felinea-active-tacchino-e-pollo-grain-free-per-gatti-adulti.htm",
+          "id": "paco:5070",
+          "source": "https://www.pacopetshop.it/it/acana/5070-acana-homestead-harvest-per-gatti.htm",
           "checked_at": "2026-11-02T01:12:59.863382+00:00",
           "status": "verified",
           "compared": [
@@ -2462,124 +2482,12 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 19.9,
+            "price": 22.95,
             "available": true,
-            "gtin": "00641094413279",
-            "exact_product": "5292",
-            "net_weight_kg": 1.5,
-            "variant_label": "Sacco da 1,5 kg",
-            "quantity_verified": true
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:3777",
-          "source": "https://www.pacopetshop.it/it/trovet/3777-trovet-renal-e-oxalate-cibo-umido-per-gatti.htm",
-          "checked_at": "2026-11-01T18:51:18.571490+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:527",
-          "source": "https://www.pacopetshop.it/it/royal-canin/527-royal-canin-breed-health-nutrition-bassotto-adult-crocchette-cane.htm",
-          "checked_at": "2026-11-02T14:01:23.579792+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:5491",
-          "source": "https://www.pacopetshop.it/it/ownat/5491-ownat-just-grain-free-anatra-per-cani.htm",
-          "checked_at": "2026-11-02T01:12:59.863382+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 76.4,
-            "available": true,
-            "gtin": "08429037014101",
-            "exact_product": "5491",
-            "net_weight_kg": 14.0,
-            "variant_label": "Sacco da 14 kg",
-            "quantity_verified": true
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:4732",
-          "source": "https://www.pacopetshop.it/it/lily-s-kitchen/4732-lily-s-kitchen-adult-agnello-con-prezzemolo-per-cani.htm",
-          "checked_at": "2026-11-02T19:02:00.875525+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:5196",
-          "source": "https://www.pacopetshop.it/it/terra-felis/5196-terra-felis-cibo-umido-per-gatti-multiproteico.htm",
-          "checked_at": "2026-11-02T07:32:58.562184+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:2664",
-          "source": "https://www.pacopetshop.it/it/forza10/2664-forza10-intestinal-colon-fase-2-per-cani.htm",
-          "checked_at": "2026-11-02T19:02:00.875525+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:960",
-          "source": "https://www.pacopetshop.it/it/royal-canin-v-diet/960-royal-canin-veterinary-diet-gastrointestinal-puppy-crocchette-cane.htm",
-          "checked_at": "2026-11-03T01:10:31.068814+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:3091",
-          "source": "https://www.pacopetshop.it/it/purina-veterinary-diets/3091-purina-pro-plan-dm-diabetic-crocchette-per-gatti.htm",
-          "checked_at": "2026-11-02T07:32:58.562184+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 19.99,
-            "available": false,
-            "gtin": "07613035159822",
-            "exact_product": "3091",
-            "net_weight_kg": 1.5,
-            "variant_label": "Sacco da 1,5 kg",
+            "gtin": "00064992714369",
+            "exact_product": "5070",
+            "net_weight_kg": 1.8,
+            "variant_label": "Sacco da 1,8 kg",
             "quantity_verified": true
           },
           "detected_discrepancies": []
@@ -2606,10 +2514,43 @@
             "quantity_verified": true
           },
           "detected_discrepancies": []
+        },
+        {
+          "id": "paco:2751",
+          "source": "https://www.pacopetshop.it/it/hill-s-prescription-diet/2751-hills-prescription-diet-c-d-urinary-multicare-stress-per-gatti.htm",
+          "checked_at": "2026-11-03T07:17:33.416710+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:960",
+          "source": "https://www.pacopetshop.it/it/royal-canin-v-diet/960-royal-canin-veterinary-diet-gastrointestinal-puppy-crocchette-cane.htm",
+          "checked_at": "2026-11-03T01:10:31.068814+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:527",
+          "source": "https://www.pacopetshop.it/it/royal-canin/527-royal-canin-breed-health-nutrition-bassotto-adult-crocchette-cane.htm",
+          "checked_at": "2026-11-02T14:01:23.579792+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
         }
       ],
-      "sample_verified": 10,
-      "sample_inconclusive": 14,
+      "sample_verified": 9,
+      "sample_inconclusive": 15,
       "sample_discrepancies": 0
     }
   ],
@@ -3075,6 +3016,13 @@
         "gtin"
       ],
       "source": "https://www.webpet.it/products/aqpetfriends-nappy-slips-pannolini-assorbenti-a-fascia-per-cani-maschi-conf-da-12-pz-box-x3.js"
+    },
+    {
+      "id": "webpet:53011079856468",
+      "fields": [
+        "gtin"
+      ],
+      "source": "https://www.webpet.it/products/aqpetfriends-nappy-pet-basic-tappetino-assorbente-con-strisce-adesive-50-pz-box-x4.js"
     },
     {
       "id": "webpet:52859846984020",
@@ -3735,6 +3683,13 @@
       "source": "https://www.webpet.it/products/dashi-stripes3-rosso-nero-pettorina-ad-h-per-cani.js"
     },
     {
+      "id": "webpet:52569059787092",
+      "fields": [
+        "gtin"
+      ],
+      "source": "https://www.webpet.it/products/dashi-stripes3-viola-nero-neomesh-pettorina-reversibile-per-cani.js"
+    },
+    {
       "id": "webpet:52569059557716",
       "fields": [
         "gtin"
@@ -3838,6 +3793,13 @@
         "gtin"
       ],
       "source": "https://www.webpet.it/products/dashi-stripes3-rosa-nero-collare-per-cani.js"
+    },
+    {
+      "id": "webpet:52569040027988",
+      "fields": [
+        "gtin"
+      ],
+      "source": "https://www.webpet.it/products/dashi-unicorn-collare-per-cani.js"
     },
     {
       "id": "webpet:52569040060756",
@@ -4034,6 +3996,13 @@
         "gtin"
       ],
       "source": "https://www.webpet.it/products/aqpetfriends-athens-tiragraffi-in-sisal-115-cm-beige.js"
+    },
+    {
+      "id": "webpet:52568872255828",
+      "fields": [
+        "gtin"
+      ],
+      "source": "https://www.webpet.it/products/aqpetfriends-cat-toy-topolino-colorato-rivestito-a-maglia.js"
     },
     {
       "id": "webpet:52568871764308",
@@ -4379,6 +4348,13 @@
       "source": "https://www.animaliapet.eu/products/trixie-copertina-natalizia-in-pile-natalya-per-cani-e-gatti-100x150cm-colori-beige-azzurro-rosso.js"
     },
     {
+      "id": "animaliapet:49295066890583",
+      "fields": [
+        "gtin"
+      ],
+      "source": "https://www.animaliapet.eu/products/ferplast-spazzola-cardatore-gro-5948-extra-large-per-cani.js"
+    },
+    {
       "id": "animaliapet:49038322368855",
       "fields": [
         "gtin"
@@ -4447,6 +4423,13 @@
         "gtin"
       ],
       "source": "https://www.animaliapet.eu/products/trixie-premium-collare-rosa-xxs-xs-15-25cm-10mm.js"
+    },
+    {
+      "id": "animaliapet:47783148159319",
+      "fields": [
+        "gtin"
+      ],
+      "source": "https://www.animaliapet.eu/products/mordo-coffee-wood-gioco-da-tiro-l-26cm-150-200g-gioco-cane.js"
     },
     {
       "id": "animaliapet:47635135299927",
@@ -4638,92 +4621,36 @@
       "source": "https://www.animaliapet.eu/products/trixie-premium-guinzaglio-nero-m-l-1m-20mm.js"
     },
     {
-      "id": "paco:5951",
+      "id": "paco:5278",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/oasy/5951-oasy-adult-medium-pesce-crocchette-per-cani.htm"
+      "source": "https://www.pacopetshop.it/it/the-red-oak/5278-the-red-oak-maiale-e-mele-grain-free-per-cani.htm"
     },
     {
-      "id": "paco:3106",
+      "id": "paco:4806",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/carnilove/3106-carnilove-anatra-fagiano-hairball-crocchette-per-gatti-adulti.htm"
+      "source": "https://www.pacopetshop.it/it/qdiet/4806-qdiet-psyllium-pet-per-cani-e-gatti.htm"
     },
     {
-      "id": "paco:6350",
+      "id": "paco:5751",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/stuzzy/6350-stuzzy-crocchette-croccanti-con-maiale-per-cani.htm"
+      "source": "https://www.pacopetshop.it/it/qdiet/5751-qdiet-enteroflorene-pasta-per-gatti.htm"
     },
     {
-      "id": "paco:5159",
+      "id": "paco:3340",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/monge/5159-monge-bwild-grain-free-cibo-umido-per-gatti.htm"
-    },
-    {
-      "id": "paco:6186",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/natural-code/6186-natural-code-salamini-con-maiale-snack-per-cani-grain-free.htm"
-    },
-    {
-      "id": "paco:3785",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/trovet/3785-trovet-renal-e-oxalate-cibo-umido-per-cani.htm"
-    },
-    {
-      "id": "paco:5072",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/acana/5072-acana-indoor-entree-per-gatti.htm"
-    },
-    {
-      "id": "paco:4586",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/monge/4586-monge-sterilised-monoprotein-anatra-croccantini-per-gatti.htm"
-    },
-    {
-      "id": "paco:4073",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/prolife/4073-prolife-sensitive-grain-free-medium-large-con-maiale-e-patate-per-cani.htm"
-    },
-    {
-      "id": "paco:4527",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/prolife/4527-prolife-sterilised-adult-manzo-e-riso-per-gatti.htm"
-    },
-    {
-      "id": "paco:4195",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/carnilove/4195-carnilove-snack-per-cani-con-quaglia-.htm"
+      "source": "https://www.pacopetshop.it/it/easypill/3340-easypill-giver-dog-per-cani.htm"
     },
     {
       "id": "paco:6282",
@@ -4734,20 +4661,20 @@
       "source": "https://www.pacopetshop.it/it/lev/6282-lev-cibo-umido-completo-per-gatti-flowpack-4-bustine-85-g-4-gusti.htm"
     },
     {
-      "id": "paco:5679",
+      "id": "paco:4925",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/farmina-vet-life/5679-farmina-vet-life-obesity-cibo-umido-per-cani.htm"
+      "source": "https://www.pacopetshop.it/it/chicopee/4925-chicopee-holistic-adult-struzzo-e-patate-per-cani.htm"
     },
     {
-      "id": "paco:949",
+      "id": "paco:4628",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/prolife/949-prolife-smart-adult-pollo-e-riso-cibo-umido-per-cani.htm"
+      "source": "https://www.pacopetshop.it/it/ownat/4628-ownat-just-grain-free-adult-con-agnello-per-cani.htm"
     },
     {
       "id": "paco:6084",
@@ -4758,12 +4685,36 @@
       "source": "https://www.pacopetshop.it/it/bravery/6084-bravery-adult-cat-sterilized-al-pollo-per-gatti.htm"
     },
     {
-      "id": "paco:3388",
+      "id": "paco:6089",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/acana/3388-acana-classics-classic-red-crocchette-per-cani.htm"
+      "source": "https://www.pacopetshop.it/it/lily-s-kitchen/6089-lily-s-kitchen-salmone-e-patate-salmon-supper-per-cani.htm"
+    },
+    {
+      "id": "paco:5296",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/felinea/5296-felinea-sterilized-salmone-e-pesce-bianco-grain-free-per-gatti.htm"
+    },
+    {
+      "id": "paco:5062",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/primordial/5062-primordial-crocchette-grain-free-cervo-e-tacchino-per-cani-adulti.htm"
+    },
+    {
+      "id": "paco:6350",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/stuzzy/6350-stuzzy-crocchette-croccanti-con-maiale-per-cani.htm"
     },
     {
       "id": "paco:5594",
@@ -4790,92 +4741,20 @@
       "source": "https://www.pacopetshop.it/it/mjamjam/6213-mjamjam-chicks-friends-125-gr-cibo-umido-per-gatti-adulti.htm"
     },
     {
-      "id": "paco:3340",
+      "id": "paco:949",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/easypill/3340-easypill-giver-dog-per-cani.htm"
+      "source": "https://www.pacopetshop.it/it/prolife/949-prolife-smart-adult-pollo-e-riso-cibo-umido-per-cani.htm"
     },
     {
-      "id": "paco:5278",
+      "id": "paco:3388",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/the-red-oak/5278-the-red-oak-maiale-e-mele-grain-free-per-cani.htm"
-    },
-    {
-      "id": "paco:5296",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/felinea/5296-felinea-sterilized-salmone-e-pesce-bianco-grain-free-per-gatti.htm"
-    },
-    {
-      "id": "paco:6072",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/prolife/6072-prolife-smart-adult-mini-con-trota-e-riso-per-cani.htm"
-    },
-    {
-      "id": "paco:5839",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/natural-code/5839-natural-code-kitten-complete-cibo-umido-per-gattini-al-tacchino.htm"
-    },
-    {
-      "id": "paco:4549",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/innovet/4549-innovet-restomyl-dentalcroc-per-gatti.htm"
-    },
-    {
-      "id": "paco:5165",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/orme-naturali/5165-orme-naturali-help-nefro-per-cani-e-gatti-.htm"
-    },
-    {
-      "id": "paco:6089",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/lily-s-kitchen/6089-lily-s-kitchen-salmone-e-patate-salmon-supper-per-cani.htm"
-    },
-    {
-      "id": "paco:3276",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/monge/3276-monge-adult-light-salmone-e-riso-crocchette-per-cani.htm"
-    },
-    {
-      "id": "paco:4806",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/qdiet/4806-qdiet-psyllium-pet-per-cani-e-gatti.htm"
-    },
-    {
-      "id": "paco:4628",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/ownat/4628-ownat-just-grain-free-adult-con-agnello-per-cani.htm"
+      "source": "https://www.pacopetshop.it/it/acana/3388-acana-classics-classic-red-crocchette-per-cani.htm"
     },
     {
       "id": "paco:5684",
@@ -4886,36 +4765,12 @@
       "source": "https://www.pacopetshop.it/it/ownat/5684-ownat-author-grain-free-con-pesce-azzurro-e-pollame-per-gatti.htm"
     },
     {
-      "id": "paco:5062",
+      "id": "paco:4297",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/primordial/5062-primordial-crocchette-grain-free-cervo-e-tacchino-per-cani-adulti.htm"
-    },
-    {
-      "id": "paco:4925",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/chicopee/4925-chicopee-holistic-adult-struzzo-e-patate-per-cani.htm"
-    },
-    {
-      "id": "paco:5751",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/qdiet/5751-qdiet-enteroflorene-pasta-per-gatti.htm"
-    },
-    {
-      "id": "paco:5780",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/hill-s-prescription-diet/5780-hill-s-prescription-gastrointestinal-biome-bocconcini-per-gatti.htm"
+      "source": "https://www.pacopetshop.it/it/veg-vegan-ethical-gourmet/4297-veg-vegan-per-cani-adulti.htm"
     },
     {
       "id": "paco:974",
@@ -4926,12 +4781,172 @@
       "source": "https://www.pacopetshop.it/it/purina-pro-plan/974-pro-plan-kitten-mousse-con-pollo-per-gattini.htm"
     },
     {
-      "id": "paco:5815",
+      "id": "paco:2880",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/almo-nature/5815-almo-nature-urinary-help-croccantini-per-gatti.htm"
+      "source": "https://www.pacopetshop.it/it/enova/2880-enova-formula-simple-grain-free-per-cani.htm"
+    },
+    {
+      "id": "paco:4586",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/monge/4586-monge-sterilised-monoprotein-anatra-croccantini-per-gatti.htm"
+    },
+    {
+      "id": "paco:4527",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/prolife/4527-prolife-sterilised-adult-manzo-e-riso-per-gatti.htm"
+    },
+    {
+      "id": "paco:6072",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/prolife/6072-prolife-smart-adult-mini-con-trota-e-riso-per-cani.htm"
+    },
+    {
+      "id": "paco:5072",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/acana/5072-acana-indoor-entree-per-gatti.htm"
+    },
+    {
+      "id": "paco:5159",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/monge/5159-monge-bwild-grain-free-cibo-umido-per-gatti.htm"
+    },
+    {
+      "id": "paco:5165",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/orme-naturali/5165-orme-naturali-help-nefro-per-cani-e-gatti-.htm"
+    },
+    {
+      "id": "paco:6186",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/natural-code/6186-natural-code-salamini-con-maiale-snack-per-cani-grain-free.htm"
+    },
+    {
+      "id": "paco:4549",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/innovet/4549-innovet-restomyl-dentalcroc-per-gatti.htm"
+    },
+    {
+      "id": "paco:5951",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/oasy/5951-oasy-adult-medium-pesce-crocchette-per-cani.htm"
+    },
+    {
+      "id": "paco:3018",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/naturina/3018-naturina-easy-adult-cat-vaschette-cibo-umido-per-gatti.htm"
+    },
+    {
+      "id": "paco:5679",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/farmina-vet-life/5679-farmina-vet-life-obesity-cibo-umido-per-cani.htm"
+    },
+    {
+      "id": "paco:3106",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/carnilove/3106-carnilove-anatra-fagiano-hairball-crocchette-per-gatti-adulti.htm"
+    },
+    {
+      "id": "paco:6378",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/royal-canin-v-diet/6378-royal-canin-veterinary-diet-renal-select-crocchette-gatto.htm"
+    },
+    {
+      "id": "paco:3276",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/monge/3276-monge-adult-light-salmone-e-riso-crocchette-per-cani.htm"
+    },
+    {
+      "id": "paco:4073",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/prolife/4073-prolife-sensitive-grain-free-medium-large-con-maiale-e-patate-per-cani.htm"
+    },
+    {
+      "id": "paco:5839",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/natural-code/5839-natural-code-kitten-complete-cibo-umido-per-gattini-al-tacchino.htm"
+    },
+    {
+      "id": "paco:4195",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/carnilove/4195-carnilove-snack-per-cani-con-quaglia-.htm"
+    },
+    {
+      "id": "paco:3785",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/trovet/3785-trovet-renal-e-oxalate-cibo-umido-per-cani.htm"
+    },
+    {
+      "id": "paco:5780",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/hill-s-prescription-diet/5780-hill-s-prescription-gastrointestinal-biome-bocconcini-per-gatti.htm"
+    },
+    {
+      "id": "paco:1707",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/almo-nature/1707-holistic-cat-con-pollo.htm"
     },
     {
       "id": "paco:360",
@@ -4950,14 +4965,6 @@
       "source": "https://www.pacopetshop.it/it/royal-canin/812-royal-canin-breed-health-nutrition-labrador-retriever-puppy-crocchette.htm"
     },
     {
-      "id": "paco:6378",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/royal-canin-v-diet/6378-royal-canin-veterinary-diet-renal-select-crocchette-gatto.htm"
-    },
-    {
       "id": "paco:81",
       "fields": [
         "gtin",
@@ -4966,12 +4973,12 @@
       "source": "https://www.pacopetshop.it/it/hill-s-prescription-diet/81-hills-prescription-diet-s-d-crocchette-per-gatti-con-calcoli-di-struvite.htm"
     },
     {
-      "id": "paco:1707",
+      "id": "paco:5815",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/almo-nature/1707-holistic-cat-con-pollo.htm"
+      "source": "https://www.pacopetshop.it/it/almo-nature/5815-almo-nature-urinary-help-croccantini-per-gatti.htm"
     },
     {
       "id": "paco:2164",
