@@ -1,7 +1,8 @@
 import {workerErrorMetrics} from './cloudflare-worker-errors.mjs';
+import {checkTelegramStatus} from './telegram-status-monitor.mjs';
 /** Account-scoped, read-only Cloudflare Worker audit via official Code Mode MCP.
  * Fixed tool sequence: initialize -> notifications/initialized -> whoami -> execute.
- * The execute code contains one hard-coded GET; no dynamic model-written code.
+ * The execute code contains only fixed Cloudflare API GETs; no dynamic model-written code.
  * Tokens, account IDs and full API responses are never printed.
  */
 const ENDPOINT='https://mcp.cloudflare.com/mcp';
@@ -14,7 +15,12 @@ const SCRIPT=String.raw`async () => {
   const d = await cloudflare.request({method: "GET", path: "/accounts/" + accountId + "/workers/scripts/zampachiara/deployments?per_page=5"});
   const deployments = d?.result?.deployments;
   const latest = Array.isArray(deployments) ? deployments[0] : null;
-  return {api_success: r?.success === true, worker_found: Boolean(worker), modified_on: worker?.modified_on || null,
+  const domain = await cloudflare.request({method: "GET", path: "/accounts/" + accountId + "/workers/subdomain"});
+  const workerSubdomain = await cloudflare.request({method: "GET", path: "/accounts/" + accountId + "/workers/scripts/zampachiara/subdomain"});
+  const name = domain?.success === true && typeof domain?.result?.subdomain === "string" ? domain.result.subdomain : "";
+  const workersDev = workerSubdomain?.success === true && workerSubdomain?.result?.enabled === true && /^[a-z0-9-]{1,63}$/.test(name)
+    ? "zampachiara." + name + ".workers.dev" : null;
+  return {api_success: r?.success === true, worker_found: Boolean(worker), modified_on: worker?.modified_on || null, workers_dev_host:workersDev,
     deploy_readable: d?.success === true && Array.isArray(deployments),
     latest_deploy_at: typeof latest?.created_on === "string" ? latest.created_on : null,
     version_count: Array.isArray(latest?.versions) ? latest.versions.length : null};
@@ -75,6 +81,7 @@ export async function auditCloudflareWorker({token,accountId,transport=fetch,met
   const metrics=enableMetrics?await workerErrorMetrics({token,accountId:resolved,transport:metricsTransport}):{status:'not_checked'};
   return {status:'worker_verified',worker:WORKER,modified_on:typeof data.modified_on==='string'?data.modified_on:null,
    metrics,
+   workers_dev_host:typeof data.workers_dev_host==='string'&&/^zampachiara\.[a-z0-9-]{1,63}\.workers\.dev$/.test(data.workers_dev_host)?data.workers_dev_host:null,
    deploy_status:data.deploy_readable===true?(typeof data.latest_deploy_at==='string'?'available':'no_deployments'):'not_accessible',
    latest_deploy_at:typeof data.latest_deploy_at==='string'?data.latest_deploy_at:null,
    active_version_count:Number.isSafeInteger(data.version_count)?data.version_count:null};
@@ -85,6 +92,12 @@ export async function auditCloudflareWorker({token,accountId,transport=fetch,met
 }
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
  const r=await auditCloudflareWorker({token:process.env.CLOUDFLARE_MCP_TOKEN,accountId:process.env.CLOUDFLARE_ACCOUNT_ID,enableMetrics:true});
- console.log(JSON.stringify(r));
+ console.log(JSON.stringify({...r,workers_dev_host:r.workers_dev_host?'configured':null}));
  if(r.status!=='worker_verified'||r.metrics?.alert===true||r.deploy_status==='no_deployments')process.exitCode=1;
+ if(r.status==='worker_verified'){
+  const telegram=await checkTelegramStatus({alternateHost:r.workers_dev_host});
+  console.log(JSON.stringify({telegram}));
+  if(['status_access_denied','status_unavailable','alternate_unavailable'].includes(telegram.status))console.log('::warning::Telegram status inaccessible; bot health unknown.');
+  else if(telegram.status!=='telegram_operational')process.exitCode=1;
+ }
 }
