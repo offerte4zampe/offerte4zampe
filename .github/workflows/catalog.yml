@@ -1,4 +1,5 @@
 name: Refresh real merchant catalogs
+# Hygge Awin feed refresh uses the HYGGE_AWIN_FEED_URL Actions secret.
 on:
   schedule:
     - cron: '12 */6 * * *'
