@@ -62,7 +62,10 @@ def collect(source, shipping_only=False):
     sid,name,base=source; now=datetime.datetime.now(datetime.timezone.utc).isoformat(); rows=[]
     try:
         if sid=='hygge':
-            from hygge_awin_feed import collect as hygge_collect
+            try:
+                from .hygge_awin_feed import collect as hygge_collect
+            except ImportError:
+                from hygge_awin_feed import collect as hygge_collect
             return hygge_collect()
         if sid=='paco':
             from paco_feed import collect as paco_collect
