@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-03T13:09:49.840677+00:00",
+  "generated_at": "2026-11-03T19:00:39.104347+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -8,8 +8,8 @@
   "with_third_store_lead": 22,
   "categories": {
     "snack": 56,
-    "umido": 121,
-    "crocchette": 112,
+    "umido": 122,
+    "crocchette": 111,
     "lettiere": 11
   },
   "priority_offer_ids": [
@@ -67,7 +67,6 @@
     "animaliapet:46976683016535",
     "animaliapet:46976683409751",
     "animaliapet:46976684556631",
-    "animaliapet:46976685244759",
     "animaliapet:46976687210839",
     "animaliapet:46976687407447",
     "animaliapet:46976687571287",
@@ -186,6 +185,7 @@
     "bauzaar:56820215316805",
     "bauzaar:56820221411653",
     "bauzaar:56820245233989",
+    "bauzaar:56820254966085",
     "bauzaar:56820255097157",
     "bauzaar:56820266139973",
     "bauzaar:56820266664261",
@@ -218,7 +218,6 @@
     "bauzaar:56835014459717",
     "bauzaar:56835014492485",
     "bauzaar:56835073802565",
-    "bauzaar:56835073999173",
     "bauzaar:56835075375429",
     "bauzaar:56961097728325",
     "bauzaar:56961097761093",
@@ -452,6 +451,7 @@
     "paco:2028",
     "paco:2038",
     "paco:2119",
+    "paco:2253",
     "paco:2664",
     "paco:3065",
     "paco:3068",
@@ -3311,25 +3311,6 @@
       "offer_ids": [
         "animaliapet:49110536257879",
         "bauzaar:58245820023109"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-4ebcd480eedd035514b2",
-      "name": "Nature's Protection Red Coat Salmone 1,5kg Crocchette Cani Small Adult",
-      "brand": "Nature's Protection",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-red-coat-salmone-1-5kg-crocchette-cani-small-adult-04771317472304-5514b2",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976685244759",
-        "bauzaar:56835073999173"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -6431,6 +6412,26 @@
       ],
       "candidate_offer_ids": [
         "paco:5900"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-30e9893e878a174420a5",
+      "name": "Natural Code XL 170 g 02 - Tonno e Sardine - confezione da 24 pezzi",
+      "brand": "Natural Code",
+      "category": "umido",
+      "species": "gatto",
+      "format": "4,08 kg",
+      "url": "https://offerte4zampe.it/prodotto/natural-code-xl-170-g-02-tonno-e-sardine-confezione-da-24-pezzi-08033837551249-4420a5",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56820254966085"
+      ],
+      "candidate_offer_ids": [
+        "paco:2253"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
