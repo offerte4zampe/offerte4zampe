@@ -54,8 +54,9 @@ export function payload(post,channel){
   const stamp=new Intl.DateTimeFormat('it-IT',{timeZone:'Europe/Rome',dateStyle:'short',timeStyle:'short'}).format(post.verified_at);
   const note='📦 Spedizione esclusa · rilevato '+stamp+'. Prezzo e disponibilità da verificare nel negozio.';
   const action='🔎 Vedi prodotto e confronta i prezzi';
-  visible=['🐾 '+label,'💶 '+euro+' · '+post.merchant,note,action,disclosure].join('\n\n');
-  text='🐾 <b>'+escapeTelegramHtml(label)+'</b>\n\n💶 <b>'+escapeTelegramHtml(euro)+'</b> · '+escapeTelegramHtml(post.merchant)+'\n\n'+escapeTelegramHtml(note)+'\n\n<a href="'+target+'">'+action+'</a>\n\n'+escapeTelegramHtml(disclosure);
+  const useful='Confronta lo stesso formato per valutare correttamente il prezzo.';
+  visible=['🐾 '+label,'💶 '+euro+' · '+post.merchant,useful,note,action,disclosure].join('\n\n');
+  text='🐾 <b>'+escapeTelegramHtml(label)+'</b>\n\n💶 <b>'+escapeTelegramHtml(euro)+'</b> · '+escapeTelegramHtml(post.merchant)+'\n\n'+escapeTelegramHtml(useful)+'\n\n'+escapeTelegramHtml(note)+'\n\n<a href="'+target+'">'+action+'</a>\n\n'+escapeTelegramHtml(disclosure);
  }else{
   const action=post.kind==='test'?'🔎 Visita Offerte a 4 Zampe':'🔎 Leggi la guida';
   visible=[post.text,action,disclosure].join('\n\n');
