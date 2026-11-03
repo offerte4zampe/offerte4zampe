@@ -54,7 +54,7 @@ def partner_eligible(row, now):
 def render_partner_card(row):
     until = stamp(row['expires_at']).isoformat()
     return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-until="{h(until)}">
-<div class="shop"><span class="shop-logo" aria-hidden="true">🐾</span><div><strong>{h(row['merchant'])}</strong><small>Offerta partner · canale Awin</small></div></div>
+<div class="shop"><span class="shop-logo"><img src="https://ui.awin.com/images/upload/merchant/profile/121988.png" alt="Logo ufficiale Hygge Pet Food" width="112" height="112" loading="lazy" referrerpolicy="no-referrer"></span><div><strong>{h(row['merchant'])}</strong><small>Offerta partner · canale Awin</small></div></div>
 <div class="discount">{h(row['benefit'])}</div><h2>{h(row['title'])}</h2>
 <p class="description">{h(row['description'])}</p>
 <span class="status">Codice comunicato dal partner · non ancora provato nel carrello</span>
