@@ -168,7 +168,7 @@ def collect():
             if response.status != 200:
                 raise ValueError("Feed response was not successful")
             blob = response.read(15_000_001)
-        if len(blob) > 15_000_000 or not blob.startswith(b"\\x1f\\x8b"):
+        if len(blob) > 15_000_000 or not blob.startswith(b"\x1f\x8b"):
             raise ValueError("Feed oversized or not gzip")
         with tempfile.TemporaryDirectory() as td:
             path = Path(td) / "hygge.csv.gz"
