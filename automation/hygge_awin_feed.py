@@ -11,9 +11,15 @@ import json
 import math
 import sys
 import re
+import os
+import tempfile
+import urllib.request
 from pathlib import Path
 from urllib.parse import urlsplit, parse_qs
-from automation.update_catalog import weight
+try:
+    from .update_catalog import weight
+except ImportError:
+    from update_catalog import weight
 
 MERCHANT_ID = "hygge"
 MERCHANT = "Hygge Pet Food"
@@ -88,7 +94,7 @@ def parse_rows(reader, checked_at):
             rejected["unverified_stock"] = rejected.get("unverified_stock", 0) + 1
             continue
         affiliate_url = value(row, "affiliate_url")
-        if affiliate_url and (not https_url(affiliate_url) or urlsplit(affiliate_url).hostname != "www.awin1.com" or parse_qs(urlsplit(affiliate_url).query).get("awinaffid") != ["3126265"] or parse_qs(urlsplit(affiliate_url).query).get("awinmid") != ["121988"]):
+        if not affiliate_url or (not https_url(affiliate_url) or urlsplit(affiliate_url).hostname != "www.awin1.com" or parse_qs(urlsplit(affiliate_url).query).get("awinaffid") != ["3126265"] or parse_qs(urlsplit(affiliate_url).query).get("awinmid") != ["121988"]):
             rejected["invalid_affiliate_url"] = rejected.get("invalid_affiliate_url", 0) + 1
             continue
         img = value(row, "image")
@@ -117,6 +123,39 @@ def import_file(path, checked_at=None):
         "coupon": {"code": "CIOTOLA30", "verified": False, "discount_fraction": 0.30,
                    "note": "Conditions and checkout validity must be verified before publishing"},
     }
+
+
+def collect():
+    """Retrieve the private advertiser feed and return rows in catalog source format."""
+    now = dt.datetime.now(dt.timezone.utc).isoformat()
+    url = os.environ.get("HYGGE_AWIN_FEED_URL", "").strip()
+    if not url:
+        return [], {"id": MERCHANT_ID, "name": MERCHANT, "status": "error",
+                    "checked_at": now, "offers": 0, "error": "Feed URL not configured"}
+    parts = urlsplit(url)
+    if parts.scheme != "https" or parts.hostname != "ui.awin.com" or not parts.path.startswith("/productdata-darwin-download/publisher/3126265/") or parts.username or parts.password:
+        return [], {"id": MERCHANT_ID, "name": MERCHANT, "status": "error",
+                    "checked_at": now, "offers": 0, "error": "Unexpected feed URL"}
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Offerte4ZampeCatalog/1.0"})
+        with urllib.request.urlopen(req, timeout=45) as response:
+            if response.status != 200:
+                raise ValueError("Feed response was not successful")
+            blob = response.read(15_000_001)
+        if len(blob) > 15_000_000 or not blob.startswith(b"\\x1f\\x8b"):
+            raise ValueError("Feed oversized or not gzip")
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "hygge.csv.gz"
+            path.write_bytes(blob)
+            payload = import_file(path, checked_at=now)
+        rows = payload["offers"]
+        return rows, {"id": MERCHANT_ID, "name": MERCHANT, "status": "ok",
+                      "checked_at": now, "offers": len(rows),
+                      "source": "Awin product feed", "method": "Feed ufficiale normalizzato"}
+    except Exception as exc:
+        # Never log a secret-bearing URL or full exception text.
+        return [], {"id": MERCHANT_ID, "name": MERCHANT, "status": "error",
+                    "checked_at": now, "offers": 0, "error": type(exc).__name__}
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
