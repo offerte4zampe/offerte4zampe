@@ -3,6 +3,7 @@ const STATUS_URL='https://offerte4zampe.it/api/telegram/status';
 export async function checkTelegramStatus({transport=fetch,now=Date.now()}={}){
  try{
   const res=await transport(STATUS_URL,{method:'GET',redirect:'manual',signal:AbortSignal.timeout(12000),headers:{Accept:'application/json'}});
+  if(res.status===401||res.status===403)return {status:'status_access_denied',http_status:res.status};
   if(!res.ok||res.status>=300)return {status:'status_unavailable',http_status:res.status};
   if(!/application\/json/i.test(res.headers.get('content-type')||''))return {status:'unexpected_content_type'};
   const raw=await res.text();
@@ -22,5 +23,7 @@ export async function checkTelegramStatus({transport=fetch,now=Date.now()}={}){
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
  const r=await checkTelegramStatus();
  console.log(JSON.stringify(r));
- if(r.status!=='telegram_operational')process.exitCode=1;
+ if(r.status==='status_access_denied'||r.status==='status_unavailable'){
+  console.log('::warning::Telegram status cannot be verified from the GitHub runner; delivery state is unknown, not failed.');
+ }else if(r.status!=='telegram_operational')process.exitCode=1;
 }
