@@ -26,3 +26,8 @@ test('unexpected responses and redirects fail closed',async()=>{
   assert.notEqual(r.status,'telegram_operational');
  }
 });
+
+test('GitHub runner 403 is access denied, not Telegram outage',async()=>{
+ const r=await checkTelegramStatus({transport:async()=>reply({error:'blocked'},403)});
+ assert.deepEqual(r,{status:'status_access_denied',http_status:403});
+});
