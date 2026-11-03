@@ -1,8 +1,15 @@
 /** Read-only public status check. No bot token, no publish endpoint, no Telegram API calls. */
 const STATUS_URL='https://offerte4zampe.it/api/telegram/status';
-export async function checkTelegramStatus({transport=fetch,now=Date.now()}={}){
+export async function checkTelegramStatus({transport=fetch,now=Date.now(),alternateHost=null}={}){
  try{
-  const res=await transport(STATUS_URL,{method:'GET',redirect:'manual',signal:AbortSignal.timeout(12000),headers:{Accept:'application/json'}});
+  const options=()=>({method:'GET',redirect:'manual',signal:AbortSignal.timeout(12000),headers:{Accept:'application/json'}});
+  let res=await transport(STATUS_URL,options());
+  let source='custom_domain';
+  if((res.status===401||res.status===403)&&alternateHost){
+   if(typeof alternateHost!=='string'||!/^zampachiara\.[a-z0-9-]{1,63}\.workers\.dev$/.test(alternateHost))return {status:'invalid_alternate_host'};
+   res=await transport('https://'+alternateHost+'/api/telegram/status',options());
+   source='workers_dev';
+  }
   if(res.status===401||res.status===403)return {status:'status_access_denied',http_status:res.status};
   if(!res.ok||res.status>=300)return {status:'status_unavailable',http_status:res.status};
   if(!/application\/json/i.test(res.headers.get('content-type')||''))return {status:'unexpected_content_type'};
@@ -16,7 +23,7 @@ export async function checkTelegramStatus({transport=fetch,now=Date.now()}={}){
   // No posts today is not automatically an error: no fresh product photos may exist.
   // Report a nonfatal freshness indicator, not an invented publishing failure.
   const day=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
-  return {status:'telegram_operational',last_sent_day:typeof d.last_sent_day==='string'?d.last_sent_day:null,
+  return {status:'telegram_operational',source,last_sent_day:typeof d.last_sent_day==='string'?d.last_sent_day:null,
     sent_today:d.last_sent_day===day};
  }catch{return {status:'status_unavailable'};}
 }

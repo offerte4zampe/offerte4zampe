@@ -51,3 +51,11 @@ GitHub Actions never displays the token in the job's regular output, but it is p
 Only aggregated numbers and sanitized statuses are printed, never credentials, Cloudflare account IDs or raw visitor logs. Missing Analytics permissions may require **Account Analytics: Read**, limited to this account. The workflow never mutates Cloudflare and does not deploy the Worker.
 
 Observe the Actions execution and confirm that `deploy_status` and `metrics.status` are `available` and `metrics_available` before considering those checks fully functioning. A workflow success with `not_accessible` means *partial coverage* only.
+
+## Telegram HTTP 403 resolution (read-only)
+
+The old public status route can return HTTP 403 to GitHub-hosted runners even when Telegram is healthy. The scheduled audit now uses the existing Cloudflare MCP credentials to discover **only an already enabled** `zampachiara.<account-subdomain>.workers.dev` hostname via GETs to `/workers/subdomain` and `/workers/scripts/zampachiara/subdomain`. If the custom-domain check is denied, it tries the exact allowlisted `workers.dev` URL. No WAF rules or Worker routing settings are changed; a disabled workers.dev route is never activated. URLs are validated before use and not printed.
+
+The Telegram monitor reports `source:'workers_dev'` if the fallback can read the publisher's actual Durable Object status. If both routes are blocked or the workers.dev URL is disabled, it still reports **unknown**, not a fabricated healthy state. Do not treat a green GitHub job with `status_access_denied` as a verified Telegram delivery.
+
+The Worker audit performs this fallback in the same GitHub Actions step after checking deploy and error metrics. The existing Telegram publisher remains untouched.
