@@ -1,0 +1,31 @@
+name: Cloudflare MCP capabilities (read-only)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-mcp-capabilities
+  cancel-in-progress: false
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Require configured token
+        env:
+          TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_MCP_TOKEN != '' }}
+        run: |
+          if [ "$TOKEN_PRESENT" != "true" ]; then
+            echo "::error::Missing Cloudflare MCP token in GitHub Actions secrets"
+            exit 1
+          fi
+      - name: Verify offline regression tests
+        run: node --test automation/agent/*.test.mjs
+      - name: Discover MCP tool names without calling tools
+        env:
+          CLOUDFLARE_MCP_TOKEN: ${{ secrets.CLOUDFLARE_MCP_TOKEN }}
+        run: node automation/agent/cloudflare-mcp-discover.mjs
