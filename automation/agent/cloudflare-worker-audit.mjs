@@ -7,7 +7,7 @@ const ENDPOINT='https://mcp.cloudflare.com/mcp';
 const VERSION='2025-06-18';
 const WORKER='zampachiara';
 const SCRIPT=String.raw`async () => {
-  const r = await cloudflare.request({method: "GET", path: \`/accounts/\${accountId}/workers/scripts\`});
+  const r = await cloudflare.request({method: "GET", path: "/accounts/" + accountId + "/workers/scripts"});
   const scripts = Array.isArray(r?.result) ? r.result : [];
   const worker = scripts.find(s => s?.id === "zampachiara" || s?.name === "zampachiara");
   return {api_success: r?.success === true, worker_found: Boolean(worker), modified_on: worker?.modified_on || null};
