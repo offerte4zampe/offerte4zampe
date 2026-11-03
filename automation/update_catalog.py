@@ -8,7 +8,7 @@ try:
 except ImportError:
     from freshness import source_freshness
 ROOT=Path(__file__).resolve().parents[1]
-SOURCES=[('bauzaar','Bauzaar','https://www.bauzaar.it'),('webpet','WebPet','https://www.webpet.it'),('animaliapet','Animaliapet','https://www.animaliapet.eu'),('isola-dei-tesori','Isola dei Tesori','https://www.isoladeitesori.it'),('paco','Paco Pet Shop','https://www.pacopetshop.it')]
+SOURCES=[('bauzaar','Bauzaar','https://www.bauzaar.it'),('webpet','WebPet','https://www.webpet.it'),('animaliapet','Animaliapet','https://www.animaliapet.eu'),('isola-dei-tesori','Isola dei Tesori','https://www.isoladeitesori.it'),('paco','Paco Pet Shop','https://www.pacopetshop.it'),('hygge','Hygge Pet Food','https://hyggepetfood.com')]
 UA='Offerte a 4 ZampeCatalog/1.0 (+https://offerte4zampe.it/contatti.html)'
 def get(url):
     req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'application/json,text/plain'})
@@ -61,6 +61,12 @@ def weight(label):
 def collect(source, shipping_only=False):
     sid,name,base=source; now=datetime.datetime.now(datetime.timezone.utc).isoformat(); rows=[]
     try:
+        if sid=='hygge':
+            try:
+                from .hygge_awin_feed import collect as hygge_collect
+            except ImportError:
+                from hygge_awin_feed import collect as hygge_collect
+            return hygge_collect()
         if sid=='paco':
             from paco_feed import collect as paco_collect
             return paco_collect()

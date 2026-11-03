@@ -1,0 +1,20 @@
+name: Validate Hygge integration
+on:
+  push:
+    branches: [feature/hygge-awin-feed]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==12.3.0
+      - run: python -m unittest discover -s tests
+      - run: node --test tests/test_canonical_redirects.mjs tests/test_outbound.mjs tests/test_metrics.mjs tests/test_trade.mjs tests/test_report.mjs tests/test_basket.mjs tests/test_daily_cost.mjs tests/test_price_history.mjs tests/test_search_suggest.mjs tests/test_catalog_metadata.mjs tests/test_watchlist.mjs
+      - run: python -m compileall -q automation

@@ -9,6 +9,9 @@ on:
       - 'automation/image-rights.json'
       - 'automation/cache_product_images.py'
       - 'automation/import_partner_feed.py'
+      - 'automation/hygge_awin_feed.py'
+      - 'automation/hygge-snapshot.json'
+      - 'tests/test_hygge_awin_feed.py'
       - 'automation/bauzaar_feed.py'
       - 'automation/isola_feed.py'
       - 'automation/paco_feed.py'
@@ -101,7 +104,10 @@ jobs:
       - run: python automation/check_d1_activation.py --prepare-build
       - run: node --test tests/test_canonical_redirects.mjs tests/test_outbound.mjs tests/test_metrics.mjs tests/test_trade.mjs tests/test_report.mjs tests/test_basket.mjs tests/test_daily_cost.mjs tests/test_price_history.mjs tests/test_search_suggest.mjs tests/test_catalog_metadata.mjs tests/test_watchlist.mjs
       - run: python automation/build_priority_products.py
-      - run: python automation/update_catalog.py
+      - name: Refresh catalogs including Hygge Awin
+        env:
+          HYGGE_AWIN_FEED_URL: \${{ secrets.HYGGE_AWIN_FEED_URL }}
+        run: python automation/update_catalog.py
       - run: python automation/enrich_catalog.py
       - run: node automation/normalize_catalog.cjs
       - run: python automation/check_merchant_links.py
