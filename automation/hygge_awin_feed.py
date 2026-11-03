@@ -130,8 +130,34 @@ def collect():
     now = dt.datetime.now(dt.timezone.utc).isoformat()
     url = os.environ.get("HYGGE_AWIN_FEED_URL", "").strip()
     if not url:
-        return [], {"id": MERCHANT_ID, "name": MERCHANT, "status": "error",
-                    "checked_at": now, "offers": 0, "error": "Feed URL not configured"}
+        # Initial verified snapshot is usable until the live private URL is configured.
+        # Keep the actual observation time; do not pretend it was refreshed.
+        snapshot = Path(__file__).with_name("hygge-snapshot.json")
+        try:
+            data = json.loads(snapshot.read_text(encoding="utf-8"))
+            if data.get("publisher_id") != "3126265" or data.get("advertiser_id") != "121988":
+                raise ValueError("Unexpected snapshot owner")
+            offers = data["offers"]
+            if not offers or any(o.get("merchant_id") != MERCHANT_ID or
+                                 o.get("checked_at") != data["checked_at"] or
+                                 not https_url(o.get("url", "")) or
+                                 not https_url(o.get("affiliate_url", "")) for o in offers):
+                raise ValueError("Invalid snapshot rows")
+            # Accept only a snapshot close to its real observation time. Never
+            # regenerate a fake checked_at on subsequent catalog runs.
+            checked = dt.datetime.fromisoformat(data["checked_at"].replace("Z", "+00:00"))
+            if not dt.timedelta(minutes=-5) <= dt.datetime.now(dt.timezone.utc)-checked <= dt.timedelta(hours=36):
+                raise ValueError("Snapshot expired")
+            for offer in offers:
+                if offer.get("weight_kg") is None:
+                    offer["weight_kg"] = weight(offer["title"])
+            return offers, {"id": MERCHANT_ID, "name": MERCHANT, "status": "ok",
+                            "checked_at": data["checked_at"], "offers": len(offers),
+                            "source": "Awin verified local snapshot",
+                            "method": "Feed ufficiale normalizzato"}
+        except (ValueError, OSError, KeyError, TypeError):
+            return [], {"id": MERCHANT_ID, "name": MERCHANT, "status": "error",
+                        "checked_at": now, "offers": 0, "error": "No fresh Awin feed; configure GitHub secret"}
     parts = urlsplit(url)
     if parts.scheme != "https" or parts.hostname != "ui.awin.com" or not parts.path.startswith("/productdata-darwin-download/publisher/3126265/") or parts.username or parts.password:
         return [], {"id": MERCHANT_ID, "name": MERCHANT, "status": "error",
