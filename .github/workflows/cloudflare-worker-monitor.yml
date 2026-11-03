@@ -7,7 +7,8 @@ on:
       - 'automation/agent/**'
       - '.github/workflows/cloudflare-worker-monitor.yml'
   schedule:
-    - cron: '47 6 * * *'
+    - cron: '15 9 * * *'
+    - cron: '15 18 * * *'
 permissions:
   contents: read
 concurrency:
@@ -37,3 +38,5 @@ jobs:
           CLOUDFLARE_MCP_TOKEN: ${{ secrets.CLOUDFLARE_MCP_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
         run: node automation/agent/cloudflare-worker-audit.mjs
+      - name: Check Telegram publisher read-only health
+        run: node automation/agent/telegram-status-monitor.mjs
