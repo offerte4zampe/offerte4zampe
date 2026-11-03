@@ -1,9 +1,12 @@
 import csv
 import gzip
 import tempfile
+import io
+import os
+from unittest.mock import patch
 import unittest
 from pathlib import Path
-from automation.hygge_awin_feed import import_file
+from automation.hygge_awin_feed import import_file, collect
 
 FIELDS = ["advertiser_id", "id", "title", "price", "link", "aw_deep_link", "currency", "availability", "gtin"]
 class HyggeAwinTests(unittest.TestCase):
@@ -53,6 +56,36 @@ class HyggeAwinTests(unittest.TestCase):
         row["aw_deep_link"] = row["aw_deep_link"].replace("3126265", "3126256")
         with self.assertRaisesRegex(ValueError, "No valid offers"):
             import_file(self.fixture([row]))
+
+
+    def test_live_gzip_feed_download(self):
+        row = self.good()
+        with open(self.fixture([row], zipped=True), "rb") as fh:
+            archive = fh.read()
+        class Response(io.BytesIO):
+            status = 200
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                self.close()
+        url = "https://ui.awin.com/productdata-darwin-download/publisher/3126265/secret/1/feed/F3725.csv.gz"
+        with patch.dict(os.environ, {"HYGGE_AWIN_FEED_URL": url}), patch(
+            "automation.hygge_awin_feed.urllib.request.urlopen",
+            return_value=Response(archive)
+        ):
+            offers, source = collect()
+        self.assertEqual(source["status"], "ok")
+        self.assertEqual(len(offers), 1)
+        self.assertEqual(offers[0]["affiliate_url"].split("awinaffid=")[1], "3126265")
+
+    def test_wrong_live_feed_url_fails_without_download(self):
+        with patch.dict(os.environ, {"HYGGE_AWIN_FEED_URL": "https://invalid.example/feed.csv.gz"}), patch(
+            "automation.hygge_awin_feed.urllib.request.urlopen"
+        ) as download:
+            offers, source = collect()
+        self.assertEqual(offers, [])
+        self.assertEqual(source["error"], "Unexpected feed URL")
+        download.assert_not_called()
 
     def test_wrong_currency_rejected(self):
         row = self.good()
