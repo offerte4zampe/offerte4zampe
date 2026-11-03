@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 from automation.hygge_awin_feed import import_file
 
-FIELDS = ["merchant_product_id", "product_name", "search_price", "merchant_deep_link", "aw_deep_link", "currency", "stock_status", "ean"]
+FIELDS = ["advertiser_id", "id", "title", "price", "link", "aw_deep_link", "currency", "availability", "gtin"]
 class HyggeAwinTests(unittest.TestCase):
     def fixture(self, rows, zipped=True):
         tmp = tempfile.TemporaryDirectory()
@@ -19,27 +19,27 @@ class HyggeAwinTests(unittest.TestCase):
         return path
 
     def good(self):
-        return dict(merchant_product_id="abc123", product_name="Crocchette 2kg",
-                    search_price="39.90", merchant_deep_link="https://hygge-dog.com/item",
-                    aw_deep_link="https://www.awin1.com/cread.php?x=1",
-                    currency="EUR", stock_status="in stock", ean="1234567890123")
+        return dict(advertiser_id="121988", id="abc123", title="Crocchette 2kg",
+                    price="39.90 EUR", link="https://hyggepetfood.com/products/item",
+                    aw_deep_link="https://www.awin1.com/cread.php?awinmid=121988&awinaffid=3126265",
+                    currency="", availability="in_stock", gtin="1234567890123")
 
     def test_valid_gzip(self):
         result = import_file(self.fixture([self.good()]), checked_at="2026-11-03T12:00:00+00:00")
         self.assertEqual(result["offers"][0]["price"], 39.9)
         self.assertEqual(result["offers"][0]["gtin"], "1234567890123")
         self.assertFalse(result["coupon"]["verified"])
-        self.assertIsNone(result["offers"][0]["weight_kg"])
+        self.assertEqual(result["offers"][0]["weight_kg"], 2.0)
 
     def test_unknown_stock_rejected(self):
         row = self.good()
-        row["stock_status"] = ""
+        row["availability"] = ""
         with self.assertRaisesRegex(ValueError, "No valid offers"):
             import_file(self.fixture([row]))
 
     def test_bad_url_rejected(self):
         row = self.good()
-        row["merchant_deep_link"] = "javascript:alert(1)"
+        row["link"] = "javascript:alert(1)"
         with self.assertRaisesRegex(ValueError, "No valid offers"):
             import_file(self.fixture([row]))
 
@@ -47,6 +47,12 @@ class HyggeAwinTests(unittest.TestCase):
         row = self.good()
         with self.assertRaisesRegex(ValueError, "Duplicate"):
             import_file(self.fixture([row, row]))
+
+    def test_wrong_publisher_rejected(self):
+        row = self.good()
+        row["aw_deep_link"] = row["aw_deep_link"].replace("3126265", "3126256")
+        with self.assertRaisesRegex(ValueError, "No valid offers"):
+            import_file(self.fixture([row]))
 
     def test_wrong_currency_rejected(self):
         row = self.good()
