@@ -7,7 +7,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-HOSTS = {'bauzaar': 'www.bauzaar.it', 'isola': 'www.isoladeitesori.it', 'paco': 'www.pacopetshop.it'}
+HOSTS = {'bauzaar': 'www.bauzaar.it', 'isola': 'www.isoladeitesori.it', 'paco': 'www.pacopetshop.it', 'hygge': 'hyggepetfood.com'}
 
 
 def stamp(value):
@@ -35,6 +35,38 @@ def eligible(row, now):
         return False
 
 
+
+def partner_eligible(row, now):
+    """Partner-provided offer, visibly distinguished from independent checkout tests."""
+    try:
+        return (row['status'] == 'partner_provided'
+                and row['publication_allowed'] is True
+                and stamp(row['starts_at']) <= now < stamp(row['expires_at'])
+                and re.fullmatch(r'[A-Z0-9_-]{2,40}', row['code']) is not None
+                and row['shop'] == 'hygge'
+                and all(urlsplit(row[k]).scheme == 'https'
+                        and urlsplit(row[k]).netloc == HOSTS[row['shop']]
+                        for k in ['source_url', 'destination_url']))
+    except (KeyError, ValueError, TypeError, AttributeError):
+        return False
+
+
+def render_partner_card(row):
+    until = stamp(row['expires_at']).isoformat()
+    return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-until="{h(until)}">
+<div class="shop"><span class="shop-logo" aria-hidden="true">🐾</span><div><strong>{h(row['merchant'])}</strong><small>Offerta partner · canale Awin</small></div></div>
+<div class="discount">{h(row['benefit'])}</div><h2>{h(row['title'])}</h2>
+<p class="description">{h(row['description'])}</p>
+<span class="status">Codice comunicato dal partner · non ancora provato nel carrello</span>
+<div class="card-tail"><div class="code-row"><code>{h(row['code'])}</code><button class="copy" data-code="{h(row['code'])}" aria-label="Copia il codice {h(row['code'])}">Copia codice</button></div>
+<a class="shop-button coupon-visit" href="{h(row['destination_url'], quote=True)}" target="_blank" rel="noopener noreferrer">Vai a Hygge Pet Food ↗</a>
+<details><summary>Condizioni e verifica</summary><p>{h(row['conditions'])}</p>
+<p>Codice ricevuto per il canale affiliati, ma non è documentata una prova nel carrello da Offerte a 4 Zampe. Controlla lo sconto prima di pagare.</p>
+<p><a href="{h(row['source_url'], quote=True)}" target="_blank" rel="noopener noreferrer">Sito ufficiale del negozio</a></p></details>
+<p class="footnote">Termine indicato: {h(row['expires_label'])}. Condizioni da ricontrollare al checkout.</p></div></article>'''
+
+
+
 def render_card(row):
     p = row['cart_test']
     money = lambda n: f'{n/100:.2f}'.replace('.', ',') + ' €'
@@ -51,8 +83,8 @@ def render_card(row):
 def build(now=None):
     now = now or dt.datetime.now(dt.timezone.utc)
     data = json.loads((ROOT/'automation/coupons.json').read_text())
-    rows = [r for r in data['coupons'] if eligible(r, now)]
-    cards = ''.join(render_card(r) for r in rows)
+    rows = [r for r in data['coupons'] if eligible(r, now) or partner_eligible(r, now)]
+    cards = ''.join(render_partner_card(r) if r['status'] == 'partner_provided' else render_card(r) for r in rows)
     shell = (ROOT/'automation/coupon-layout.html').read_text()
     body = shell.replace('<!-- COUPON_CARDS -->', cards)
     template = (ROOT/'site/chi-siamo.html').read_text()
