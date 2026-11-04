@@ -52,6 +52,11 @@ test('theme adds only a stylesheet and a safe internal-link banner', () => {
   assert.equal(nodes.find(n=>n.tag==='a').href,'/prodotti');
   assert.equal(new Set(nodes.filter(n=>n.tag==='link')).size,1);
   assert.equal(new Set(nodes.filter(n=>n.tag==='aside')).size,1);
+  const visual=nodes.find(n=>n.tag==='img');
+  assert.equal(visual.src,'/assets/christmas-hero.svg');
+  assert.equal(visual.alt,'');
+  assert.equal(nodes.some(n=>n.className==='o4z-season-proof'),true);
+
 });
 test('CSS scoped, responsive, reduced motion, no infinite animation',()=>{
   const css=readFileSync(new URL('../site/assets/seasonal-theme.css',import.meta.url),'utf8');
@@ -60,4 +65,23 @@ test('CSS scoped, responsive, reduced motion, no infinite animation',()=>{
   assert.match(css,/@media\(max-width:760px\)/);
   assert.match(css,/prefers-reduced-motion:reduce/);
   assert.doesNotMatch(css,/animation:\s*[^;]+infinite/);
+});
+
+test('season artwork includes valid inline SVG structure, no external media or JavaScript',()=>{
+  for(const filename of ['black-week-hero.svg','christmas-hero.svg']){
+    const content=readFileSync(new URL('../site/assets/'+filename,import.meta.url),'utf8');
+    assert.match(content,/<svg[^>]+xmlns="http:\/\/www.w3.org\/2000\/svg"/);
+    assert.match(content,/<title\b/);
+    assert.match(content,/<desc\b/);
+    assert.match(content,/<\/svg>\s*$/);
+    assert.doesNotMatch(content,/<script|<foreignObject|onload=|javascript:|<image\b/i);
+  }
+});
+test('prominent seasonal hero remains responsive and does not use endless motion',()=>{
+  const css=readFileSync(new URL('../site/assets/seasonal-theme.css',import.meta.url),'utf8');
+  assert.match(css,/o4z-season-visual img/);
+  assert.match(css,/o4z-season-copy strong/);
+  assert.match(css,/@media\(max-width:680px\)/);
+  assert.match(css,/prefers-reduced-motion:reduce/);
+  assert.doesNotMatch(css,/animation:[^;\n]*infinite/i);
 });
