@@ -102,3 +102,29 @@ jobs:
                   print(json.dumps({'asset':name,'result':'unavailable','kind':type(e).__name__}))
                   print('::warning::Seasonal asset verification unavailable')
           PY
+
+      - name: Verify Instagram Facebook Telegram links in published homepage
+        run: |
+          python - <<'PY'
+          import json,urllib.request,urllib.error
+          urls={
+            'instagram':'https://www.instagram.com/offerte4zampe/',
+            'facebook':'https://www.facebook.com/1459528943903012',
+            'telegram':'https://t.me/sconti4zampe'
+          }
+          request=urllib.request.Request('https://offerte4zampe.it/',headers={'User-Agent':'Offerte4Zampe-Public-Release-Check/1.0'})
+          try:
+            with urllib.request.urlopen(request,timeout=15) as response:
+              html=response.read(1000000).decode('utf-8','replace')
+            result={'social_home': 'class="social-follow-section"' in html,
+                    'social_header': 'class="header-socials"' in html,
+                    'social_mobile': 'class="mobile-socials"' in html,
+                    'social_footer': 'class="footer-socials"' in html,
+                    'profiles': {k:html.count('href="'+v+'"') for k,v in urls.items()}}
+            print(json.dumps(result))
+            if not all(result[k] for k in ('social_home','social_header','social_mobile','social_footer')) or not all(n>=4 for n in result['profiles'].values()):
+              print('::warning::Social links not fully visible in current public homepage.')
+          except Exception as e:
+            print(json.dumps({'check':'social_links','status':'unavailable','type':type(e).__name__}))
+            print('::warning::Public homepage is not readable from this runner.')
+          PY
