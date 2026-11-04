@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-04T13:12:05.210941+00:00",
+  "generated_at": "2026-11-04T15:36:15.014483+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 15,
-  "with_third_store_lead": 23,
+  "at_target": 16,
+  "with_third_store_lead": 22,
   "categories": {
     "snack": 58,
     "umido": 121,
@@ -21,7 +21,6 @@
     "animaliapet:46976536019287",
     "animaliapet:46976538116439",
     "animaliapet:46976539132247",
-    "animaliapet:46976541262167",
     "animaliapet:46976541589847",
     "animaliapet:46976541622615",
     "animaliapet:46976541720919",
@@ -351,7 +350,6 @@
     "bauzaar:58411835752773",
     "bauzaar:58411835818309",
     "bauzaar:58411836670277",
-    "bauzaar:58411837882693",
     "bauzaar:58411838308677",
     "bauzaar:58411838603589",
     "bauzaar:58411839029573",
@@ -469,7 +467,6 @@
     "paco:4110",
     "paco:4111",
     "paco:4134",
-    "paco:4241",
     "paco:4242",
     "paco:4245",
     "paco:4327",
@@ -597,27 +594,6 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411832181061"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-2a298d72f8265e590dc3",
-      "name": "Monge Sterilized Monoprotein Trota 1,5Kg Crocchette Gatti",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-sterilized-monoprotein-trota-1-5kg-crocchette-gatti-08009470005494-590dc3",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976541262167",
-        "bauzaar:58411837882693"
-      ],
-      "candidate_offer_ids": [
-        "paco:4241"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1117,6 +1093,26 @@
         "animaliapet:46976689471831",
         "bauzaar:58411856789829",
         "webpet:52916517437780"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-2a298d72f8265e590dc3",
+      "name": "Monge Sterilized Monoprotein Trota 1,5Kg Crocchette Gatti",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-sterilized-monoprotein-trota-1-5kg-crocchette-gatti-08009470005494-590dc3",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976541262167",
+        "paco:4241",
+        "bauzaar:58411837882693"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
