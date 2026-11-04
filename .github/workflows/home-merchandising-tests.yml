@@ -1,0 +1,32 @@
+name: Home merchandising regression
+on:
+  pull_request:
+    paths:
+      - 'automation/build_home_data.py'
+      - 'site/assets/home.js'
+      - 'tests/test_home_data.py'
+      - 'tests/test_home_merchandising.py'
+      - '.github/workflows/home-merchandising-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'automation/build_home_data.py'
+      - 'site/assets/home.js'
+      - 'tests/test_home_data.py'
+      - 'tests/test_home_merchandising.py'
+      - '.github/workflows/home-merchandising-tests.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test home selection and prerender
+        run: python -m unittest tests.test_home_data tests.test_home_merchandising
+      - name: Validate browser homepage JavaScript
+        run: node --check site/assets/home.js

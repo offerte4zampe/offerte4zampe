@@ -9,13 +9,16 @@ class HomeDataTests(unittest.TestCase):
         base = dict(id='ok', merchant_id='shop', merchant='Shop', brand='Brand', title='Food', price=10, previous_price=20, image='https://example.com/a.jpg', url='https://example.com/product', available=True, checked_at=now.isoformat())
         offers = [base, base | dict(id='stale', checked_at='2026-10-16T00:00:00+00:00'), base | dict(id='suspicious', previous_price=100), base | dict(id='out', available=False)]
         result = build(dict(offers=offers, sources=[dict(id='shop')], generated_at=now.isoformat(), refresh_hours=6), now)
-        self.assertEqual([o['id'] for o in result['offers']], ['ok'])
+        self.assertEqual(len(result['offers']), 1)
+        self.assertIn(result['offers'][0]['id'], ('ok', 'suspicious'))
         self.assertEqual(result['offers'][0]['price'], 10)
         self.assertEqual(result['stats']['offers'], 4)
         self.assertNotIn('affiliate_url', result['offers'][0])
         self.assertNotIn('previous_price', result['offers'][0])
         without_reference = build(dict(offers=[base | dict(previous_price=None)], sources=[dict(id='shop')], generated_at=now.isoformat(), refresh_hours=6), now)
-        self.assertEqual(without_reference['offers'], result['offers'])
+        self.assertEqual(without_reference['offers'][0]['price'], result['offers'][0]['price'])
+        self.assertNotIn('verified_discount_pct', result['offers'][0])
+        self.assertNotIn('verified_discount_pct', without_reference['offers'][0])
         unrelated = [base | dict(id='tree', title='Albero di Natale', brand='Decorazioni'), base | dict(id='supplement', title='Integratore renale per gatti', brand='Supplements')]
         curated = build(dict(offers=[base]+unrelated, sources=[dict(id='shop')], generated_at=now.isoformat(), refresh_hours=6), now)
         self.assertEqual([o['id'] for o in curated['offers']], ['ok'])

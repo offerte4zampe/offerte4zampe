@@ -1,5 +1,7 @@
 """Build a small home payload from the final catalog, without changing prices."""
 import collections
+import hashlib
+import math
 import datetime
 import gzip
 import json
@@ -17,7 +19,7 @@ except ImportError:
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
-def build(catalog, now=None):
+def build(catalog, now=None, history=None):
     now = now or datetime.datetime.now(datetime.timezone.utc)
     counts_by_store = collections.Counter(o.get('merchant_id') for o in catalog['offers'])
     catalog = {**catalog, 'sources': [{**s, 'offers': counts_by_store[s['id']]} for s in catalog['sources']]}
@@ -34,27 +36,65 @@ def build(catalog, now=None):
         label = title+' '+o.get('category', '')
         return bool(re.search(r'\b(cani|gatti|cane|gatto|dog|cat|crocchette|umido|food|tiragraffi|lettiera)\b', label, re.I)) and not re.search(r'integrator|veterinar|diabet|renal|medicat|diete vet|calmant|antiansia|antiparassitar|feromon|farmac', label, re.I)
     rows = [o for o in catalog['offers'] if str(o.get('url','')).startswith('https://') and o.get('available') and isinstance(o.get('price'), (int, float)) and o['price'] > 0 and home_topic(o)]
-    sales = sorted((o for o in rows if recent(o) and o.get('image')), key=lambda o: (o['title'].casefold(), o['id']))
-    selected = []
-    seen = set()
-    def add(o):
-        if o['id'] not in seen:
-            selected.append(o)
-            seen.add(o['id'])
-    for source in catalog.get('sources', []):
-        brands = set()
-        for o in sales:
-            if o['merchant_id'] == source['id'] and o.get('brand') not in brands:
-                add(o)
-                brands.add(o.get('brand'))
-                if len(brands) == 7:
-                    break
-    for o in rows:
-        if recent(o) and o.get('image') and o['price'] >= 15 and any(b in o.get('brand', '').lower() for b in ['royal canin', 'purina', 'trainer']):
-            add(o)
+    # Rank from observed price history, not merchant 'previous_price' metadata.
+    # Rotate the remaining fresh prices by UTC date to avoid an alphabetical homepage.
+    today = now.date()
+    sources = {s['id']: s for s in catalog.get('sources', [])}
+    def valid(o):
+        if not recent(o) or not o.get('image'):
+            return False
+        source = sources.get(o.get('merchant_id'), {})
+        if source.get('status', 'ok') != 'ok':
+            return False
+        if source.get('checked_at'):
+            try:
+                stamp = datetime.datetime.fromisoformat(source['checked_at'].replace('Z', '+00:00'))
+                if not 0 <= (now-stamp).total_seconds() <= 12*3600:
+                    return False
+            except (ValueError, TypeError):
+                return False
+        return True
+    def rotate(o):
+        return hashlib.sha256((today.isoformat() + ':' + o['id']).encode()).hexdigest()
+    history_rows = (history or {}).get('offers', {})
+    candidates = []
+    for original in rows:
+        if not valid(original):
+            continue
+        o = dict(original)
+        past = []
+        for entry in history_rows.get(o['id'], []):
+            try:
+                day = datetime.date.fromisoformat(entry['day'])
+                value = entry['last']
+                if 0 < (today-day).days <= 30 and type(value) in (float, int) and math.isfinite(value) and value > 0:
+                    past.append(value)
+            except (ValueError, TypeError, KeyError):
+                continue
+        # Same SKU, at least two previous dated observations, compared to the
+        # *lowest* older price. 5% minimum drop. No fabricated strike-through.
+        if len(past) >= 2:
+            baseline = min(past)
+            percent = (baseline-o['price']) * 100 / baseline
+            if percent >= 5:
+                o['verified_before_price'] = round(baseline, 2)
+                o['verified_discount_pct'] = round(percent, 1)
+        candidates.append(o)
+    candidates.sort(key=lambda o: (0 if 'verified_discount_pct' in o else 1,
+                                   -o.get('verified_discount_pct', 0), rotate(o)))
+    selected, brands, shops = [], set(), collections.Counter()
+    for o in candidates:
+        brand = str(o.get('brand') or o.get('title') or o['id']).casefold()
+        shop = o['merchant_id']
+        if brand in brands or shops[shop] >= 8:
+            continue
+        selected.append(o)
+        brands.add(brand)
+        shops[shop] += 1
+        if len(selected) >= 42:
             break
     counts = collections.Counter(o['brand'] for o in rows if o.get('brand'))
-    fields = ['id', 'title', 'merchant', 'merchant_id', 'brand', 'variant', 'price', 'weight_kg', 'image', 'image_local', 'url', 'affiliate_url', 'available', 'checked_at', 'canonical_title', 'canonical_format', 'canonical_shop_count', 'product_slug', 'product_url', 'unit_price', 'unit_price_unit']
+    fields = ['id', 'title', 'merchant', 'merchant_id', 'brand', 'variant', 'price', 'weight_kg', 'image', 'image_local', 'url', 'affiliate_url', 'available', 'checked_at', 'canonical_title', 'canonical_format', 'canonical_shop_count', 'product_slug', 'product_url', 'unit_price', 'unit_price_unit', 'verified_before_price', 'verified_discount_pct']
     return {k: catalog[k] for k in ['generated_at', 'refresh_hours', 'sources']} | {
         'stats': {'offers': len(catalog['offers']), 'brands': len({o.get('brand') for o in catalog['offers'] if o.get('brand')})},
         'top_brands': [brand for brand, count in counts.most_common(10)],
@@ -144,7 +184,9 @@ def main():
     picks_path = ROOT/'site/data/telegram-picks.json'
     picks_path.write_text(json.dumps(telegram_picks(data), ensure_ascii=False, separators=(',', ':')) + '\n')
     print(f'Telegram picks: {picks_path.stat().st_size} bytes')
-    payload = build(data)
+    history_path = ROOT/'site/data/price-history.json.gz'
+    history = json.loads(gzip.decompress(history_path.read_bytes())) if history_path.exists() else {}
+    payload = build(data, history=history)
     path.write_text(json.dumps(payload, ensure_ascii=False, separators=(',', ':')) + '\n')
     home = ROOT/'site/index.html'
     home.write_text(render_home(home.read_text(), payload))
@@ -155,20 +197,29 @@ def main():
 def pick(payload):
     """Same source diversity and distinct-brand order for HTML and hydration."""
     sales = payload['offers']
+    deals = [o for o in sales if 'verified_discount_pct' in o]
     picked, brands = [], set()
+    for o in deals:
+        if len(picked) >= 6:
+            break
+        if o.get('brand') not in brands:
+            picked.append(o)
+            brands.add(o.get('brand'))
     for source in payload['sources']:
-        found = next((o for o in sales if o['merchant_id'] == source['id'] and o['brand'] not in brands), None)
+        if len(picked) >= 6:
+            break
+        found = next((o for o in sales if o['merchant_id'] == source['id'] and o.get('brand') not in brands), None)
         if found:
             picked.append(found)
-            brands.add(found['brand'])
+            brands.add(found.get('brand'))
     for o in sales:
         if len(picked) >= 6:
             break
-        if o['brand'] not in brands:
+        if o.get('brand') not in brands:
             picked.append(o)
-            brands.add(o['brand'])
-    hero = next((o for o in payload['offers'] if o['price'] >= 15 and any(b in o['brand'].lower() for b in ['royal canin', 'purina', 'trainer'])), None)
-    return picked, hero or (picked[0] if picked else None)
+            brands.add(o.get('brand'))
+    hero = deals[0] if deals else (picked[0] if picked else None)
+    return picked, hero
 
 
 def replace_region(html, element_id, content):
@@ -211,12 +262,13 @@ def render_home(html, payload):
         cta = 'Vedi offerta →' if o.get('canonical_shop_count', 2) < 2 else 'Confronta nei negozi →'
         if o.get('unit_price') and o.get('unit_price_unit'):
             unit = '<p class="micro">'+money(o['unit_price'])+'/'+h(o['unit_price_unit'])+'</p>'
-        return f'''<article class="{'spotlight-product' if spotlight else 'home-deal'}" data-home-offer="{h(o['checked_at'],quote=True)}">{img}<p class="micro">{h(o['merchant'])} · {h(o['brand'])}</p><{tag}><a class="product-title-link" href="{h(product_url(o),quote=True)}">{h(title)}</a></{tag}><p class="micro">{h(o.get('variant') or '')}</p><p class="catalog-price"><strong>{money(o['price'])}</strong></p>{unit}<p class="micro">Rilevato: <time datetime="{h(o['checked_at'],quote=True)}">{h(o['checked_at'][:16].replace('T',' '))} UTC</time></p><a class="btn secondary" href="{h(product_url(o),quote=True)}">{cta}</a>{error_link(o)}</article>'''
+        discount = ('<p class="micro"><strong>Ribasso verificato −'+h(str(o['verified_discount_pct']).replace('.', ','))+'%</strong> · prezzo precedente osservato '+money(o['verified_before_price'])+'</p>') if 'verified_discount_pct' in o else '<p class="micro">Prezzo rilevato, sconto non verificato</p>'
+        return f'''<article class="{'spotlight-product' if spotlight else 'home-deal'}" data-home-offer="{h(o['checked_at'],quote=True)}">{img}<p class="micro">{h(o['merchant'])} · {h(o['brand'])}</p><{tag}><a class="product-title-link" href="{h(product_url(o),quote=True)}">{h(title)}</a></{tag}><p class="micro">{h(o.get('variant') or '')}</p><p class="catalog-price"><strong>{money(o['price'])}</strong></p>{discount}{unit}<p class="micro">Rilevato: <time datetime="{h(o['checked_at'],quote=True)}">{h(o['checked_at'][:16].replace('T',' '))} UTC</time></p><a class="btn secondary" href="{h(product_url(o),quote=True)}">{cta}</a>{error_link(o)}</article>'''
     deals, hero = pick(payload)
     parts = {
         'home-deals': ''.join(card(o) for o in deals),
         'home-spotlight': '<h2 class="sr-only">Offerta in evidenza</h2>'+card(hero, True) if hero else link('Esplora il catalogo →'),
-        'home-deals-status': 'Catalogo aggiornato il '+h(payload['generated_at'][:16].replace('T',' '))+' UTC. Prezzi rilevati, non in tempo reale. Selezione delle fonti disponibili, non una classifica dell’intero mercato.',
+        'home-deals-status': 'Catalogo aggiornato il '+h(payload['generated_at'][:16].replace('T',' '))+' UTC. '+str(sum('verified_discount_pct' in o for o in deals))+' ribassi verificati nella selezione; gli altri sono prezzi correnti, non sconti dichiarati. Confronto con osservazioni storiche della stessa offerta, spedizione esclusa.',
         'home-stats': ''.join('<span>'+h(s)+'</span>' for s in [f"{payload['stats']['offers']:,}".replace(',', '.')+' offerte importate', str(payload['stats']['brands'])+' marche', str(sum(s.get('offers',0)>0 for s in payload['sources']))+' negozi', 'Verifiche programmate ogni '+str(payload['refresh_hours'])+' ore']),
         'home-brands': ''.join(link(brand, brand=brand) for brand in payload['top_brands']),
         'home-shops': ''.join(link(s['name']+' · '+str(s['offers'])+' offerte →', shop=s['name']) for s in payload['sources'] if s.get('offers',0)>0),
