@@ -38,6 +38,7 @@ const verified=picked.filter(o=>Number.isFinite(o.verified_discount_pct)&&o.veri
 const compared=picked.filter(o=>!Number.isFinite(o.verified_discount_pct)&&Number.isFinite(o.comparison_savings_pct)&&o.comparison_savings_pct>=5).length;
 $('home-deals-status').textContent='Catalogo aggiornato: '+O4ZTrade.formatTimestamp(d.generated_at)+'. '+verified+' ribassi storici verificati, '+compared+' risparmi tra negozi verificati. In questa sezione non pubblichiamo prezzi senza prova di risparmio. Spedizione esclusa.';
 const hero=picked[0];
+if($('daily-pick-label'))$('daily-pick-label').textContent=hero?'OFFERTA DEL GIORNO':'NESSUNA OFFERTA VERIFICATA OGGI';
 if(hero)$('home-spotlight').replaceChildren(el('h2','Risparmio verificato in evidenza','sr-only'),card(hero,true));
 else $('home-spotlight').replaceChildren(el('p','Nessun risparmio verificato al momento. Esplora il comparatore per i prezzi rilevati.','micro'),link('Esplora il catalogo →',{},'btn secondary'));
 
