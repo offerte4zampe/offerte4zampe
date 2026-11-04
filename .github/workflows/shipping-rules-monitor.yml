@@ -1,0 +1,39 @@
+name: Shipping evidence read-only monitor
+on:
+  schedule:
+    - cron: '25 7 * * *'
+  workflow_dispatch:
+    inputs:
+      fail_on_expired:
+        description: 'Fail this monitor on expired, invalid or missing rules (no rule renewal)'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: shipping-rules-monitor
+  cancel-in-progress: false
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Observe six merchant policies with a 14-day warning window
+        env:
+          FAIL_ON_EXPIRED: ${{ inputs.fail_on_expired || false }}
+        run: |
+          args=()
+          if [ "$FAIL_ON_EXPIRED" = 'true' ]; then args+=(--fail-on-expired); fi
+          python automation/monitor_shipping_rules.py --annotations --output reports/shipping-evidence.json "${args[@]}"
+      - name: Preserve observation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shipping-evidence-${{ github.run_id }}
+          path: reports/shipping-evidence.json
+          if-no-files-found: warn
+          retention-days: 30

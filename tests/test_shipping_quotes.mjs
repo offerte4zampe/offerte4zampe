@@ -1,0 +1,36 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import trade from '../site/assets/trade.js';
+import {view,content} from '../worker/canonical-product.mjs';
+const now=Date.parse('2026-11-04T16:52:00Z'),rules=JSON.parse(fs.readFileSync(new URL('../site/data/shipping-rules.json',import.meta.url),'utf8'));
+const offer={id:'test',merchant_id:'bauzaar',merchant:'Bauzaar',price:62.89,checked_at:'2026-11-04T15:35:00Z',quantity:{verified:true},shipping_weight_kg:14.5,available:true,url:'https://www.bauzaar.it/products/test'};
+const check=test;
+function fresh(rule={}){return {merchants:{bauzaar:{fee:6.9,free_above:59,boundary_unknown:59,max_shipping_weight_kg:35,checked_at:'2026-11-04T10:00Z',verified_until:'2026-11-11T10:00Z',...rule}}}}
+check('all five production JSON rules expire and remain unknown',()=>{for(const merchant_id of Object.keys(rules.merchants)){for(const api of [trade]){const q=api.shipping({...offer,merchant_id},rules,1,'standard',now);assert.equal(q.total,undefined);assert.match(q.reason,/ricontrollare/)}}});
+check('expired rules are not reactivated by proposal',()=>assert.equal(trade.shipping(offer,rules,1,'standard',now).fee,undefined));
+check('expired exactly at deadline',()=>assert.equal(trade.shipping(offer,fresh({verified_until:new Date(now).toISOString()}),1,'standard',now).total,undefined));
+check('verified free shipping is a legitimate zero',()=>{const q=trade.shipping(offer,fresh(),1,'standard',now);assert.equal(q.status,'exact');assert.equal(q.fee,0);assert.equal(q.total,62.89)});
+check('below threshold adds fee',()=>assert.equal(trade.shipping({...offer,price:20},fresh(),1,'standard',now).total,26.9));
+check('threshold equality remains unknown',()=>assert.equal(trade.shipping({...offer,price:59},fresh(),1,'standard',now).total,undefined));
+check('quantity changes weight and prevents false free shipping',()=>assert.equal(trade.shipping(offer,fresh(),3,'standard',now).total,undefined));
+check('missing shipping weight blocks weight-dependent quote',()=>assert.equal(trade.shipping({...offer,shipping_weight_kg:undefined},fresh(),1,'standard',now).total,undefined));
+check('special destination stays unknown with visible explanation',()=>{const q=trade.shipping(offer,fresh(),1,'special',now);assert.equal(q.total,undefined);assert.match(q.destination,/particolari/);assert.match(q.reason,/Località/)});
+check('canonical nested unverified quantity excluded',()=>{assert.equal(trade.shipping({...offer,quantity:{verified:false}},fresh(),1,'standard',now).total,undefined)});
+check('unknown rule never zero',()=>{const q=trade.shipping(offer,{merchants:{}},1,'standard',now);assert.equal(q.fee,undefined);assert.equal(q.total,undefined)});
+check('invalid price never yields NaN or zero total',()=>{for(const price of [null,undefined,NaN,Infinity,-1,0,'20']){const q=trade.shipping({...offer,price},fresh(),1,'standard',now);assert.equal(q.total,undefined);assert.equal(q.fee,undefined)}});
+check('future offer rejected',()=>assert.equal(trade.shipping({...offer,checked_at:'2026-11-05T00:00Z'},fresh(),1,'standard',now).total,undefined));
+check('conflicting rule never yields estimate',()=>assert.equal(trade.shipping(offer,fresh({conflict:true}),1,'standard',now).total,undefined));
+check('missing tariff never yields NaN total',()=>assert.equal(trade.shipping({...offer,price:20},fresh({fee:undefined}),1,'standard',now).total,undefined));
+const product={name:'Example',slug:'example',brand:'Example',format:'14kg',offers:[offer],history:[]};
+check('SSR reason, destination, verified date and source appear',()=>{const r=fresh({source:'https://www.bauzaar.it/pages/tempi-di-evasione',verified_until:'2026-11-04T00:00Z'});const html=content(product,view(product,r,now)).body;for(const term of ['Condizioni da ricontrollare','Italia standard: esclusi CAP disagiati','Condizioni verificate il','Condizioni del negozio','Non calcolabile'])assert.ok(html.includes(term),term)});
+check('SSR malicious reason and source escaped/rejected',()=>{const state=view(product,fresh(),now);state.quotes.set('test',{destination:'<img src=x onerror=1>',reason:'<script>alert(1)</script>',rule:{source:'javascript:alert(1)'}});const html=content(product,state).body;assert.ok(html.includes('&lt;script&gt;'));assert.ok(!html.includes('href="javascript:'));assert.ok(!html.includes('<img src=x'))});
+function bounded(quote_bounds,extra={}){return fresh({status:'verified',source:'https://example.com/shipping',free_above:undefined,free_from:undefined,boundary_unknown:undefined,quote_bounds,...extra})}
+const range={kind:'range',territory:'standard',quantity:1,fee_min:3,fee_max:7};
+check('current documented bounds yield range without exact total',()=>{const q=trade.shipping(offer,bounded(range),1,'standard',now);assert.equal(q.status,'range');assert.equal(q.total_min,65.89);assert.equal(q.total_max,69.89);assert.equal(q.total,undefined);assert.equal(q.fee,undefined)});
+check('current documented minimum yields from without fabricated maximum',()=>{const q=trade.shipping(offer,bounded({...range,kind:'from',fee_max:undefined}),1,'standard',now);assert.equal(q.status,'from');assert.equal(q.total_min,65.89);assert.equal(q.total_max,undefined);assert.equal(q.total,undefined)});
+check('bounds do not bypass expiry or conflict',()=>{for(const extra of [{verified_until:'2026-11-04T00:00Z'},{conflict:true},{status:'uncertain'}])assert.equal(trade.shipping(offer,bounded(range,extra),1,'standard',now).total_min,undefined)});
+check('bounds restricted to documented quantity and destination',()=>{for(const [qty,dest] of [[2,'standard'],[1,'special']])assert.equal(trade.shipping(offer,bounded(range),qty,dest,now).total_min,undefined)});
+check('bounds require explicit verified status source and valid numeric limits',()=>{for(const r of [bounded(range,{status:undefined}),bounded(range,{source:undefined}),bounded(range,{verified_until:undefined}),bounded(range,{checked_at:undefined}),bounded({...range,fee_max:2}),bounded({...range,fee_min:1e308,fee_max:1e308}),bounded({...range,kind:'estimated'})])assert.equal(trade.shipping(offer,r,1,'standard',now).total_min,undefined)});
+check('range renderer displays interval and never awards best exact badge',()=>{const state=view(product,bounded(range),now);assert.equal(state.best,null);const html=content(product,state).body;assert.ok(html.includes('65,89'));assert.ok(html.includes('69,89'));assert.ok(!html.includes('Totale più basso verificabile'))});
+check('from renderer labels minimum and does not award badge',()=>{const html=content(product,view(product,bounded({...range,kind:'from',fee_max:undefined}),now)).body;assert.ok(html.includes('Da 65,89'));assert.ok(!html.includes('Totale più basso verificabile'))});

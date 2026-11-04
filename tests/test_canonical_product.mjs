@@ -62,3 +62,22 @@ test('indexable product uses verified local image in Open Graph metadata',async(
  const single={...p,offers:[a]};const noindex=await (await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug),env(single),now)).text();
  assert(!noindex.includes('property="og:type" content="product"'));
 });
+
+test('preview recalculation remains on its origin while canonical metadata points to production',async()=>{
+ const origin='https://preview.example.workers.dev',path='/prodotto/'+product.slug;
+ const metaTemplate=template.replace('</head>','<meta property="og:url" content="old"></head>');
+ const e=env(),fetch=e.ASSETS.fetch;
+ e.ASSETS.fetch=async request=>new URL(request.url).pathname==='/prodotto'?new Response(metaTemplate):fetch(request);
+ const request=new Request(origin+path),html=await(await canonicalProduct(request,e,now)).text();
+ const form=html.match(/<form\b[^>]*class="panel canonical-controls"[^>]*>/)?.[0];
+ assert(form);assert.match(form,/method="get"/);
+ const action=form.match(/action="([^"]+)"/)?.[1];assert.equal(action,path);
+ const submission=new URL(action,request.url);submission.search=new URLSearchParams({quantity:'2',territory:'special'});
+ assert.equal(submission.origin,origin);assert.equal(submission.pathname,path);
+ const response=await canonicalProduct(new Request(submission),e,now),recalculated=await response.text();
+ assert.equal(response.status,200);assert.match(recalculated,/<option value="2" selected>/);
+ assert.match(recalculated,/<option value="special" selected>/);
+ const production='https://offerte4zampe.it'+path;
+ assert(html.includes('<link rel="canonical" href="'+production+'">'));
+ assert(html.includes('<meta property="og:url" content="'+production+'">'));
+});
