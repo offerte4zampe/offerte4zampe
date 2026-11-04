@@ -223,30 +223,18 @@ def main():
 
 def pick(payload):
     """Same source diversity and distinct-brand order for HTML and hydration."""
-    sales = payload['offers']
-    deals = [o for o in sales if 'verified_discount_pct' in o or 'comparison_savings_pct' in o]
+    # This is the *offers* section: a plain current price is not an offer.
+    sales = [o for o in payload['offers'] if
+             'verified_discount_pct' in o or 'comparison_savings_pct' in o]
     picked, brands = [], set()
-    for o in deals:
-        if len(picked) >= 6:
-            break
-        if o.get('brand') not in brands:
-            picked.append(o)
-            brands.add(o.get('brand'))
-    for source in payload['sources']:
-        if len(picked) >= 6:
-            break
-        found = next((o for o in sales if o['merchant_id'] == source['id'] and o.get('brand') not in brands), None)
-        if found:
-            picked.append(found)
-            brands.add(found.get('brand'))
     for o in sales:
         if len(picked) >= 6:
             break
-        if o.get('brand') not in brands:
+        brand = o.get('brand')
+        if brand not in brands:
             picked.append(o)
-            brands.add(o.get('brand'))
-    hero = deals[0] if deals else (picked[0] if picked else None)
-    return picked, hero
+            brands.add(brand)
+    return picked, (picked[0] if picked else None)
 
 
 def replace_region(html, element_id, content):
@@ -305,9 +293,9 @@ def render_home(html, payload):
         return f'''<article class="{'spotlight-product' if spotlight else 'home-deal'}{' has-price-proof' if ('verified_discount_pct' in o or 'comparison_savings_pct' in o) else ''}" data-home-offer="{h(o['checked_at'],quote=True)}">{img}<p class="micro">{h(o['merchant'])} · {h(o['brand'])}</p><{tag}><a class="product-title-link" href="{h(product_url(o),quote=True)}">{h(title)}</a></{tag}><p class="micro">{h(o.get('variant') or '')}</p><p class="catalog-price"><span class="price-now-label">Qui</span><strong>{money(o['price'])}</strong></p>{evidence}{unit}<p class="micro">Rilevato: <time datetime="{h(o['checked_at'],quote=True)}">{h(o['checked_at'][:16].replace('T',' '))} UTC</time></p><a class="btn secondary" href="{h(product_url(o),quote=True)}">{cta}</a>{error_link(o)}</article>'''
     deals, hero = pick(payload)
     parts = {
-        'home-deals': ''.join(card(o) for o in deals),
-        'home-spotlight': '<h2 class="sr-only">Offerta in evidenza</h2>'+card(hero, True) if hero else link('Esplora il catalogo →'),
-        'home-deals-status': 'Catalogo aggiornato il '+h(payload['generated_at'][:16].replace('T',' '))+' UTC. '+str(sum('verified_discount_pct' in o for o in deals))+' ribassi storici verificati, '+str(sum('comparison_savings_pct' in o and 'verified_discount_pct' not in o for o in deals))+' risparmi tra negozi verificati nella selezione. Gli altri sono prezzi correnti. Spedizione esclusa.',
+        'home-deals': ''.join(card(o) for o in deals) if deals else '<p class="home-no-proof">Oggi non risultano ribassi o risparmi tra negozi sufficientemente verificati. <a href="/confronta-cibo">Confronta comunque i prezzi aggiornati →</a></p>',
+        'home-spotlight': '<h2 class="sr-only">Risparmio verificato in evidenza</h2>'+card(hero, True) if hero else '<p class="micro">Nessun risparmio verificato al momento. <a href="/confronta-cibo">Esplora i prezzi rilevati →</a></p>',
+        'home-deals-status': 'Catalogo aggiornato il '+h(payload['generated_at'][:16].replace('T',' '))+' UTC. '+str(sum('verified_discount_pct' in o for o in deals))+' ribassi storici verificati, '+str(sum('comparison_savings_pct' in o and 'verified_discount_pct' not in o for o in deals))+' risparmi tra negozi verificati nella selezione. In questa sezione non pubblichiamo prezzi senza prova di risparmio. Spedizione esclusa.',
         'home-stats': ''.join('<span>'+h(s)+'</span>' for s in [f"{payload['stats']['offers']:,}".replace(',', '.')+' offerte importate', str(payload['stats']['brands'])+' marche', str(sum(s.get('offers',0)>0 for s in payload['sources']))+' negozi', 'Verifiche programmate ogni '+str(payload['refresh_hours'])+' ore']),
         'home-brands': ''.join(link(brand, brand=brand) for brand in payload['top_brands']),
         'home-shops': ''.join(link(s['name']+' · '+str(s['offers'])+' offerte →', shop=s['name']) for s in payload['sources'] if s.get('offers',0)>0),
