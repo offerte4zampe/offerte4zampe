@@ -1,0 +1,46 @@
+/* Holiday 2026 skin: visual only. Offer verification and prices are unchanged. */
+:root[data-o4z-season="blackfriday"] {
+  --o4z-season-bg:#121619;--o4z-season-text:#fff9eb;
+  --o4z-season-accent:#e8c15a;--o4z-season-soft:#22292c;
+}
+:root[data-o4z-season="natale"] {
+  --o4z-season-bg:#174b3c;--o4z-season-text:#fffaf1;
+  --o4z-season-accent:#f9d894;--o4z-season-soft:#235b49;
+}
+.o4z-season-ribbon{position:relative;isolation:isolate;overflow:hidden;background:var(--o4z-season-bg);color:var(--o4z-season-text);border-bottom:4px solid var(--o4z-season-accent)}
+.o4z-season-ribbon:before,.o4z-season-ribbon:after{position:absolute;pointer-events:none;font-size:80px;line-height:1;opacity:.13;z-index:-1}
+:root[data-o4z-season="blackfriday"] .o4z-season-ribbon:before{content:"✦";left:3%;top:-15px;color:var(--o4z-season-accent)}
+:root[data-o4z-season="blackfriday"] .o4z-season-ribbon:after{content:"✦";right:8%;bottom:-40px;color:var(--o4z-season-accent)}
+:root[data-o4z-season="natale"] .o4z-season-ribbon:before{content:"❄";left:4%;top:-28px;color:#fff}
+:root[data-o4z-season="natale"] .o4z-season-ribbon:after{content:"✳";right:5%;bottom:-36px;color:var(--o4z-season-accent)}
+.o4z-season-ribbon-inner{max-width:1160px;margin:auto;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.o4z-season-copy{display:flex;flex-direction:column;gap:3px;max-width:790px;min-width:0}
+.o4z-season-kicker{color:var(--o4z-season-accent);font-size:12px;font-weight:900;letter-spacing:.13em;line-height:1.4}
+.o4z-season-copy strong{font-weight:900;letter-spacing:-.025em;font-size:clamp(20px,2.6vw,31px);line-height:1.15}
+.o4z-season-explain{color:var(--o4z-season-text);opacity:.86;font-size:13px;line-height:1.45}
+.o4z-season-link{display:inline-flex;align-items:center;justify-content:center;min-width:188px;max-width:100%;min-height:48px;border-radius:11px;background:var(--o4z-season-accent);color:#1c2925;text-align:center;padding:12px 16px;font-size:14px;font-weight:850;text-decoration:none;box-shadow:0 5px 0 #0004}
+.o4z-season-link:hover,.o4z-season-link:focus-visible{color:#14241f;text-decoration:underline;outline:2px solid #fff;outline-offset:2px}
+:root[data-o4z-season="blackfriday"] .shopping-hero{background:radial-gradient(circle at 90% 25%,#f6dfa8,transparent 39%),linear-gradient(145deg,#fffdf5 10%,#f8f0de 100%);border-bottom-color:#ddc685}
+:root[data-o4z-season="blackfriday"] .shopping-hero .eyebrow{background:#1b2325;color:#fff0ad}
+:root[data-o4z-season="blackfriday"] .daily-pick{background:linear-gradient(120deg,#292c2f,#161d21);border-color:#b69a53}
+:root[data-o4z-season="blackfriday"] .daily-pick .home-spotlight{border-color:#d8ae46;box-shadow:0 12px 38px #030d1166;background:#fffdf7}
+:root[data-o4z-season="blackfriday"] .daily-pick #daily-pick-label{background:#212527;color:#ffeaa2}
+:root[data-o4z-season="blackfriday"] .daily-pick .savings-badge{box-shadow:0 0 0 3px #eac96188}
+:root[data-o4z-season="blackfriday"] .shopping-categories a:hover{border-color:#b89a44}
+:root[data-o4z-season="natale"] .shopping-hero{background:radial-gradient(circle at 88% 25%,#fff0cd,transparent 42%),linear-gradient(145deg,#f6fff5,#fff8ed);border-bottom-color:#cbdcc8}
+:root[data-o4z-season="natale"] .shopping-hero .eyebrow{background:#dceee0;color:#24593e}
+:root[data-o4z-season="natale"] .daily-pick{background:linear-gradient(120deg,#2b624d,#153e33);border-color:#a5cbb0}
+:root[data-o4z-season="natale"] .daily-pick .home-spotlight{border-color:#d7ad6b;background:#fffefa;box-shadow:0 12px 38px #0a342960}
+:root[data-o4z-season="natale"] .daily-pick #daily-pick-label{background:#b93d35;color:white}
+:root[data-o4z-season="natale"] .daily-pick .savings-badge{box-shadow:0 0 0 3px #d5a44855}
+:root[data-o4z-season="natale"] .brandlogo{box-shadow:0 0 0 3px #c8a56c55}
+:root[data-o4z-season="natale"] .shopping-categories a:hover{border-color:#a95a47}
+@media(max-width:760px){
+  .o4z-season-ribbon-inner{padding:16px 20px;align-items:stretch;flex-direction:column;gap:13px}
+  .o4z-season-copy strong{font-size:clamp(21px,5vw,28px)}
+  .o4z-season-link{width:100%;max-width:none;min-height:46px}
+  .o4z-season-ribbon:before,.o4z-season-ribbon:after{font-size:62px}
+}
+@media(prefers-reduced-motion:reduce){
+  .o4z-season-ribbon *{scroll-behavior:auto;animation:none!important;transition:none!important}
+}
