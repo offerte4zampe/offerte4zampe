@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {canonicalProduct,view,content,slugForOffer,historySummary} from '../worker/canonical-product.mjs';
+import {canonicalProduct,view,content,slugForOffer,historySummary,displayFormat} from '../worker/canonical-product.mjs';
 import worker from '../worker/index.mjs';
 const now=Date.parse('2026-10-28T12:00:00Z');
 const a={id:'a:1',merchant_id:'a',merchant:'Shop A',title:'Brand Adult 2 kg',price:20,available:true,gtin:'4006381333931',weight_kg:2,shipping_weight_kg:2,checked_at:'2026-10-28T11:00:00Z',url:'https://shop.test/a',quantity:{verified:true},unit_price:10,unit_price_unit:'kg'};
@@ -80,4 +80,17 @@ test('preview recalculation remains on its origin while canonical metadata point
  const production='https://offerte4zampe.it'+path;
  assert(html.includes('<link rel="canonical" href="'+production+'">'));
  assert(html.includes('<meta property="og:url" content="'+production+'">'));
+});
+
+test('explicit verified liters are displayed alongside kg without changing canonical format',()=>{
+ const quantity={verified:true,kind:'mass',volume_ml:7000,volume_source:'title'};
+ const offer={...a,quantity,unit_prices:{kg:10,l:2.857143}};
+ const p={...product,format:'3 kg',quantity,offers:[offer]};
+ assert.equal(displayFormat(p),'7 l / 3 kg');assert.equal(p.format,'3 kg');
+ const html=content(p,view(p,rules,now)).body;assert(html.includes('2,86 €/l'));assert(html.includes('7 l / 3 kg'));
+ for(const q of [{...quantity,verified:false},{...quantity,volume_source:null},{...quantity,volume_ml:null},{...quantity,volume_ml:NaN}]){
+  const changed={...p,quantity:q,offers:[{...offer,quantity:q}]};
+  assert.equal(displayFormat(changed),'3 kg');assert(!content(changed,view(changed,rules,now)).body.includes('€/l'));
+ }
+ const missingPrice={...p,offers:[{...offer,unit_prices:{kg:10}}]};assert(!content(missingPrice,view(missingPrice,rules,now)).body.includes('€/l'));
 });
