@@ -61,7 +61,8 @@ class MerchandisingTests(unittest.TestCase):
         template='<main id="main">'+''.join('<div id="'+n+'"></div>' for n in
           ('home-stats','home-spotlight','home-deals-status','home-deals','home-brands','home-shops'))+'</main>'
         html=render_home(template,payload)
-        self.assertIn('nessuno sconto verificato',html)
+        self.assertIn('Oggi non risultano ribassi',html)
+        self.assertNotIn('<article class="home-deal"',html)
         self.assertNotIn('Ribasso verificato',html)
         history={'offers':{a['id']:[dict(day='2026-11-01',last=30),dict(day='2026-11-02',last=30)]}}
         html=render_home(template,build(catalog([a]),NOW,history))
