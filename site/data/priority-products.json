@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T01:10:52.158214+00:00",
+  "generated_at": "2026-11-04T07:23:15.790478+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,10 +7,10 @@
   "at_target": 16,
   "with_third_store_lead": 22,
   "categories": {
-    "snack": 60,
-    "umido": 118,
+    "snack": 58,
+    "umido": 122,
     "crocchette": 111,
-    "lettiere": 11
+    "lettiere": 9
   },
   "priority_offer_ids": [
     "animaliapet:46976533594455",
@@ -73,6 +73,8 @@
     "animaliapet:46976689078615",
     "animaliapet:46976689242455",
     "animaliapet:46976690815319",
+    "animaliapet:46976691372375",
+    "animaliapet:46976692715863",
     "animaliapet:46976693371223",
     "animaliapet:46976693961047",
     "animaliapet:46976694223191",
@@ -127,6 +129,7 @@
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
     "bauzaar:56818788696389",
+    "bauzaar:56819012305221",
     "bauzaar:56819013517637",
     "bauzaar:56819013976389",
     "bauzaar:56819015516485",
@@ -134,7 +137,6 @@
     "bauzaar:56819017154885",
     "bauzaar:56819017875781",
     "bauzaar:56819033702725",
-    "bauzaar:56819875840325",
     "bauzaar:56819879543109",
     "bauzaar:56819879641413",
     "bauzaar:56820022509893",
@@ -182,6 +184,7 @@
     "bauzaar:56820215316805",
     "bauzaar:56820221411653",
     "bauzaar:56820245233989",
+    "bauzaar:56820254966085",
     "bauzaar:56820255097157",
     "bauzaar:56820266139973",
     "bauzaar:56820266664261",
@@ -222,7 +225,6 @@
     "bauzaar:56961102545221",
     "bauzaar:56961104281925",
     "bauzaar:56961120698693",
-    "bauzaar:56961120796997",
     "bauzaar:56961120862533",
     "bauzaar:56961120993605",
     "bauzaar:56961143537989",
@@ -263,7 +265,6 @@
     "bauzaar:56961736835397",
     "bauzaar:56961740472645",
     "bauzaar:56961759183173",
-    "bauzaar:56961770094917",
     "bauzaar:56961800503621",
     "bauzaar:56961821180229",
     "bauzaar:56961825374533",
@@ -335,6 +336,7 @@
     "bauzaar:58245820023109",
     "bauzaar:58245822742853",
     "bauzaar:58411825004869",
+    "bauzaar:58411827593541",
     "bauzaar:58411829920069",
     "bauzaar:58411830051141",
     "bauzaar:58411831918917",
@@ -345,6 +347,7 @@
     "bauzaar:58411832901957",
     "bauzaar:58411833819461",
     "bauzaar:58411834179909",
+    "bauzaar:58411835752773",
     "bauzaar:58411835818309",
     "bauzaar:58411836670277",
     "bauzaar:58411838308677",
@@ -397,7 +400,6 @@
     "isola-dei-tesori:000138587",
     "isola-dei-tesori:000138588",
     "isola-dei-tesori:000138589",
-    "isola-dei-tesori:000138590",
     "isola-dei-tesori:000138591",
     "isola-dei-tesori:000138592",
     "isola-dei-tesori:000138596",
@@ -425,11 +427,9 @@
     "isola-dei-tesori:000150282",
     "isola-dei-tesori:000150283",
     "isola-dei-tesori:000181362",
-    "isola-dei-tesori:000181482",
     "isola-dei-tesori:000464002",
     "isola-dei-tesori:000503053",
     "isola-dei-tesori:000503057",
-    "isola-dei-tesori:000503059",
     "isola-dei-tesori:000503389",
     "isola-dei-tesori:000503447",
     "isola-dei-tesori:000503537",
@@ -449,6 +449,7 @@
     "paco:2028",
     "paco:2038",
     "paco:2119",
+    "paco:2253",
     "paco:2664",
     "paco:3065",
     "paco:3068",
@@ -513,6 +514,7 @@
     "paco:5801",
     "paco:5802",
     "paco:5885",
+    "paco:5900",
     "paco:5943",
     "paco:5953",
     "paco:5955",
@@ -3674,25 +3676,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-bdd092db897349d657d6",
-      "name": "Petup WhiteLine Lettiera Silicio 6,5 kg",
-      "brand": "Petup",
-      "category": "lettiere",
-      "species": "gatto",
-      "format": "6,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/lettiera-igienica-in-granuli-di-silicio-white-line-petup-7-5-lt-6-5-kg-6-5kg-08056098400859-d657d6",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "isola-dei-tesori:000503059",
-        "bauzaar:56819875840325"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-0d66130ae7ce424eed57",
       "name": "Prolife Veterinary Formula Hypoallergenic 85 g",
       "brand": "Prolife",
@@ -4523,46 +4506,6 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411850498373"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-0df7a6081059c1d96c1a",
-      "name": "Amico Veg Dog Snack con Riso Soffiato Mini 9 pz 48 g",
-      "brand": "Amico Veg",
-      "category": "snack",
-      "species": "cane",
-      "format": "9 pezzi",
-      "url": "https://offerte4zampe.it/prodotto/amico-veg-dog-snack-con-riso-soffiato-mini-9-pz-48-g-08052745706664-d96c1a",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "isola-dei-tesori:000138590"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56961120796997"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-1b129bdb84372b109902",
-      "name": "Amico Veg Specialist snack al gusto Riso Mini 48 g",
-      "brand": "Amico Veg",
-      "category": "snack",
-      "species": "cane",
-      "format": "48 g",
-      "url": "https://offerte4zampe.it/prodotto/amico-veg-specialist-snack-al-gusto-riso-mini-48-g-08052745706664-109902",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:56961120796997"
-      ],
-      "candidate_offer_ids": [
-        "isola-dei-tesori:000138590"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -6133,26 +6076,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-acae48c9dde919d0ca0a",
-      "name": "Lindocat Advanced Multi-Cat lettiera agglomerante in bentonite bianca con bicarbonato 12 lt (10,2 kg)",
-      "brand": "Lindocat",
-      "category": "lettiere",
-      "species": "gatto",
-      "format": "10,2 kg",
-      "url": "https://offerte4zampe.it/prodotto/lindocat-advanced-multi-cat-lettiera-agglomerante-in-bentonite-bianca-con-bicarbonato-12-lt-10-2-kg-08006455001151-d0ca0a",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:56961770094917"
-      ],
-      "candidate_offer_ids": [
-        "isola-dei-tesori:000181482"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-7ae851ed475dcab5f514",
       "name": "Marpet Aequilibriavet Gatto Anatra 85 g",
       "brand": "Marpet",
@@ -6428,6 +6351,86 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411832901957"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-5f6e60ee3435c1c24d6b",
+      "name": "Natua Tonnetto con Gamberetti soft jelly bustina 70g Gatti",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "gatto",
+      "format": "70 g",
+      "url": "https://offerte4zampe.it/prodotto/natua-tonnetto-con-gamberetti-soft-jelly-bustina-70g-gatti-08057507370626-c24d6b",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "animaliapet:46976691372375"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:58411835752773"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-65546cc57e07d962d007",
+      "name": "Natua Tonnetto con Salmone soft jelly bustina 70g Gatti",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "gatto",
+      "format": "70 g",
+      "url": "https://offerte4zampe.it/prodotto/natua-tonnetto-con-salmone-soft-jelly-bustina-70g-gatti-08057507370633-62d007",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "animaliapet:46976692715863"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56819012305221"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-29bd9eca0a88eb256e7d",
+      "name": "Natural Code Vellutate in acqua di cottura Grain Free 85 g Tonno e aragosta - confezione da 12 pezzi",
+      "brand": "Natural Code",
+      "category": "umido",
+      "species": "gatto",
+      "format": "1,02 kg",
+      "url": "https://offerte4zampe.it/prodotto/natural-code-vellutate-in-acqua-di-cottura-grain-free-85-g-tonno-e-aragosta-confezione-da-12-pezzi-08033837551720-256e7d",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:58411827593541"
+      ],
+      "candidate_offer_ids": [
+        "paco:5900"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-30e9893e878a174420a5",
+      "name": "Natural Code XL 170 g 02 - Tonno e Sardine - confezione da 24 pezzi",
+      "brand": "Natural Code",
+      "category": "umido",
+      "species": "gatto",
+      "format": "4,08 kg",
+      "url": "https://offerte4zampe.it/prodotto/natural-code-xl-170-g-02-tonno-e-sardine-confezione-da-24-pezzi-08033837551249-4420a5",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56820254966085"
+      ],
+      "candidate_offer_ids": [
+        "paco:2253"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
