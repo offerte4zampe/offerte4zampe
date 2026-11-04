@@ -68,7 +68,7 @@ class MerchandisingTests(unittest.TestCase):
         html=render_home(template,build(catalog([a]),NOW,history))
         self.assertIn('RIBASSO',html)
         self.assertIn('<del>30,00 €</del>',html)
-        self.assertIn('prezzo precedente osservato',html)
+        self.assertIn('Prezzo precedente osservato',html)
 
 
     def test_verified_cross_store_comparison(self):
