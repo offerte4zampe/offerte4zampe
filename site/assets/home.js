@@ -30,13 +30,16 @@ const fresh=s=>Number.isFinite(Date.parse(s))&&Date.now()-Date.parse(s)<=12*3600
 for(const node of document.querySelectorAll('[data-home-offer]'))if(!fresh(node.dataset.homeOffer))node.replaceChildren(el('p','Rilevazione da aggiornare. Consulta il catalogo per verificare il prezzo.','micro'),link('Apri il catalogo →',{},'btn secondary'));
 (async()=>{try{const r=await fetch('data/home.json',{cache:'no-cache'});if(!r.ok)throw Error();const d=await r.json();if(document.getElementById('main').dataset.homeGenerated===d.generated_at)return;const rows=d.offers.filter(o=>Number.isFinite(o.price)&&o.price>0&&o.available&&url(o.url));
 $('home-stats').replaceChildren(el('span',integer.format(d.stats.offers)+' offerte importate'),el('span',d.stats.brands+' marche'),el('span',(d.sources||[]).filter(s=>s.offers>0).length+' negozi'),el('span','Verifiche programmate ogni '+d.refresh_hours+' ore'));
-const recent=rows.filter(o=>fresh(o.checked_at));const sales=recent.filter(o=>o.image);
+const recent=rows.filter(o=>fresh(o.checked_at));const sales=recent.filter(o=>o.image&&(Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5||Number.isFinite(o.comparison_savings_pct)&&o.comparison_savings_pct>=5));
 const picked=[],brands=new Set();for(const o of sales){if(picked.length>=6)break;if(!brands.has(o.brand)){picked.push(o);brands.add(o.brand)}}
-$('home-deals').replaceChildren(...picked.map(o=>card(o)));
-const verified=picked.filter(o=>Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5).length;const compared=picked.filter(o=>!Number.isFinite(o.verified_discount_pct)&&Number.isFinite(o.comparison_savings_pct)&&o.comparison_savings_pct>=5).length;
-$('home-deals-status').textContent=picked.length?'Catalogo aggiornato: '+O4ZTrade.formatTimestamp(d.generated_at)+'. '+verified+' ribassi storici verificati, '+compared+' risparmi tra negozi verificati; gli altri sono prezzi correnti. Spedizione esclusa.':'Al momento non ci sono prezzi recenti da mostrare. Consulta il catalogo completo.';
-const hero=sales.find(o=>Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5)||sales.find(o=>Number.isFinite(o.comparison_savings_pct)&&o.comparison_savings_pct>=5)||picked[0];
-if(hero)$('home-spotlight').replaceChildren(el('h2','Prodotto in evidenza','sr-only'),card(hero,true));else $('home-spotlight').replaceChildren(link('Esplora il catalogo →',{} ,'btn secondary'));
+if(picked.length)$('home-deals').replaceChildren(...picked.map(o=>card(o)));
+else $('home-deals').replaceChildren(el('p','Oggi non risultano ribassi o risparmi tra negozi sufficientemente verificati. Consulta il comparatore per i prezzi aggiornati.','home-no-proof'));
+const verified=picked.filter(o=>Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5).length;
+const compared=picked.filter(o=>!Number.isFinite(o.verified_discount_pct)&&Number.isFinite(o.comparison_savings_pct)&&o.comparison_savings_pct>=5).length;
+$('home-deals-status').textContent='Catalogo aggiornato: '+O4ZTrade.formatTimestamp(d.generated_at)+'. '+verified+' ribassi storici verificati, '+compared+' risparmi tra negozi verificati. In questa sezione non pubblichiamo prezzi senza prova di risparmio. Spedizione esclusa.';
+const hero=picked[0];
+if(hero)$('home-spotlight').replaceChildren(el('h2','Risparmio verificato in evidenza','sr-only'),card(hero,true));
+else $('home-spotlight').replaceChildren(el('p','Nessun risparmio verificato al momento. Esplora il comparatore per i prezzi rilevati.','micro'),link('Esplora il catalogo →',{},'btn secondary'));
 
 const brandPages=JSON.parse($('home-brands').dataset.brandPages||'{}');
 $('home-brands').replaceChildren(...d.top_brands.map(brand=>{const a=link(brand,{brand}),path=brandPages[brand];a.href='/marche';if(typeof path==='string'&&/^\/marca-[a-z0-9-]+$/.test(path))a.href=path;return a}));
