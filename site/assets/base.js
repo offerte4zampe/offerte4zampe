@@ -28,3 +28,7 @@
 
 // Preserve already shared manual calculator fragments after moving the tool.
 if(typeof location!=='undefined'&&location.pathname.replace(/\.html$/,'')==='/confronta-cibo'&&new URLSearchParams(location.hash.slice(1)).get('v')==='1')location.replace('/calcolatore'+location.hash);
+
+// Festive themes are date-gated in Europe/Rome; normal site remains unchanged.
+// The module adds only decoration; it never touches products, prices or discounts.
+import('/assets/seasonal-theme.mjs?v=2026-1').catch(()=>{});
