@@ -1,6 +1,7 @@
 import trade from '../site/assets/trade.js';
 import metadata from '../site/assets/product-metadata.js';
 import {shippingSource} from './shipping-source.mjs';
+import {reportSecurityHeaders} from './security-headers.mjs';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const money=n=>new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(n);
 const safe=u=>{try{const url=new URL(u);return url.protocol==='https:'&&!url.username&&!url.password?url.href:''}catch{return ''}};
@@ -67,7 +68,7 @@ export function content(product,state){
  const body='<section class="pagehero"><div class="wrap"><nav aria-label="Percorso"><a href="/">Home</a> / <a href="/prodotti">Prodotti</a></nav><h1>'+esc(metadata.name(product.name))+'</h1><p>'+esc(product.brand)+' · '+esc(displayFormat(product))+(product.gtin?' · GTIN '+esc(product.gtin):'')+'</p></div></section><section class="section"><div class="wrap"><div class="canonical-intro">'+image+'<div>'+matchNotice+'<p class="notice">'+message+'</p><p>Prezzi rilevati, da confermare nel negozio. Il totale comprende soltanto la spedizione standard verificabile; le spese sconosciute non valgono zero.</p></div></div><h2>Offerte e prezzi nei negozi</h2><form class="panel canonical-controls" method="get" action="'+esc('/prodotto/'+product.slug)+'"><label>Confezioni <select name="quantity">'+options+'</select></label><label>Consegna <select name="territory"><option value="standard"'+(state.territory==='standard'?' selected':'')+'>Standard Italia</option><option value="special"'+(state.territory==='special'?' selected':'')+'>Località o servizi particolari</option></select></label><button class="btn secondary">Ricalcola totale</button></form>'+(rows?'<div class="comparison-scroll"><table class="comparison-table canonical-offers"><caption>Prezzo, costo di consegna e totale per la quantità selezionata</caption><thead><tr>'+['Negozio','Prezzo','Spedizione','Totale','Prezzo unitario','Disponibilità e aggiornamento','Offerta'].map(n=>'<th scope="col">'+n+'</th>').join('')+'</tr></thead><tbody>'+rows+'</tbody></table></div>':'<p><a href="'+esc(brandURL)+'">Cerca altre offerte della marca →</a></p>')+'<p class="micro">I collegamenti affiliati possono generare una commissione, senza costi aggiuntivi. Le commissioni non determinano l’ordine. '+(product.reviewed?'Alcuni collegamenti tra offerte derivano da una revisione delle schede, con provenienza e scadenza conservate.':'')+'</p><h2>Storico prezzi</h2><p>Rilevazioni effettive per negozio e confezione; nessun prezzo storico inventato.</p>'+historyHTML(product,state)+state.rows.map(o=>'<section class="panel"><p class="micro"><strong>'+esc(o.merchant)+'</strong></p><div data-history-offer="'+esc(o.id)+'"></div></section>').join('')+(product.related?.length?'<h2>Altri formati della stessa linea</h2><ul>'+product.related.map(p=>'<li><a href="/prodotto/'+esc(p.slug)+'">'+esc(p.name)+' · '+esc(p.format)+'</a></li>').join('')+'</ul>':'')+'<p><a href="'+esc(brandURL)+'">Altri prodotti '+esc(product.brand)+' →</a> · <a href="/chi-siamo">Metodo e fonti</a></p></div></section>';
  return {body,schema,title:metadata.title(product.name,product.brand,product.format),description:metadata.description(state.available,state.shops),url};
 }
-export async function canonicalProduct(request,env,now=Date.now()){
+async function renderCanonicalProduct(request,env,now=Date.now()){
  const url=new URL(request.url);if(!['GET','HEAD'].includes(request.method))return new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
  let slug;try{slug=decodeURIComponent(url.pathname.slice('/prodotto/'.length))}catch{return new Response('URL non valido',{status:400})}
  if(!/^[a-z0-9][a-z0-9-]{1,200}$/.test(slug))return new Response('Prodotto non trovato',{status:404});
@@ -84,7 +85,9 @@ export async function canonicalProduct(request,env,now=Date.now()){
  if(localImage)page.schema.image=localImage;
  const template=await env.ASSETS.fetch(new Request(new URL('/prodotto',url.origin)));if(!template.ok)return template;
  let html=await template.text();
- html=html.replace('<head>','<head><base href="/">').replace(/<main\b[\s\S]*?<\/main>/,()=>'<main id="main" data-canonical-product="'+esc(p.id)+'">'+page.body+'</main>')
+ html=html.replace('<head>','<head><base href="/">')
+ .replace(/(<a\b[^>]*\bhref=")#main(")/g,(_,before,after)=>before+esc(url.pathname+url.search+'#main')+after)
+ .replace(/<main\b[\s\S]*?<\/main>/,()=>'<main id="main" data-canonical-product="'+esc(p.id)+'">'+page.body+'</main>')
  .replace(/<title>[^<]*<\/title>/,()=>'<title>'+esc(page.title)+'</title>')
  .replace(/<meta name="description" content="[^"]*">/,()=>'<meta name="description" content="'+esc(page.description)+'">')
  .replace(/<meta name="robots" content="[^"]*">/,()=>'<meta name="robots" content="'+(indexable?'index,follow':'noindex,follow')+'">')
@@ -96,4 +99,8 @@ export async function canonicalProduct(request,env,now=Date.now()){
  if(localImage)html=html.replace(/(<meta (?:property="og:image"|name="twitter:image") content=")[^"]*(">)/g,(_,a,b)=>a+esc(localImage)+b).replace(/(<meta property="og:image:(?:width|height)" content=")[^"]*(">)/g,(_,a,b)=>a+'400'+b).replace(/(<meta property="og:image:type" content=")[^"]*(">)/g,'$1image/webp$2').replace(/(<meta property="og:image:alt" content=")[^"]*(">)/g,(_,a,b)=>a+esc(metadata.name(p.name))+b);
  const headers={'X-Robots-Tag':indexable?'index, follow':'noindex, follow','Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Cloudflare-CDN-Cache-Control':'no-store','CDN-Cache-Control':'no-store','X-Product-Model':'canonical-v1'};
  return new Response(request.method==='HEAD'?null:html,{status:200,headers});
+}
+
+export async function canonicalProduct(request,env,now=Date.now()){
+ return reportSecurityHeaders(await renderCanonicalProduct(request,env,now));
 }
