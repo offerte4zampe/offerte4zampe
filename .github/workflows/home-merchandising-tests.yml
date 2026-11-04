@@ -28,3 +28,5 @@ jobs:
           python-version: '3.12'
       - name: Test home selection and prerender
         run: python -m unittest tests.test_home_data tests.test_home_merchandising
+      - name: Validate browser homepage JavaScript
+        run: node --check site/assets/home.js
