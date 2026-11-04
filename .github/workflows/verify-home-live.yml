@@ -2,7 +2,7 @@ name: Verify public homepage release
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/verify-home-live.yml', 'site/assets/style.css', 'site/index.html']
+    paths: ['.github/workflows/verify-home-live.yml', 'site/assets/style.css', 'site/index.html', 'site/assets/base.js', 'site/assets/seasonal-theme.mjs', 'site/assets/seasonal-theme.css']
   workflow_dispatch:
 permissions:
   contents: read
@@ -74,4 +74,29 @@ jobs:
           except Exception as err:
               print(json.dumps({'css_url':url,'verification':'unavailable','kind':type(err).__name__}))
               print('::warning::Public CSS check failed.')
+          PY
+
+      - name: Check public seasonal assets (read-only)
+        run: |
+          python - <<'PY'
+          import urllib.request,urllib.error,json
+          for name,marker in [
+              ('seasonal-theme.mjs','seasonForDate'),
+              ('seasonal-theme.css','data-o4z-season'),
+              ('base.js','seasonal-theme.mjs')]:
+              url='https://offerte4zampe.it/assets/'+name
+              try:
+                  req=urllib.request.Request(url,headers={'User-Agent':'Offerte4Zampe-Public-Release-Check/1.0'})
+                  with urllib.request.urlopen(req,timeout=15) as response:
+                      body=response.read(150000).decode('utf-8','replace')
+                      status=response.status
+                  visible=status==200 and marker in body
+                  print(json.dumps({'asset':name,'status':status,'expected_content_visible':visible}))
+                  if not visible:print('::warning::Seasonal asset is not yet deployed')
+              except urllib.error.HTTPError as e:
+                  print(json.dumps({'asset':name,'http_status':e.code,'result':'blocked_or_not_published'}))
+                  print('::warning::Seasonal asset inaccessible from GitHub runner')
+              except Exception as e:
+                  print(json.dumps({'asset':name,'result':'unavailable','kind':type(e).__name__}))
+                  print('::warning::Seasonal asset verification unavailable')
           PY
