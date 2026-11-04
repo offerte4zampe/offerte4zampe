@@ -186,3 +186,22 @@ header{z-index:200}
 .newsletter-popup-privacy{display:block;font-size:12px;margin-top:6px;color:#587068}
 .newsletter-popup :focus-visible{outline:3px solid #267c76;outline-offset:3px}
 @media(max-width:420px){.newsletter-popup-card{padding:28px 22px 22px}.newsletter-popup h2{font-size:27px}}
+
+
+/* Evidence-based homepage price presentation: never style unverified prices as discounts. */
+.home-deal.has-price-proof,.spotlight-product.has-price-proof{border-color:#e9a86b;box-shadow:0 5px 0 #edbe903d}
+.home-deal.has-price-proof{background:linear-gradient(180deg,#fffaf4 0%,#fff 35%)}
+.price-evidence{background:#fff4e8;border:1px solid #ebc79c;border-radius:14px;padding:12px 14px;margin:7px 0;display:flex;flex-direction:column;align-items:flex-start;gap:6px;max-width:100%}
+.price-evidence.is-drop{background:#fff0ed;border-color:#e7a99f}
+.savings-badge{display:inline-flex;align-items:center;gap:4px;background:#bc3030;color:#fff;border-radius:9px 9px 9px 2px;padding:7px 12px;font-size:14px;font-weight:900;letter-spacing:.02em;line-height:1.2;animation:proof-pulse 950ms ease-in-out 2}
+.price-evidence.is-comparison .savings-badge{background:#955000;color:#fff}
+.price-before{font-size:16px;font-weight:700;color:#584d4a;margin:0!important}
+.price-before del{font-size:18px;color:#855b56;text-decoration-color:#b83232;text-decoration-thickness:2px}
+.price-proof-note{font-size:11px;line-height:1.5;color:#604f44;margin:0!important}
+.home-deal.has-price-proof .catalog-price strong,.spotlight-product.has-price-proof .catalog-price strong{font-size:32px;font-weight:900;color:#ad2626}
+.price-now-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#734d38}
+.price-no-discount{color:#696d73}
+.daily-pick .spotlight-product .price-evidence{flex:0 1 200px;padding:10px 12px}
+.daily-pick .spotlight-product .price-proof-note{max-width:none}
+@keyframes proof-pulse{0%,100%{transform:scale(1)}45%{transform:scale(1.06)}}
+@media(prefers-reduced-motion:reduce){.savings-badge{animation:none}}

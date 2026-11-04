@@ -61,12 +61,95 @@ class MerchandisingTests(unittest.TestCase):
         template='<main id="main">'+''.join('<div id="'+n+'"></div>' for n in
           ('home-stats','home-spotlight','home-deals-status','home-deals','home-brands','home-shops'))+'</main>'
         html=render_home(template,payload)
-        self.assertIn('sconto non verificato',html)
+        self.assertIn('Oggi non risultano ribassi',html)
+        self.assertNotIn('<article class="home-deal"',html)
         self.assertNotIn('Ribasso verificato',html)
         history={'offers':{a['id']:[dict(day='2026-11-01',last=30),dict(day='2026-11-02',last=30)]}}
         html=render_home(template,build(catalog([a]),NOW,history))
-        self.assertIn('Ribasso verificato',html)
-        self.assertIn('prezzo precedente osservato',html)
+        self.assertIn('RIBASSO',html)
+        self.assertIn('<del>30,00 €</del>',html)
+        self.assertIn('Prezzo precedente osservato',html)
+
+
+    def test_verified_cross_store_comparison(self):
+        cheap = offer(20, 'Acme', 19)
+        cheap.update(product_id='group-a', product_identity_verified=True)
+        dear = offer(21, 'Acme', 29)
+        dear.update(id='other:21', merchant_id='other', merchant='Other Shop',
+                    product_id='group-a', product_identity_verified=True)
+        c = catalog([cheap, dear])
+        c['sources'].append(dict(id='other', status='ok', checked_at=STAMP, name='Other Shop'))
+        payload = build(c, NOW)
+        self.assertEqual(len(payload['offers']), 1)
+        row = payload['offers'][0]
+        self.assertEqual(row['price'], 19)
+        self.assertEqual(row['comparison_other_price'], 29)
+        self.assertEqual(row['comparison_savings_pct'], 34.5)
+        self.assertNotIn('verified_discount_pct', row)
+        template='<main id="main">'+''.join('<div id="'+n+'"></div>' for n in
+          ('home-stats','home-spotlight','home-deals-status','home-deals','home-brands','home-shops'))+'</main>'
+        html = render_home(template, payload)
+        self.assertIn('TRA NEGOZI', html)
+        self.assertIn('Altrove 29,00 €', html)
+        self.assertIn('Qui</span><strong>19,00 €', html)
+        self.assertIn('non è uno sconto del negozio', html)
+        self.assertNotIn('<del>', html)
+
+    def test_unverified_identity_never_gains_comparison(self):
+        a,b=offer(31,'Acme',19),offer(32,'Acme',29)
+        a.update(product_id='same', product_identity_verified=False)
+        b.update(product_id='same', product_identity_verified=False, merchant_id='other', merchant='Other Shop')
+        c=catalog([a,b])
+        c['sources'].append(dict(id='other',status='ok',checked_at=STAMP,name='Other Shop'))
+        self.assertFalse(any('comparison_savings_pct' in x for x in build(c,NOW)['offers']))
+        a['product_identity_verified']=b['product_identity_verified']=True
+        b['merchant_id']='merchant'
+        self.assertFalse(any('comparison_savings_pct' in x for x in build(catalog([a,b]),NOW)['offers']))
+
+    def test_second_cheapest_reference_not_highest(self):
+        rows=[offer(i,'Acme',p) for i,p in [(40,20),(41,25),(42,90)]]
+        for i,row in enumerate(rows):
+            row.update(product_id='same-verified',product_identity_verified=True,
+                       merchant_id=f'shop{i}',merchant=f'Shop {i}')
+        c=catalog(rows)
+        c['sources']=[dict(id=f'shop{i}',name=f'Shop {i}',status='ok',checked_at=STAMP) for i in range(3)]
+        data=build(c,NOW)
+        self.assertEqual(data['offers'][0]['id'],rows[0]['id'])
+        self.assertEqual(data['offers'][0]['comparison_other_price'],25)
+        self.assertEqual(data['offers'][0]['comparison_savings_pct'],20)
+
+
+    def test_large_spotlight_is_offer_of_the_day_only_when_verified(self):
+        template = '<main id="main"><span id="daily-pick-label">Dal catalogo reale</span>'+''.join(
+            '<div id="'+name+'"></div>' for name in
+            ('home-stats','home-spotlight','home-deals-status','home-deals','home-brands','home-shops'))+'</main>'
+        a = offer(99)
+        absent = render_home(template, build(catalog([a]), NOW))
+        self.assertIn('NESSUNA OFFERTA VERIFICATA OGGI', absent)
+        self.assertNotIn('OFFERTA DEL GIORNO</span>', absent)
+        history = {'offers': {a['id']: [
+            dict(day='2026-11-01', last=30), dict(day='2026-11-02', last=30)]}}
+        present = render_home(template, build(catalog([a]), NOW, history))
+        self.assertIn('OFFERTA DEL GIORNO</span>', present)
+        self.assertIn('−33,3% RIBASSO', present)
+        self.assertIn('Prima <del>30,00 €</del>', present)
+
+
+    def test_daily_hero_rotates_only_among_verified_deals(self):
+        a,b,c = offer(51),offer(52),offer(53)
+        history={'offers': {row['id']:[
+            dict(day='2026-11-01',last=30),dict(day='2026-11-02',last=30)
+        ] for row in (a,b,c)}}
+        first=build(catalog([a,b,c]), NOW, history)
+        self.assertIn(first['daily_pick_id'],[o['id'] for o in first['offers']])
+        self.assertEqual(pick(first)[1]['id'], first['daily_pick_id'])
+        tomorrow = NOW + datetime.timedelta(days=1)
+        next_catalog = catalog([{**o,'checked_at':tomorrow.isoformat()} for o in (a,b,c)])
+        next_catalog['sources'][0]['checked_at']=tomorrow.isoformat()
+        second=build(next_catalog, tomorrow, history)
+        self.assertIn(second['daily_pick_id'],[o['id'] for o in second['offers']])
+        self.assertNotEqual(first['daily_pick_id'],second['daily_pick_id'])
+        self.assertIsNone(build(catalog([a]), NOW)['daily_pick_id'])
 
 if __name__=='__main__':
     unittest.main()
