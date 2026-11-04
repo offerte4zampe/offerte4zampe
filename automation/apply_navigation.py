@@ -41,6 +41,11 @@ def apply(html):
     nav = re.search(r'<nav\b[^>]*id="navlinks"[^>]*>.*?</nav>', header, re.S)[0]
     html = re.sub(r'<nav\b[^>]*id="navlinks"[^>]*>.*?</nav>', lambda _: nav, html, count=1, flags=re.S)
     footer = (PARTIALS / 'footer.html').read_text().strip().replace('{{affiliate_disclosure}}', disclosure())
+    # The homepage alone gets a mid-page invitation; generated on every catalog refresh.
+    if 'class="daily-pick"' in html and 'class="social-follow-section"' not in html:
+        invitation = (PARTIALS / 'social-home.html').read_text().strip()
+        html = html.replace('<section class="advertising-wrap"', invitation + '<section class="advertising-wrap"', 1)
+
     html = re.sub(r'<header\b[^>]*>.*?</header>', lambda _: header, html, count=1, flags=re.S)
     html = re.sub(r'<footer\b[^>]*>.*?</footer>', lambda _: footer, html, count=1, flags=re.S)
     # These are factual lists of the currently connected affiliate merchants.

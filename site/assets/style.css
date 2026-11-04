@@ -267,3 +267,58 @@ header{z-index:200}
   .daily-pick .spotlight-product.has-price-proof>.btn{font-size:15px;min-height:52px}
 }
 @media(prefers-reduced-motion:reduce){.daily-pick .savings-badge{animation:none}}
+
+
+/* Official Offerte a 4 Zampe social channels. Native links, no third-party embeds. */
+.header-socials,.mobile-socials,.footer-social-links,.social-follow-links{display:flex;align-items:center;gap:8px}
+.header-socials{flex:0 0 auto;padding-left:11px;border-left:1px solid #d5e5d9}
+.social-icon-link{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;border:1px solid #dde9e0;background:#f4f8f1;color:#2d5e48;text-decoration:none;flex-shrink:0}
+.social-icon-link svg{height:19px;width:19px;display:block}
+.social-icon-link:hover,.social-icon-link:focus-visible{color:#fff;background:#2e6f52;border-color:#2e6f52;outline-offset:2px}
+.social-icon-link.social-instagram:hover,.social-icon-link.social-instagram:focus-visible{background:#ad346d;border-color:#ad346d}
+.social-icon-link.social-facebook:hover,.social-icon-link.social-facebook:focus-visible{background:#2858ae;border-color:#2858ae}
+.social-icon-link.social-telegram:hover,.social-icon-link.social-telegram:focus-visible{background:#187eaa;border-color:#187eaa}
+.mobile-socials{display:none}
+.footer-socials p{font-size:14px;max-width:260px;margin:7px 0 14px}
+.footer-social-links{flex-direction:column;align-items:stretch;gap:8px}
+.social-footer-link,.social-follow-link{display:flex;align-items:center;gap:12px;border-radius:12px;text-decoration:none;font-weight:800}
+.social-footer-link{background:#ffffff14;color:#f1f9f1!important;padding:10px 12px;border:1px solid #ffffff30;font-size:14px}
+.social-footer-link:hover,.social-footer-link:focus-visible{background:#ffffff2c;color:white!important;outline:2px solid #d1e7d4;outline-offset:2px}
+.social-footer-link svg,.social-follow-link svg{height:23px;width:23px;flex-shrink:0}
+.social-follow-section{background:linear-gradient(110deg,#dbeee2,#fbf4df);border-block:1px solid #cdddcf;padding:27px 0}
+.social-follow-inner{display:flex;justify-content:space-between;gap:28px;align-items:center}
+.social-follow-inner h2{font-size:clamp(24px,2.8vw,34px);letter-spacing:-.05em;line-height:1.17;margin:6px 0 10px;color:#214f3c}
+.social-follow-inner p{max-width:570px;margin:0;color:#52705c;font-size:14px;line-height:1.6}
+.social-follow-links{flex:0 0 auto;gap:8px;flex-wrap:wrap}
+.social-follow-link{background:#fff;color:#244b39;border:1px solid #c6dcca;padding:12px 15px;min-height:50px;box-shadow:0 4px 12px #1a392114;font-size:14px}
+.social-follow-link:hover,.social-follow-link:focus-visible{color:#fff;background:#266349;border-color:#266349;outline:2px solid #fff;outline-offset:2px}
+@media(min-width:851px){
+ .nav{gap:12px}
+ .navlinks{gap:clamp(8px,1vw,17px)}
+ .navlinks a{font-size:13px;white-space:nowrap}
+ .brand{font-size:clamp(20px,2vw,25px);letter-spacing:-.055em;white-space:nowrap}
+ .brandlogo{flex-shrink:0}
+}
+@media(min-width:851px) and (max-width:1180px){
+ .header-socials{display:none}
+}
+@media(max-width:850px){
+ .header-socials{display:none}
+ .mobile-socials{display:flex;gap:10px;flex-wrap:wrap;border-top:1px solid #e0e9df;padding-top:12px;margin-top:10px}
+ .mobile-socials .social-icon-link{width:44px;height:44px}
+ .social-follow-inner{flex-direction:column;align-items:stretch;gap:18px}
+ .social-follow-links{justify-content:flex-start}
+ .footergrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+ .social-follow-section{padding:22px 0}
+ .social-follow-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+ .social-follow-link{flex-direction:column;gap:3px;justify-content:center;padding:11px 5px;font-size:12px;min-height:66px;text-align:center}
+ .social-follow-link svg{height:22px;width:22px}
+ .footergrid{grid-template-columns:1fr}
+ .footer-social-links{flex-direction:row;flex-wrap:wrap}
+ .social-footer-link{padding:10px 12px}
+}
+
+@media(min-width:1050px){.footergrid{grid-template-columns:1.3fr 1fr 1fr 1.1fr;gap:26px}}
+@media(min-width:851px) and (max-width:1179px){.navlinks{gap:clamp(6px,.75vw,11px)} .navlinks a{font-size:12px}}
