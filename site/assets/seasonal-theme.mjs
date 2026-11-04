@@ -20,16 +20,16 @@ export function seasonForDate(date = new Date(), preview = null) {
 const CAMPAIGNS = Object.freeze({
   blackfriday: Object.freeze({
     eyebrow: 'BLACK WEEK A 4 ZAMPE',
-    headline: 'Il prezzo giusto non si fiuta a caso.',
-    detail: 'Confronta i prezzi reali dei negozi. Un ribasso è tale solo quando verificato.',
-    button: 'Scopri come risparmiare',
+    headline: 'BLACK WEEK. IL RISPARMIO HA FIUTO.',
+    detail: 'Prezzi sotto la lente, non slogan: scopri il prezzo migliore sullo stesso prodotto.',
+    button: 'FIUTA LE OFFERTE',
     href: '/black-friday-animali'
   }),
   natale: Object.freeze({
     eyebrow: 'NATALE A 4 ZAMPE',
-    headline: 'Un pensiero speciale, un prezzo da confrontare.',
-    detail: 'Idee regalo per cani e gatti, senza rinunciare al confronto dei prezzi.',
-    button: 'Esplora idee e prodotti',
+    headline: 'A NATALE, OGNI ZAMPA MERITA UN REGALO.',
+    detail: 'Giochi, coccole e sorprese: trova qualcosa di speciale e confronta prima di scegliere.',
+    button: 'SCOPRI I REGALI',
     href: '/prodotti'
   })
 });
@@ -44,7 +44,7 @@ export function applySeason({ date = new Date(), search = '', doc = document } =
   if (preview === season) root.dataset.o4zSeasonPreview = 'true';
   const css = doc.createElement('link');
   css.rel = 'stylesheet';
-  css.href = '/assets/seasonal-theme.css?v=2026-1';
+  css.href = '/assets/seasonal-theme.css?v=2026-2';
   css.dataset.o4zSeasonStyle = '';
   doc.head.append(css);
   const header = doc.querySelector('header');
@@ -66,11 +66,30 @@ export function applySeason({ date = new Date(), search = '', doc = document } =
     detail.className = 'o4z-season-explain';
     detail.textContent = info.detail;
     text.append(kicker, title, detail);
+    const trust = doc.createElement('span');
+    trust.className = 'o4z-season-proof';
+    trust.textContent = season === 'blackfriday'
+      ? '● Confronti verificati  ·  ● Stesso prodotto  ·  ● Prezzi aggiornati'
+      : '✦ Idee per cani e gatti  ·  ✦ Confronta più negozi';
+    text.append(trust);
+    const visual = doc.createElement('div');
+    visual.className = 'o4z-season-visual';
+    visual.setAttribute('aria-hidden', 'true');
+    const image = doc.createElement('img');
+    image.src = season === 'blackfriday' ? '/assets/black-week-hero.svg' : '/assets/christmas-hero.svg';
+    image.alt = '';
+    image.width = 660;
+    image.height = 470;
+    image.decoding = 'async';
+    visual.append(image);
     const link = doc.createElement('a');
     link.className = 'o4z-season-link';
     link.href = info.href;
     link.textContent = info.button + ' →';
-    wrap.append(text, link);
+    const action = doc.createElement('div');
+    action.className = 'o4z-season-actions';
+    action.append(link);
+    wrap.append(text, visual, action);
     section.append(wrap);
     header.insertAdjacentElement('afterend', section);
   }
