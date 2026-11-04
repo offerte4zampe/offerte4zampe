@@ -66,7 +66,8 @@ class MerchandisingTests(unittest.TestCase):
         self.assertNotIn('Ribasso verificato',html)
         history={'offers':{a['id']:[dict(day='2026-11-01',last=30),dict(day='2026-11-02',last=30)]}}
         html=render_home(template,build(catalog([a]),NOW,history))
-        self.assertIn('Ribasso verificato',html)
+        self.assertIn('RIBASSO',html)
+        self.assertIn('<del>30,00 €</del>',html)
         self.assertIn('prezzo precedente osservato',html)
 
 
