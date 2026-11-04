@@ -319,3 +319,6 @@ header{z-index:200}
  .footer-social-links{flex-direction:row;flex-wrap:wrap}
  .social-footer-link{padding:10px 12px}
 }
+
+@media(min-width:1050px){.footergrid{grid-template-columns:1.3fr 1fr 1fr 1.1fr;gap:26px}}
+@media(min-width:851px) and (max-width:1179px){.navlinks{gap:clamp(6px,.75vw,11px)} .navlinks a{font-size:12px}}
