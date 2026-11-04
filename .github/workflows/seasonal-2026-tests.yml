@@ -1,0 +1,36 @@
+name: Seasonal themes 2026 regression
+on:
+  pull_request:
+    paths:
+      - 'site/assets/base.js'
+      - 'site/assets/seasonal-theme.mjs'
+      - 'site/assets/seasonal-theme.css'
+      - 'tests/test_seasonal_theme.mjs'
+      - 'tests/test_seasonal_2026.mjs'
+      - '.github/workflows/seasonal-2026-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'site/assets/base.js'
+      - 'site/assets/seasonal-theme.mjs'
+      - 'site/assets/seasonal-theme.css'
+      - 'tests/test_seasonal_theme.mjs'
+      - 'tests/test_seasonal_2026.mjs'
+      - '.github/workflows/seasonal-2026-tests.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax validate seasonal scripts
+        run: |
+          node --check site/assets/base.js
+          node --check site/assets/seasonal-theme.mjs
+      - name: Test seasonal calendar and existing Halloween behavior
+        run: node --test tests/test_seasonal_theme.mjs tests/test_seasonal_2026.mjs
