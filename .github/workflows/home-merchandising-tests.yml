@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'automation/build_home_data.py'
+      - 'site/assets/home.js'
       - 'tests/test_home_data.py'
       - 'tests/test_home_merchandising.py'
       - '.github/workflows/home-merchandising-tests.yml'
@@ -10,6 +11,7 @@ on:
     branches: [main]
     paths:
       - 'automation/build_home_data.py'
+      - 'site/assets/home.js'
       - 'tests/test_home_data.py'
       - 'tests/test_home_merchandising.py'
       - '.github/workflows/home-merchandising-tests.yml'
