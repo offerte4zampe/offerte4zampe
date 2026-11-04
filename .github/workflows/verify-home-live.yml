@@ -1,0 +1,51 @@
+name: Verify public homepage release
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/verify-home-live.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare repository snapshot to live website
+        run: |
+          python - <<'PY'
+          import json, urllib.request, urllib.error, re, time
+          from pathlib import Path
+          expected = json.loads(Path("site/data/home.json").read_text())
+          chosen = expected.get("daily_pick_id")
+          print(json.dumps({"expected_generated_at":expected.get("generated_at"),"expected_daily_pick_id":chosen,"expected_comparisons":sum("comparison_savings_pct" in o for o in expected.get("offers",[]))}))
+          for path in ["/", "/data/home.json"]:
+              url = "https://offerte4zampe.it" + path
+              try:
+                  req=urllib.request.Request(url,headers={"User-Agent":"Offerte4Zampe-Public-Release-Check/1.0","Accept":"text/html,application/json"})
+                  with urllib.request.urlopen(req,timeout=15) as response:
+                      status=response.status
+                      raw=response.read(3500000)
+                  if path=="/":
+                      doc=raw.decode("utf-8","replace")
+                      checks={"daily_label":"id=\"daily-pick-label\"".replace("\\","") in doc and "OFFERTA DEL GIORNO" in doc,
+                              "price_badge":"savings-badge" in doc,
+                              "selected_offer":bool(chosen and chosen in doc)}
+                  else:
+                      payload=json.loads(raw)
+                      checks={"generated_at_matches":payload.get("generated_at")==expected.get("generated_at"),
+                              "daily_pick_matches":payload.get("daily_pick_id")==chosen,
+                              "comparison_count":sum("comparison_savings_pct" in o for o in payload.get("offers",[]))}
+                  print(json.dumps({"path":path,"status":status,**checks},ensure_ascii=False))
+                  if path=="/" and not all(checks.values()):
+                      print("::warning::Public homepage differs from current GitHub snapshot.")
+                  if path!="/" and not (checks.get("generated_at_matches") and checks.get("daily_pick_matches")):
+                      print("::warning::Public homepage JSON differs from current GitHub snapshot.")
+              except urllib.error.HTTPError as e:
+                  print(json.dumps({"path":path,"http_status":e.code,"verification":"blocked_or_unavailable"}))
+                  print("::warning::Live check could not read the URL.")
+              except Exception as e:
+                  print(json.dumps({"path":path,"verification":"network_or_parse_error","kind":type(e).__name__}))
+                  print("::warning::Live check incomplete.")
+          PY
