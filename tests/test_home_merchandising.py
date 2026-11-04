@@ -134,5 +134,22 @@ class MerchandisingTests(unittest.TestCase):
         self.assertIn('−33,3% RIBASSO', present)
         self.assertIn('Prima <del>30,00 €</del>', present)
 
+
+    def test_daily_hero_rotates_only_among_verified_deals(self):
+        a,b,c = offer(51),offer(52),offer(53)
+        history={'offers': {row['id']:[
+            dict(day='2026-11-01',last=30),dict(day='2026-11-02',last=30)
+        ] for row in (a,b,c)}}
+        first=build(catalog([a,b,c]), NOW, history)
+        self.assertIn(first['daily_pick_id'],[o['id'] for o in first['offers']])
+        self.assertEqual(pick(first)[1]['id'], first['daily_pick_id'])
+        tomorrow = NOW + datetime.timedelta(days=1)
+        next_catalog = catalog([{**o,'checked_at':tomorrow.isoformat()} for o in (a,b,c)])
+        next_catalog['sources'][0]['checked_at']=tomorrow.isoformat()
+        second=build(next_catalog, tomorrow, history)
+        self.assertIn(second['daily_pick_id'],[o['id'] for o in second['offers']])
+        self.assertNotEqual(first['daily_pick_id'],second['daily_pick_id'])
+        self.assertIsNone(build(catalog([a]), NOW)['daily_pick_id'])
+
 if __name__=='__main__':
     unittest.main()
