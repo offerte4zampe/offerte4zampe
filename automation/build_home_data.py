@@ -80,8 +80,35 @@ def build(catalog, now=None, history=None):
                 o['verified_before_price'] = round(baseline, 2)
                 o['verified_discount_pct'] = round(percent, 1)
         candidates.append(o)
-    candidates.sort(key=lambda o: (0 if 'verified_discount_pct' in o else 1,
-                                   -o.get('verified_discount_pct', 0), rotate(o)))
+    # Compare only genuinely identical, GTIN/quantity-verified product groups.
+    # The reference is the NEXT cheapest other merchant, not a list/MSRP price.
+    # This is a cross-store saving, NEVER a retailer price reduction.
+    groups = collections.defaultdict(list)
+    for o in candidates:
+        if o.get('product_identity_verified') is True and o.get('product_id'):
+            groups[o['product_id']].append(o)
+    for group in groups.values():
+        cheapest_by_shop = {}
+        for o in group:
+            shop = o['merchant_id']
+            if shop not in cheapest_by_shop or o['price'] < cheapest_by_shop[shop]['price']:
+                cheapest_by_shop[shop] = o
+        ordered = sorted(cheapest_by_shop.values(), key=lambda o: (o['price'], o['id']))
+        if len(ordered) < 2:
+            continue
+        best, next_shop = ordered[:2]
+        if best['price'] >= next_shop['price']:
+            continue
+        saving = (next_shop['price'] - best['price']) / next_shop['price'] * 100
+        if saving >= 5 and next_shop['price'] - best['price'] >= 0.5:
+            best['comparison_other_price'] = round(next_shop['price'], 2)
+            best['comparison_savings_pct'] = round(saving, 1)
+            best['comparison_savings_eur'] = round(next_shop['price']-best['price'], 2)
+            best['comparison_other_merchant'] = next_shop['merchant']
+    candidates.sort(key=lambda o: (0 if 'verified_discount_pct' in o
+                                   else 1 if 'comparison_savings_pct' in o else 2,
+                                   -o.get('verified_discount_pct', o.get('comparison_savings_pct', 0)),
+                                   rotate(o)))
     selected, brands, shops = [], set(), collections.Counter()
     for o in candidates:
         brand = str(o.get('brand') or o.get('title') or o['id']).casefold()
@@ -94,7 +121,7 @@ def build(catalog, now=None, history=None):
         if len(selected) >= 42:
             break
     counts = collections.Counter(o['brand'] for o in rows if o.get('brand'))
-    fields = ['id', 'title', 'merchant', 'merchant_id', 'brand', 'variant', 'price', 'weight_kg', 'image', 'image_local', 'url', 'affiliate_url', 'available', 'checked_at', 'canonical_title', 'canonical_format', 'canonical_shop_count', 'product_slug', 'product_url', 'unit_price', 'unit_price_unit', 'verified_before_price', 'verified_discount_pct']
+    fields = ['id', 'title', 'merchant', 'merchant_id', 'brand', 'variant', 'price', 'weight_kg', 'image', 'image_local', 'url', 'affiliate_url', 'available', 'checked_at', 'canonical_title', 'canonical_format', 'canonical_shop_count', 'product_slug', 'product_url', 'unit_price', 'unit_price_unit', 'verified_before_price', 'verified_discount_pct', 'comparison_other_price', 'comparison_savings_pct', 'comparison_savings_eur', 'comparison_other_merchant']
     return {k: catalog[k] for k in ['generated_at', 'refresh_hours', 'sources']} | {
         'stats': {'offers': len(catalog['offers']), 'brands': len({o.get('brand') for o in catalog['offers'] if o.get('brand')})},
         'top_brands': [brand for brand, count in counts.most_common(10)],
@@ -197,7 +224,7 @@ def main():
 def pick(payload):
     """Same source diversity and distinct-brand order for HTML and hydration."""
     sales = payload['offers']
-    deals = [o for o in sales if 'verified_discount_pct' in o]
+    deals = [o for o in sales if 'verified_discount_pct' in o or 'comparison_savings_pct' in o]
     picked, brands = [], set()
     for o in deals:
         if len(picked) >= 6:
@@ -262,13 +289,25 @@ def render_home(html, payload):
         cta = 'Vedi offerta →' if o.get('canonical_shop_count', 2) < 2 else 'Confronta nei negozi →'
         if o.get('unit_price') and o.get('unit_price_unit'):
             unit = '<p class="micro">'+money(o['unit_price'])+'/'+h(o['unit_price_unit'])+'</p>'
-        discount = ('<p class="micro"><strong>Ribasso verificato −'+h(str(o['verified_discount_pct']).replace('.', ','))+'%</strong> · prezzo precedente osservato '+money(o['verified_before_price'])+'</p>') if 'verified_discount_pct' in o else '<p class="micro">Prezzo rilevato, sconto non verificato</p>'
-        return f'''<article class="{'spotlight-product' if spotlight else 'home-deal'}" data-home-offer="{h(o['checked_at'],quote=True)}">{img}<p class="micro">{h(o['merchant'])} · {h(o['brand'])}</p><{tag}><a class="product-title-link" href="{h(product_url(o),quote=True)}">{h(title)}</a></{tag}><p class="micro">{h(o.get('variant') or '')}</p><p class="catalog-price"><strong>{money(o['price'])}</strong></p>{discount}{unit}<p class="micro">Rilevato: <time datetime="{h(o['checked_at'],quote=True)}">{h(o['checked_at'][:16].replace('T',' '))} UTC</time></p><a class="btn secondary" href="{h(product_url(o),quote=True)}">{cta}</a>{error_link(o)}</article>'''
+        if 'verified_discount_pct' in o:
+            evidence = ('<div class="price-evidence is-drop"><span class="savings-badge">−'
+                        +h(str(o['verified_discount_pct']).replace('.', ','))+'% RIBASSO</span>'
+                        +'<p class="price-before">Prima <del>'+money(o['verified_before_price'])+'</del></p>'
+                        +'<p class="price-proof-note">Prezzo precedente osservato sulla stessa offerta</p></div>')
+        elif 'comparison_savings_pct' in o:
+            evidence = ('<div class="price-evidence is-comparison"><span class="savings-badge">−'
+                        +h(str(o['comparison_savings_pct']).replace('.', ','))+'% TRA NEGOZI</span>'
+                        +'<p class="price-before">Altrove '+money(o['comparison_other_price'])+'</p>'
+                        +'<p class="price-proof-note">Confronto sullo stesso prodotto con '
+                        +h(o['comparison_other_merchant'])+' · non è uno sconto del negozio</p></div>')
+        else:
+            evidence = '<p class="micro price-no-discount">Prezzo aggiornato · nessuno sconto verificato</p>'
+        return f'''<article class="{'spotlight-product' if spotlight else 'home-deal'}{' has-price-proof' if ('verified_discount_pct' in o or 'comparison_savings_pct' in o) else ''}" data-home-offer="{h(o['checked_at'],quote=True)}">{img}<p class="micro">{h(o['merchant'])} · {h(o['brand'])}</p><{tag}><a class="product-title-link" href="{h(product_url(o),quote=True)}">{h(title)}</a></{tag}><p class="micro">{h(o.get('variant') or '')}</p><p class="catalog-price"><span class="price-now-label">Qui</span><strong>{money(o['price'])}</strong></p>{evidence}{unit}<p class="micro">Rilevato: <time datetime="{h(o['checked_at'],quote=True)}">{h(o['checked_at'][:16].replace('T',' '))} UTC</time></p><a class="btn secondary" href="{h(product_url(o),quote=True)}">{cta}</a>{error_link(o)}</article>'''
     deals, hero = pick(payload)
     parts = {
         'home-deals': ''.join(card(o) for o in deals),
         'home-spotlight': '<h2 class="sr-only">Offerta in evidenza</h2>'+card(hero, True) if hero else link('Esplora il catalogo →'),
-        'home-deals-status': 'Catalogo aggiornato il '+h(payload['generated_at'][:16].replace('T',' '))+' UTC. '+str(sum('verified_discount_pct' in o for o in deals))+' ribassi verificati nella selezione; gli altri sono prezzi correnti, non sconti dichiarati. Confronto con osservazioni storiche della stessa offerta, spedizione esclusa.',
+        'home-deals-status': 'Catalogo aggiornato il '+h(payload['generated_at'][:16].replace('T',' '))+' UTC. '+str(sum('verified_discount_pct' in o for o in deals))+' ribassi storici verificati, '+str(sum('comparison_savings_pct' in o and 'verified_discount_pct' not in o for o in deals))+' risparmi tra negozi verificati nella selezione. Gli altri sono prezzi correnti. Spedizione esclusa.',
         'home-stats': ''.join('<span>'+h(s)+'</span>' for s in [f"{payload['stats']['offers']:,}".replace(',', '.')+' offerte importate', str(payload['stats']['brands'])+' marche', str(sum(s.get('offers',0)>0 for s in payload['sources']))+' negozi', 'Verifiche programmate ogni '+str(payload['refresh_hours'])+' ore']),
         'home-brands': ''.join(link(brand, brand=brand) for brand in payload['top_brands']),
         'home-shops': ''.join(link(s['name']+' · '+str(s['offers'])+' offerte →', shop=s['name']) for s in payload['sources'] if s.get('offers',0)>0),
