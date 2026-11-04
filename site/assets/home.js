@@ -4,7 +4,21 @@ const url=(s,image=false)=>{if(image&&/^\/img\/p\/[a-f0-9]{24}-400\.webp$/.test(
 function link(label,params,cls){const a=el('a',label,cls);a.href='/confronta-cibo?'+new URLSearchParams(params);return a}
 function productTitle(o,tag){const h=el(tag,''),a=el('a',o.canonical_title||o.title,'product-title-link'),dest=O4ZTrade.productUrl(o);if(!dest)return el(tag,o.title);a.href=dest;h.append(a);return h}
 function card(o,spotlight=false){const a=document.createElement('article');a.className=spotlight?'spotlight-product':'home-deal';a.dataset.homeOffer=o.checked_at;const im=url(o.image_local||o.image,true);if(im){const img=document.createElement('img');img.src=im;img.alt='';img.decoding='async';if(spotlight)img.fetchPriority='high';img.loading=spotlight?'eager':'lazy';img.width=160;img.height=145;a.append(img)}
-a.append(el('p',o.merchant+' · '+o.brand,'micro'),productTitle(o,'h3'),el('p',o.variant,'micro'));const p=el('p','','catalog-price');p.append(el('strong',money.format(o.price)));a.append(p);if(Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5&&Number.isFinite(o.verified_before_price)&&o.verified_before_price>o.price){a.append(el('p','Ribasso verificato −'+o.verified_discount_pct.toLocaleString('it-IT')+'% · prezzo precedente osservato '+money.format(o.verified_before_price),'micro'))}else{a.append(el('p','Prezzo rilevato, sconto non verificato','micro'))}
+a.append(el('p',o.merchant+' · '+o.brand,'micro'),productTitle(o,'h3'),el('p',o.variant,'micro'));
+const historyDrop=Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5&&Number.isFinite(o.verified_before_price)&&o.verified_before_price>o.price;
+const comparison=!historyDrop&&Number.isFinite(o.comparison_savings_pct)&&o.comparison_savings_pct>=5&&Number.isFinite(o.comparison_other_price)&&o.comparison_other_price>o.price&&typeof o.comparison_other_merchant==='string';
+if(historyDrop||comparison)a.classList.add('has-price-proof');
+const p=el('p','','catalog-price');p.append(el('span','Qui','price-now-label'),el('strong',money.format(o.price)));a.append(p);
+if(historyDrop||comparison){
+ const evidence=el('div','','price-evidence '+(historyDrop?'is-drop':'is-comparison'));
+ const percent=historyDrop?o.verified_discount_pct:o.comparison_savings_pct;
+ evidence.append(el('span','−'+percent.toLocaleString('it-IT')+'% '+(historyDrop?'RIBASSO':'TRA NEGOZI'),'savings-badge'));
+ const before=el('p','','price-before');before.append(document.createTextNode(historyDrop?'Prima ':'Altrove '));
+ if(historyDrop)before.append(el('del',money.format(o.verified_before_price)));else before.append(el('strong',money.format(o.comparison_other_price)));
+ evidence.append(before);
+ evidence.append(el('p',historyDrop?'Prezzo precedente osservato sulla stessa offerta':'Confronto sullo stesso prodotto con '+o.comparison_other_merchant+' · non è uno sconto del negozio','price-proof-note'));
+ a.append(evidence);
+}else a.append(el('p','Prezzo aggiornato · nessuno sconto verificato','micro price-no-discount'));
 if(o.unit_price&&o.unit_price_unit)a.append(el('p',money.format(o.unit_price)+'/'+o.unit_price_unit,'micro'));else if(o.weight_kg)a.append(el('p',money.format(o.price/o.weight_kg)+'/kg','micro'));
 a.append(el('p','Rilevato: '+O4ZTrade.formatTimestamp(o.checked_at),'micro'));
 const detail=el('a',(o.canonical_shop_count??2)<2?'Vedi offerta →':'Confronta nei negozi →','btn secondary');detail.href=O4ZTrade.productUrl(o);a.append(detail);const report=el('a','Prezzo o dati sbagliati? Segnala','micro');report.href=O4ZTrade.reportUrl(o);report.rel='nofollow';a.append(report);return a}
@@ -19,9 +33,9 @@ $('home-stats').replaceChildren(el('span',integer.format(d.stats.offers)+' offer
 const recent=rows.filter(o=>fresh(o.checked_at));const sales=recent.filter(o=>o.image);
 const picked=[],brands=new Set();for(const o of sales){if(picked.length>=6)break;if(!brands.has(o.brand)){picked.push(o);brands.add(o.brand)}}
 $('home-deals').replaceChildren(...picked.map(o=>card(o)));
-const verified=picked.filter(o=>Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5).length;
-$('home-deals-status').textContent=picked.length?'Catalogo aggiornato: '+O4ZTrade.formatTimestamp(d.generated_at)+'. '+verified+' ribassi verificati; gli altri sono prezzi correnti e non sconti dichiarati. Spedizione esclusa.':'Al momento non ci sono prezzi recenti da mostrare. Consulta il catalogo completo.';
-const hero=sales.find(o=>Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5)||picked[0];
+const verified=picked.filter(o=>Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5).length;const compared=picked.filter(o=>!Number.isFinite(o.verified_discount_pct)&&Number.isFinite(o.comparison_savings_pct)&&o.comparison_savings_pct>=5).length;
+$('home-deals-status').textContent=picked.length?'Catalogo aggiornato: '+O4ZTrade.formatTimestamp(d.generated_at)+'. '+verified+' ribassi storici verificati, '+compared+' risparmi tra negozi verificati; gli altri sono prezzi correnti. Spedizione esclusa.':'Al momento non ci sono prezzi recenti da mostrare. Consulta il catalogo completo.';
+const hero=sales.find(o=>Number.isFinite(o.verified_discount_pct)&&o.verified_discount_pct>=5)||sales.find(o=>Number.isFinite(o.comparison_savings_pct)&&o.comparison_savings_pct>=5)||picked[0];
 if(hero)$('home-spotlight').replaceChildren(el('h2','Prodotto in evidenza','sr-only'),card(hero,true));else $('home-spotlight').replaceChildren(link('Esplora il catalogo →',{} ,'btn secondary'));
 
 const brandPages=JSON.parse($('home-brands').dataset.brandPages||'{}');
