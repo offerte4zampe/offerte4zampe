@@ -118,5 +118,21 @@ class MerchandisingTests(unittest.TestCase):
         self.assertEqual(data['offers'][0]['comparison_other_price'],25)
         self.assertEqual(data['offers'][0]['comparison_savings_pct'],20)
 
+
+    def test_large_spotlight_is_offer_of_the_day_only_when_verified(self):
+        template = '<main id="main"><span id="daily-pick-label">Dal catalogo reale</span>'+''.join(
+            '<div id="'+name+'"></div>' for name in
+            ('home-stats','home-spotlight','home-deals-status','home-deals','home-brands','home-shops'))+'</main>'
+        a = offer(99)
+        absent = render_home(template, build(catalog([a]), NOW))
+        self.assertIn('NESSUNA OFFERTA VERIFICATA OGGI', absent)
+        self.assertNotIn('OFFERTA DEL GIORNO</span>', absent)
+        history = {'offers': {a['id']: [
+            dict(day='2026-11-01', last=30), dict(day='2026-11-02', last=30)]}}
+        present = render_home(template, build(catalog([a]), NOW, history))
+        self.assertIn('OFFERTA DEL GIORNO</span>', present)
+        self.assertIn('−33,3% RIBASSO', present)
+        self.assertIn('Prima <del>30,00 €</del>', present)
+
 if __name__=='__main__':
     unittest.main()
