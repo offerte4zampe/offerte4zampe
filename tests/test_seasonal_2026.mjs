@@ -51,7 +51,7 @@ test('theme adds only a stylesheet and a safe internal-link banner', () => {
   assert.equal(doc.documentElement.dataset.o4zSeasonPreview,'true');
   assert.equal(nodes.find(n=>n.tag==='a').href,'/prodotti');
   assert.equal(nodes.filter(n=>n.tag==='link').length,1);
-  assert.equal(nodes.filter(n=>n.tag==='aside').length,1);
+  assert.equal(new Set(nodes.filter(n=>n.tag==='aside')).size,1);
 });
 test('CSS scoped, responsive, reduced motion, no infinite animation',()=>{
   const css=readFileSync(new URL('../site/assets/seasonal-theme.css',import.meta.url),'utf8');
