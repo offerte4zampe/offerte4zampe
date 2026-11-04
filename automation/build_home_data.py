@@ -304,7 +304,7 @@ def render_home(html, payload):
         html = replace_region(html, element_id, content)
     # Match the promotion heading to the evidence actually available.
     heading = 'OFFERTA DEL GIORNO' if hero else 'NESSUNA OFFERTA VERIFICATA OGGI'
-    html = re.sub(r'(<span\\b[^>]*\\bid="daily-pick-label"[^>]*>)[^<]*(</span>)',
+    html = re.sub(r'(<span\b[^>]*\bid="daily-pick-label"[^>]*>)[^<]*(</span>)',
                   lambda m: m[1] + heading + m[2], html, count=1)
     # Keep both SEO descriptions aligned with the actual imported shops, not a stale static list.
     shops = [s['name'] for s in payload['sources'] if s.get('offers', 0) > 0 and s.get('name')]
