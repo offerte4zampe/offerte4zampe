@@ -120,11 +120,14 @@ def build(catalog, now=None, history=None):
         shops[shop] += 1
         if len(selected) >= 42:
             break
+    spotlight_pool = [o for o in selected if 'verified_discount_pct' in o or 'comparison_savings_pct' in o][:3]
+    daily_pick_id = spotlight_pool[today.toordinal() % len(spotlight_pool)]['id'] if spotlight_pool else None
     counts = collections.Counter(o['brand'] for o in rows if o.get('brand'))
     fields = ['id', 'title', 'merchant', 'merchant_id', 'brand', 'variant', 'price', 'weight_kg', 'image', 'image_local', 'url', 'affiliate_url', 'available', 'checked_at', 'canonical_title', 'canonical_format', 'canonical_shop_count', 'product_slug', 'product_url', 'unit_price', 'unit_price_unit', 'verified_before_price', 'verified_discount_pct', 'comparison_other_price', 'comparison_savings_pct', 'comparison_savings_eur', 'comparison_other_merchant']
     return {k: catalog[k] for k in ['generated_at', 'refresh_hours', 'sources']} | {
         'stats': {'offers': len(catalog['offers']), 'brands': len({o.get('brand') for o in catalog['offers'] if o.get('brand')})},
         'top_brands': [brand for brand, count in counts.most_common(10)],
+        'daily_pick_id': daily_pick_id,
         'offers': [{k: o[k] for k in fields if k in o} for o in selected],
     }
 
@@ -234,7 +237,8 @@ def pick(payload):
         if brand not in brands:
             picked.append(o)
             brands.add(brand)
-    return picked, (picked[0] if picked else None)
+    hero = next((o for o in picked if o['id'] == payload.get('daily_pick_id')), None)
+    return picked, (hero or (picked[0] if picked else None))
 
 
 def replace_region(html, element_id, content):
