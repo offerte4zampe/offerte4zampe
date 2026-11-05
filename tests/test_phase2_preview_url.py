@@ -19,6 +19,14 @@ class PreviewURLTest(unittest.TestCase):
     def test_structured_output(self):
         self.assertEqual(preview_url(extract_preview_output(json.dumps(structured())), 'phase2-56'), URL)
 
+    def test_structured_session_then_preview(self):
+        session = json.dumps({'type': 'wrangler-session', 'version': 1, 'wrangler_version': '4.154.0'})
+        result = json.dumps(structured())
+        self.assertEqual(preview_url(extract_preview_output(session + '\n' + result), 'phase2-56'), URL)
+        for records in ([session], [session, session], [result, session], [session, result, result]):
+            with self.subTest(records=records), self.assertRaisesRegex(ValueError, 'exactly one'):
+                extract_preview_output('\n'.join(records))
+
     def test_build_logs_then_json(self):
         response = {'preview': {'name': 'phase2-56', 'urls': [URL + '/']},
                     'deployment': {'urls': [VERSION]}}

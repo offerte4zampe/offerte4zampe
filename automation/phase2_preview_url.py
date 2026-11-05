@@ -10,7 +10,7 @@ ZONE = 'offerte4zampe.workers.dev'
 
 
 def extract_preview_output(text):
-    """Read exactly one object, optionally preceded by Wrangler build log lines."""
+    """Read one preview result, with an optional leading Wrangler session record."""
     decoder = json.JSONDecoder()
     objects = []
     offset = 0
@@ -31,8 +31,12 @@ def extract_preview_output(text):
         if line and not re.sub(r'\x1b\[[0-9;]*m', '', line).startswith('[custom build]'):
             raise ValueError('Unexpected content outside Wrangler JSON')
         offset = line_end + 1
-    if len(objects) != 1:
-        raise ValueError('Expected exactly one Wrangler JSON object')
+    if objects and objects[0].get('type') == 'wrangler-session':
+        session = objects.pop(0)
+        if session.get('version') != 1:
+            raise ValueError('Unsupported Wrangler session record')
+    if len(objects) != 1 or objects[0].get('type') == 'wrangler-session':
+        raise ValueError('Expected exactly one Wrangler preview result')
     return objects[0]
 
 
