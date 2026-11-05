@@ -22,7 +22,7 @@ test('group only fresh same-code same-brand same-weight offers across different 
 });
 test('expired supplementary shipment weights cannot produce totals',()=>{assert.equal(shipping({...o,shipping_weight_checked_at:'2026-10-01'},rules,1,'standard',now).total,undefined)});
 test('Isola official standard shipping preserves ambiguous exact threshold',()=>{
- const actual=require('../site/data/shipping-rules.json'),time=Date.parse(actual.checked_at+'T12:00:00Z');
+ const actual=require('../site/data/shipping-rules.json'),time=Date.parse(actual.checked_at)+3600000;
  const offer={price:30,merchant_id:'isola-dei-tesori',checked_at:new Date(time).toISOString()};
  assert.equal(shipping(offer,actual,1,'standard',time).total,35.9);
  assert.equal(shipping(offer,actual,2,'standard',time).total,60);

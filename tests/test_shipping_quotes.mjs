@@ -4,11 +4,12 @@ import fs from 'node:fs';
 import trade from '../site/assets/trade.js';
 import {view,content} from '../worker/canonical-product.mjs';
 const now=Date.parse('2026-11-04T16:52:00Z'),rules=JSON.parse(fs.readFileSync(new URL('../site/data/shipping-rules.json',import.meta.url),'utf8'));
+for(const r of Object.values(rules.merchants)){r.checked_at='2026-10-28';r.verified_until='2026-11-04T00:00:00Z';}
 const offer={id:'test',merchant_id:'bauzaar',merchant:'Bauzaar',price:62.89,checked_at:'2026-11-04T15:35:00Z',quantity:{verified:true},shipping_weight_kg:14.5,available:true,url:'https://www.bauzaar.it/products/test'};
 const check=test;
 function fresh(rule={}){return {merchants:{bauzaar:{fee:6.9,free_above:59,boundary_unknown:59,max_shipping_weight_kg:35,checked_at:'2026-11-04T10:00Z',verified_until:'2026-11-11T10:00Z',...rule}}}}
-check('all five production JSON rules expire and remain unknown',()=>{for(const merchant_id of Object.keys(rules.merchants)){for(const api of [trade]){const q=api.shipping({...offer,merchant_id},rules,1,'standard',now);assert.equal(q.total,undefined);assert.match(q.reason,/ricontrollare/)}}});
-check('expired rules are not reactivated by proposal',()=>assert.equal(trade.shipping(offer,rules,1,'standard',now).fee,undefined));
+check('historical expired observations remain unknown regardless of renewals',()=>{for(const merchant_id of Object.keys(rules.merchants)){for(const api of [trade]){const q=api.shipping({...offer,merchant_id},rules,1,'standard',now);assert.equal(q.total,undefined);assert.match(q.reason,/ricontrollare/)}}});
+check('historical expired observation is not reactivated',()=>assert.equal(trade.shipping(offer,rules,1,'standard',now).fee,undefined));
 check('expired exactly at deadline',()=>assert.equal(trade.shipping(offer,fresh({verified_until:new Date(now).toISOString()}),1,'standard',now).total,undefined));
 check('verified free shipping is a legitimate zero',()=>{const q=trade.shipping(offer,fresh(),1,'standard',now);assert.equal(q.status,'exact');assert.equal(q.fee,0);assert.equal(q.total,62.89)});
 check('below threshold adds fee',()=>assert.equal(trade.shipping({...offer,price:20},fresh(),1,'standard',now).total,26.9));
@@ -23,7 +24,7 @@ check('future offer rejected',()=>assert.equal(trade.shipping({...offer,checked_
 check('conflicting rule never yields estimate',()=>assert.equal(trade.shipping(offer,fresh({conflict:true}),1,'standard',now).total,undefined));
 check('missing tariff never yields NaN total',()=>assert.equal(trade.shipping({...offer,price:20},fresh({fee:undefined}),1,'standard',now).total,undefined));
 const product={name:'Example',slug:'example',brand:'Example',format:'14kg',offers:[offer],history:[]};
-check('SSR reason, destination, verified date and source appear',()=>{const r=fresh({source:'https://www.bauzaar.it/pages/tempi-di-evasione',verified_until:'2026-11-04T00:00Z'});const html=content(product,view(product,r,now)).body;for(const term of ['Condizioni da ricontrollare','Italia standard: esclusi CAP disagiati','Condizioni verificate il','Condizioni del negozio','Non calcolabile'])assert.ok(html.includes(term),term)});
+check('SSR reason, destination, verified date and source appear',()=>{const r=fresh({source:'https://www.bauzaar.it/pages/tempi-di-evasione',verified_until:'2026-11-04T00:00Z'});const html=content(product,view(product,r,now)).body;for(const term of ['Condizioni da ricontrollare','Italia continentale standard: esclusi isole','Condizioni verificate il','Condizioni del negozio','Non calcolabile'])assert.ok(html.includes(term),term)});
 check('SSR malicious reason and source escaped/rejected',()=>{const state=view(product,fresh(),now);state.quotes.set('test',{destination:'<img src=x onerror=1>',reason:'<script>alert(1)</script>',rule:{source:'javascript:alert(1)'}});const html=content(product,state).body;assert.ok(html.includes('&lt;script&gt;'));assert.ok(!html.includes('href="javascript:'));assert.ok(!html.includes('<img src=x'))});
 function bounded(quote_bounds,extra={}){return fresh({status:'verified',source:'https://example.com/shipping',free_above:undefined,free_from:undefined,boundary_unknown:undefined,quote_bounds,...extra})}
 const range={kind:'range',territory:'standard',quantity:1,fee_min:3,fee_max:7};

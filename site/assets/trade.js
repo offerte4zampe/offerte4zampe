@@ -26,7 +26,7 @@ function shippingRulesFromRows(rows,now=Date.now(),zone='IT'){
  return {merchants};
 }
 function shipping(o,rules,quantity=1,territory='standard',now=Date.now()){
- const destination=territory==='standard'?'Italia standard: esclusi CAP disagiati, isole minori e servizi opzionali':'Località o servizi particolari';
+ const destination=territory==='standard'?'Italia continentale standard: esclusi isole, CAP disagiati, Livigno, Campione e servizi opzionali':'Località o servizi particolari';
  const unknown=reason=>({status:'unknown',destination,reason});
  if(!o||o.quantity_verified===false||o.quantity?.verified===false)return unknown('Formato della confezione non verificato: totale non confrontabile');
  if(!Number.isFinite(now)||!Number.isFinite(o.price)||o.price<=0||!Number.isSafeInteger(Math.round(o.price*quantity*100)))return unknown('Prezzo o quantità non validi: totale non calcolato');
