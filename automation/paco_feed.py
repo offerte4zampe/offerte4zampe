@@ -12,6 +12,11 @@ try:
 except ImportError:
     from bauzaar_feed import amount, value
 
+try:
+    from .merchant_promotions import with_reference
+except ImportError:
+    from merchant_promotions import with_reference
+
 FEED_URL='https://pf.tradetracker.net/?aid=518044&encoding=utf-8&type=json&fid=1216771&categoryType=2&additionalType=2'
 ORIGIN='https://www.pacopetshop.it'
 UA='Offerte4Zampe/1.0 (+https://offerte4zampe.it/contatti.html)'
@@ -50,6 +55,7 @@ def normalize(payload, now=None):
             url=dest,affiliate_url=link,image=(p.get('images') or [''])[0],sku=value(props,'MPN'),
             gtin='',feed_gtin=value(props,'GTIN'),weight_kg=None,shipping_weight_kg=None,
             checked_at=now.isoformat(),source_type='official_feed',quantity_verified=False))
+        if current<regular:rows[-1]=with_reference(rows[-1],regular,'feed_regular_price')
     if not rows: raise ValueError('Empty feed')
     return rows
 

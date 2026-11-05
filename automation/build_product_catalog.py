@@ -151,6 +151,11 @@ def build(catalog,old_registry=None,history=None,now=None):
         from .name_matching import resolve
     except ImportError:
         from name_matching import resolve
+    try:
+        from .merchant_promotions import annotate
+    except ImportError:
+        from merchant_promotions import annotate
+    catalog={**catalog,'offers':[annotate(o) for o in catalog['offers']]}
     buckets=defaultdict(list)
     q_by_id={o['id']:quantity(o) for o in catalog['offers']}
     identities={o['id']:identity(o,q_by_id[o['id']]) for o in catalog['offers']}
@@ -175,7 +180,7 @@ def build(catalog,old_registry=None,history=None,now=None):
         if image_offer:
             p['image']=image_offer['image'];p['image_local']=image_offer['image_local'];p['image_source_offer']=image_offer['id']
         # Set after observed history is aggregated; duplicate shops never count twice.
-        content=json.dumps([title,q,[(o['id'],o['price'],o['available']) for o in rows]],ensure_ascii=False,sort_keys=True)
+        content=json.dumps([title,q,[(o['id'],o['price'],o['available'],(o.get('merchant_promotion') or {}).get('reference_cents'),(o.get('merchant_promotion') or {}).get('valid_until')) for o in rows]],ensure_ascii=False,sort_keys=True)
         signature=hashlib.sha256(content.encode()).hexdigest();lastmod=previous.get('lastmod')
         if not previous or signature!=previous.get('content_hash'):lastmod=now.isoformat()
         p['lastmod']=lastmod
