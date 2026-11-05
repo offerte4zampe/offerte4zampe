@@ -56,11 +56,13 @@ jobs:
             echo '::error::Cloudflare staging credentials are not configured; no preview upload was attempted.'
             exit 1
           fi
-          wrangler preview --config wrangler.phase2-preview.jsonc --ignore-base-config --name "$PREVIEW_NAME" --json > preview-upload.json
+          rm -f -- "$RUNNER_TEMP/phase2-wrangler-output.jsonl"
+          WRANGLER_OUTPUT_FILE_PATH="$RUNNER_TEMP/phase2-wrangler-output.jsonl" \
+            wrangler preview --config wrangler.phase2-preview.jsonc --ignore-base-config --name "$PREVIEW_NAME" --json > "$RUNNER_TEMP/phase2-wrangler-private.log" 2>&1
       - name: Validate the isolated preview URL
         if: github.event.action == 'labeled' && github.event.label.name == 'phase2-preview-approved'
         id: preview_url
-        run: python automation/phase2_preview_url.py preview-upload.json --expected "$PREVIEW_NAME" >> "$GITHUB_OUTPUT"
+        run: python automation/phase2_preview_url.py "$RUNNER_TEMP/phase2-wrangler-output.jsonl" --expected "$PREVIEW_NAME" >> "$GITHUB_OUTPUT"
       - name: Verify preview in real Chromium without external merchant navigation
         if: github.event.action == 'labeled' && github.event.label.name == 'phase2-preview-approved'
         env:
@@ -75,7 +77,6 @@ jobs:
         with:
           name: phase2-preview-${{ github.event.pull_request.number }}-${{ github.run_id }}
           path: |
-            preview-upload.json
             preview-build.log
             preview-python-tests.log
             preview-node-tests.log

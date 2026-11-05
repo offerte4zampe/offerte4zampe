@@ -1,27 +1,79 @@
-"""Select only the named isolated workers.dev preview URL from Wrangler JSON."""
-import argparse,json,re,sys
-from urllib.parse import urlsplit
+"""Validate Wrangler's isolated Worker Preview output without printing raw logs."""
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
 
-def preview_url(data,expected):
-    if not re.fullmatch(r'phase2-[0-9]+',expected):raise ValueError('Invalid preview name')
-    def strings(value):
-        if isinstance(value,str):yield value
-        elif isinstance(value,dict):
-            for item in value.values():yield from strings(item)
-        elif isinstance(value,list):
-            for item in value:yield from strings(item)
-    candidates=[]
-    for text in strings(data):
-        try:u=urlsplit(text)
-        except ValueError:continue
-        host=u.hostname or ''
-        if u.scheme=='https' and host.endswith('.workers.dev') and (host.startswith(expected+'-') or host.startswith(expected+'.')) and not u.username and not u.password and u.port in (None,443) and u.path in ('','/') and not u.query and not u.fragment:
-            candidates.append(text.rstrip('/'))
-    candidates=list(dict.fromkeys(candidates))
-    if len(candidates)!=1:raise ValueError('Expected exactly one named isolated preview URL')
-    return candidates[0]
+WORKER = 'zampachiara-staging'
+ZONE = 'offerte4zampe.workers.dev'
 
-if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('path');p.add_argument('--expected',required=True);a=p.parse_args()
-    try:print('url='+preview_url(json.load(open(a.path)),a.expected))
-    except (ValueError,OSError) as error:sys.exit(str(error))
+
+def extract_preview_output(text):
+    """Read exactly one object, optionally preceded by Wrangler build log lines."""
+    decoder = json.JSONDecoder()
+    objects = []
+    offset = 0
+    while offset < len(text):
+        line_end = text.find('\n', offset)
+        if line_end == -1:
+            line_end = len(text)
+        line = text[offset:line_end].lstrip()
+        if line.startswith('{'):
+            start = offset + len(text[offset:line_end]) - len(line)
+            try:
+                obj, end = decoder.raw_decode(text, start)
+            except ValueError:
+                raise ValueError('Malformed Wrangler JSON object') from None
+            objects.append(obj)
+            offset = end
+            continue
+        if line and not re.sub(r'\x1b\[[0-9;]*m', '', line).startswith('[custom build]'):
+            raise ValueError('Unexpected content outside Wrangler JSON')
+        offset = line_end + 1
+    if len(objects) != 1:
+        raise ValueError('Expected exactly one Wrangler JSON object')
+    return objects[0]
+
+
+def preview_url(data, expected):
+    if not re.fullmatch(r'phase2-[0-9]+', expected):
+        raise ValueError('Invalid preview name')
+    if 'preview' in data:
+        preview = data['preview']
+        deployment = data.get('deployment')
+        if not isinstance(preview, dict) or not isinstance(deployment, dict):
+            raise ValueError('Invalid Wrangler preview response')
+        worker = data.get('worker_name', WORKER)
+        name = preview.get('name')
+        urls = preview.get('urls')
+        deployment_urls = deployment.get('urls', [])
+    else:
+        worker = data.get('worker_name')
+        name = data.get('preview_name')
+        urls = data.get('preview_urls')
+        deployment_urls = data.get('deployment_urls', [])
+    if worker != WORKER or name != expected:
+        raise ValueError('Unexpected Wrangler Worker or preview name')
+    host = f'{expected}-{WORKER}.{ZONE}'
+    url = f'https://{host}'
+    if not isinstance(urls, list) or not urls or any(v not in (url, url + '/') for v in urls):
+        raise ValueError('Expected the named staging preview HTTPS URL')
+    deployment_pattern = rf'https://[a-f0-9]{{8}}-{WORKER}\.{re.escape(ZONE)}/?'
+    if not isinstance(deployment_urls, list) or any(
+        not isinstance(v, str) or not re.fullmatch(deployment_pattern, v)
+        for v in deployment_urls
+    ):
+        raise ValueError('Unexpected deployment URL outside the staging Worker')
+    return url
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('path', type=Path)
+    parser.add_argument('--expected', required=True)
+    args = parser.parse_args()
+    try:
+        print('url=' + preview_url(extract_preview_output(args.path.read_text()), args.expected))
+    except (ValueError, OSError) as error:
+        sys.exit(str(error))
