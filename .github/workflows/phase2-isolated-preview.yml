@@ -1,7 +1,7 @@
 name: Phase 2 isolated Cloudflare preview
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, labeled]
 permissions:
   contents: read
 concurrency:
@@ -11,7 +11,8 @@ jobs:
   preview:
     if: >-
       github.event.pull_request.head.repo.full_name == github.repository &&
-      github.event.pull_request.head.ref == 'phase2/shipping-metadata-preview-20261104'
+      github.event.pull_request.head.ref == 'phase2/shipping-metadata-preview-20261104' &&
+      (github.event.action != 'labeled' || github.event.label.name == 'phase2-preview-approved')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment: cloudflare-staging
@@ -38,12 +39,15 @@ jobs:
         run: python automation/check_d1_activation.py --prepare-build
       - name: Build the isolated configuration locally without upload
         run: |
-          wrangler deploy --dry-run --config wrangler.phase2-preview.jsonc --name "$PREVIEW_NAME" --outdir /tmp/phase2-preview-build > preview-build.log 2>&1
+          wrangler deploy --dry-run --config wrangler.phase2-preview.jsonc --outdir /tmp/phase2-preview-build > preview-build.log 2>&1
       - name: Run the complete Python suite
         run: python -m unittest discover -s tests > preview-python-tests.log 2>&1
       - name: Run the complete Node suite
         run: node --test tests/test_*.mjs > preview-node-tests.log 2>&1
+      - name: Verify shipping matrix on local workerd before any remote upload
+        run: python automation/verify_d1_staging.py --wrangler "$(command -v wrangler)" > preview-workerd-tests.log 2>&1
       - name: Upload native preview only
+        if: github.event.action == 'labeled' && github.event.label.name == 'phase2-preview-approved'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -54,9 +58,11 @@ jobs:
           fi
           wrangler preview --config wrangler.phase2-preview.jsonc --ignore-base-config --name "$PREVIEW_NAME" --json > preview-upload.json
       - name: Validate the isolated preview URL
+        if: github.event.action == 'labeled' && github.event.label.name == 'phase2-preview-approved'
         id: preview_url
         run: python automation/phase2_preview_url.py preview-upload.json --expected "$PREVIEW_NAME" >> "$GITHUB_OUTPUT"
       - name: Verify preview in real Chromium without external merchant navigation
+        if: github.event.action == 'labeled' && github.event.label.name == 'phase2-preview-approved'
         env:
           PREVIEW_ORIGIN: ${{ steps.preview_url.outputs.url }}
         run: |
@@ -73,6 +79,8 @@ jobs:
             preview-build.log
             preview-python-tests.log
             preview-node-tests.log
+            preview-workerd-tests.log
+            staging-reports/local-shipping-report.json
             preview-browser-tests.log
             browser-reports/phase2/
           if-no-files-found: warn
