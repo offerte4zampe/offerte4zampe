@@ -19,6 +19,7 @@ if(historyDrop||comparison){
  evidence.append(el('p',historyDrop?'Prezzo precedente osservato sulla stessa offerta':'Confronto sullo stesso prodotto con '+o.comparison_other_merchant+' · non è uno sconto del negozio','price-proof-note'));
  a.append(evidence);
 }else a.append(el('p','Prezzo aggiornato · nessuno sconto verificato','micro price-no-discount'));
+O4ZTrade.appendMerchantPromotion(a,o);
 if(o.unit_price&&o.unit_price_unit)a.append(el('p',money.format(o.unit_price)+'/'+o.unit_price_unit,'micro'));else if(o.weight_kg)a.append(el('p',money.format(o.price/o.weight_kg)+'/kg','micro'));
 a.append(el('p','Rilevato: '+O4ZTrade.formatTimestamp(o.checked_at),'micro'));
 const detail=el('a',(o.canonical_shop_count??2)<2?'Vedi offerta →':'Confronta nei negozi →','btn secondary');detail.href=O4ZTrade.productUrl(o);a.append(detail);const report=el('a','Prezzo o dati sbagliati? Segnala','micro');report.href=O4ZTrade.reportUrl(o);report.rel='nofollow';a.append(report);return a}

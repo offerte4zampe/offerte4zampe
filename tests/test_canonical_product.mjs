@@ -94,3 +94,29 @@ test('explicit verified liters are displayed alongside kg without changing canon
  }
  const missingPrice={...p,offers:[{...offer,unit_prices:{kg:10}}]};assert(!content(missingPrice,view(missingPrice,rules,now)).body.includes('€/l'));
 });
+
+test('merchant reference price is visible server-side and bound to the current offer',()=>{
+ const offer={...a,merchant_id:'webpet',url:'https://webpet.it/products/food?variant=1',merchant_promotion:{kind:'shopify_compare_at',offer_id:a.id,price_cents:2000,reference_cents:2500,source_url:'https://webpet.it/products/food?variant=1',observed_at:a.checked_at}};
+ const p={...product,offers:[offer]},html=content(p,view(p,rules,now)).body;
+ assert(html.includes('PROMO NEGOZIO'));assert(html.includes('25,00'));assert(html.includes('sul riferimento'));
+ const changed={...p,offers:[{...offer,price:19}]};assert(!content(changed,view(changed,rules,now)).body.includes('PROMO NEGOZIO'));
+});
+
+test('a verified merchant promotion remains visible when the shipping total is unknown',()=>{
+ const url='https://webpet.it/products/food?variant=1';
+ const offer={...a,merchant_id:'webpet',url,merchant_promotion:{
+  kind:'shopify_compare_at',offer_id:a.id,price_cents:2000,reference_cents:2500,
+  source_url:url,observed_at:a.checked_at,
+ }};
+ const p={...product,offers:[offer]};
+ const state=view(p,{checked_at:'2026-10-28',merchants:{webpet:{fee:5.9,boundary_unknown:20}}},now);
+ const quote=state.quotes.get(offer.id);
+ assert.equal(quote.status,'unknown');
+ assert.equal(quote.total,undefined);
+ const html=content(p,state).body;
+ assert.match(html,/<td data-label="Prezzo">[^<]*<span class="merchant-promo"[^>]*>/);
+ assert.match(html,/PROMO NEGOZIO/);
+ assert.match(html,/<td data-label="Totale"><strong>Non calcolabile<\/strong><\/td>/);
+ assert.match(html,/Soglia esatta da verificare nel negozio/);
+ assert.doesNotMatch(html,/Totale più basso verificabile/);
+});

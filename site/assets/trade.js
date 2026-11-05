@@ -73,7 +73,22 @@ function shippingExact(o,rules,quantity=1,territory='standard',now=Date.now()){
 }
 // The feeds expose comparison/list prices, not a verified reduction basis.
 // Keep promotional percentages disabled until an evidenced source is integrated.
-function discount(o){return false;}
+function merchantPromotion(o,now=Date.now()){
+ const p=o.merchant_promotion;if(!p||!['shopify_compare_at','feed_regular_price'].includes(p.kind)||o.available!==true||o.quantity_verified===false||o.weight_conflict)return null;
+ if(p.offer_id!==o.id||o.url&&p.source_url!==o.url||p.observed_at!==o.checked_at||p.price_cents!==Math.round(o.price*100))return null;
+ try{const u=new URL(p.source_url);if(u.protocol!=='https:'||u.username||u.password||!['webpet.it','www.webpet.it','animaliapet.eu','www.animaliapet.eu','bauzaar.it','www.bauzaar.it','pacopetshop.it','www.pacopetshop.it'].includes(u.hostname))return null}catch{return null}
+ const stamp=Date.parse(p.observed_at),end=p.valid_until?Date.parse(p.valid_until):null;
+ if(!Number.isFinite(stamp)||now-stamp>12*3600000||stamp>now+300000||end!==null&&(!Number.isFinite(end)||now>end))return null;
+ const ref=p.reference_cents,price=p.price_cents;if(!Number.isSafeInteger(ref)||!Number.isSafeInteger(price)||!(0<price&&price<ref&&ref<10000000))return null;
+ return {reference_cents:ref,saved_cents:ref-price,percent:Math.floor((ref-price)*1000/ref)/10};
+}
+function merchantPromotionHTML(o,now=Date.now()){
+ const p=merchantPromotion(o,now);if(!p)return '';
+ const euro=n=>new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(n/100),percent=new Intl.NumberFormat('it-IT',{maximumFractionDigits:1}).format(p.percent);
+ return '<span class="merchant-promo" data-merchant-promo><span class="merchant-promo-badge">−'+percent+'% · PROMO NEGOZIO</span><span class="merchant-promo-reference">Rif. negozio <s>'+euro(p.reference_cents)+'</s></span><span class="merchant-promo-saving">Risparmi '+euro(p.saved_cents)+' sul riferimento</span></span>';
+}
+function appendMerchantPromotion(parent,o,now=Date.now()){const html=merchantPromotionHTML(o,now);if(html){const template=document.createElement('template');template.innerHTML=html;parent.append(template.content)}}
+function discount(o,now=Date.now()){return Boolean(merchantPromotion(o,now))}
 function merchant(url){
  try{const u=new URL(url);if(u.protocol!=='https:'||u.username||u.password)return '';if(['www.amazon.it','amazon.it'].includes(u.hostname)&&/^\/dp\/[A-Z0-9]{10}\/?$/.test(u.pathname)&&u.searchParams.getAll('tag').length===1&&u.searchParams.get('tag')==='offerte4zam02-21')return 'Amazon';const shops={'www.pacopetshop.it':'Paco Pet Shop','pacopetshop.it':'Paco Pet Shop','www.isoladeitesori.it':'Isola dei Tesori','isoladeitesori.it':'Isola dei Tesori','www.bauzaar.it':'Bauzaar','bauzaar.it':'Bauzaar','webpet.it':'WebPet','www.webpet.it':'WebPet','animaliapet.eu':'Animaliapet','www.animaliapet.eu':'Animaliapet'};if(shops[u.hostname])return shops[u.hostname];if(u.hostname==='tc.tradetracker.net'&&u.searchParams.get('c')==='16143'&&u.searchParams.get('a')==='518044')return 'Bauzaar';if(u.hostname==='tc.tradetracker.net'&&u.searchParams.get('c')==='31221'&&u.searchParams.get('a')==='518044')return 'Isola dei Tesori';return ''}catch{return ''}
 }
@@ -103,5 +118,5 @@ function freshnessLabel(value,now=Date.now()){const t=Date.parse(value),hours=(n
 function productUrl(o){const slug=o?.product_slug;if(typeof slug==='string'&&/^[a-z0-9][a-z0-9-]{1,200}$/.test(slug))return '/prodotto/'+slug;const path=o?.product_url;return typeof path==='string'&&/^\/prodotto\/[a-z0-9][a-z0-9-]{1,200}$/.test(path)?path:'/confronta-cibo'}
 function goUrl(o,page='other'){return '/go/'+encodeURIComponent(o.id)+'?from='+(['home','catalog','product','basket','other'].includes(page)?page:'other')}
 function reportUrl(o){const p=new URLSearchParams();for(const [key,source,limit] of [['id','id',100],['title','title',240],['shop','merchant',100],['price','price',30],['checked','checked_at',60]])p.set(key,String(o[source]??'').slice(0,limit));return 'segnala-errore.html#'+p;}
-const api={formatTimestamp,relativeTime,freshnessLabel,productUrl,merchantUrl,goUrl,shippingRulesFromRows,shipping,discount,merchant,matchKey,groupOffers,reportUrl};if(typeof module!=='undefined')module.exports=api;else root.O4ZTrade=api;
+const api={merchantPromotion,merchantPromotionHTML,appendMerchantPromotion,formatTimestamp,relativeTime,freshnessLabel,productUrl,merchantUrl,goUrl,shippingRulesFromRows,shipping,discount,merchant,matchKey,groupOffers,reportUrl};if(typeof module!=='undefined')module.exports=api;else root.O4ZTrade=api;
 })(typeof window!=='undefined'?window:this);

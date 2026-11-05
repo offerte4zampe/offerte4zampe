@@ -43,3 +43,12 @@ class FeedTests(unittest.TestCase):
         rows=m.normalize({'products':[self.p,bad]},self.now)
         self.assertEqual([r['id'] for r in rows],['bauzaar:123'])
         with self.assertRaises(ValueError):m.normalize({'products':[bad]},self.now)
+
+    def test_active_sale_keeps_reference_bound_to_same_variant_and_expiry(self):
+        self.p['properties']['sale_price']=['15']
+        self.p['properties']['sale_price_effective_date']=['2026-10-18T00:00:00+00:00/2026-10-20T00:00:00+00:00']
+        row=self.row();p=row['merchant_promotion']
+        self.assertEqual((p['price_cents'],p['reference_cents']),(1500,2000))
+        self.assertEqual(p['offer_id'],row['id']);self.assertEqual(p['valid_until'],'2026-10-20T00:00:00+00:00')
+        self.p['properties']['sale_price_effective_date']=['2026-09-18T00:00:00+00:00/2026-09-20T00:00:00+00:00']
+        self.assertNotIn('merchant_promotion',self.row())

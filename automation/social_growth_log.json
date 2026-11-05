@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "brand": "offerte4zampe",
+  "notes": "Registro operativo delle interazioni pubbliche; programmato non significa pubblicato. Non registrare dati personali privati.",
+  "baseline": {
+    "date": "2026-11-04",
+    "followers": 51,
+    "following": 106,
+    "posts": 12,
+    "source": "sessione Instagram verificata"
+  },
+  "previous_interactions": {
+    "date": "2026-11-04",
+    "followed": [
+      "lusi_toelettatura",
+      "lillo.bassotto",
+      "vendetta.theclc",
+      "crostino_ilbassottino",
+      "ducky_labradorcurioso"
+    ],
+    "liked_post_shortcodes": [
+      "De9m75ZCXYn",
+      "DfR495ZMiu0",
+      "DfSNs0qtzmK",
+      "DfE5VKNDNjr",
+      "De3rqiADE2m"
+    ],
+    "commented": [
+      "lusi_toelettatura",
+      "lillo.bassotto",
+      "vendetta.theclc",
+      "crostino_ilbassottino"
+    ],
+    "collaboration_messages": []
+  },
+  "runs": [
+    {
+      "date": "2026-11-05",
+      "checked_at": "2026-11-05T09:36:02+01:00",
+      "source": "Windsor Instagram live",
+      "followers": 55,
+      "following": 106,
+      "posts": 13,
+      "followers_delta_vs_baseline": 4,
+      "following_delta_vs_baseline": 0,
+      "comments_on_own_recent_posts": 0,
+      "new_follows_confirmed": 0,
+      "new_likes_confirmed": 0,
+      "new_comments_confirmed": 0,
+      "replies_confirmed": 0,
+      "collaboration_contacts_confirmed": 0,
+      "scheduled": [
+        {
+          "network": "instagram",
+          "time": "2026-11-05T10:15:00+01:00",
+          "id": 417455988,
+          "uuid": "-8050342040551931021",
+          "topic": "gatti acqua dal rubinetto"
+        },
+        {
+          "network": "facebook",
+          "time": "2026-11-05T10:20:00+01:00",
+          "id": 417456016,
+          "uuid": "-666470608290820181",
+          "topic": "gatti acqua dal rubinetto"
+        }
+      ],
+      "held": [
+        {
+          "network": "instagram",
+          "time": "2026-11-06T18:30:00+01:00",
+          "uuid": "2885529623140256436",
+          "reason": "Bozza in attesa di verifica fotografia reale del prodotto Nature's Protection Red Coat Agnello 10 kg e prezzi del 4 novembre"
+        }
+      ],
+      "telegram": "Invio non verificato: nessun accesso alla risposta live del bot/Worker",
+      "limitations": "Le azioni Instagram via Windsor disponibili non includono follow/like/DM; nessuna risposta ai commenti ricevuta nei dati consultati."
+    },
+    {
+      "date": "2026-11-05",
+      "source": "Instagram browser cloud authenticated @offerte4zampe",
+      "followers_initial": 54,
+      "followers_final": 54,
+      "following_initial": 106,
+      "following_final": 108,
+      "posts": 14,
+      "new_follows_confirmed": [
+        "zampettedileo",
+        "ettore.red"
+      ],
+      "new_likes_confirmed": [
+        {
+          "account": "zampettedileo",
+          "post": "DfUH6wdxnBi"
+        },
+        {
+          "account": "ettore.red",
+          "post": "DecX0DMikjG"
+        }
+      ],
+      "new_comments_confirmed": [
+        {
+          "account": "zampettedileo",
+          "post": "DfUH6wdxnBi",
+          "comment_id": "18102967841421664",
+          "text": "Leo ha appena scoperto la differenza tra numero di premi e quantità di biscotto 😂 Contabilità da vero intenditore! 🐾"
+        }
+      ],
+      "replies_confirmed": [
+        {
+          "account": "vendetta.theclc",
+          "post": "DfSNs0qtzmK",
+          "comment_id": "18642453301015169",
+          "text": "@vendetta.theclc Rhum dovrebbe farsi pagare gli straordinari in biscottini 😂🐾"
+        }
+      ],
+      "comment_like_attempts_unconfirmed": [
+        "vendetta.theclc/18080343134412672",
+        "lillo.bassotto/18030184979919077"
+      ],
+      "observed_feedback": {
+        "new_follower": "ducky_labradorcurioso",
+        "replied": [
+          "vendetta.theclc",
+          "lillo.bassotto"
+        ],
+        "liked_previous_comment": [
+          "crostino_ilbassottino",
+          "lusi_toelettatura",
+          "lillo.bassotto"
+        ]
+      },
+      "notes": "No duplicate interactions. No DM sent. Current live 54 followers supersedes 55 reported via Windsor this morning; do not infer reason or attribute growth causally."
+    }
+  ]
+}
