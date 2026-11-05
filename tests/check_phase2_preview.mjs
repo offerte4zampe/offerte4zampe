@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {gunzipSync} from 'node:zlib';
+import {assertPreviewRedirect} from './phase2_preview_redirect.mjs';
 const origin=new URL(process.env.PREVIEW_ORIGIN||process.argv[2]||'http://127.0.0.1:8791').origin;
 const host=new URL(origin).hostname;
 assert(['localhost','127.0.0.1','[::1]'].includes(host)||(/^phase2-[a-z0-9-]+\..*workers\.dev$/i.test(host)),'Only a local or phase2 isolated preview is allowed');
@@ -19,8 +20,7 @@ for(const source of catalog.sources){
  const o=catalog.offers.find(o=>o.merchant_id===source.id&&fresh(o)&&(o.affiliate_url||o.url));
  assert(o,'A fresh available offer is required for '+source.id);
  const r=await fetch(origin+'/go/'+encodeURIComponent(o.id)+'?from=product',{redirect:'manual'});
- assert.equal(r.status,302);assert.equal(r.headers.get('location'),o.affiliate_url||o.url,'Affiliate target must remain byte-for-byte intact');
- assert.equal(r.headers.get('x-robots-tag'),'noindex, nofollow');
+ assertPreviewRedirect(r,o.affiliate_url||o.url);
  routes.push({merchant:source.id,status:r.status,target_preserved:true});
 }
 const seed=catalog.offers.find(o=>o.gtin==='04002973213353'&&o.quantity?.volume_ml===7000&&fresh(o));
