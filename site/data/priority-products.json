@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T19:03:57.318806+00:00",
+  "generated_at": "2026-11-05T01:12:45.591013+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -8,8 +8,8 @@
   "with_third_store_lead": 22,
   "categories": {
     "snack": 58,
-    "umido": 121,
-    "crocchette": 112,
+    "umido": 122,
+    "crocchette": 111,
     "lettiere": 9
   },
   "priority_offer_ids": [
@@ -149,7 +149,6 @@
     "bauzaar:56820043874629",
     "bauzaar:56820044824901",
     "bauzaar:56820046987589",
-    "bauzaar:56820052656453",
     "bauzaar:56820056097093",
     "bauzaar:56820056162629",
     "bauzaar:56820056424773",
@@ -185,6 +184,7 @@
     "bauzaar:56820215316805",
     "bauzaar:56820221411653",
     "bauzaar:56820245233989",
+    "bauzaar:56820254966085",
     "bauzaar:56820255097157",
     "bauzaar:56820266139973",
     "bauzaar:56820266664261",
@@ -449,6 +449,7 @@
     "paco:2028",
     "paco:2038",
     "paco:2119",
+    "paco:2253",
     "paco:2664",
     "paco:3065",
     "paco:3068",
@@ -481,7 +482,6 @@
     "paco:4744",
     "paco:4809",
     "paco:4820",
-    "paco:4821",
     "paco:4902",
     "paco:4914",
     "paco:4983",
@@ -3999,25 +3999,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-588d8ff98afbb2a01447",
-      "name": "Terra Canis secco Canireo Grain Free al Manzo 2,5 kg",
-      "brand": "Terra Canis",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "2,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/terra-canis-secco-canireo-grain-free-al-manzo-2-5-kg-2-5kg-04260109622275-a01447",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820052656453",
-        "paco:4821"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-741fc9a358a9d5ede07c",
       "name": "Trixie Mini Schoko Cioccolato Snack per Cani 30g",
       "brand": "Trixie",
@@ -6430,6 +6411,26 @@
       ],
       "candidate_offer_ids": [
         "paco:5900"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-30e9893e878a174420a5",
+      "name": "Natural Code XL 170 g 02 - Tonno e Sardine - confezione da 24 pezzi",
+      "brand": "Natural Code",
+      "category": "umido",
+      "species": "gatto",
+      "format": "4,08 kg",
+      "url": "https://offerte4zampe.it/prodotto/natural-code-xl-170-g-02-tonno-e-sardine-confezione-da-24-pezzi-08033837551249-4420a5",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56820254966085"
+      ],
+      "candidate_offer_ids": [
+        "paco:2253"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
