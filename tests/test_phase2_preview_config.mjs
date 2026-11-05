@@ -6,14 +6,31 @@ const preview=JSON.parse(read('wrangler.phase2-preview.jsonc'));
 const production=JSON.parse(read('wrangler.jsonc'));
 const workflow=read('.github/workflows/phase2-isolated-preview.yml');
 
+function assertPreviewOverrides(config){
+ assert.deepEqual(config.previews,{vars:config.vars});
+}
+
 test('phase2 preview only includes asset build and JSON vars, without bound production resources',()=>{
- assert.deepEqual(Object.keys(preview).sort(),['name','main','compatibility_date','assets','build','workers_dev','preview_urls','routes','vars'].sort());
+ assert.deepEqual(Object.keys(preview).sort(),['name','main','compatibility_date','assets','build','workers_dev','preview_urls','routes','vars','previews'].sort());
  assert.equal(preview.name,'zampachiara-staging');assert.notEqual(preview.name,production.name);assert.equal(preview.main,'worker/index.mjs');
  assert.deepEqual(preview.assets,production.assets);assert.deepEqual(preview.build,production.build);
  assert.deepEqual(preview.routes,[]);assert.equal(preview.workers_dev,false);assert.equal(preview.preview_urls,true);
  assert.deepEqual(preview.vars,{SHIPPING_RULES_SOURCE:'json',SHIPPING_SHADOW:'false'});
+ assertPreviewOverrides(preview);
  for(const forbidden of ['durable_objects','migrations','triggers','analytics_engine_datasets','d1_databases','kv_namespaces','r2_buckets','services','secrets','keep_vars','env'])assert(!Object.hasOwn(preview,forbidden));
 });
+for(const [name,makeInvalid] of [
+ ['a resource binding',vars=>({vars,kv_namespaces:[{binding:'UNEXPECTED',id:'fixture'}]})],
+ ['a route',vars=>({vars,routes:['example.test/*']})],
+ ['an extra variable',vars=>({vars:{...vars,UNEXPECTED:'fixture'}})],
+ ['a changed variable value',vars=>({vars:{...vars,SHIPPING_SHADOW:'true'}})],
+]){
+ test('phase2 preview overrides reject '+name,()=>{
+  const invalid={...preview,previews:makeInvalid(preview.vars)};
+  assert.throws(()=>assertPreviewOverrides(invalid),{code:'ERR_ASSERTION'});
+ });
+}
+
 test('preview workflow is restricted to exact same-repository PR branch and read-only GitHub permissions',()=>{
  assert.match(workflow,/head\.repo\.full_name == github\.repository/);
  assert.match(workflow,/head\.ref == 'phase2\/shipping-metadata-preview-20261104'/);
