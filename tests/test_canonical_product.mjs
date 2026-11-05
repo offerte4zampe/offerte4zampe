@@ -62,3 +62,9 @@ test('indexable product uses verified local image in Open Graph metadata',async(
  const single={...p,offers:[a]};const noindex=await (await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug),env(single),now)).text();
  assert(!noindex.includes('property="og:type" content="product"'));
 });
+test('merchant reference price is visible server-side and bound to the current offer',()=>{
+ const offer={...a,merchant_id:'webpet',url:'https://webpet.it/products/food?variant=1',merchant_promotion:{kind:'shopify_compare_at',offer_id:a.id,price_cents:2000,reference_cents:2500,source_url:'https://webpet.it/products/food?variant=1',observed_at:a.checked_at}};
+ const p={...product,offers:[offer]},html=content(p,view(p,rules,now)).body;
+ assert(html.includes('PROMO NEGOZIO'));assert(html.includes('25,00'));assert(html.includes('sul riferimento'));
+ const changed={...p,offers:[{...offer,price:19}]};assert(!content(changed,view(changed,rules,now)).body.includes('PROMO NEGOZIO'));
+});

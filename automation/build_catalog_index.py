@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 # Fields consumed by comparison, identity, shipping and local user tools.
-FIELDS = '''id title variant brand category price previous_price available image image_local sku gtin weight_kg shipping_weight_kg shipping_weight_checked_at shipping_weight_source quantity_verified weight_conflict checked_at merchant merchant_id canonical_title canonical_format canonical_shop_count product_slug product_id product_matching_method product_identity_verified identity_review identity_expires_at quantity unit_price unit_price_unit'''.split()
+FIELDS = '''id title variant brand category price previous_price merchant_promotion available image image_local sku gtin weight_kg shipping_weight_kg shipping_weight_checked_at shipping_weight_source quantity_verified weight_conflict checked_at merchant merchant_id canonical_title canonical_format canonical_shop_count product_slug product_id product_matching_method product_identity_verified identity_review identity_expires_at quantity unit_price unit_price_unit'''.split()
 
 def build(catalog, directory, chunk_size=1000):
     directory.mkdir(parents=True, exist_ok=True)

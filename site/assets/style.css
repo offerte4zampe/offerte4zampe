@@ -322,3 +322,10 @@ header{z-index:200}
 
 @media(min-width:1050px){.footergrid{grid-template-columns:1.3fr 1fr 1fr 1.1fr;gap:26px}}
 @media(min-width:851px) and (max-width:1179px){.navlinks{gap:clamp(6px,.75vw,11px)} .navlinks a{font-size:12px}}
+/* Merchant-declared promotion, separate from historical drops and cross-shop prices. */
+.merchant-promo{display:flex;flex-wrap:wrap;align-items:center;gap:5px 10px;margin-top:8px;font-size:13px;line-height:1.45;font-weight:500;white-space:normal}
+.merchant-promo-badge{background:#9c2c11;color:#fff;padding:5px 9px;border-radius:7px;font-weight:800;font-size:13px}
+.merchant-promo-reference{color:var(--ink);font-size:13px}.merchant-promo-reference s{text-decoration-thickness:1.5px}
+.merchant-promo-saving{color:var(--green);font-weight:750}.store-price-summary .merchant-promo{grid-column:1/-1;flex-basis:100%}
+.store-price-summary .merchant-promo span{white-space:normal}
+@media(prefers-color-scheme:dark){.merchant-promo-saving{color:#b8e4d3}}

@@ -7,7 +7,7 @@ def fixture():
  return {'products':[{'ID':'123','campaignID':24833,'name':'Test cibo','price':{'currency':'EUR','amount':24},'URL':'https://www.pacopetshop.it/directlinking/?tt=24833_1216771_518044_&r=https%3A%2F%2Fwww.pacopetshop.it%2Fit%2Fbrand%2F123-test.htm','properties':{'availability':['out of stock'],'sale_price':['20.00 EUR'],'GTIN':['4006381333931'],'brand':['Brand']},'variations':[]}]}
 class PacoFeedTest(unittest.TestCase):
  def test_feed_stock_tracking_price_without_unit_inference(self):
-  r=normalize(fixture())[0];self.assertEqual(r['price'],20);self.assertFalse(r['available']);self.assertEqual(r['gtin'],'');self.assertIsNone(r['weight_kg']);self.assertIn('tt=24833_',r['affiliate_url']);self.assertIsNone(r['previous_price'])
+  r=normalize(fixture())[0];self.assertEqual(r['price'],20);self.assertFalse(r['available']);self.assertEqual(r['gtin'],'');self.assertIsNone(r['weight_kg']);self.assertIn('tt=24833_',r['affiliate_url']);self.assertIsNone(r['previous_price']);self.assertEqual(r['merchant_promotion']['reference_cents'],2400)
  def test_verified_multipack_and_mismatch(self):
   r=normalize(fixture())[0];p={'price_amount':20,'attributes':{'1':{'name':'Pollo','ean13':'4006381333931'},'2':{'name':'24x85 gr','ean13':'4006381333931'}}}
   page=lambda:'<div data-product="'+html.escape(json.dumps(p),quote=True)+'">'

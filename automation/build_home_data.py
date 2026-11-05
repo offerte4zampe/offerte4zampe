@@ -20,6 +20,11 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
 def build(catalog, now=None, history=None):
+    try:
+        from .merchant_promotions import annotate
+    except ImportError:
+        from merchant_promotions import annotate
+    catalog={**catalog,'offers':[annotate(o) for o in catalog['offers']]}
     now = now or datetime.datetime.now(datetime.timezone.utc)
     counts_by_store = collections.Counter(o.get('merchant_id') for o in catalog['offers'])
     catalog = {**catalog, 'sources': [{**s, 'offers': counts_by_store[s['id']]} for s in catalog['sources']]}
@@ -123,7 +128,7 @@ def build(catalog, now=None, history=None):
     spotlight_pool = [o for o in selected if 'verified_discount_pct' in o or 'comparison_savings_pct' in o][:3]
     daily_pick_id = spotlight_pool[today.toordinal() % len(spotlight_pool)]['id'] if spotlight_pool else None
     counts = collections.Counter(o['brand'] for o in rows if o.get('brand'))
-    fields = ['id', 'title', 'merchant', 'merchant_id', 'brand', 'variant', 'price', 'weight_kg', 'image', 'image_local', 'url', 'affiliate_url', 'available', 'checked_at', 'canonical_title', 'canonical_format', 'canonical_shop_count', 'product_slug', 'product_url', 'unit_price', 'unit_price_unit', 'verified_before_price', 'verified_discount_pct', 'comparison_other_price', 'comparison_savings_pct', 'comparison_savings_eur', 'comparison_other_merchant']
+    fields = ['id', 'title', 'merchant', 'merchant_id', 'brand', 'variant', 'price', 'weight_kg', 'image', 'image_local', 'url', 'affiliate_url', 'available', 'checked_at', 'canonical_title', 'canonical_format', 'canonical_shop_count', 'product_slug', 'product_url', 'unit_price', 'unit_price_unit', 'verified_before_price', 'verified_discount_pct', 'comparison_other_price', 'comparison_savings_pct', 'comparison_savings_eur', 'comparison_other_merchant', 'merchant_promotion', 'quantity_verified', 'weight_conflict']
     return {k: catalog[k] for k in ['generated_at', 'refresh_hours', 'sources']} | {
         'stats': {'offers': len(catalog['offers']), 'brands': len({o.get('brand') for o in catalog['offers'] if o.get('brand')})},
         'top_brands': [brand for brand, count in counts.most_common(10)],
@@ -272,6 +277,10 @@ def render_home(html, payload):
         if isinstance(target, str) and re.fullmatch(r'/marca-[a-z0-9-]+', target):
             return f'<a href="{h(target, quote=True)}">{h(label)}</a>'
         return f'<a href="confronta-cibo.html?{h(urlencode(params), quote=True)}">{h(label)}</a>'
+    try:
+        from .merchant_promotions import render as render_promotion
+    except ImportError:
+        from merchant_promotions import render as render_promotion
     def card(o, spotlight=False):
         tag = 'h3'
         image = o.get('image', '')
@@ -294,7 +303,7 @@ def render_home(html, payload):
                         +h(o['comparison_other_merchant'])+' · non è uno sconto del negozio</p></div>')
         else:
             evidence = '<p class="micro price-no-discount">Prezzo aggiornato · nessuno sconto verificato</p>'
-        return f'''<article class="{'spotlight-product' if spotlight else 'home-deal'}{' has-price-proof' if ('verified_discount_pct' in o or 'comparison_savings_pct' in o) else ''}" data-home-offer="{h(o['checked_at'],quote=True)}">{img}<p class="micro">{h(o['merchant'])} · {h(o['brand'])}</p><{tag}><a class="product-title-link" href="{h(product_url(o),quote=True)}">{h(title)}</a></{tag}><p class="micro">{h(o.get('variant') or '')}</p><p class="catalog-price"><span class="price-now-label">Qui</span><strong>{money(o['price'])}</strong></p>{evidence}{unit}<p class="micro">Rilevato: <time datetime="{h(o['checked_at'],quote=True)}">{h(o['checked_at'][:16].replace('T',' '))} UTC</time></p><a class="btn secondary" href="{h(product_url(o),quote=True)}">{cta}</a>{error_link(o)}</article>'''
+        return f'''<article class="{'spotlight-product' if spotlight else 'home-deal'}{' has-price-proof' if ('verified_discount_pct' in o or 'comparison_savings_pct' in o) else ''}" data-home-offer="{h(o['checked_at'],quote=True)}">{img}<p class="micro">{h(o['merchant'])} · {h(o['brand'])}</p><{tag}><a class="product-title-link" href="{h(product_url(o),quote=True)}">{h(title)}</a></{tag}><p class="micro">{h(o.get('variant') or '')}</p><p class="catalog-price"><span class="price-now-label">Qui</span><strong>{money(o['price'])}</strong></p>{evidence}{render_promotion(o)}{unit}<p class="micro">Rilevato: <time datetime="{h(o['checked_at'],quote=True)}">{h(o['checked_at'][:16].replace('T',' '))} UTC</time></p><a class="btn secondary" href="{h(product_url(o),quote=True)}">{cta}</a>{error_link(o)}</article>'''
     deals, hero = pick(payload)
     parts = {
         'home-deals': ''.join(card(o) for o in deals) if deals else '<p class="home-no-proof">Oggi non risultano ribassi o risparmi tra negozi sufficientemente verificati. <a href="/confronta-cibo">Confronta comunque i prezzi aggiornati →</a></p>',

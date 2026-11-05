@@ -11,6 +11,11 @@ try:
 except ImportError:
     from image_policy import feed_image
 
+try:
+    from .merchant_promotions import with_reference
+except ImportError:
+    from merchant_promotions import with_reference
+
 FEED_URL = 'https://pf.tradetracker.net/?aid=518044&encoding=utf-8&type=json&fid=600171&categoryType=2&additionalType=2'
 
 def value(props, key):
@@ -68,6 +73,7 @@ def normalize(payload, now=None):
             affiliate_url=link, image=images[0] if images else '', sku='', gtin=value(props, 'GTIN'), feed_gtin=value(props, 'GTIN'),
             weight_kg=kg, weight_source='official_feed:unit_pricing_measure' if kg else '', shipping_weight_kg=None,
             checked_at=now.isoformat(), source_type='official_feed', image_source=feed_image(images[0] if images else '',16143,600171)))
+        if current<regular:rows[-1]=with_reference(rows[-1],regular,'feed_regular_price',end.isoformat())
     if not rows: raise ValueError('Empty feed')
     return rows
 

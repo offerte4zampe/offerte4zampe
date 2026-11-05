@@ -12,7 +12,7 @@ function comparisonTable(view){
  const body=el('tbody','');
  for(const shop of view.shops){for(const offer of shop.offers){const row=el('tr',''),q=shop.quotes.get(offer.id);row.dataset.comparisonOffer=offer.id;
  const seller=el('th',shop.source.name);seller.scope='row';if(offer.identity_review)seller.append(el('small','Abbinamento revisionato'));
- row.append(seller,el('td',money.format(offer.price)),el('td',q.fee!==undefined?money.format(q.fee):'Da verificare'),el('td',q.total!==undefined?money.format(q.total):'Non calcolabile'));
+ const priceCell=el('td',money.format(offer.price));O4ZTrade.appendMerchantPromotion(priceCell,offer);row.append(seller,priceCell,el('td',q.fee!==undefined?money.format(q.fee):'Da verificare'),el('td',q.total!==undefined?money.format(q.total):'Non calcolabile'));
  const status=el('td',offer.quantity_verified===false?'Disponibilità dal feed; formato non verificato':offer.available?'Disponibile al rilevamento':'Esaurito al rilevamento');status.append(el('small',O4ZTrade.formatTimestamp(offer.checked_at)));row.append(status);
  const action=el('td',''),target=O4ZTrade.merchantUrl(offer)?O4ZTrade.goUrl(offer,'product'):'';if(offer.available&&target){const a=el('a','Vai al negozio ↗','btn secondary');a.href=target;a.target='_blank';a.rel=offer.affiliate_url?'sponsored nofollow noopener noreferrer':'sponsored nofollow noopener noreferrer';action.append(a)}row.append(action);body.append(row);
  }}
@@ -45,6 +45,7 @@ function render(){
  else if(shop.state!=='listed'){const labels={missing:'Nessuna offerta abbinata con certezza: il negozio potrebbe vendere questo prodotto',unknown:'Disponibilità non verificabile: catalogo non aggiornato o non disponibile',unmatched:'Corrispondenza non verificata in questo negozio',stale:'Dati da aggiornare: prezzo e disponibilità non confermati'};card.append(el('p',labels[shop.state]));if(shop.source.status==='ok'){const a=el('a','Cerca tra le offerte importate di '+shop.source.name+' →','micro');a.dataset.catalogSearch='';a.href='/confronta-cibo?'+new URLSearchParams({shop:shop.source.name,q:o.title.split(' - ')[0].split(/\s+/).slice(0,5).join(' ')});card.append(a)}}
  for(const offer of shop.offers){
  const row=el('section','','matched-offer');row.append(el('p',offer.variant||offer.title,'micro'),el('strong',money.format(offer.price)),el('p',offer.weight_kg?money.format(offer.price/offer.weight_kg)+'/kg · spedizione esclusa':'Spedizione esclusa','micro'),el('p',offer.quantity_verified===false?'Disponibilità dal feed; formato non verificato':offer.available?'Disponibile al rilevamento':'Esaurito al rilevamento'),el('p','Rilevato: '+O4ZTrade.formatTimestamp(offer.checked_at),'micro'));
+ O4ZTrade.appendMerchantPromotion(row,offer);
  const quote=shop.quotes.get(offer.id);const estimate=el('p',quote.total!==undefined?'Totale stimato: '+money.format(quote.total)+' ('+quantity+' confezioni · spedizione '+money.format(quote.fee)+')':'Totale non calcolato: '+quote.reason,'micro');estimate.dataset.shippingEstimate=offer.id;row.append(estimate);
  if(quote.rule){const conditions=el('a','Condizioni di spedizione','micro');conditions.href=safe(quote.rule.source);conditions.target='_blank';conditions.rel='noopener noreferrer';conditions.dataset.shippingConditions='';row.append(conditions)}
  const target=O4ZTrade.merchantUrl(offer)?O4ZTrade.goUrl(offer,'product'):'';
