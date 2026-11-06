@@ -17,3 +17,6 @@ Nuove verifiche richiedono browser e lettura del carrello, nessuna simulazione t
 Rigenerazione ogni sei ore con workflow coupons.yml, controllo data anche nel browser ogni minuto. Automazione quotidiana al mattino Europe/Rome: controlla fonti e carrello, aggiorna solo dopo prova, esclude blocchi. Nessuna sottoscrizione, messaggio, acquisto o invio marketing.
 
 5 test Python mirati locali passati; CI mobile e deploy da registrare a pubblicazione conclusa.
+
+## 6 novembre 2026
+MP20 (Bauzaar): prova nel carrello su due confezioni di biscotti Monopro Dog Adult All Breeds Grain Free 100 g, Tacchino, variante 56819967164741. Riga da 6,00 € a 4,80 €, sconto visibile 1,20 €. Articoli e codice rimossi a fine prova. Fonte: https://www.bauzaar.it/pages/promozioni — Monopro −20%, senza minimo, non cumulabile, fino al 13 novembre e a esaurimento scorte. Nuovo controllo entro il limite di 48 ore dalla data registrata.
