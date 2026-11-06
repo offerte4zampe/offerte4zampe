@@ -39,7 +39,7 @@ try{
  const response=await page.goto(origin+route,{waitUntil:'networkidle0'});
  assert.equal(response.status(),200);assert.equal(response.headers()['x-o4z-security-mode'],'report-only');
  assert((await page.$eval('.canonical-offers',e=>e.textContent)).includes('Condizioni da ricontrollare'));
- assert((await page.$eval('.canonical-offers',e=>e.textContent)).includes('Italia standard'));
+ assert((await page.$eval('.canonical-offers',e=>e.textContent)).includes('Italia continentale standard'));
  assert((await page.$eval('.canonical-offers',e=>e.textContent)).includes('€/l'));
  assert.equal(await page.$eval('link[rel=canonical]',e=>e.href),'https://offerte4zampe.it'+route);
  assert.equal(metrics.length,0,'No optional metrics before consent');
