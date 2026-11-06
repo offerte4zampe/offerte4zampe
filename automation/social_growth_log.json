@@ -131,6 +131,75 @@
         ]
       },
       "notes": "No duplicate interactions. No DM sent. Current live 54 followers supersedes 55 reported via Windsor this morning; do not infer reason or attribute growth causally."
+    },
+    {
+      "date": "2026-11-06",
+      "checked_at": "2026-11-06T09:52:00+01:00",
+      "source": "Windsor Instagram connected account (cached; trial plan does not permit force refresh), Metricool planner, GitHub main",
+      "followers": 55,
+      "following": 108,
+      "posts": 14,
+      "comparison": "Last confirmed browser session 2026-11-05: 54 followers, 108 following. Windsor now returns 55/108 but cache may lag; no causal attribution.",
+      "comments_on_own_recent_posts": 0,
+      "new_follows_confirmed": 0,
+      "new_likes_confirmed": 0,
+      "new_comments_confirmed": 0,
+      "replies_confirmed": 0,
+      "collaboration_contacts_confirmed": 0,
+      "scheduled": [
+        {
+          "network": "instagram",
+          "time": "2026-11-06T11:15:00+01:00",
+          "id": 418670559,
+          "uuid": "2416605871641543459",
+          "topic": "passeggiata olfattiva del cane",
+          "status": "PENDING",
+          "image": "Beagle sniffing in the grass.jpg",
+          "author": "Slyronit",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Beagle_sniffing_in_the_grass.jpg"
+        },
+        {
+          "network": "facebook",
+          "time": "2026-11-06T11:20:00+01:00",
+          "id": 418670682,
+          "uuid": "-1358417136287922830",
+          "topic": "passeggiata olfattiva del cane",
+          "status": "PENDING",
+          "image": "Beagle sniffing in the grass.jpg",
+          "author": "Slyronit",
+          "license": "CC BY-SA 4.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Beagle_sniffing_in_the_grass.jpg"
+        }
+      ],
+      "published_verified_previous": [
+        {
+          "date": "2026-11-05",
+          "network": "instagram",
+          "url": "https://www.instagram.com/p/DfWr_IqlX07/"
+        },
+        {
+          "date": "2026-11-05",
+          "network": "facebook",
+          "url": "https://facebook.com/122097890763524836/posts/122106524919524836"
+        }
+      ],
+      "held": [
+        {
+          "network": "instagram",
+          "time": "2026-11-06T18:30:00+01:00",
+          "uuid": "2885529623140256436",
+          "draft": true,
+          "reason": "Nature's Protection Red Coat Agnello 10 kg: image and 4 Nov prices not independently validated; must not publish."
+        }
+      ],
+      "telegram": "No message sent or verified in this run; code inspected on renamed repository; no access to live bot response/Cloudflare Durable Object.",
+      "limitations": "Cloud browser Work session not accessible from this execution, and Windsor has no follow/like/DM actions. Windsor returned no comments on own recent media; cannot inspect replies to comments on third-party profiles. Site HTTPS unavailable from independent checks; no new unverified external CTA links were included in Facebook post. Metrics cache not force-refreshable on trial plan.",
+      "sources": [
+        "https://www.dogstrust.org.uk/dog-advice/life-with-your-dog/enrichment/enrichment-activities-for-dogs",
+        "https://www.bluecross.org.uk/advice/dog/behaviour-and-training/life-on-a-lead",
+        "https://commons.wikimedia.org/wiki/File:Beagle_sniffing_in_the_grass.jpg"
+      ]
     }
   ]
 }
