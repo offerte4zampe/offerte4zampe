@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-11-05T19:01:07.692925+00:00",
+  "generated_at": "2026-11-06T01:16:55.499213+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 16,
-  "with_third_store_lead": 24,
+  "at_target": 12,
+  "with_third_store_lead": 28,
   "categories": {
-    "umido": 121,
-    "snack": 58,
-    "crocchette": 111,
-    "lettiere": 10
+    "umido": 119,
+    "snack": 59,
+    "crocchette": 113,
+    "lettiere": 9
   },
   "priority_offer_ids": [
     "animaliapet:46976533594455",
@@ -22,11 +22,15 @@
     "animaliapet:46976534249815",
     "animaliapet:46976536969559",
     "animaliapet:46976539132247",
+    "animaliapet:46976541000023",
+    "animaliapet:46976541393239",
+    "animaliapet:46976541557079",
     "animaliapet:46976541589847",
     "animaliapet:46976541622615",
     "animaliapet:46976541720919",
     "animaliapet:46976542245207",
     "animaliapet:46976542441815",
+    "animaliapet:46976542671191",
     "animaliapet:46976544735575",
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
@@ -81,7 +85,6 @@
     "animaliapet:46976696779095",
     "animaliapet:46976700875095",
     "animaliapet:46976702284119",
-    "animaliapet:46976703594839",
     "animaliapet:46976711491927",
     "animaliapet:46976714670423",
     "animaliapet:46976728727895",
@@ -97,6 +100,7 @@
     "animaliapet:48586203267415",
     "animaliapet:48586487923031",
     "animaliapet:48587011850583",
+    "animaliapet:48893252370775",
     "animaliapet:49110536257879",
     "animaliapet:50322990465367",
     "animaliapet:50366687084887",
@@ -104,6 +108,7 @@
     "animaliapet:50442257236311",
     "animaliapet:50442302816599",
     "animaliapet:50442319462743",
+    "animaliapet:51262524653911",
     "animaliapet:51865136136535",
     "animaliapet:51865187385687",
     "animaliapet:52116099727703",
@@ -121,6 +126,7 @@
     "bauzaar:56818788696389",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
+    "bauzaar:56819871285573",
     "bauzaar:56819875840325",
     "bauzaar:56819879543109",
     "bauzaar:56819879641413",
@@ -173,6 +179,8 @@
     "bauzaar:56820266139973",
     "bauzaar:56820266664261",
     "bauzaar:56820277117253",
+    "bauzaar:56820290781509",
+    "bauzaar:56820291010885",
     "bauzaar:56820296057157",
     "bauzaar:56820299530565",
     "bauzaar:56820410843461",
@@ -191,6 +199,8 @@
     "bauzaar:56820452196677",
     "bauzaar:56820452622661",
     "bauzaar:56820452819269",
+    "bauzaar:56820456161605",
+    "bauzaar:56820456423749",
     "bauzaar:56820456849733",
     "bauzaar:56820467859781",
     "bauzaar:56835011379525",
@@ -225,6 +235,7 @@
     "bauzaar:56961248330053",
     "bauzaar:56961249706309",
     "bauzaar:56961280049477",
+    "bauzaar:56961311080773",
     "bauzaar:56961313505605",
     "bauzaar:56961324745029",
     "bauzaar:56961398669637",
@@ -323,7 +334,6 @@
     "bauzaar:58411832213829",
     "bauzaar:58411832246597",
     "bauzaar:58411832312133",
-    "bauzaar:58411833819461",
     "bauzaar:58411834179909",
     "bauzaar:58411836670277",
     "bauzaar:58411838308677",
@@ -444,12 +454,16 @@
     "paco:2038",
     "paco:2119",
     "paco:2664",
+    "paco:2993",
+    "paco:2995",
     "paco:3065",
     "paco:3068",
     "paco:3070",
     "paco:3131",
     "paco:3135",
     "paco:3136",
+    "paco:3273",
+    "paco:3275",
     "paco:3711",
     "paco:3770",
     "paco:3828",
@@ -493,6 +507,7 @@
     "paco:5207",
     "paco:5208",
     "paco:5213",
+    "paco:5250",
     "paco:5264",
     "paco:5267",
     "paco:5268",
@@ -658,6 +673,27 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-3ee7f25a7b409b603d9f",
+      "name": "Monge Maxi Adult Pollo 12Kg Crocchette Cani",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-maxi-adult-pollo-12kg-crocchette-cani-08009470004411-603d9f",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976541557079",
+        "bauzaar:56820456423749"
+      ],
+      "candidate_offer_ids": [
+        "paco:2995"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-41c63e7cfc2fc11c9c68",
       "name": "Monge Kitten Monoprotein Trota 1,5Kg Gattini",
       "brand": "Monge",
@@ -674,6 +710,49 @@
       ],
       "candidate_offer_ids": [
         "paco:4242"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-4c2f52c6cbc92f4ccffe",
+      "name": "Monge All Breed Adult Coniglio, Riso e Patate 12Kg Crocchette",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-all-breed-adult-coniglio-riso-e-patate-12kg-crocchette-08009470011150-4ccffe",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976541393239",
+        "bauzaar:56820290781509"
+      ],
+      "candidate_offer_ids": [
+        "paco:3275",
+        "paco:5250"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-54bcc67fc00d06061bf8",
+      "name": "Monge Daily Line Medium Puppy e Junior Pollo 12Kg Crocchette Cani",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-daily-line-medium-puppy-e-junior-pollo-12kg-crocchette-cani-08009470011662-061bf8",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976541000023",
+        "bauzaar:56820456161605"
+      ],
+      "candidate_offer_ids": [
+        "paco:2993"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -716,6 +795,27 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411832246597"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-8536942fbef6aa37efab",
+      "name": "Monge Speciality Line All Breeds Puppy Agnello e Riso 12Kg Crocchette Cani",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-speciality-line-all-breeds-puppy-agnello-e-riso-12kg-crocchette-cani-08009470011198-37efab",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976542671191",
+        "bauzaar:56820291010885"
+      ],
+      "candidate_offer_ids": [
+        "paco:3273"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1151,86 +1251,6 @@
         "animaliapet:46976541262167",
         "paco:4241",
         "bauzaar:58411837882693"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-2f120df2a3b3352d106d",
-      "name": "Monge Adult Pollo 1.5Kg Crocchette Gatti",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-adult-pollo-1-5kg-crocchette-gatti-08009470004992-2d106d",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976543850839",
-        "bauzaar:58411855413573",
-        "webpet:52569132564820"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-39cbfbc55f75477dca80",
-      "name": "Monge Lettiera Easy Green Mais 3.8Kg per Gatti",
-      "brand": "Monge",
-      "category": "lettiere",
-      "species": "gatto",
-      "format": "3,8 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-lettiera-easy-green-mais-3-8kg-per-gatti-08009470015011-7dca80",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976541950295",
-        "isola-dei-tesori:000181425",
-        "bauzaar:56961724383557"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-3ee7f25a7b409b603d9f",
-      "name": "Monge Maxi Adult Pollo 12Kg Crocchette Cani",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-maxi-adult-pollo-12kg-crocchette-cani-08009470004411-603d9f",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976541557079",
-        "paco:2995",
-        "bauzaar:56820456423749"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-4c2f52c6cbc92f4ccffe",
-      "name": "Monge All Breed Adult Coniglio, Riso e Patate 12Kg Crocchette",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-all-breed-adult-coniglio-riso-e-patate-12kg-crocchette-08009470011150-4ccffe",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976541393239",
-        "paco:3275",
-        "bauzaar:56820290781509"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -2175,6 +2195,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-cf56bfb5361e7ad2b49b",
+      "name": "Farmina Snack Cani Vetlife Hypoallergenic Pesce e Dental Treat 60g Mini Adult",
+      "brand": "Farmina",
+      "category": "snack",
+      "species": "cane",
+      "format": "60 g",
+      "url": "https://offerte4zampe.it/prodotto/farmina-vet-life-hypoallergenic-snack-dentali-per-cani-adult-mini-60-g-pesce-e-patate-7ct-08010276043085-d2b49b",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:48893252370775",
+        "bauzaar:56819871285573"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-db4330b3c14db3206e05",
       "name": "Farmina N&D Grain Free Quinoa Gatto Digestion Agnello 1,5 kg",
       "brand": "Farmina",
@@ -2188,6 +2227,25 @@
       "offer_ids": [
         "bauzaar:56820215316805",
         "paco:3828"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-fc0892865e16285bac20",
+      "name": "Farmina Vet Life Canine Intestinal UltraCare low fat 1,5 kg",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-vet-life-canine-intestinal-ultracare-low-fat-1-5-kg-08010276044785-5bac20",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56961311080773",
+        "animaliapet:51262524653911"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -5608,26 +5666,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-febfbe7d0d01132283f3",
-      "name": "Farmina Vet Life - Farmina Vet Life Renal Cibo Umido Per Gatti · Pollo · 24x85 gr",
-      "brand": "Farmina",
-      "category": "umido",
-      "species": "gatto",
-      "format": "2,04 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-vet-life-farmina-vet-life-renal-cibo-umido-per-gatti-pollo-24x85-gr-08606014102864-2283f3",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "paco:3136"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56961324745029"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-be4ffa762c8c7779bae5",
       "name": "Forza10 Active Vet Diet Dog Intestinal Colon al Pesce 390 g",
       "brand": "Forza 10 Active Vet Diet",
@@ -6406,26 +6444,6 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:56820266139973"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-06150d9c60ab9e5514ac",
-      "name": "Natua Country Dog Adult Patè Grain Free 100 g Prosciutto - confezione da 6 pezzi",
-      "brand": "Natua",
-      "category": "umido",
-      "species": "cane",
-      "format": "600 g",
-      "url": "https://offerte4zampe.it/prodotto/natua-country-dog-adult-pate-grain-free-100-g-prosciutto-confezione-da-6-pezzi-08057507370800-5514ac",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:58411833819461"
-      ],
-      "candidate_offer_ids": [
-        "animaliapet:46976703594839"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
