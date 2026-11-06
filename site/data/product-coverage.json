@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-11-06T13:12:14.621559+00:00",
+  "generated_at": "2026-11-06T18:59:31.430058+00:00",
   "name_matching": {
     "evaluated_offers": 18152,
-    "insufficient_characteristics": 9447,
-    "eligible_offers": 8705,
+    "insufficient_characteristics": 9455,
+    "eligible_offers": 8697,
     "attached_without_gtin": 12
   },
-  "gtin_multi_shop_products": 524,
+  "gtin_multi_shop_products": 518,
   "characteristic_multi_shop_products": 12,
   "store_coverage": {
     "animaliapet": {
       "offers": 3558,
-      "active_offers": 3535,
-      "missing_valid_gtin": 1814,
+      "active_offers": 3492,
+      "missing_valid_gtin": 1833,
       "unverified_quantity": 0,
       "sales_unit_only": 1448,
-      "offers_in_multishop_products": 275
+      "offers_in_multishop_products": 270
     },
     "bauzaar": {
       "offers": 7098,
@@ -23,7 +23,7 @@
       "missing_valid_gtin": 440,
       "unverified_quantity": 0,
       "sales_unit_only": 2142,
-      "offers_in_multishop_products": 484
+      "offers_in_multishop_products": 478
     },
     "hygge": {
       "offers": 134,
@@ -44,27 +44,27 @@
     "paco": {
       "offers": 1248,
       "active_offers": 779,
-      "missing_valid_gtin": 1094,
-      "unverified_quantity": 1094,
-      "sales_unit_only": 1094,
-      "offers_in_multishop_products": 87
+      "missing_valid_gtin": 1102,
+      "unverified_quantity": 1102,
+      "sales_unit_only": 1102,
+      "offers_in_multishop_products": 85
     },
     "webpet": {
       "offers": 1946,
-      "active_offers": 1289,
-      "missing_valid_gtin": 1344,
+      "active_offers": 1281,
+      "missing_valid_gtin": 1378,
       "unverified_quantity": 0,
       "sales_unit_only": 1666,
       "offers_in_multishop_products": 41
     }
   },
-  "products": 20290,
-  "active_products": 16409,
+  "products": 20298,
+  "active_products": 16365,
   "offers": 18152,
-  "multi_shop_products": 536,
-  "multi_shop_percent": 3.27,
+  "multi_shop_products": 530,
+  "multi_shop_percent": 3.24,
   "denominator": "active canonical products, distinct merchants with verified quantities; GTIN and characteristic matching reported separately; duplicate offers in one shop do not count",
-  "unattached_offers": 7132,
-  "candidate_pairs": 132,
+  "unattached_offers": 7151,
+  "candidate_pairs": 117,
   "automatic_match_rules": "GTIN and quantity, or exact normalized name plus brand and verified selling quantity; conflicting GTINs excluded"
 }

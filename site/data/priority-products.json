@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-06T13:12:14.621559+00:00",
+  "generated_at": "2026-11-06T18:59:31.430058+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 16,
+  "at_target": 15,
   "with_third_store_lead": 24,
   "categories": {
-    "umido": 118,
+    "umido": 117,
     "snack": 63,
-    "crocchette": 110,
+    "crocchette": 111,
     "lettiere": 9
   },
   "priority_offer_ids": [
@@ -43,9 +43,9 @@
     "animaliapet:46976585924951",
     "animaliapet:46976586023255",
     "animaliapet:46976587727191",
-    "animaliapet:46976589136215",
     "animaliapet:46976591200599",
     "animaliapet:46976591233367",
+    "animaliapet:46976592642391",
     "animaliapet:46976605061463",
     "animaliapet:46976606044503",
     "animaliapet:46976607355223",
@@ -68,6 +68,7 @@
     "animaliapet:46976683016535",
     "animaliapet:46976683409751",
     "animaliapet:46976684556631",
+    "animaliapet:46976685244759",
     "animaliapet:46976687210839",
     "animaliapet:46976687407447",
     "animaliapet:46976687571287",
@@ -81,6 +82,7 @@
     "animaliapet:46976696779095",
     "animaliapet:46976700875095",
     "animaliapet:46976702284119",
+    "animaliapet:46976705462615",
     "animaliapet:46976711491927",
     "animaliapet:46976714670423",
     "animaliapet:46976728727895",
@@ -91,16 +93,14 @@
     "animaliapet:47739940831575",
     "animaliapet:48188453060951",
     "animaliapet:48188458041687",
+    "animaliapet:48254980784471",
     "animaliapet:48255411224919",
-    "animaliapet:48489766158679",
     "animaliapet:48586203267415",
     "animaliapet:48586487923031",
     "animaliapet:48587011850583",
     "animaliapet:48893252370775",
     "animaliapet:49110536257879",
     "animaliapet:50322990465367",
-    "animaliapet:50366687084887",
-    "animaliapet:50440341913943",
     "animaliapet:50442257236311",
     "animaliapet:50442302816599",
     "animaliapet:50442319462743",
@@ -119,11 +119,11 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
-    "bauzaar:56818788696389",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
     "bauzaar:56819871285573",
     "bauzaar:56819879543109",
+    "bauzaar:56819879575877",
     "bauzaar:56819879641413",
     "bauzaar:56820022509893",
     "bauzaar:56820022542661",
@@ -184,6 +184,7 @@
     "bauzaar:56820424835397",
     "bauzaar:56820434469189",
     "bauzaar:56820436042053",
+    "bauzaar:56820436533573",
     "bauzaar:56820437320005",
     "bauzaar:56820439941445",
     "bauzaar:56820449968453",
@@ -202,6 +203,7 @@
     "bauzaar:56835014459717",
     "bauzaar:56835014492485",
     "bauzaar:56835073802565",
+    "bauzaar:56835073999173",
     "bauzaar:56835075375429",
     "bauzaar:56961097728325",
     "bauzaar:56961097761093",
@@ -238,7 +240,6 @@
     "bauzaar:56961455522117",
     "bauzaar:56961455718725",
     "bauzaar:56961456013637",
-    "bauzaar:56961457062213",
     "bauzaar:56961459257669",
     "bauzaar:56961659863365",
     "bauzaar:56961696661829",
@@ -251,6 +252,7 @@
     "bauzaar:56961736835397",
     "bauzaar:56961740472645",
     "bauzaar:56961759183173",
+    "bauzaar:56961770094917",
     "bauzaar:56961800503621",
     "bauzaar:56961821180229",
     "bauzaar:56961825374533",
@@ -291,6 +293,7 @@
     "bauzaar:56962141454661",
     "bauzaar:56962141552965",
     "bauzaar:56962151481669",
+    "bauzaar:57066997449029",
     "bauzaar:57291899437381",
     "bauzaar:57296530768197",
     "bauzaar:57296531980613",
@@ -305,7 +308,6 @@
     "bauzaar:57356132254021",
     "bauzaar:57412725604677",
     "bauzaar:57741776388421",
-    "bauzaar:57742292943173",
     "bauzaar:57822525915461",
     "bauzaar:57822526210373",
     "bauzaar:57822526243141",
@@ -333,7 +335,6 @@
     "bauzaar:58411839062341",
     "bauzaar:58411839914309",
     "bauzaar:58411840700741",
-    "bauzaar:58411842961733",
     "bauzaar:58411845747013",
     "bauzaar:58411845779781",
     "bauzaar:58411847844165",
@@ -419,7 +420,9 @@
     "isola-dei-tesori:000150139",
     "isola-dei-tesori:000150282",
     "isola-dei-tesori:000150283",
+    "isola-dei-tesori:000181083",
     "isola-dei-tesori:000181362",
+    "isola-dei-tesori:000181482",
     "isola-dei-tesori:000464002",
     "isola-dei-tesori:000503046",
     "isola-dei-tesori:000503051",
@@ -1056,26 +1059,6 @@
         "animaliapet:46976577143127"
       ],
       "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-73776bd44aeaae9a90a4",
-      "name": "Biokat's Bianco Extra Classic Lettiera 10kg per Gatti",
-      "brand": "Biokat's",
-      "category": "lettiere",
-      "species": "gatto",
-      "format": "10 kg",
-      "url": "https://offerte4zampe.it/prodotto/biokat-s-bianco-classic-extra-10-kg-lettiera-per-gatti-04002064618104-9a90a4",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976592642391",
-        "isola-dei-tesori:000181083",
-        "bauzaar:57066997449029"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
@@ -1816,19 +1799,20 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-666f1728a148d72d3461",
-      "name": "Biokat's Bianco Classic Attracting Lettiera 10kg per Gatti",
+      "product_id": "p-73776bd44aeaae9a90a4",
+      "name": "Biokat's Bianco Classic Extra 10 Kg Lettiera per gatti",
       "brand": "Biokat's",
       "category": "lettiere",
       "species": "gatto",
       "format": "10 kg",
-      "url": "https://offerte4zampe.it/prodotto/biokat-s-bianco-classic-attracting-lettiera-10kg-per-gatti-04002064618005-2d3461",
+      "url": "https://offerte4zampe.it/prodotto/biokat-s-bianco-classic-extra-10-kg-lettiera-per-gatti-04002064618104-9a90a4",
       "verified_shops": 2,
       "target_shops": 3,
       "missing_shops": 1,
       "offer_ids": [
-        "animaliapet:46976589136215",
-        "bauzaar:58411842961733"
+        "isola-dei-tesori:000181083",
+        "bauzaar:57066997449029",
+        "animaliapet:46976592642391"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -3165,25 +3149,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-6016a9df3d2446810a15",
-      "name": "Trainer Kitten Bocconcini Pollo, Merluzzo, Tonno e Tacchino Multipack 12x85g Gattini",
-      "brand": "Natural Trainer",
-      "category": "umido",
-      "species": "gatto",
-      "format": "1,02 kg",
-      "url": "https://offerte4zampe.it/prodotto/trainer-kitten-bocconcini-pollo-merluzzo-tonno-e-tacchino-multipack-12x85g-gattini-08410650623863-810a15",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:50440341913943",
-        "bauzaar:57742292943173"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-6acab845ad6752c82b30",
       "name": "Trainer Nutri Insaporitore Pollo Liofilizzato 15g Snack Cani Adult",
       "brand": "Natural Trainer",
@@ -3260,25 +3225,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-9c0cd67be848e3fd3166",
-      "name": "Natural Trainer Selected Quality Adult Cat Sterilised Pollo 1,25 kg",
-      "brand": "Natural Trainer",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,25 kg",
-      "url": "https://offerte4zampe.it/prodotto/natural-trainer-selected-quality-adult-cat-sterilised-pollo-1-25-kg-1-25kg-08410650604350-fd3166",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56818788696389",
-        "animaliapet:50366687084887"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-a538d5c25fccc872d494",
       "name": "Natural Trainer Flowpack Adult (4x85 g) Manzo",
       "brand": "Natural Trainer",
@@ -3311,6 +3257,44 @@
       "offer_ids": [
         "animaliapet:46976569213271",
         "bauzaar:56820437320005"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-a81b068416f0c43e8be6",
+      "name": "Natural Trainer Freeze Dried Nutrisnack Medium/Maxi Manzo - 50 g",
+      "brand": "Natural Trainer",
+      "category": "snack",
+      "species": "cane",
+      "format": "50 g",
+      "url": "https://offerte4zampe.it/prodotto/natural-trainer-freeze-dried-nutrisnack-medium-maxi-manzo-50-g-05025730009272-3e8be6",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56819879575877",
+        "animaliapet:48254980784471"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-a981df541279b599613b",
+      "name": "Natural Trainer Daily Nutrition Adult con Tonno 1,5 kg",
+      "brand": "Natural Trainer",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/trainer-natural-cat-tonno-1-5kg-crocchette-gatti-adulti-08059149029719-99613b",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820436533573",
+        "animaliapet:46976705462615"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -3444,6 +3428,25 @@
       "offer_ids": [
         "animaliapet:49110536257879",
         "bauzaar:58245820023109"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-4ebcd480eedd035514b2",
+      "name": "Nature's Protection Red Coat Salmone 1,5kg Crocchette Cani Small Adult",
+      "brand": "Nature's Protection",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-red-coat-salmone-1-5kg-crocchette-cani-small-adult-04771317472304-5514b2",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976685244759",
+        "bauzaar:56835073999173"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -5810,26 +5813,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-d60fb22107a5b3b37967",
-      "name": "Gimcat Kitten Stick 3x3g Snack per Gattini",
-      "brand": "Gimborn",
-      "category": "snack",
-      "species": "gatto",
-      "format": "9 g",
-      "url": "https://offerte4zampe.it/prodotto/gimcat-kitten-stick-3x3g-snack-per-gattini-04002064420448-b37967",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "animaliapet:48489766158679"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56961457062213"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-bfc2258ff706fd33803f",
       "name": "GimCat Nutri Pocket Junior Mix 60 g",
       "brand": "GimCat",
@@ -6425,6 +6408,26 @@
       ],
       "candidate_offer_ids": [
         "paco:5689"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-acae48c9dde919d0ca0a",
+      "name": "Lindocat Advanced Multi-Cat lettiera agglomerante in bentonite bianca con bicarbonato 12 lt (10,2 kg)",
+      "brand": "Lindocat",
+      "category": "lettiere",
+      "species": "gatto",
+      "format": "10,2 kg",
+      "url": "https://offerte4zampe.it/prodotto/lindocat-advanced-multi-cat-lettiera-agglomerante-in-bentonite-bianca-con-bicarbonato-12-lt-10-2-kg-08006455001151-d0ca0a",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56961770094917"
+      ],
+      "candidate_offer_ids": [
+        "isola-dei-tesori:000181482"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
