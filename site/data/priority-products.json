@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-06T07:23:51.949064+00:00",
+  "generated_at": "2026-11-06T13:12:14.621559+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 14,
-  "with_third_store_lead": 26,
+  "at_target": 16,
+  "with_third_store_lead": 24,
   "categories": {
     "umido": 118,
     "snack": 63,
@@ -22,13 +22,11 @@
     "animaliapet:46976534249815",
     "animaliapet:46976536969559",
     "animaliapet:46976539132247",
-    "animaliapet:46976541262167",
     "animaliapet:46976541589847",
     "animaliapet:46976541622615",
     "animaliapet:46976541720919",
     "animaliapet:46976542245207",
     "animaliapet:46976542441815",
-    "animaliapet:46976542540119",
     "animaliapet:46976544735575",
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
@@ -329,14 +327,12 @@
     "bauzaar:58411832312133",
     "bauzaar:58411834179909",
     "bauzaar:58411836670277",
-    "bauzaar:58411837882693",
     "bauzaar:58411838308677",
     "bauzaar:58411838603589",
     "bauzaar:58411839029573",
     "bauzaar:58411839062341",
     "bauzaar:58411839914309",
     "bauzaar:58411840700741",
-    "bauzaar:58411840766277",
     "bauzaar:58411842961733",
     "bauzaar:58411845747013",
     "bauzaar:58411845779781",
@@ -469,7 +465,6 @@
     "paco:4110",
     "paco:4111",
     "paco:4134",
-    "paco:4241",
     "paco:4242",
     "paco:4245",
     "paco:4327",
@@ -477,7 +472,6 @@
     "paco:4435",
     "paco:4519",
     "paco:4557",
-    "paco:4586",
     "paco:4728",
     "paco:4741",
     "paco:4742",
@@ -503,8 +497,6 @@
     "paco:5207",
     "paco:5208",
     "paco:5213",
-    "paco:5252",
-    "paco:5253",
     "paco:5264",
     "paco:5267",
     "paco:5268",
@@ -647,27 +639,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-2a298d72f8265e590dc3",
-      "name": "Monge Sterilized Monoprotein Trota 1,5Kg Crocchette Gatti",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-sterilized-monoprotein-trota-1-5kg-crocchette-gatti-08009470005494-590dc3",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976541262167",
-        "bauzaar:58411837882693"
-      ],
-      "candidate_offer_ids": [
-        "paco:4241"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-3e0e724b820366f43f44",
       "name": "Monge Supreme Adult Tonno Broccoli e Mais Bustine 80g Gatti",
       "brand": "Monge",
@@ -747,29 +718,6 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411832246597"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-8d3ab2223597018b1ca4",
-      "name": "Monge Sterilised Monoprotein Anatra 1.5Kg Crocchette Gatti",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-sterilised-monoprotein-anatra-1-5kg-crocchette-gatti-08009470011952-8b1ca4",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976542540119",
-        "bauzaar:58411840766277"
-      ],
-      "candidate_offer_ids": [
-        "paco:4586",
-        "paco:5252",
-        "paco:5253"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1191,6 +1139,26 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-2a298d72f8265e590dc3",
+      "name": "Monge Sterilized Monoprotein Trota 1,5Kg Crocchette Gatti",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-sterilized-monoprotein-trota-1-5kg-crocchette-gatti-08009470005494-590dc3",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976541262167",
+        "paco:4241",
+        "bauzaar:58411837882693"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-2f120df2a3b3352d106d",
       "name": "Monge Adult Pollo 1.5Kg Crocchette Gatti",
       "brand": "Monge",
@@ -1245,6 +1213,26 @@
         "animaliapet:46976541557079",
         "paco:2995",
         "bauzaar:56820456423749"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-4c2f52c6cbc92f4ccffe",
+      "name": "Monge All Breed Adult Coniglio, Riso e Patate 12Kg Crocchette",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-all-breed-adult-coniglio-riso-e-patate-12kg-crocchette-08009470011150-4ccffe",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976541393239",
+        "paco:3275",
+        "bauzaar:56820290781509"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",

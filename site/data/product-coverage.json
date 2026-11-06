@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-11-06T07:23:51.949064+00:00",
+  "generated_at": "2026-11-06T13:12:14.621559+00:00",
   "name_matching": {
     "evaluated_offers": 18152,
     "insufficient_characteristics": 9447,
     "eligible_offers": 8705,
     "attached_without_gtin": 12
   },
-  "gtin_multi_shop_products": 523,
+  "gtin_multi_shop_products": 524,
   "characteristic_multi_shop_products": 12,
   "store_coverage": {
     "animaliapet": {
       "offers": 3558,
-      "active_offers": 3536,
-      "missing_valid_gtin": 1809,
+      "active_offers": 3535,
+      "missing_valid_gtin": 1814,
       "unverified_quantity": 0,
       "sales_unit_only": 1448,
       "offers_in_multishop_products": 275
@@ -23,7 +23,7 @@
       "missing_valid_gtin": 440,
       "unverified_quantity": 0,
       "sales_unit_only": 2142,
-      "offers_in_multishop_products": 483
+      "offers_in_multishop_products": 484
     },
     "hygge": {
       "offers": 134,
@@ -47,24 +47,24 @@
       "missing_valid_gtin": 1094,
       "unverified_quantity": 1094,
       "sales_unit_only": 1094,
-      "offers_in_multishop_products": 84
+      "offers_in_multishop_products": 87
     },
     "webpet": {
       "offers": 1946,
-      "active_offers": 1290,
-      "missing_valid_gtin": 1333,
+      "active_offers": 1289,
+      "missing_valid_gtin": 1344,
       "unverified_quantity": 0,
       "sales_unit_only": 1666,
       "offers_in_multishop_products": 41
     }
   },
-  "products": 20284,
-  "active_products": 16414,
+  "products": 20290,
+  "active_products": 16409,
   "offers": 18152,
-  "multi_shop_products": 535,
-  "multi_shop_percent": 3.26,
+  "multi_shop_products": 536,
+  "multi_shop_percent": 3.27,
   "denominator": "active canonical products, distinct merchants with verified quantities; GTIN and characteristic matching reported separately; duplicate offers in one shop do not count",
-  "unattached_offers": 7124,
-  "candidate_pairs": 136,
+  "unattached_offers": 7132,
+  "candidate_pairs": 132,
   "automatic_match_rules": "GTIN and quantity, or exact normalized name plus brand and verified selling quantity; conflicting GTINs excluded"
 }
