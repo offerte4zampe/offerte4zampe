@@ -2,8 +2,10 @@
 import html
 import json
 import unittest
+from unittest.mock import patch
 
 from automation.gtin_diagnostics import gtin_counters, valid_gtin
+from automation.update_catalog import attach_gtin_diagnostics
 from automation.paco_feed import normalize, verify_quantity, verification_plan
 import datetime as dt
 
@@ -25,8 +27,44 @@ class GtinDiagnosticsTest(unittest.TestCase):
                   {'feed_gtin':'','gtin':'4006381333931'},
                   {'feed_gtin':None}]
         snapshot=json.dumps(original,sort_keys=True)
-        self.assertEqual(gtin_counters(original),dict(raw_present=2,valid=1,invalid=1,empty=2))
+        self.assertEqual(gtin_counters(original),dict(raw_present=2,valid=1,invalid=1,empty=2,diagnostic_errors=0))
         self.assertEqual(json.dumps(original,sort_keys=True),snapshot)
+
+    def test_unexpected_field_types_and_faulty_counter_do_not_block_catalog(self):
+        offers=[{'feed_gtin':None}, {'feed_gtin':1234567890123},
+                {'feed_gtin':0}, {'feed_gtin':[]}, {'feed_gtin':{}},
+                {'feed_gtin':'4006381333931'}, {'feed_gtin':'  '}, 'not-a-row']
+        saved=json.dumps(offers, sort_keys=True)
+        result=gtin_counters(offers)
+        self.assertEqual(result['valid'], 1)
+        self.assertEqual(result['empty'], 2)
+        self.assertEqual(result['invalid'], 5)
+        self.assertEqual(result['raw_present']+result['empty'],len(offers))
+        self.assertGreater(result['diagnostic_errors'], 0)
+        self.assertEqual(json.dumps(offers, sort_keys=True),saved)
+        source={'id':'paco'}
+        with patch('automation.update_catalog.gtin_counters',side_effect=RuntimeError('synthetic failure')):
+            attach_gtin_diagnostics(source,offers)
+        self.assertEqual(source,{'id':'paco'})
+        self.assertEqual(json.dumps(offers,sort_keys=True),saved)
+        attach_gtin_diagnostics(source,offers)
+        self.assertEqual(source['gtin_diagnostics'],result)
+
+    def test_paco_diagnostics_failure_sink_is_not_authoritative(self):
+        class BrokenSink(dict):
+            def __setitem__(self,key,value):
+                raise RuntimeError('synthetic metrics failure')
+        row=normalize(fixture())[0]
+        content='<div data-product="invalid">'
+        self.assertEqual(verify_quantity(row,content,diagnostics=BrokenSink()),
+                         verify_quantity(row,content))
+        rows=[dict(row,id='paco:'+str(i)) for i in range(85)]
+        before=[dict(o) for o in rows]
+        date=dt.datetime(2026,11,7,tzinfo=dt.timezone.utc)
+        baseline=verification_plan(before,[],set(),date)
+        audited=verification_plan(rows,[],set(),date,diagnostics=BrokenSink())
+        self.assertEqual(audited,baseline)
+        self.assertEqual(rows,before)
 
     def test_paco_result_is_identical_with_and_without_diagnostics(self):
         row=normalize(fixture())[0]
