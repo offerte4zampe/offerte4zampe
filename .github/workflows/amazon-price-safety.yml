@@ -11,6 +11,10 @@ on:
       - 'site/assets/product-metadata.js'
       - 'site/data/amazon-links.json'
       - 'automation/price_feature_gate.py'
+      - 'automation/audit_price_feature_build.py'
+      - 'worker/amazon-product.mjs'
+      - 'tests/check_amazon_generated_local.mjs'
+      - 'tests/test_telegram.mjs'
       - 'automation/update_history.py'
       - 'automation/build_observatory.py'
       - 'tests/test_price_feature*'
@@ -57,3 +61,24 @@ jobs:
         env:
           PRICE_TRACKING_ENABLED: 'false'
         run: '"$RUNNER_TEMP/workerd-check/node_modules/.bin/wrangler" deploy --dry-run --outdir "$RUNNER_TEMP/amazon-price-check"'
+      - name: Scan actual generated assets for disabled features
+        if: always()
+        run: python automation/audit_price_feature_build.py --site site --output "$RUNNER_TEMP/amazon-local/price-content-audit.json"
+      - name: Install pinned local screenshot driver
+        if: success()
+        run: npm install --prefix "$RUNNER_TEMP/amazon-puppeteer" puppeteer-core@25.14.0
+      - name: Verify generated local site with real Worker handler, zero network publishing
+        if: success()
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+          PUPPETEER_ROOT: ${{ runner.temp }}/amazon-puppeteer
+          AMAZON_REPORT_DIR: ${{ runner.temp }}/amazon-local/screenshots
+        run: node tests/check_amazon_generated_local.mjs
+      - name: Upload offline audit and screenshot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: amazon-price-safety-local-evidence
+          path: ${{ runner.temp }}/amazon-local/
+          retention-days: 14
+          if-no-files-found: warn
