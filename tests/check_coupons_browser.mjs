@@ -43,8 +43,12 @@ export async function checkCoupons(page, origin) {
     }, row.code);
     assert.equal(labels.length, 1, `Expected exactly one status label for ${row.code}`);
     if (row.status === 'owner_confirmed') {
-      assert.match(labels[0], /confermat[oa]|concordat[oa]/i,
-        `Owner-confirmed coupon ${row.code} must have a separate confirmation label`);
+      const recheckAt = Date.parse(row.recheck_after);
+      const expectedLabel = Number.isFinite(recheckAt) && now >= recheckAt
+        ? 'Da riconfermare'
+        : 'Codice concordato con il partner · confermato dal titolare';
+      assert.equal(labels[0], expectedLabel,
+        `Owner-confirmed coupon ${row.code} must display its current status`);
       assert.doesNotMatch(labels[0], /(?:provato|verificato|testato) nel carrello/i,
         `Owner-confirmed coupon ${row.code} was falsely labelled as cart-tested`);
     } else if (row.status === 'cart_tested') {

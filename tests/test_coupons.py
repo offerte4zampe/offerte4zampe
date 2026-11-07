@@ -68,7 +68,7 @@ class CouponTests(unittest.TestCase):
         self.assertNotIn('cart_test', row)
         html = render_card(row)
         self.assertIn('CIOTOLA30', html)
-        self.assertIn('Verifica confermata dal titolare', html)
+        self.assertIn('Codice concordato con il partner · confermato dal titolare', html)
         self.assertNotIn('Provato nel carrello', html)
         for key, value in [('code', 'OTHER'), ('publication_allowed', False),
                            ('destination_url', 'https://evil.example/'),
@@ -79,6 +79,36 @@ class CouponTests(unittest.TestCase):
         del row['owner_confirmation']
         self.assertFalse(eligible(row, now))
 
+
+    def test_owner_confirmation_three_states(self):
+        row = copy.deepcopy(next(r for r in self.records if r['code'] == 'CIOTOLA30'))
+        confirmed = dt.datetime(2026, 11, 20, 23, 59, tzinfo=dt.timezone.utc)
+        recheck = dt.datetime(2026, 11, 21, 0, 0, tzinfo=dt.timezone.utc)
+        expired = dt.datetime(2028, 1, 1, 0, 0, tzinfo=dt.timezone.utc)
+
+        # 1: published with partner/owner label before the 14-day boundary.
+        self.assertTrue(eligible(row, confirmed))
+        before = render_card(row, confirmed)
+        self.assertIn('Codice concordato con il partner · confermato dal titolare', before)
+        self.assertIn('data-recheck-after="2026-11-21T00:00:00Z"', before)
+        self.assertNotIn('Provato nel carrello', before)
+
+        # 2: still visible but explicitly awaiting re-confirmation after 14 days.
+        self.assertTrue(eligible(row, recheck))
+        due = render_card(row, recheck)
+        self.assertIn('>Da riconfermare</span>', due)
+        self.assertNotIn('confermato dal titolare</span>', due)
+        self.assertNotIn('Provato nel carrello', due)
+
+        # 3: excluded at expires_at, not merely marked as needing recheck.
+        self.assertFalse(eligible(row, expired))
+        self.assertFalse(eligible(row, expired + dt.timedelta(days=1)))
+
+        # A missing/inconsistent recheck date must not publish a confirmation.
+        for bad in ('2026-11-22T00:00:00Z', 'invalid'):
+            changed = copy.deepcopy(row)
+            changed['recheck_after'] = bad
+            self.assertFalse(eligible(changed, confirmed))
 
 if __name__ == '__main__':
     unittest.main()
