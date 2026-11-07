@@ -4,6 +4,7 @@ import hashlib
 import math
 import datetime
 import gzip
+import os
 import json
 import pathlib
 import re
@@ -61,7 +62,7 @@ def build(catalog, now=None, history=None):
         return True
     def rotate(o):
         return hashlib.sha256((today.isoformat() + ':' + o['id']).encode()).hexdigest()
-    history_rows = (history or {}).get('offers', {})
+    history_rows = (history or {}).get('offers', {}) if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() == 'true' else {}
     candidates = []
     for original in rows:
         if not valid(original):
