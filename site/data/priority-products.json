@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T01:05:11.333581+00:00",
+  "generated_at": "2026-11-07T07:04:14.012472+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -59,7 +59,6 @@
     "animaliapet:46976665092439",
     "animaliapet:46976666009943",
     "animaliapet:46976666173783",
-    "animaliapet:46976667418967",
     "animaliapet:46976677806423",
     "animaliapet:46976681836887",
     "animaliapet:46976682426711",
@@ -102,7 +101,6 @@
     "animaliapet:48586487923031",
     "animaliapet:48587011850583",
     "animaliapet:48893252370775",
-    "animaliapet:49110536257879",
     "animaliapet:50322990465367",
     "animaliapet:50442257236311",
     "animaliapet:50442302816599",
@@ -138,6 +136,7 @@
     "bauzaar:56820043874629",
     "bauzaar:56820044824901",
     "bauzaar:56820046987589",
+    "bauzaar:56820052656453",
     "bauzaar:56820056097093",
     "bauzaar:56820056162629",
     "bauzaar:56820056424773",
@@ -181,6 +180,7 @@
     "bauzaar:56820410843461",
     "bauzaar:56820410941765",
     "bauzaar:56820411007301",
+    "bauzaar:56820411040069",
     "bauzaar:56820411203909",
     "bauzaar:56820418150725",
     "bauzaar:56820424835397",
@@ -319,7 +319,6 @@
     "bauzaar:57822527193413",
     "bauzaar:58097437999429",
     "bauzaar:58097439965509",
-    "bauzaar:58245820023109",
     "bauzaar:58245822742853",
     "bauzaar:58411825004869",
     "bauzaar:58411829920069",
@@ -385,7 +384,6 @@
     "isola-dei-tesori:000138318",
     "isola-dei-tesori:000138458",
     "isola-dei-tesori:000138579",
-    "isola-dei-tesori:000138584",
     "isola-dei-tesori:000138585",
     "isola-dei-tesori:000138586",
     "isola-dei-tesori:000138587",
@@ -436,6 +434,7 @@
     "isola-dei-tesori:000503389",
     "isola-dei-tesori:000503447",
     "isola-dei-tesori:000503460",
+    "isola-dei-tesori:000503537",
     "isola-dei-tesori:000503538",
     "isola-dei-tesori:000582552",
     "paco:1118",
@@ -483,6 +482,7 @@
     "paco:4744",
     "paco:4809",
     "paco:4820",
+    "paco:4821",
     "paco:4902",
     "paco:4914",
     "paco:4983",
@@ -1894,6 +1894,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-9044e979a27850937ccf",
+      "name": "Catisfactions Snack per Gatto con Tonno 60 g",
+      "brand": "Catisfactions",
+      "category": "snack",
+      "species": "gatto",
+      "format": "60 g",
+      "url": "https://offerte4zampe.it/prodotto/catisfactions-snack-per-gatto-bustina-60-g-tonno-05998749133378-937ccf",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "isola-dei-tesori:000503537",
+        "bauzaar:56820411040069"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-a5512cc47570c8bf4b51",
       "name": "Catisfactions Snack per Gatto con Erba Gatta 60 g",
       "brand": "Catisfactions",
@@ -2692,25 +2711,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-a852b4ca91fc8fb42177",
-      "name": "I'm Different Snack con Trota 40 g",
-      "brand": "I'm Different",
-      "category": "snack",
-      "species": "cane",
-      "format": "40 g",
-      "url": "https://offerte4zampe.it/prodotto/i-m-different-snack-con-trota-40-g-08052469420143-b42177",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "isola-dei-tesori:000138584",
-        "animaliapet:46976667418967"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-a7ae7876081f2d196a01",
       "name": "ItalianWay Adult Sterilized Exigent Salmone e Aringhe 8 kg",
       "brand": "Italian Way",
@@ -3370,25 +3370,6 @@
       "offer_ids": [
         "animaliapet:46976683016535",
         "bauzaar:56818660442437"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-1c6bb616d747a2402bbc",
-      "name": "Nature's Protection White Dogs Pesce Bianco Small e Mini Adult 4kg Crocchette Cani",
-      "brand": "Nature's Protection",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "4 kg",
-      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-white-dogs-pesce-bianco-small-e-mini-adult-4kg-crocchette-cani-04771317478832-402bbc",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:49110536257879",
-        "bauzaar:58245820023109"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -4092,6 +4073,25 @@
       "offer_ids": [
         "bauzaar:56962130051397",
         "paco:4820"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-588d8ff98afbb2a01447",
+      "name": "Terra Canis secco Canireo Grain Free al Manzo 2,5 kg",
+      "brand": "Terra Canis",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "2,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/terra-canis-secco-canireo-grain-free-al-manzo-2-5-kg-2-5kg-04260109622275-a01447",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820052656453",
+        "paco:4821"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
