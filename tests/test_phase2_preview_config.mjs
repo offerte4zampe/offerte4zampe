@@ -15,7 +15,7 @@ test('phase2 preview only includes asset build and JSON vars, without bound prod
  assert.equal(preview.name,'zampachiara-staging');assert.notEqual(preview.name,production.name);assert.equal(preview.main,'worker/index.mjs');
  assert.deepEqual(preview.assets,production.assets);assert.deepEqual(preview.build,production.build);
  assert.deepEqual(preview.routes,[]);assert.equal(preview.workers_dev,false);assert.equal(preview.preview_urls,true);
- assert.deepEqual(preview.vars,{SHIPPING_RULES_SOURCE:'json',SHIPPING_SHADOW:'false'});
+ assert.deepEqual(preview.vars,{SHIPPING_RULES_SOURCE:'json',SHIPPING_SHADOW:'false',PRICE_TRACKING_ENABLED:'false'});
  assertPreviewOverrides(preview);
  for(const forbidden of ['durable_objects','migrations','triggers','analytics_engine_datasets','d1_databases','kv_namespaces','r2_buckets','services','secrets','keep_vars','env'])assert(!Object.hasOwn(preview,forbidden));
 });
