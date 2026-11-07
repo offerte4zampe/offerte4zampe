@@ -1,3 +1,4 @@
+import os
 """Descriptive monthly matched-offer observations, not a market inflation index."""
 import calendar
 import datetime as dt
@@ -101,6 +102,9 @@ def render(template,data):
 
 
 def build():
+    if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() != 'true':
+        print('Price observatory disabled; existing repository data left unchanged')
+        return
     catalog=json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()))
     history=json.loads(gzip.decompress((ROOT/'site/data/price-history.json.gz').read_bytes()))
     data=calculate(catalog,history,dt.datetime.now(dt.timezone.utc).date())
