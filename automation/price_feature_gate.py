@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
-HISTORICAL_PAGES = {"osservatorio-prezzi.html", "leggere-storico-prezzi.html"}
+HISTORICAL_PAGES = {"osservatorio-prezzi.html", "leggere-storico-prezzi.html", "preferiti.html"}
 HISTORICAL_DATA = {"price-history.json.gz", "price-observatory.json"}
 
 def enabled():
@@ -24,6 +24,11 @@ def redact_html(html):
 
 def apply(site=SITE):
     if enabled():
+        # Browser widgets are opt-in only; Worker must have the same runtime flag.
+        for path in site.glob("*.html"):
+            html = path.read_text(encoding="utf-8")
+            if "O4ZPriceTrackingEnabled" not in html:
+                path.write_text(html.replace("<head>", "<head><script>window.O4ZPriceTrackingEnabled=true</script>", 1), encoding="utf-8")
         return {"enabled": True, "removed_assets": 0, "processed_html": 0}
     # Delete only from the disposable *deploy workspace*; do not commit deletions.
     removed = 0
@@ -37,6 +42,15 @@ def apply(site=SITE):
     for name in HISTORICAL_PAGES:
         path = site / name
         if path.exists(): path.unlink(); removed += 1
+    # Product JSON shards currently carry a historical series: strip only from
+    # disposable published assets, leaving committed source JSON untouched.
+    import json
+    for path in (site / "data" / "canonical-products").glob("*.json"):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(data, dict):
+            for product in data.values():
+                if isinstance(product, dict): product.pop("history", None)
+            path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     changed = 0
     for path in site.glob("*.html"):
         before = path.read_text(encoding="utf-8")
