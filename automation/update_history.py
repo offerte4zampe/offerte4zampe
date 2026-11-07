@@ -1,3 +1,4 @@
+import os
 """Daily observed min/max prices; no backfill and no fabricated historical points."""
 import gzip,json,datetime,hashlib,math,copy
 from pathlib import Path
@@ -32,6 +33,9 @@ def write_shards(history,directory):
   (directory/(prefix+'.json.gz')).write_bytes(gzip.compress(json.dumps(data,separators=(',',':')).encode(),mtime=0))
 
 def build():
+ if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() != 'true':
+  print('Price history disabled; existing repository data left unchanged')
+  return
  p=ROOT/'site/data/price-history.json.gz';old=json.loads(gzip.decompress(p.read_bytes())) if p.exists() else {}
  catalog=json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()));today=datetime.datetime.now(datetime.timezone.utc).date().isoformat()
  d=update(old,catalog,today);p.write_bytes(gzip.compress(json.dumps(d,separators=(',',':')).encode(),mtime=0));write_shards(d,ROOT/'site/data/history');print('Observed history:',len(d['offers']),'offers since',d['started_at'])
