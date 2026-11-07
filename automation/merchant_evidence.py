@@ -141,6 +141,7 @@ def save_section(section, details, path=None):
                 _SECTIONS[section]={
                     'records': [r for r in entries[:80] if isinstance(r,dict)],
                     'checked_at':safe_value(details.get('checked_at'),40),
+                    'aggregate':details.get('aggregate',{}),
                 }
             else:
                 _SECTIONS[section]={
@@ -169,8 +170,16 @@ def diagnostic_lines():
                 ensure_ascii=False,sort_keys=True,separators=(',',':')))
         from collections import Counter
         reasons=Counter(r.get('failure_reason') or 'success' for r in records)
+        aggregate=paco.get('aggregate',{})
+        official=aggregate.get('failures',{})
+        reason_counts=(dict(official) if isinstance(official,dict) else {})
+        reason_counts['success']=int(aggregate.get('succeeded',reasons.get('success',0)))
         lines.append('PACO_REASON_COUNTS '+json.dumps(
-            dict(sorted(reasons.items())),sort_keys=True,separators=(',',':')))
+            dict(sorted(reason_counts.items())),sort_keys=True,separators=(',',':')))
+        budget={key:int(aggregate.get(key,0)) for key in
+                ('scheduled','attempted','succeeded','skipped_limit','reused_proof')}
+        lines.append('PACO_VERIFICATION_COUNTS '+json.dumps(
+            budget,sort_keys=True,separators=(',',':')))
         counts=bauzaar.get('counts',{})
         lines.append('BAUZAAR_CATEGORY_COUNTS '+json.dumps(
             {k:int(counts.get(k,0)) for k in CATEGORIES},
