@@ -37,7 +37,7 @@ export async function checkCoupons(page, origin) {
   // Assert against the rendered coupon, not just its source metadata, so the
   // browser test fails if the generator ever mislabels it as cart-verified.
   for (const row of active) {
-    const labels = await page.$eval('.coupon:not([hidden])', (cards, code) => {
+    const labels = await page.$$eval('.coupon:not([hidden])', (cards, code) => {
       const card = cards.find(c => c.querySelector('code')?.textContent.trim() === code);
       return card ? [...card.querySelectorAll('.status')].map(e => e.textContent.trim()) : [];
     }, row.code);
