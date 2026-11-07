@@ -48,3 +48,6 @@ test('consent cookie mirrors opt-in, revocation and privacy signals; /go avoids 
   button.onclick();assert.match(doc.cookie,/statistics=no;/);
  }
 });
+
+// Run the consent and GA4-specific regression checks with the existing metrics CI suite.
+await import('./check_ga4_consent.mjs');
