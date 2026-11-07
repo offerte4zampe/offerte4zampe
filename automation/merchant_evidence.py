@@ -106,7 +106,7 @@ def bauzaar_report(rows):
         for row in rows:
             try:
                 raw=row.get('feed_gtin') if isinstance(row,dict) else None
-                if raw is None or raw=='':
+                if raw is None or (isinstance(raw, str) and not raw.strip()):
                     continue
                 category=classify_gtin(raw)
                 if category is None:
