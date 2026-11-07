@@ -30,7 +30,7 @@ def redact_html(html):
         (r'(?i)\b(?:ribassi?\s+(?:storici?|di\s+prezzo)|monitoraggio\s+(?:dei\s+)?prezzi|monitora(?:re)?\s+(?:il|i|l.andamento\s+dei)\s+prezz\w*)\b', ''),
     ]
     # Previously published privacy wording must not promise the disabled target feature.
-    html = re.sub(r'<h2>Preferiti[^<]*</h2>\\s*<p>.*?</p>', '', html, flags=re.I|re.S)
+    html = re.sub(r'<h2>Preferiti[^<]*</h2>\s*<p>.*?</p>', '', html, flags=re.I|re.S)
     for pattern, replacement in replacements:
         html = re.sub(pattern, replacement, html)
     return html
@@ -65,7 +65,7 @@ def apply(site=SITE):
                 if isinstance(product, dict): product.pop("history", None)
             path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     changed = 0
-    for path in site.glob("*.html"):
+    for path in site.rglob("*.html"):
         before = path.read_text(encoding="utf-8")
         after = redact_html(before)
         if before != after:
