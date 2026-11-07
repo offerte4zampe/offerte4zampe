@@ -27,4 +27,4 @@ jobs:
       - name: Prepare denied-by-default local D1 metadata (no remote validation)
         run: python automation/check_d1_activation.py --prepare-build
       - name: Node test suite
-        run: node --test tests/*.mjs
+        run: node --test tests/test_*.mjs
