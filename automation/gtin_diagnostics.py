@@ -45,7 +45,9 @@ def gtin_counters(rows):
     try:
         for row in rows:
             try:
-                raw = row.get('feed_gtin') if isinstance(row, dict) else None
+                if not isinstance(row, dict):
+                    raise TypeError('Non-dict catalog offer')
+                raw = row.get('feed_gtin')
                 if raw is None or (isinstance(raw, str) and not raw.strip()):
                     counts['empty'] += 1
                 else:
