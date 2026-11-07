@@ -14,6 +14,7 @@ async function load(id){
  if(!pending.has(prefix))pending.set(prefix,fetch('data/history/'+prefix+'.json.gz').then(async r=>{if(!r.ok)throw Error('history');const b=await r.arrayBuffer(),raw=new Uint8Array(b);return JSON.parse(raw[0]===31&&raw[1]===139?await new Response(new Blob([b]).stream().pipeThrough(new DecompressionStream('gzip'))).text():new TextDecoder().decode(b));}).catch(e=>{pending.delete(prefix);throw e}));return pending.get(prefix);
 }
 function mount(id){
+ if(root?.O4ZPriceTrackingEnabled!==true)return document.createDocumentFragment();
  const date=value=>root.O4ZTrade?.formatTimestamp(value)||value;
  const node=(tag,value)=>{const n=document.createElement(tag);if(value)n.textContent=value;return n;};
  const details=node('details'),summary=node('summary','Storico del prezzo rilevato');details.className='observed-history';details.append(summary);let loaded=false;
