@@ -37,6 +37,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare local D1 validation fixture without activating D1
+        run: python automation/check_d1_activation.py --prepare-build
       - name: Complete Node unit regression suite
         run: node --test tests/test_*.mjs tests/amazon_*.test.cjs
   workerd-dry-run:
