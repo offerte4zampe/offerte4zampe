@@ -63,9 +63,19 @@ jobs:
         if: github.event.action == 'labeled' && github.event.label.name == 'phase2-preview-approved'
         id: preview_url
         run: python automation/phase2_preview_url.py "$RUNNER_TEMP/phase2-wrangler-output.jsonl" --expected "$PREVIEW_NAME" >> "$GITHUB_OUTPUT"
+      - name: Read main affiliate reference without credentials
+        if: github.event.action == 'labeled' && github.event.label.name == 'phase2-preview-approved'
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-affiliate-reference
+          sparse-checkout: site/data/catalog.json.gz
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
       - name: Verify preview in real Chromium without external merchant navigation
         if: github.event.action == 'labeled' && github.event.label.name == 'phase2-preview-approved'
         env:
+          MAIN_CATALOG_REFERENCE: main-affiliate-reference/site/data/catalog.json.gz
           PREVIEW_ORIGIN: ${{ steps.preview_url.outputs.url }}
         run: |
           export PUPPETEER_ROOT="$RUNNER_TEMP/phase2-browser"
