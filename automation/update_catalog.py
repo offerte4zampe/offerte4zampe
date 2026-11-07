@@ -4,6 +4,10 @@ import concurrent.futures, datetime, json, os, re, time, urllib.request, urllib.
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 try:
+    from .gtin_diagnostics import gtin_counters
+except ImportError:
+    from gtin_diagnostics import gtin_counters
+try:
     from .freshness import source_freshness
 except ImportError:
     from freshness import source_freshness
@@ -108,6 +112,8 @@ def main():
         for rows,status in pool.map(collect,SOURCES):
             if status['status']=='error':
                 rows=[r for r in old.get('offers',[]) if r['merchant_id']==status['id']];status['offers']=len(rows);status['status']='stale' if rows else 'error'
+            # Diagnostics are metadata only; do not mutate offer records.
+            status['gtin_diagnostics'] = gtin_counters(rows)
             status = source_freshness(status, rows)
             offers.extend(rows);sources.append(status)
     # Preserve official partner snapshots; stale dates remain visible to the UI.
