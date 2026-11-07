@@ -97,6 +97,13 @@ try{
     const page=await browser.newPage();await page.setViewport(viewport);
     for(const [label,route] of [['home','/'],['privacy','/privacy'],['favorites','/preferiti'],...(amazonSlug?[['amazon','/prodotto/'+amazonSlug]]:[])]){
      await page.goto(base+route,{waitUntil:'domcontentloaded',timeout:30000});
+     const leaked=await page.evaluate(()=>({
+       historic:!!document.querySelector('[data-history-offer],.observed-history,[data-watch-add],[data-watch-save]'),
+       favoriteNav:!!document.querySelector('a[href^="/preferiti"]'),
+       pricePromise:/storico dei prezzi|minimo storico|massimo storico|avvisi di prezzo|prezzo desiderato/i.test(document.body.innerText)
+     }));
+     assert.deepEqual(leaked,{historic:false,favoriteNav:false,pricePromise:false},label+' '+name);
+
      await page.screenshot({path:path.join(reportDir,label+'-'+name+'.png'),fullPage:true});
     }
     await page.close();
