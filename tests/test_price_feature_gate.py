@@ -41,6 +41,21 @@ class PriceFeatureGateTests(unittest.TestCase):
             with patch.dict(os.environ, {"PRICE_TRACKING_ENABLED":"true"}):
                 self.assertTrue(apply(site)["enabled"])
             self.assertIn("O4ZPriceTrackingEnabled=true", (site / "index.html").read_text())
+    def test_home_omits_historical_discount_even_with_saved_observations(self):
+        import datetime
+        from automation.build_home_data import build, render_home
+        now = datetime.datetime(2026,11,7,12,tzinfo=datetime.timezone.utc)
+        item = dict(id='m:1', merchant_id='m', merchant='Shop', title='Dog food 2 kg', brand='Brand',
+                    category='Dog food', price=10, available=True, checked_at=now.isoformat(),
+                    image='https://example.com/p.jpg', url='https://example.com/product', weight_kg=2)
+        catalog = dict(offers=[item], sources=[dict(id='m',name='Shop',status='ok',checked_at=now.isoformat())],
+                       generated_at=now.isoformat(),refresh_hours=6)
+        history={'offers':{'m:1':[dict(day='2026-11-04',last=15),dict(day='2026-11-05',last=15)]}}
+        with patch.dict(os.environ, {'PRICE_TRACKING_ENABLED':'false'}):
+            result=build(catalog,now,history)
+        self.assertNotIn('verified_discount_pct',result['offers'][0])
+        self.assertNotIn('verified_before_price',result['offers'][0])
+
     def test_redaction_has_no_coupon_side_effects(self):
         html='<a href="/codici-sconto">CIOTOLA30</a><a href="/preferiti">avvisi di prezzo</a>'
         self.assertIn("CIOTOLA30", redact_html(html))
