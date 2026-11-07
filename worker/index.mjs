@@ -18,6 +18,15 @@ export default {
   scheduled(event,env,ctx){ctx.waitUntil(scheduledTelegram(env));},
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    // Amazon Associates default: no historical price tracking or alert endpoints.
+    // Fail closed before ASSETS access, metrics or any storage interactions.
+    const priceTrackingEnabled = env.PRICE_TRACKING_ENABLED === 'true';
+    if (!priceTrackingEnabled && (
+      /^\/data\/history(?:\/|$)/.test(url.pathname) ||
+      /^\/data\/(?:price-history|price-observatory)(?:\.|\/|$)/.test(url.pathname) ||
+      /^\/api\/(?:price-history|price-alerts?|alerts?|watchlist)(?:\/|$)/.test(url.pathname) ||
+      /^\/(?:osservatorio-prezzi|leggere-storico-prezzi)(?:\.html|\/)?$/.test(url.pathname)
+    )) return new Response(null,{status:410,headers:{'Cache-Control':'no-store','X-Robots-Tag':'noindex, nofollow'}});
     if (['GET','HEAD'].includes(request.method) && url.pathname.endsWith('.html') && url.pathname !== '/prodotto.html' && !/^\/google[\w-]+\.html$/.test(url.pathname)) {
       url.pathname = url.pathname.endsWith('/index.html') ? url.pathname.slice(0, -10) || '/' : url.pathname.slice(0, -5);
       return Response.redirect(url.href, 301);
