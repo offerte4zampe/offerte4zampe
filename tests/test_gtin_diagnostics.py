@@ -43,8 +43,9 @@ class GtinDiagnosticsTest(unittest.TestCase):
             product={'price_amount':20,'attributes':{'1':{'name':'24x85 gr','ean13':row['feed_gtin']}}}
             edit()
             seen={}
-            plain=verify_quantity(row,page())
-            audited=verify_quantity(row,page(),diagnostics=seen)
+            now=dt.datetime(2026,11,7,12,tzinfo=dt.timezone.utc)
+            plain=verify_quantity(row,page(),now=now)
+            audited=verify_quantity(row,page(),now=now,diagnostics=seen)
             self.assertEqual(audited,plain)
             self.assertEqual(seen.get('reason'),reason)
         seen={}
