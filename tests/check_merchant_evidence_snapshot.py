@@ -2,6 +2,7 @@
 import copy
 import gzip
 import json
+from pathlib import Path
 import subprocess
 import sys
 
