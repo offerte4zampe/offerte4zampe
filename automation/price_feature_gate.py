@@ -20,6 +20,8 @@ def redact_html(html):
     html = re.sub(r'(?i)(?:e\s+)?storico\s+(?:dei\s+)?prezzi(?:\s+osservati)?', '', html)
     html = re.sub(r'(?i)avvisi?\s+(?:di\s+)?prezzo', '', html)
     html = re.sub(r'(?i)prezzo\s+desiderato', '', html)
+    html = re.sub(r'(?i)(?:minimo|massimo)\\s+storico|buon\\s+momento\\s+per\\s+comprare|storico\\s+del\\s+prezzo(?:\\s+rilevato)?', '', html)
+    html = re.sub(r'<div\\b[^>]*\\bdata-history-offer=["\\'][^"\\']*["\\'][^>]*>\\s*</div>', '', html, flags=re.I)
     return html
 
 def apply(site=SITE):
