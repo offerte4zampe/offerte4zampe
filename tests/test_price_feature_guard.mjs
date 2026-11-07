@@ -18,3 +18,19 @@ test('default-off Worker is not enabled by any truthy-looking flag',async()=>{
   const result=await worker.fetch(new Request('https://offerte4zampe.it/data/history/00.json.gz'),env,{waitUntil(){}});
   assert.equal(result.status,410);
 });
+
+test('disabled favorites returns a useful informational 410 page, never a blank asset',async()=>{
+ let fetches=0;
+ const env={PRICE_TRACKING_ENABLED:'false',ASSETS:{fetch:async()=>{fetches++;throw Error('no assets allowed')}}};
+ for(const path of ['/preferiti','/preferiti.html','/preferiti/']){
+  const r=await worker.fetch(new Request('https://offerte4zampe.it'+path),env,{waitUntil(){}});
+  assert.equal(r.status,410,path);
+  assert.match(r.headers.get('content-type'),/text\/html/);
+  assert.match(r.headers.get('x-robots-tag'),/noindex/);
+  const html=await r.text();
+  assert.match(html,/Funzione non disponibile/);
+  assert.match(html,/href="\/confronta-cibo"/);
+  assert.doesNotMatch(html,/prezzo desiderato|avvisi|soglia|storico|notifiche/i);
+ }
+ assert.equal(fetches,0);
+});
