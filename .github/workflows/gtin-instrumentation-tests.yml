@@ -6,6 +6,7 @@ on:
       - 'automation/paco_feed.py'
       - 'automation/update_catalog.py'
       - 'tests/test_gtin_diagnostics.py'
+      - 'tests/check_gtin_snapshot_invariance.py'
       - '.github/workflows/gtin-instrumentation-tests.yml'
 permissions:
   contents: read
@@ -15,6 +16,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -28,3 +31,5 @@ jobs:
         run: python automation/check_d1_activation.py --prepare-build
       - name: Node test suite
         run: node --test tests/test_*.mjs
+      - name: Offline main compressed snapshot and six generated HTML parity
+        run: python tests/check_gtin_snapshot_invariance.py
