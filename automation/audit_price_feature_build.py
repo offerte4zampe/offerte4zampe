@@ -12,7 +12,7 @@ from pathlib import Path
 
 TERMS = re.compile(r"storico|minimo storico|massimo storico|avvis[oi]|alert|ribass\w*|monitor\w*|soglia|preferiti|buon momento|prezzo pi[uù] basso di sempre", re.I)
 PRICE_BLOCK = re.compile(
-    r"\bstoric\w*\b|\bpreferiti\b|\bbuon momento\b|\bprezzo pi[uù] basso di sempre\b"
+    r"\bstoric\w*\b|\bpreferiti\b|\bbuon momento\b|\bprezzo pi[uù] basso di sempre\b|\bribassi? verificati\b"
     r"|\b(?:avvis[oi]|alert|soglia|monitor\w*|ribass\w*)\b.{0,55}\bprezz\w*\b"
     r"|\bprezz\w*\b.{0,55}\b(?:avvis[oi]|alert|soglia|monitor\w*|ribass\w*)\b",re.I)
 DANGEROUS_HOOKS = re.compile(r"data-history-offer\s*=|data-watch-add\s*=|data-watch-save\s*=|class=['\"][^'\"]*observed-history|id=['\"]watch-items",re.I)
