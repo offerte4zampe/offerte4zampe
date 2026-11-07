@@ -44,7 +44,7 @@ def main():
     assert base and len(base) == 40
     # The actual main snapshot is required, not a fixture.
     raw = subprocess.check_output(['git','show',base+':site/data/catalog.json.gz'],cwd=ROOT)
-    assert raw[:2] == b'\\x1f\\x8b', 'main compressed catalog missing or invalid'
+    assert raw[:2] == bytes((31,139)), 'main compressed catalog missing or invalid'
     original = json.loads(gzip.decompress(raw))
     assert isinstance(original['offers'],list) and original['offers']
     assert isinstance(original['sources'],list) and original['sources']
