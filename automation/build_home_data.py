@@ -262,6 +262,12 @@ def replace_region(html, element_id, content):
 
 
 def render_home(html, payload):
+    # Fail closed even when a stale pre-generated home payload is supplied.
+    if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() != 'true':
+        payload = {**payload, 'offers': [
+            {k:v for k,v in item.items() if k not in ('verified_before_price','verified_discount_pct')}
+            for item in payload.get('offers', [])
+        ]}
     from html import escape as h, unescape
     from urllib.parse import urlencode
     import re
