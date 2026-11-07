@@ -4,10 +4,30 @@ import json
 import re
 from html import escape as h
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qs
 
 ROOT = Path(__file__).resolve().parents[1]
 HOSTS = {'bauzaar': 'www.bauzaar.it', 'isola': 'www.isoladeitesori.it', 'paco': 'www.pacopetshop.it', 'hygge': 'hyggepetfood.com'}
+
+
+def visit_link(row):
+    """Use only an explicitly recorded, validated official affiliate link."""
+    direct = row['destination_url']
+    affiliate = row.get('affiliate_url')
+    if not affiliate:
+        return direct, 'noopener noreferrer'
+    u = urlsplit(affiliate)
+    q = parse_qs(u.query, keep_blank_values=True)
+    valid = (row['shop'] == 'hygge' and u.scheme == 'https'
+             and u.netloc == 'www.awin1.com' and u.path == '/cread.php'
+             and not u.fragment and not any(c.isspace() or ord(c) < 32 for c in affiliate)
+             and q.get('awinmid') == ['121988'] and q.get('awinaffid') == ['3126265']
+             and q.get('ued') == [direct]
+             and urlsplit(direct).scheme == 'https'
+             and urlsplit(direct).netloc == HOSTS['hygge'])
+    if not valid:
+        raise ValueError('Invalid official coupon affiliate URL')
+    return affiliate, 'sponsored nofollow noopener noreferrer'
 
 
 def stamp(value):
@@ -52,13 +72,14 @@ def eligible(row, now):
 
 
 def render_card(row):
+    visit_url, visit_rel = visit_link(row)
     if row.get('status') == 'owner_confirmed':
         return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-until="{h(row['expires_at'])}">
 <div class="shop"><div><strong>{h(row['merchant'])}</strong><small>Negozio partner</small></div></div>
 <div class="discount">{h(row['benefit'])}</div><h2>{h(row['title'])}</h2><p class="description">{h(row['description'])}</p>
 <span class="status">Verifica confermata dal titolare</span>
 <div class="card-tail"><div class="code-row"><code>{h(row['code'])}</code><button class="copy" data-code="{h(row['code'])}" aria-label="Copia il codice {h(row['code'])}">Copia codice</button></div>
-<a class="shop-button coupon-visit" href="{h(row['destination_url'], quote=True)}" target="_blank" rel="noopener noreferrer">Vai al negozio ↗</a>
+<a class="shop-button coupon-visit" href="{h(visit_url, quote=True)}" target="_blank" rel="{visit_rel}">Vai al negozio ↗</a>
 <details><summary>Condizioni del codice</summary><p>{h(row['conditions'])}</p><p>Verifica precedente confermata dal titolare. Nessuna nuova prova nel carrello documentata in questo aggiornamento.</p></details>
 <p class="footnote">Scade il {h(row['expires_label'])}.</p></div></article>'''
     p = row['cart_test']
@@ -68,7 +89,7 @@ def render_card(row):
 <div class="shop"><span class="shop-logo"><img src="assets/shops/bauzaar.svg" alt="Logo Bauzaar" width="112" height="62"></span><div><strong>{h(row['merchant'])}</strong><small>Negozio partner</small></div></div>
 <div class="discount">{h(row['benefit'])}</div><h2>{h(row['title'])}</h2><p class="description">{h(row['description'])}</p><span class="status">Provato nel carrello · {h(row['checked_date'])}</span>
 <div class="card-tail"><div class="code-row"><code>{h(row['code'])}</code><button class="copy" data-code="{h(row['code'])}" aria-label="Copia il codice {h(row['code'])}">Copia codice</button></div>
-<a class="shop-button coupon-visit" href="{h(row['destination_url'], quote=True)}" target="_blank" rel="noopener noreferrer">Vai alla selezione del negozio ↗</a>
+<a class="shop-button coupon-visit" href="{h(visit_url, quote=True)}" target="_blank" rel="{visit_rel}">Vai alla selezione del negozio ↗</a>
 <details><summary>Condizioni e prova effettuata</summary><p>{h(row['conditions'])}</p><p><strong>Prova su:</strong> {h(p['product'])}, {h(p['variant'])}. Prezzo della riga da {money(p['before_cents'])} a {money(p['after_cents'])}. {h(p.get('note', ''))}</p><p>Questa prova riguarda il prodotto indicato, non ogni possibile carrello. Prezzi e disponibilità possono cambiare. Spedizione esclusa.</p><p><a href="{h(row['source_url'], quote=True)}" target="_blank" rel="noopener noreferrer">Condizioni pubblicate dal negozio</a></p></details>
 <p class="footnote">Scade il {h(row['expires_label'])}. Ultima prova: {h(row['checked_date'])}.</p></div></article>'''
 
@@ -86,6 +107,7 @@ def build(now=None):
     out = re.sub(r'<title>.*?</title>', '<title>Codici sconto provati per animali | Offerte a 4 Zampe</title>', out)
     for key in ['name="description"', 'property="og:description"', 'property="og:title"']:
         out = re.sub('(<meta '+key+' content=")[^"]*', lambda m: m[1]+'Codici sconto per animali: condizioni, scadenze e prove nel carrello dei negozi.', out)
+    out = out.replace('Gli altri collegamenti restano diretti.', 'Il link Hygge Pet Food è affiliato tramite Awin. Gli altri collegamenti restano diretti.')
     out = out.replace(' aria-current="page"', '')
     out = out.replace('</head>', '<link rel="stylesheet" href="assets/coupons.css?v=1"></head>')
     out = out.replace('</body>', '<script src="assets/coupons.js?v=1" defer></script></body>')
