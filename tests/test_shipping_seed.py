@@ -17,7 +17,7 @@ class ShippingSeedTests(unittest.TestCase):
    source=copy.deepcopy(self.source);source['merchants']['bauzaar'][field]=value
    with self.assertRaises(ValueError):convert(source)
  def test_overlap_rejected_but_adjacent_versions_allowed(self):
-  a=self.data['rules'][0];b={**a,'valid_from':'2026-10-29T00:00:00.000Z'}
+  a=self.data['rules'][0];b={**a,'valid_from':self.data['rules'][0]['verified_until']}
   with self.assertRaises(ValueError):validate_intervals([a,b])
   validate_intervals([{**a,'valid_to':b['valid_from']},b])
   with self.database() as c:

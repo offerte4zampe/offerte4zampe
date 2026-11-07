@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {execFileSync} from 'node:child_process';import trade from '../site/assets/trade.js';
 const source=JSON.parse(fs.readFileSync(new URL('../site/data/shipping-rules.json',import.meta.url))),data=JSON.parse(execFileSync('python',['automation/build_shipping_seed.py','--json'],{encoding:'utf8'}));
-const now=Date.parse('2026-10-28T12:00:00Z');
-const original=structuredClone(source);delete original.verification_max_age_days;for(const r of Object.values(original.merchants))delete r.verified_until;
+const now=Date.parse(source.checked_at)+3600000;
+const original=structuredClone(source);// Preserve explicit per-rule expiry, including the still-expired conflicting merchant.
 const outcome=q=>({fee:q.fee,total:q.total,subtotal:q.subtotal,reason:q.reason});
 function offer(id,price,weight=1,time=now){return {merchant_id:id,price,shipping_weight_kg:weight,available:true,checked_at:new Date(time).toISOString()};}
 test('all shops preserve legacy totals over threshold, weight, quantity, expiry and destination matrix',()=>{
@@ -20,7 +20,7 @@ test('all shops preserve legacy totals over threshold, weight, quantity, expiry 
 });
 test('future and ended rules are never selected, and latest valid version wins',()=>{
  const base=data.rules.find(r=>r.shop_id==='webpet');
- assert.equal(trade.shipping(offer('webpet',20),trade.shippingRulesFromRows([{...base,valid_from:'2026-10-29T00:00:00Z'}],now),1,'standard',now).total,undefined);
+ assert.equal(trade.shipping(offer('webpet',20),trade.shippingRulesFromRows([{...base,valid_from:new Date(now+86400000).toISOString()}],now),1,'standard',now).total,undefined);
  assert.equal(trade.shipping(offer('webpet',20),trade.shippingRulesFromRows([{...base,valid_to:new Date(now).toISOString()}],now),1,'standard',now).total,undefined);
  const rows=[{...base,valid_to:new Date(now).toISOString()},{...base,valid_from:new Date(now).toISOString(),std_cents:700}];
  assert.equal(trade.shipping(offer('webpet',20),trade.shippingRulesFromRows(rows,now),1,'standard',now).total,27);

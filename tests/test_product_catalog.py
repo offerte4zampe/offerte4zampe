@@ -132,3 +132,34 @@ class CanonicalProductTests(unittest.TestCase):
             self.assertEqual({o['image_local'] for o in model['offers']},{local})
             split=self.model([a,b|{'weight_kg':4}]);self.assertNotIn('image_local',next(o for o in split['offers'] if o['id']=='b:1'))
             changed=self.model([a|{'image':'https://images.test/replaced.png'},b]);self.assertTrue(all('image_local' not in o for o in changed['offers']))
+
+    def test_liter_prices_require_explicit_consistent_per_offer_sources(self):
+        cat=dict(self.a,title="Cat's Best Original lettiera 7lt / 3Kg",brand="Cat's Best",variant='3kg',weight_kg=3,price=8.12)
+        m=self.model([cat]);o=m['offers'][0]
+        self.assertEqual(o['quantity']['volume_source'],'title')
+        self.assertEqual(o['unit_prices']['l'],1.16)
+        self.assertEqual(m['products'][0]['format'],'3 kg')
+        for changed in [dict(title="Cat's Best Original lettiera 3kg"),dict(variant='10 l'),dict(title="Cat's Best Original lettiera 7l / 10l"),dict(quantity_verified=False),dict(weight_conflict=True)]:
+            row=self.model([dict(cat,**changed)])['offers'][0]
+            self.assertNotIn('l',row['unit_prices'])
+            self.assertIsNone(row['quantity']['volume_source'])
+        agreed=self.model([dict(cat,variant='7 l')])['offers'][0]
+        self.assertEqual(agreed['quantity']['volume_source'],'title_and_variant')
+        self.assertEqual(agreed['unit_prices']['l'],1.16)
+
+    def test_volume_provenance_preserves_product_identity_registry_slug_and_history(self):
+        from automation.build_product_catalog import identity,format_label
+        import hashlib,json
+        cat=dict(self.a,title="Cat's Best Original lettiera 7lt / 3Kg",brand="Cat's Best",variant='3kg',weight_kg=3)
+        q=quantity(cat);old_q={k:v for k,v in q.items() if k!='volume_source'}
+        self.assertEqual(identity(cat,q),identity(cat,old_q))
+        self.assertEqual(format_label(q),format_label(old_q))
+        first=self.model([cat]);p=first['products'][0]
+        expected='p-'+hashlib.sha256(json.dumps(identity(cat,old_q),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()[:20]
+        self.assertEqual(p['id'],expected)
+        old=first['registry'];old[p['id']]['slug']='historical-stable-catbest-slug'
+        history={'offers':{'a:1':[{'day':'2026-10-27','low':19,'high':21,'last':20,'available':True}]}}
+        result=build({'offers':[cat],'generated_at':self.now.isoformat()},old,history,now=self.now)
+        self.assertEqual(result['products'][0]['id'],p['id'])
+        self.assertEqual(result['products'][0]['slug'],'historical-stable-catbest-slug')
+        self.assertEqual(result['products'][0]['history'][0]['sum'],20)

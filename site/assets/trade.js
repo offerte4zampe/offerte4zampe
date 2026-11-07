@@ -26,11 +26,26 @@ function shippingRulesFromRows(rows,now=Date.now(),zone='IT'){
  return {merchants};
 }
 function shipping(o,rules,quantity=1,territory='standard',now=Date.now()){
+ const destination=territory==='standard'?'Italia continentale standard: esclusi isole, CAP disagiati, Livigno, Campione e servizi opzionali':'Località o servizi particolari';
+ const unknown=reason=>({status:'unknown',destination,reason});
+ if(!o||o.quantity_verified===false||o.quantity?.verified===false)return unknown('Formato della confezione non verificato: totale non confrontabile');
+ if(!Number.isFinite(now)||!Number.isFinite(o.price)||o.price<=0||!Number.isSafeInteger(Math.round(o.price*quantity*100)))return unknown('Prezzo o quantità non validi: totale non calcolato');
+ const stamp=Date.parse(o.checked_at);
+ if(!Number.isFinite(stamp)||stamp>now+300000)return unknown('Data del prezzo non valida: totale non calcolato');
+ const result=shippingExact(o,rules,quantity,territory,now);
+ if(['range','from'].includes(result.status))return {...result,destination};
+ if(!Number.isFinite(result.fee)||result.fee<0||!Number.isFinite(result.total)||result.total<0){
+  const {fee,total,...details}=result;
+  return {...details,...unknown(result.reason||'Tariffa non verificabile: totale non calcolato')};
+ }
+ return {...result,status:'exact',destination};
+}
+function shippingExact(o,rules,quantity=1,territory='standard',now=Date.now()){
  if(o.quantity_verified===false)return {reason:'Formato della confezione non verificato: totale non confrontabile'};
  const r=rules?.merchants?.[o.merchant_id];if(!r)return {reason:'Condizioni non disponibili'};
  const ruleDate=r.checked_at||rules.checked_at,observed=Date.parse(ruleDate),until=r.verified_until!==undefined?Date.parse(r.verified_until):observed+(rules.verification_max_age_days??7)*86400000;
  // Seven days is retained only for older cached payloads; new JSON/D1 rows own expiry.
- if(!Number.isFinite(observed)||!Number.isFinite(until)||until<observed||now>until||observed>now+300000||(r.valid_from!==undefined&&(!Number.isFinite(Date.parse(r.valid_from))||Date.parse(r.valid_from)>now))||(r.valid_to!=null&&(!Number.isFinite(Date.parse(r.valid_to))||Date.parse(r.valid_to)<=now)))return {reason:'Condizioni da ricontrollare',rule:r};
+ if(!Number.isFinite(observed)||!Number.isFinite(until)||until<observed||now>=until||observed>now+300000||(r.valid_from!==undefined&&(!Number.isFinite(Date.parse(r.valid_from))||Date.parse(r.valid_from)>now))||(r.valid_to!=null&&(!Number.isFinite(Date.parse(r.valid_to))||Date.parse(r.valid_to)<=now)))return {reason:'Condizioni da ricontrollare',rule:r};
  if(r.status&&r.status!=='verified'&&!r.conflict)return {reason:'Condizioni non verificate: verifica il checkout',rule:r};
  if(territory!=='standard')return {reason:'Località o servizi particolari: verifica nel negozio',rule:r};
  if(!Number.isInteger(quantity)||quantity<1||quantity>10)return {reason:'Quantità non valida',rule:r};
@@ -40,6 +55,19 @@ function shipping(o,rules,quantity=1,territory='standard',now=Date.now()){
  if(r.boundary_unknown===subtotal)return {reason:'Soglia esatta da verificare nel negozio',rule:r};
  if(o.shipping_weight_checked_at&&(!Number.isFinite(Date.parse(o.shipping_weight_checked_at))||now-Date.parse(o.shipping_weight_checked_at)>7*86400000))return {reason:'Peso di spedizione da aggiornare',rule:r};
  if(r.max_shipping_weight_kg&&(!(o.shipping_weight_kg>0)||o.shipping_weight_kg*quantity>r.max_shipping_weight_kg))return {reason:'Peso di spedizione mancante o supplementi possibili',rule:r};
+ // Optional bounds must come from a verified current source, never inferred from unknown rules.
+ const bounds=r.quote_bounds;
+ if(bounds){
+  const source=(()=>{try{return new URL(r.source).protocol==='https:'}catch{return false}})();
+  if(r.status!=='verified'||!source||typeof r.checked_at!=='string'||typeof r.verified_until!=='string'||bounds.territory!==territory||bounds.quantity!==quantity||!['range','from'].includes(bounds.kind)||!Number.isFinite(bounds.fee_min)||bounds.fee_min<0||!Number.isSafeInteger(Math.round((subtotal+bounds.fee_min)*100))||r.free_from!==undefined||r.free_above!==undefined)return {reason:'Intervallo di spedizione non verificabile',rule:r};
+  const total_min=Math.round((subtotal+bounds.fee_min)*100)/100;
+  if(bounds.kind==='range'){
+   if(!Number.isFinite(bounds.fee_max)||bounds.fee_max<bounds.fee_min||!Number.isSafeInteger(Math.round((subtotal+bounds.fee_max)*100)))return {reason:'Intervallo di spedizione non verificabile',rule:r};
+   return {status:'range',subtotal,fee_min:bounds.fee_min,fee_max:bounds.fee_max,total_min,total_max:Math.round((subtotal+bounds.fee_max)*100)/100,reason:'Intervallo documentato per la destinazione e la quantità selezionate; importo finale nel checkout',rule:r};
+  }
+  if(bounds.fee_max!==undefined)return {reason:'Limite di spedizione non verificabile',rule:r};
+  return {status:'from',subtotal,fee_min:bounds.fee_min,total_min,reason:'Costo minimo documentato; supplementi e importo finale da verificare nel checkout',rule:r};
+ }
  const fee=(r.free_from!==undefined&&subtotal>=r.free_from)||(r.free_above!==undefined&&subtotal>r.free_above)?0:r.fee;
  return {subtotal,fee,total:Math.round((subtotal+fee)*100)/100,rule:r};
 }
@@ -92,4 +120,3 @@ function goUrl(o,page='other'){return '/go/'+encodeURIComponent(o.id)+'?from='+(
 function reportUrl(o){const p=new URLSearchParams();for(const [key,source,limit] of [['id','id',100],['title','title',240],['shop','merchant',100],['price','price',30],['checked','checked_at',60]])p.set(key,String(o[source]??'').slice(0,limit));return 'segnala-errore.html#'+p;}
 const api={merchantPromotion,merchantPromotionHTML,appendMerchantPromotion,formatTimestamp,relativeTime,freshnessLabel,productUrl,merchantUrl,goUrl,shippingRulesFromRows,shipping,discount,merchant,matchKey,groupOffers,reportUrl};if(typeof module!=='undefined')module.exports=api;else root.O4ZTrade=api;
 })(typeof window!=='undefined'?window:this);
-
