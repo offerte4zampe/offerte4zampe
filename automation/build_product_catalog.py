@@ -281,7 +281,7 @@ def write(model,site):
     # Separate relations remain available as a portable snapshot, without needing SQL.
     snapshot={k:v for k,v in model.items() if k not in ('registry','matching_candidates')}
     if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() == 'true':
-    snapshot['price_history_relation']={'foreign_key':'offer.id','shards':'/data/history/{sha256_offer_id_prefix}.json.gz','scope':'Observed per-offer history; daily summaries, no invented intermediate prices'}
+        snapshot['price_history_relation']={'foreign_key':'offer.id','shards':'/data/history/{sha256_offer_id_prefix}.json.gz','scope':'Observed per-offer history; daily summaries, no invented intermediate prices'}
     (site/'data/product-catalog.json.gz').write_bytes(gzip.compress(json.dumps(snapshot,ensure_ascii=False,separators=(',',':')).encode(),mtime=0))
 
 
