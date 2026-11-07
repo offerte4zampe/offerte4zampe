@@ -3,14 +3,16 @@ import copy
 import datetime as dt
 import html
 import json
-from pathlib import Path
+import contextlib
+import io
+import os
 import tempfile
 import unittest
 from unittest.mock import patch
 
 from automation.merchant_evidence import (
-    CATEGORIES, PATH, bauzaar_report, classify_gtin,
-    paco_record, save_section, signature)
+    CATEGORIES, bauzaar_report, classify_gtin,
+    paco_record, save_section, signature, diagnostic_lines, emit_summary)
 from automation.paco_feed import verify_quantity
 
 
@@ -80,16 +82,43 @@ class PrivateMerchantEvidenceTests(unittest.TestCase):
         self.assertEqual(captured['page_variant_id'],['variant-1'])
         self.assertEqual(captured['page_variant_label'],['24x85 gr'])
 
-    def test_private_atomic_file_and_failing_writes_are_nonblocking(self):
-        self.assertFalse(str(PATH).find('/site/data/')>=0)
-        with tempfile.TemporaryDirectory() as tmp:
-            target=Path(tmp)/'private'/'latest.json'
-            self.assertTrue(save_section('bauzaar',{'counts':{'checksum':3}},target))
-            self.assertTrue(save_section('paco',{'records':[{'offer_id':'paco:1'}]},target))
-            stored=json.loads(target.read_text())
-            self.assertEqual(set(stored),{'bauzaar','paco'})
-            self.assertFalse(save_section('paco',{},Path(tmp)/'private'))
-            self.assertEqual(json.loads(target.read_text()),stored)
+    def test_bounded_in_memory_reporting_without_repository_files(self):
+        import automation.merchant_evidence as evidence
+        previous=dict(evidence._SECTIONS)
+        try:
+            evidence._SECTIONS.clear()
+            records=[{'offer_id':'paco:'+str(i),'feed_gtin':'4006381333931',
+                      'page_ean13':['4006381333932'],
+                      'feed_sku':'SKU','page_variant_id':['42'],
+                      'feed_title':'Cibo cane','page_variant_label':['24x85 gr'],
+                      'failure_reason':'ean_mismatch','checked_at':'2026-11-07T12:00:00+00:00',
+                      'private_token':'must never print'} for i in range(90)]
+            self.assertTrue(save_section('paco',{'records':records}))
+            self.assertTrue(save_section('bauzaar',bauzaar_report(
+                [{'feed_gtin':'123456789'}])))
+            self.assertFalse(save_section('unknown',{'secret':'no'}))
+            lines=diagnostic_lines()
+            self.assertEqual(sum(s.startswith('PACO_EVIDENCE ') for s in lines),80)
+            self.assertNotIn('private_token','\\n'.join(lines))
+            self.assertNotIn('must never print','\\n'.join(lines))
+            self.assertIn('BAUZAAR_CATEGORY_COUNTS ','\\n'.join(lines))
+            with tempfile.TemporaryDirectory() as tmp:
+                path=os.path.join(tmp,'github-summary.md')
+                with patch.dict(os.environ,{'GITHUB_STEP_SUMMARY':path}):
+                    out=io.StringIO()
+                    with contextlib.redirect_stdout(out):
+                        emit_summary()
+                    rendered=out.getvalue()
+                    summary=open(path,encoding='utf-8').read()
+                    self.assertEqual(rendered.count('PACO_EVIDENCE '),80)
+                    self.assertEqual(summary.count('PACO_EVIDENCE '),80)
+                    self.assertNotIn('private_token',summary)
+        finally:
+            evidence._SECTIONS.clear()
+            evidence._SECTIONS.update(previous)
 
-if __name__=='__main__':
-    unittest.main()
+    def test_diagnostic_exceptions_are_caught(self):
+        import automation.merchant_evidence as evidence
+        with patch.object(evidence,'diagnostic_lines',side_effect=RuntimeError('broken')):
+            emit_summary()  # Never interrupt import
+
