@@ -3,17 +3,13 @@
 Local runner-only output. Never place under site/ and never commit or upload
 the contents to public GitHub Actions artifacts or logs.
 """
-import datetime as dt
 import hashlib
 import json
 import logging
-from pathlib import Path
 import re
-import tempfile
 import threading
 
 _LOCK = threading.Lock()
-PATH = Path(__file__).resolve().parent / 'diagnostics' / 'latest.json'
 CATEGORIES = ('spaces', 'separators', 'non_numeric', 'leading_zeros', 'length', 'checksum')
 
 def warn(area, error):
@@ -126,36 +122,78 @@ def bauzaar_report(rows):
         return {'counts':counts,'examples':samples,
                 'invalid_total':sum(counts.values())}
 
-def save_section(section, details, path=None):
-    """Atomic local write; diagnostics failures are never import failures.
 
-    No logging of product-level evidence; omitted from git and web output.
+# This is per-process memory only. No output file in the checkout.
+_SECTIONS={}
+
+def save_section(section, details, path=None):
+    """Retain allowlisted diagnostics in memory; never writes a disk file.
+
+    `path` is ignored for compatibility with callers; neither the repository nor
+    the runner filesystem is used to persist product-level records.
     """
     try:
-        target=Path(path) if path is not None else PATH
+        if section not in ('paco','bauzaar'):
+            return False
         with _LOCK:
-            target.parent.mkdir(parents=True,exist_ok=True)
-            if target.exists():
-                try:
-                    existing=json.loads(target.read_text(encoding='utf-8'))
-                except (OSError,ValueError,UnicodeError):
-                    existing={}
+            if section == 'paco':
+                entries=details.get('records',[]) if isinstance(details,dict) else []
+                _SECTIONS[section]={
+                    'records': [r for r in entries[:80] if isinstance(r,dict)],
+                    'checked_at':safe_value(details.get('checked_at'),40),
+                }
             else:
-                existing={}
-            if not isinstance(existing,dict):
-                existing={}
-            existing[section]=details
-            data=json.dumps(existing,ensure_ascii=False,sort_keys=True,indent=2)
-            with tempfile.NamedTemporaryFile('w',encoding='utf-8',
-                   dir=target.parent,prefix='.diagnostic-',suffix='.tmp',
-                   delete=False) as tmp:
-                tmp.write(data)
-                temp_path=Path(tmp.name)
-            try:
-                temp_path.replace(target)
-            finally:
-                temp_path.unlink(missing_ok=True)
+                _SECTIONS[section]={
+                    'counts':dict(details.get('counts',{})),
+                    'invalid_total':int(details.get('invalid_total',0)),
+                }
         return True
     except Exception as error:
-        warn('write',error)
+        warn('capture',error)
         return False
+
+def diagnostic_lines():
+    """Return only explicitly authorized product fields and aggregate counts."""
+    try:
+        with _LOCK:
+            paco=dict(_SECTIONS.get('paco',{}))
+            bauzaar=dict(_SECTIONS.get('bauzaar',{}))
+        allowed=('offer_id','feed_gtin','page_ean13','feed_sku','page_variant_id',
+                 'feed_title','page_variant_label','failure_reason','checked_at',
+                 'identity_fingerprint')
+        records=paco.get('records',[])[:80]
+        lines=['MERCHANT_DIAGNOSTICS_BEGIN']
+        for record in records:
+            lines.append('PACO_EVIDENCE '+json.dumps(
+                {k:record[k] for k in allowed if k in record},
+                ensure_ascii=False,sort_keys=True,separators=(',',':')))
+        from collections import Counter
+        reasons=Counter(r.get('failure_reason') or 'success' for r in records)
+        lines.append('PACO_REASON_COUNTS '+json.dumps(
+            dict(sorted(reasons.items())),sort_keys=True,separators=(',',':')))
+        counts=bauzaar.get('counts',{})
+        lines.append('BAUZAAR_CATEGORY_COUNTS '+json.dumps(
+            {k:int(counts.get(k,0)) for k in CATEGORIES},
+            sort_keys=True,separators=(',',':')))
+        lines.append('MERCHANT_DIAGNOSTICS_END')
+        return lines
+    except Exception as error:
+        warn('format',error)
+        return []
+
+def emit_summary():
+    """Print bounded diagnostics and GitHub summary, without other fields."""
+    try:
+        lines=diagnostic_lines()
+        for line in lines:
+            print(line,flush=True)
+        import os
+        summary=os.environ.get('GITHUB_STEP_SUMMARY')
+        if summary and lines:
+            # The only file opened is the GitHub-provided step summary, outside
+            # the repository. GitHub itself makes the same data visible in logs.
+            with open(summary,'a',encoding='utf-8') as handle:
+                handle.write('## Merchant diagnostics\\n\\n')
+                handle.write('\\n'.join('\\`'+line+'\\`' for line in lines)+'\\n')
+    except Exception as error:
+        warn('emit',error)
