@@ -56,6 +56,21 @@ class PriceFeatureGateTests(unittest.TestCase):
         self.assertNotIn('verified_discount_pct',result['offers'][0])
         self.assertNotIn('verified_before_price',result['offers'][0])
 
+    def test_nested_articles_and_privacy_do_not_promote_disabled_features(self):
+        with tempfile.TemporaryDirectory() as td:
+            site=Path(td)
+            (site/'offerte').mkdir()
+            (site/'offerte'/'settimanali.html').write_text('<head></head><a href="/preferiti">Preferiti</a><p>Vedi lo storico dei prezzi</p>')
+            (site/'privacy.html').write_text('<head></head><h2>Preferiti e prezzo desiderato</h2><p>Quando salvi un preferito puoi ricevere notifiche.</p><p>La privacy continua.</p>')
+            with patch.dict(os.environ, {'PRICE_TRACKING_ENABLED':'false'}):
+                apply(site)
+            article=(site/'offerte'/'settimanali.html').read_text()
+            privacy=(site/'privacy.html').read_text()
+            self.assertNotIn('/preferiti',article)
+            self.assertNotIn('storico',article.lower())
+            self.assertNotIn('Preferiti',privacy)
+            self.assertIn('La privacy continua.',privacy)
+
     def test_redaction_has_no_coupon_side_effects(self):
         html='<a href="/codici-sconto">CIOTOLA30</a><a href="/preferiti">avvisi di prezzo</a>'
         self.assertIn("CIOTOLA30", redact_html(html))
