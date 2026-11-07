@@ -21,8 +21,11 @@ def owner_confirmed(row, now):
     try:
         return (row["code"] == "CIOTOLA30" and row["shop"] == "hygge"
                 and row["status"] == "owner_confirmed" and row["publication_allowed"] is True
-                and row["owner_confirmation"]["date"] == "2026-11-07"
                 and bool(row["owner_confirmation"]["note"])
+                and dt.date.fromisoformat(row["owner_confirmation"]["date"]) == dt.date(2026, 11, 7)
+                and stamp(row["recheck_after"]) == dt.datetime.combine(
+                    dt.date.fromisoformat(row["owner_confirmation"]["date"]) + dt.timedelta(days=14),
+                    dt.time.min, tzinfo=dt.timezone.utc)
                 and stamp(row["starts_at"]) <= now < stamp(row["expires_at"])
                 and all(urlsplit(row[k]).scheme == "https" and urlsplit(row[k]).netloc == HOSTS["hygge"]
                         for k in ["source_url", "destination_url"]))
@@ -51,12 +54,15 @@ def eligible(row, now):
 
 
 
-def render_card(row):
+def render_card(row, now=None):
+    now = now or dt.datetime.now(dt.timezone.utc)
     if row.get('status') == 'owner_confirmed':
-        return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-until="{h(row['expires_at'])}">
+        label = ('Da riconfermare' if now >= stamp(row['recheck_after'])
+                 else 'Codice concordato con il partner · confermato dal titolare')
+        return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-until="{h(row['expires_at'])}" data-recheck-after="{h(row['recheck_after'])}">
 <div class="shop"><div><strong>{h(row['merchant'])}</strong><small>Negozio partner</small></div></div>
 <div class="discount">{h(row['benefit'])}</div><h2>{h(row['title'])}</h2><p class="description">{h(row['description'])}</p>
-<span class="status">Verifica confermata dal titolare</span>
+<span class="status">{h(label)}</span>
 <div class="card-tail"><div class="code-row"><code>{h(row['code'])}</code><button class="copy" data-code="{h(row['code'])}" aria-label="Copia il codice {h(row['code'])}">Copia codice</button></div>
 <a class="shop-button coupon-visit" href="{h(row['destination_url'], quote=True)}" target="_blank" rel="noopener noreferrer">Vai al negozio ↗</a>
 <details><summary>Condizioni del codice</summary><p>{h(row['conditions'])}</p><p>Verifica precedente confermata dal titolare. Nessuna nuova prova nel carrello documentata in questo aggiornamento.</p></details>
@@ -77,7 +83,7 @@ def build(now=None):
     now = now or dt.datetime.now(dt.timezone.utc)
     data = json.loads((ROOT/'automation/coupons.json').read_text())
     rows = [r for r in data['coupons'] if eligible(r, now)]
-    cards = ''.join(render_card(r) for r in rows)
+    cards = ''.join(render_card(r, now) for r in rows)
     shell = (ROOT/'automation/coupon-layout.html').read_text()
     body = shell.replace('<!-- COUPON_CARDS -->', cards)
     template = (ROOT/'site/chi-siamo.html').read_text()
