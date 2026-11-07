@@ -31,7 +31,13 @@ def audit(site):
         # Strip script content but retain JSON-LD, page text, attributes and meta.
         for match in TERMS.finditer(text):
             context=text[max(0,match.start()-75):min(len(text),match.end()+95)]
-            label='disabled-price-feature' if PRICE_BLOCK.search(context) else 'generic-context-review'
+            # Generic form accessibility alerts and delivery thresholds are not price alerts.
+            semantic='generic-context-review' if (
+                (match.group(0).casefold()=='alert' and re.search(r'role=[\"\\\']alert[\"\\\']',context,re.I))
+                or (match.group(0).casefold()=='soglia' and re.search(r'spedizione|spedire|consegna|articoli',context,re.I)
+                    and not re.search(r'avvis[oi]|notific|prezzo desiderato|price.alert',context,re.I))
+            ) else None
+            label=semantic or ('disabled-price-feature' if PRICE_BLOCK.search(context) else 'generic-context-review')
             if label=='disabled-price-feature': bad.append((relative,match.group(0),context))
             findings.append({'path':relative,'term':match.group(0),'decision':'remove_or_rewrite' if label=='disabled-price-feature' else 'retain_contextual','context':re.sub(r'\s+',' ',context)[:170]})
         if DANGEROUS_HOOKS.search(text):
