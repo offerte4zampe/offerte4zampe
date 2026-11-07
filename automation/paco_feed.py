@@ -62,7 +62,11 @@ def normalize(payload, now=None):
 def verify_quantity(row, page, now=None, diagnostics=None):
     """Bind only the current selected variant whose code AND whole-pack price match."""
     def failure(reason):
-        if diagnostics is not None: diagnostics['reason'] = reason
+        if diagnostics is not None:
+            try:
+                diagnostics['reason'] = reason
+            except Exception:
+                pass  # Failure classification cannot change the verification decision.
         return row
     try:
         from .update_catalog import weight
@@ -113,8 +117,11 @@ def verification_plan(rows, previous, peers, now, limit=80, priority_ids=frozens
         else: attempted=dt.datetime.min.replace(tzinfo=dt.timezone.utc)
         candidates.append((row.get('available') is not True,row['id'] not in priority_ids,row['feed_gtin'].lstrip('0') not in peers,attempted,row['id'],i))
     if diagnostics is not None:
-        diagnostics['skipped_limit'] = max(0, len(candidates) - limit)
-        diagnostics['reused_proof'] = len(rows) - len(candidates)
+        try:
+            diagnostics['skipped_limit'] = max(0, len(candidates) - limit)
+            diagnostics['reused_proof'] = len(rows) - len(candidates)
+        except Exception:
+            pass  # Existing prioritization and the 80-item cap are authoritative.
     return [entry[-1] for entry in sorted(candidates)[:limit]]
 
 def collect():
@@ -153,18 +160,35 @@ def collect():
             except Exception: return i,row,'fetch_error',True
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
             for i,row,reason,requested in pool.map(inspect,chosen):
-                attempted_requests += int(requested)
                 rows[i]=row
-                if reason: failures[reason]+=1
-                elif row.get('quantity_verified'): successful+=1
+                try:
+                    attempted_requests += int(requested)
+                    if reason:
+                        failures[reason] = failures.get(reason, 0) + 1
+                    elif row.get('quantity_verified'):
+                        successful += 1
+                except Exception:
+                    pass  # Do not roll back a verified row due to diagnostics.
     except Exception:
         # Existing fail-closed policy remains unchanged; these are planned attempts.
-        failures['fetch_error'] += max(0, attempted_requests-successful-sum(failures.values()))
-    return rows,dict(id='paco',name='Paco Pet Shop',status='ok',offers=len(rows),checked_at=now.isoformat(),
+        try:
+            failures['fetch_error'] += max(0, attempted_requests-successful-sum(failures.values()))
+        except Exception:
+            pass
+    status=dict(id='paco',name='Paco Pet Shop',status='ok',offers=len(rows),checked_at=now.isoformat(),
         source='TradeTracker:1216771',method='Feed ufficiale TradeTracker · aggiornamento giornaliero',
         retrieved_at=now.isoformat(),upstream_last_modified=modified,
-        verified_quantities=sum(r['quantity_verified'] for r in rows),
-        quantity_verification_diagnostics=dict(scheduled=len(chosen),attempted=attempted_requests,succeeded=successful,
-            skipped_limit=diagnostic_plan['skipped_limit'],reused_proof=diagnostic_plan['reused_proof'],
-            failures=failures))
+        verified_quantities=sum(r['quantity_verified'] for r in rows))
+    try:
+        status['quantity_verification_diagnostics']=dict(
+            scheduled=len(chosen),attempted=attempted_requests,succeeded=successful,
+            skipped_limit=diagnostic_plan.get('skipped_limit', 0),
+            reused_proof=diagnostic_plan.get('reused_proof', 0),failures=failures)
+    except Exception as error:
+        try:
+            import logging
+            logging.getLogger(__name__).warning('Paco verification diagnostics unavailable: %s', type(error).__name__)
+        except Exception:
+            pass
+    return rows,status
 
