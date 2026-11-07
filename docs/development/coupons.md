@@ -20,3 +20,16 @@ Rigenerazione ogni sei ore con workflow coupons.yml, controllo data anche nel br
 
 ## 6 novembre 2026
 MP20 (Bauzaar): prova nel carrello su due confezioni di biscotti Monopro Dog Adult All Breeds Grain Free 100 g, Tacchino, variante 56819967164741. Riga da 6,00 € a 4,80 €, sconto visibile 1,20 €. Articoli e codice rimossi a fine prova. Fonte: https://www.bauzaar.it/pages/promozioni — Monopro −20%, senza minimo, non cumulabile, fino al 13 novembre e a esaurimento scorte. Nuovo controllo entro il limite di 48 ore dalla data registrata.
+
+
+## 7 novembre 2026 — audit fonti, sospensioni e policy
+
+- **FC20 e LILY20**: marcati `expired` e `publication_allowed: false`; la scadenza ufficiale registrata era il 31/10/2026. Nessun rinnovo della prova.
+- **MP20**: unica prova positiva recente ancora valida. Il sito Bauzaar continua a mostrare MP20 al -20% su Monopro fino al 13/11, senza spesa minima, non cumulabile e con scorte limitate. La prova del 06/11 (2 × biscotti Monopro Tacchino 100 g, variante 56819967164741: 6,00 € → 4,80 €) resta invariata; `verified_at` non è stato rinnovato. `recheck_after` resta 08/11/2026 00:00 UTC.
+- **CIOTOLA30 (Hygge)**: non provato nel carrello, quindi sospeso dalla pubblicazione. Rimossa l'eccezione `partner_provided`: il generatore pubblica esclusivamente righe `cart_tested` con prova positiva e limite massimo di 48 ore. I test Python e browser sono stati allineati a questa regola.
+- **Nuovi candidati Bauzaar, non pubblicati**: STY20 (-20% Stuzzy) e PP20 (-20% Purina Pro Plan), entrambi indicati fino al 13/11, senza minimo, non cumulabili e con scorte limitate; RELAX (-25% cucce, non cumulabile, senza scadenza espressa); BZR20 (-20% sul primo ordine dei brand esclusivi, richiede login/registrazione e non è cumulabile). Tutti attendono prova reale nel carrello.
+- **Conflitto Bauzaar**: per Fish4Dogs la descrizione e il pulsante indicano FD20, mentre il riquadro copiabile mostra FC20. Registrato come `source_conflict`, escluso fino a chiarimento e prova.
+- **Paco**: la pagina ufficiale elenca SCORTA3 (3% da 150 €), SCORTA4 (4% da 200 €), SCORTA5 (5% da 250 €), non cumulabili e senza scadenza indicata. La pagina prodotto The Red Oak indica RED3 (-2 € sul formato 2 kg) e RED8 (-8 € sul formato 12 kg). Tutti registrati come candidati non verificati. WPACO5 (-5% primo ordine) è escluso perché l'uso comporta l'iscrizione alla newsletter, vietata dalle istruzioni di questo controllo.
+- **Isola dei Tesori**: le pagine pubbliche di promozione cane/gatto mostrano sconti sui prodotti ma non espongono un codice coupon testuale; nessun codice nuovo inserito.
+- Nessun nuovo test nel carrello: in questa esecuzione non era disponibile una sessione browser interattiva autorizzata per i negozi. Non sono stati creati account, effettuate iscrizioni, completati acquisti o inviati messaggi. Nessun `verified_at` è stato modificato.
+- Fonti ufficiali consultate: Bauzaar https://www.bauzaar.it/pages/promozioni ; Isola https://www.isoladeitesori.it/promozioni/promozioni-cane/ e https://www.isoladeitesori.it/promozioni/promozioni-gatto/ ; Paco https://www.pacopetshop.it/it/cms/3/codici-sconto-e-promozioni-di-paco e https://www.pacopetshop.it/it/the-red-oak/5278-the-red-oak-maiale-e-mele-grain-free-per-cani.htm .
