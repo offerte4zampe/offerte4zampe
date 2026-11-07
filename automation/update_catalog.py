@@ -113,7 +113,15 @@ def main():
             if status['status']=='error':
                 rows=[r for r in old.get('offers',[]) if r['merchant_id']==status['id']];status['offers']=len(rows);status['status']='stale' if rows else 'error'
             # Diagnostics are metadata only; do not mutate offer records.
-            status['gtin_diagnostics'] = gtin_counters(rows)
+            try:
+                status['gtin_diagnostics'] = gtin_counters(rows)
+            except Exception as error:
+                # Diagnostics must never stop a catalog refresh.
+                try:
+                    import logging
+                    logging.getLogger(__name__).warning('GTIN diagnostics unavailable for %s: %s', status.get('id'), type(error).__name__)
+                except Exception:
+                    pass
             status = source_freshness(status, rows)
             offers.extend(rows);sources.append(status)
     # Preserve official partner snapshots; stale dates remain visible to the UI.
