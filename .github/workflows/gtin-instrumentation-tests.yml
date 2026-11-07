@@ -1,0 +1,28 @@
+name: GTIN instrumentation offline regression
+on:
+  pull_request:
+    paths:
+      - 'automation/gtin_diagnostics.py'
+      - 'automation/paco_feed.py'
+      - 'automation/update_catalog.py'
+      - 'tests/test_gtin_diagnostics.py'
+      - '.github/workflows/gtin-instrumentation-tests.yml'
+permissions:
+  contents: read
+jobs:
+  offline-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install Pillow==12.3.0
+      - name: Full Python test suite (includes before-after fixtures)
+        run: python -m unittest discover -s tests
+      - name: Node test suite
+        run: node --test tests/*.mjs
