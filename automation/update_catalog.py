@@ -156,4 +156,18 @@ def main():
     path.parent.mkdir(exist_ok=True);tmp=path.with_suffix('.tmp');tmp.write_text(json.dumps(payload,ensure_ascii=False,separators=(',',':')));tmp.replace(path)
     path.with_suffix('.json.gz').write_bytes(gzip.compress(path.read_bytes(),mtime=0))
     print(json.dumps({'offers':len(offers),'sources':sources},ensure_ascii=False))
+    try:
+        try:
+            from .merchant_evidence import emit_summary
+        except ImportError:
+            from merchant_evidence import emit_summary
+        emit_summary()
+    except Exception as error:
+        try:
+            import logging
+            logging.getLogger(__name__).warning(
+                'Merchant diagnostic emission unavailable: %s',
+                type(error).__name__)
+        except Exception:
+            pass
 if __name__=='__main__':main()
