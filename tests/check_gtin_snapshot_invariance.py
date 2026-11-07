@@ -58,8 +58,11 @@ def main():
         assert len(rows) == metrics['raw_present'] + metrics['empty']
     assert updated['offers'] == original['offers'], 'Offers modified by diagnostics'
     reconstructed=copy.deepcopy(updated)
-    for source in reconstructed['sources']:
-        source.pop('gtin_diagnostics',None)
+    for original_source, source in zip(original['sources'], reconstructed['sources']):
+        if 'gtin_diagnostics' in original_source:
+            source['gtin_diagnostics'] = original_source['gtin_diagnostics']
+        else:
+            source.pop('gtin_diagnostics',None)
     assert reconstructed == original, 'Non-diagnostic catalog metadata changed'
     print('SNAPSHOT_EQUIVALENCE',json.dumps({
         'base_sha':base,'offer_count':len(original['offers']),

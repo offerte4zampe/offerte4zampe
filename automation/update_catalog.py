@@ -128,6 +128,21 @@ def main():
                 rows=[r for r in old.get('offers',[]) if r['merchant_id']==status['id']];status['offers']=len(rows);status['status']='stale' if rows else 'error'
             # Diagnostics are metadata only; do not mutate offer records.
             attach_gtin_diagnostics(status, rows)
+            if status.get('id') == 'bauzaar':
+                try:
+                    try:
+                        from .merchant_evidence import bauzaar_report, save_section
+                    except ImportError:
+                        from merchant_evidence import bauzaar_report, save_section
+                    save_section('bauzaar', bauzaar_report(rows))
+                except Exception as error:
+                    try:
+                        import logging
+                        logging.getLogger(__name__).warning(
+                            'Private Bauzaar diagnostics unavailable: %s',
+                            type(error).__name__)
+                    except Exception:
+                        pass
             status = source_freshness(status, rows)
             offers.extend(rows);sources.append(status)
     # Preserve official partner snapshots; stale dates remain visible to the UI.
@@ -141,4 +156,18 @@ def main():
     path.parent.mkdir(exist_ok=True);tmp=path.with_suffix('.tmp');tmp.write_text(json.dumps(payload,ensure_ascii=False,separators=(',',':')));tmp.replace(path)
     path.with_suffix('.json.gz').write_bytes(gzip.compress(path.read_bytes(),mtime=0))
     print(json.dumps({'offers':len(offers),'sources':sources},ensure_ascii=False))
+    try:
+        try:
+            from .merchant_evidence import emit_summary
+        except ImportError:
+            from merchant_evidence import emit_summary
+        emit_summary()
+    except Exception as error:
+        try:
+            import logging
+            logging.getLogger(__name__).warning(
+                'Merchant diagnostic emission unavailable: %s',
+                type(error).__name__)
+        except Exception:
+            pass
 if __name__=='__main__':main()
