@@ -138,31 +138,33 @@ def collect():
                     unparseable_weight=0, missing_product_data=0,
                     malformed_product_data=0, fetch_error=0, robots_disallowed=0)
     successful = 0
+    attempted_requests = 0
     rp=urllib.robotparser.RobotFileParser()
     try:
         with urllib.request.urlopen(urllib.request.Request(ORIGIN+'/robots.txt',headers={'User-Agent':UA}),timeout=15) as response: rp.parse(response.read().decode().splitlines())
         def inspect(i):
             row=dict(rows[i],quantity_verification_attempted_at=now.isoformat())
-            if not rp.can_fetch(UA,row['url']): return i,row,'robots_disallowed'
+            if not rp.can_fetch(UA,row['url']): return i,row,'robots_disallowed',False
             try:
                 with urllib.request.urlopen(urllib.request.Request(row['url'],headers={'User-Agent':UA}),timeout=12) as response: page=response.read(3000000).decode('utf-8')
                 check = {}
                 verified = verify_quantity(row,page,now,diagnostics=check)
-                return i,verified,check.get('reason')
-            except Exception: return i,row,'fetch_error'
+                return i,verified,check.get('reason'),True
+            except Exception: return i,row,'fetch_error',True
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-            for i,row,reason in pool.map(inspect,chosen):
+            for i,row,reason,requested in pool.map(inspect,chosen):
+                attempted_requests += int(requested)
                 rows[i]=row
                 if reason: failures[reason]+=1
                 elif row.get('quantity_verified'): successful+=1
     except Exception:
         # Existing fail-closed policy remains unchanged; these are planned attempts.
-        failures['fetch_error'] += max(0, len(chosen)-successful-sum(failures.values()))
+        failures['fetch_error'] += max(0, attempted_requests-successful-sum(failures.values()))
     return rows,dict(id='paco',name='Paco Pet Shop',status='ok',offers=len(rows),checked_at=now.isoformat(),
         source='TradeTracker:1216771',method='Feed ufficiale TradeTracker · aggiornamento giornaliero',
         retrieved_at=now.isoformat(),upstream_last_modified=modified,
         verified_quantities=sum(r['quantity_verified'] for r in rows),
-        quantity_verification_diagnostics=dict(attempted=len(chosen),succeeded=successful,
+        quantity_verification_diagnostics=dict(scheduled=len(chosen),attempted=attempted_requests,succeeded=successful,
             skipped_limit=diagnostic_plan['skipped_limit'],reused_proof=diagnostic_plan['reused_proof'],
             failures=failures))
 
