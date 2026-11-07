@@ -105,6 +105,20 @@ def collect(source, shipping_only=False):
         return rows,{'id':sid,'name':name,'status':'ok','checked_at':now,'offers':len(rows),'source':base+'/products.json','method':'Catalogo pubblico del negozio'}
     except Exception as e:
         return [],{'id':sid,'name':name,'status':'error','checked_at':now,'offers':0,'error':type(e).__name__,'source':base+'/products.json'}
+def attach_gtin_diagnostics(status, rows):
+    """Best-effort source metadata, never a condition for accepting offers."""
+    try:
+        status['gtin_diagnostics'] = gtin_counters(rows)
+    except Exception as error:
+        # Even the logging provider may be misconfigured; neither may break import.
+        try:
+            import logging
+            logging.getLogger(__name__).warning(
+                'GTIN diagnostics unavailable for %s: %s',
+                status.get('id'), type(error).__name__)
+        except Exception:
+            pass
+
 def main():
     path=ROOT/'site/data/catalog.json';old=json.loads(gzip.decompress(path.with_suffix('.json.gz').read_bytes())) if path.with_suffix('.json.gz').exists() else {'offers':[]}
     offers=[];sources=[]
@@ -113,15 +127,7 @@ def main():
             if status['status']=='error':
                 rows=[r for r in old.get('offers',[]) if r['merchant_id']==status['id']];status['offers']=len(rows);status['status']='stale' if rows else 'error'
             # Diagnostics are metadata only; do not mutate offer records.
-            try:
-                status['gtin_diagnostics'] = gtin_counters(rows)
-            except Exception as error:
-                # Diagnostics must never stop a catalog refresh.
-                try:
-                    import logging
-                    logging.getLogger(__name__).warning('GTIN diagnostics unavailable for %s: %s', status.get('id'), type(error).__name__)
-                except Exception:
-                    pass
+            attach_gtin_diagnostics(status, rows)
             status = source_freshness(status, rows)
             offers.extend(rows);sources.append(status)
     # Preserve official partner snapshots; stale dates remain visible to the UI.
