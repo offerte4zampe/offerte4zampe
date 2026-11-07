@@ -184,10 +184,10 @@ def collect():
             for i,row,reason,requested,context in pool.map(inspect,chosen):
                 # Capture only the already-fetched selected-variant response.
                 try:
-                    from .merchant_evidence import paco_record
-                except ImportError:
-                    from merchant_evidence import paco_record
-                try:
+                    try:
+                        from .merchant_evidence import paco_record
+                    except ImportError:
+                        from merchant_evidence import paco_record
                     if len(private_records)<80:
                         record=paco_record(rows[i], reason, now, context,
                                            verified=row if not reason else None)
