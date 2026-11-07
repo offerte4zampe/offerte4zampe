@@ -10,7 +10,14 @@ export async function checkCoupons(page, origin) {
   const records = JSON.parse(await fs.readFile(new URL('../automation/coupons.json', import.meta.url), 'utf8')).coupons;
   const now = Date.now();
   const active = records.filter(r => {
-    if (r.status !== 'cart_tested' || r.publication_allowed !== true || !r.cart_test) return false;
+    if (r.publication_allowed !== true) return false;
+    if (r.status === 'owner_confirmed') {
+      const start = Date.parse(r.starts_at);
+      const end = Date.parse(r.expires_at);
+      return Boolean(r.owner_confirmation?.date) && Number.isFinite(start) && Number.isFinite(end)
+        && start <= now && now < end;
+    }
+    if (r.status !== 'cart_tested' || !r.cart_test) return false;
     const verified = Date.parse(r.verified_at);
     const start = Date.parse(r.starts_at);
     const end = Math.min(Date.parse(r.expires_at), Date.parse(r.recheck_after), verified + 48 * 3600000);
@@ -25,6 +32,26 @@ export async function checkCoupons(page, origin) {
   assert.deepEqual(visibleCodes, active.map(r => r.code).sort());
   assert.equal(await page.$$eval('.coupon:not([hidden])', es => es.length), active.length);
   assert.equal(await page.$$eval('.coupon .status', es => es.some(e => e.textContent.includes('non ancora provato nel carrello'))), false);
+
+  // An owner confirmation is not evidence that a code was cart-tested.
+  // Assert against the rendered coupon, not just its source metadata, so the
+  // browser test fails if the generator ever mislabels it as cart-verified.
+  for (const row of active) {
+    const labels = await page.$$eval('.coupon:not([hidden])', (cards, code) => {
+      const card = cards.find(c => c.querySelector('code')?.textContent.trim() === code);
+      return card ? [...card.querySelectorAll('.status')].map(e => e.textContent.trim()) : [];
+    }, row.code);
+    assert.equal(labels.length, 1, `Expected exactly one status label for ${row.code}`);
+    if (row.status === 'owner_confirmed') {
+      assert.match(labels[0], /confermat[oa]|concordat[oa]/i,
+        `Owner-confirmed coupon ${row.code} must have a separate confirmation label`);
+      assert.doesNotMatch(labels[0], /(?:provato|verificato|testato) nel carrello/i,
+        `Owner-confirmed coupon ${row.code} was falsely labelled as cart-tested`);
+    } else if (row.status === 'cart_tested') {
+      assert.match(labels[0], /provat[oa]|verificat[oa].*carrello/i,
+        `Cart-tested coupon ${row.code} must keep its cart-test label`);
+    }
+  }
 
   await page.click('.filter[data-shop=isola]');
   assert.equal(await page.$$eval('.coupon:not([hidden])', es => es.length), 0);
