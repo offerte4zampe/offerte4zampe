@@ -12,6 +12,15 @@
       "/confronta-cibo",
       "/*.html",
       "/api/metrics",
+      "/data/history/*",
+      "/data/price-history*",
+      "/data/price-observatory*",
+      "/api/price-history*",
+      "/api/price-alert*",
+      "/api/alert*",
+      "/api/watchlist*",
+      "/osservatorio-prezzi",
+      "/leggere-storico-prezzi",
       "/prodotto",
       "/prodotto.html",
       "/prodotto/*",
@@ -45,7 +54,8 @@
   "keep_vars": true,
   "vars": {
     "SHIPPING_RULES_SOURCE": "json",
-    "SHIPPING_SHADOW": "false"
+    "SHIPPING_SHADOW": "false",
+    "PRICE_TRACKING_ENABLED": "false"
   },
   "durable_objects": {
     "bindings": [
