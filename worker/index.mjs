@@ -25,7 +25,7 @@ export default {
       /^\/data\/history(?:\/|$)/.test(url.pathname) ||
       /^\/data\/(?:price-history|price-observatory)(?:\.|\/|$)/.test(url.pathname) ||
       /^\/api\/(?:price-history|price-alerts?|alerts?|watchlist)(?:\/|$)/.test(url.pathname) ||
-      /^\/(?:osservatorio-prezzi|leggere-storico-prezzi)(?:\.html|\/)?$/.test(url.pathname)
+      /^\/(?:osservatorio-prezzi|leggere-storico-prezzi|preferiti)(?:\.html|\/)?$/.test(url.pathname)
     )) return new Response(null,{status:410,headers:{'Cache-Control':'no-store','X-Robots-Tag':'noindex, nofollow'}});
     if (['GET','HEAD'].includes(request.method) && url.pathname.endsWith('.html') && url.pathname !== '/prodotto.html' && !/^\/google[\w-]+\.html$/.test(url.pathname)) {
       url.pathname = url.pathname.endsWith('/index.html') ? url.pathname.slice(0, -10) || '/' : url.pathname.slice(0, -5);
