@@ -50,15 +50,34 @@ class CouponTests(unittest.TestCase):
 
     def test_only_cart_tested_codes_can_be_published(self):
         for row in self.records:
-            if row['status'] != 'cart_tested':
+            if row['status'] not in ('cart_tested', 'owner_confirmed'):
                 self.assertFalse(eligible(row, self.now), row['code'])
         partner = copy.deepcopy(next(r for r in self.records if r['code'] == 'CIOTOLA30'))
+        partner['status'] = 'partner_provided'
         partner['publication_allowed'] = True
         self.assertFalse(eligible(partner, self.now))
         for code in ['STY20', 'PP20', 'FD20', 'RELAX', 'BZR20',
                      'SCORTA3', 'SCORTA4', 'SCORTA5', 'RED3', 'RED8', 'WPACO5']:
             candidate = next(r for r in self.records if r['code'] == code)
             self.assertFalse(eligible(candidate, self.now), code)
+
+    def test_owner_confirmed_restoration_is_scoped_and_honest(self):
+        row = copy.deepcopy(next(r for r in self.records if r['code'] == 'CIOTOLA30'))
+        now = dt.datetime(2026, 11, 7, 12, tzinfo=dt.timezone.utc)
+        self.assertTrue(eligible(row, now))
+        self.assertNotIn('cart_test', row)
+        html = render_card(row)
+        self.assertIn('CIOTOLA30', html)
+        self.assertIn('Verifica confermata dal titolare', html)
+        self.assertNotIn('Provato nel carrello', html)
+        for key, value in [('code', 'OTHER'), ('publication_allowed', False),
+                           ('destination_url', 'https://evil.example/'),
+                           ('expires_at', '2026-11-07T00:00:00Z')]:
+            changed = copy.deepcopy(row)
+            changed[key] = value
+            self.assertFalse(eligible(changed, now))
+        del row['owner_confirmation']
+        self.assertFalse(eligible(row, now))
 
 
 if __name__ == '__main__':

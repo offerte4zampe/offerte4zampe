@@ -1,6 +1,6 @@
 {
   "method_version": 1,
-  "verification_policy": "Date conservative: verified_at uses UTC start of the observed day, not an invented exact test time. Maximum 48h without a new cart test. Every published coupon must have a positive item-level cart test; partner-provided and source-only offers are never publishable.",
+  "verification_policy": "Date conservative: verified_at uses UTC start of the observed day, not an invented exact test time. Maximum 48h without a new cart test. Every published coupon must have a positive item-level cart test; partner-provided and source-only offers are never publishable. Owner-confirmed CIOTOLA30 may be published on the owner's explicit restoration instruction, labelled separately; this does not renew or fabricate a cart test.",
   "coupons": [
     {
       "code": "FC20",
@@ -95,16 +95,19 @@
       "benefit": "−30%",
       "title": "Su prodotti Hygge Pet Food",
       "description": "Offerta speciale per i lettori di Offerte a 4 Zampe tramite il programma affiliati Awin.",
-      "status": "partner_provided",
-      "publication_allowed": false,
+      "status": "owner_confirmed",
+      "publication_allowed": true,
       "starts_at": "2026-11-03T00:00:00Z",
       "expires_at": "2028-01-01T00:00:00Z",
       "expires_label": "31 dicembre 2027 (salvo modifiche del negozio)",
       "source_url": "https://hyggepetfood.com/",
       "destination_url": "https://hyggepetfood.com/",
-      "conditions": "Codice riservato al canale di affiliazione Awin. Sconto del 30% sui prodotti per acquisti singoli, esclusi gli abbonamenti; una volta per cliente, non cumulabile con altre promozioni. Spedizione esclusa. Applicazione effettiva da verificare al checkout.",
+      "conditions": "Codice riservato al canale di affiliazione Awin. Sconto del 30% sui prodotti per acquisti singoli, esclusi gli abbonamenti; una volta per cliente, non cumulabile con altre promozioni. Spedizione esclusa.",
       "source_checked_date": "03/11/2026",
-      "suspended_reason": "Non provato nel carrello; la policy richiede una prova positiva indipendente e una validità massima di 48 ore."
+      "owner_confirmation": {
+        "date": "2026-11-07",
+        "note": "Il titolare conferma che il codice era già verificato e ne richiede esplicitamente il ripristino. Dettagli e data della precedente prova non disponibili; nessuna nuova prova del carrello eseguita."
+      }
     },
     {
       "code": "STY20",

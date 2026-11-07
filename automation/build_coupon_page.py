@@ -1,4 +1,4 @@
-"""Render only dated, cart-tested coupons; no partner-provided bypass. Never renew evidence during a build."""
+"""Render cart-tested coupons and the explicit owner-confirmed restoration. Never renew evidence during a build."""
 import datetime as dt
 import json
 import re
@@ -17,7 +17,22 @@ def stamp(value):
     return date
 
 
+def owner_confirmed(row, now):
+    try:
+        return (row["code"] == "CIOTOLA30" and row["shop"] == "hygge"
+                and row["status"] == "owner_confirmed" and row["publication_allowed"] is True
+                and row["owner_confirmation"]["date"] == "2026-11-07"
+                and bool(row["owner_confirmation"]["note"])
+                and stamp(row["starts_at"]) <= now < stamp(row["expires_at"])
+                and all(urlsplit(row[k]).scheme == "https" and urlsplit(row[k]).netloc == HOSTS["hygge"]
+                        for k in ["source_url", "destination_url"]))
+    except (KeyError, ValueError, TypeError, AttributeError):
+        return False
+
+
 def eligible(row, now):
+    if owner_confirmed(row, now):
+        return True
     try:
         proof = row['cart_test']
         verified = stamp(row['verified_at'])
@@ -37,6 +52,15 @@ def eligible(row, now):
 
 
 def render_card(row):
+    if row.get('status') == 'owner_confirmed':
+        return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-until="{h(row['expires_at'])}">
+<div class="shop"><div><strong>{h(row['merchant'])}</strong><small>Negozio partner</small></div></div>
+<div class="discount">{h(row['benefit'])}</div><h2>{h(row['title'])}</h2><p class="description">{h(row['description'])}</p>
+<span class="status">Verifica confermata dal titolare</span>
+<div class="card-tail"><div class="code-row"><code>{h(row['code'])}</code><button class="copy" data-code="{h(row['code'])}" aria-label="Copia il codice {h(row['code'])}">Copia codice</button></div>
+<a class="shop-button coupon-visit" href="{h(row['destination_url'], quote=True)}" target="_blank" rel="noopener noreferrer">Vai al negozio ↗</a>
+<details><summary>Condizioni del codice</summary><p>{h(row['conditions'])}</p><p>Verifica precedente confermata dal titolare. Nessuna nuova prova nel carrello documentata in questo aggiornamento.</p></details>
+<p class="footnote">Scade il {h(row['expires_label'])}.</p></div></article>'''
     p = row['cart_test']
     money = lambda n: f'{n/100:.2f}'.replace('.', ',') + ' €'
     until = min(stamp(row['expires_at']), stamp(row['recheck_after']), stamp(row['verified_at']) + dt.timedelta(hours=48)).isoformat()
