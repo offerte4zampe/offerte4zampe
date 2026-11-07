@@ -83,7 +83,7 @@ async function renderCanonicalProduct(request,env,now=Date.now()){
  const trackingEnabled=env.PRICE_TRACKING_ENABLED==='true';
  if(!trackingEnabled)delete p.history;
  const amazonRegistry=await jsonAsset(env,url.origin,'/data/amazon-links.json');
- const amazon=resolveAmazonOffer(p,amazonRegistry,now);
+ const amazon=env.AMAZON_LINKS_ENABLED==='true'?resolveAmazonOffer(p,amazonRegistry,now):null;
  const state=view(p,loaded.rules,now,quantity,territory),page=content(p,state,trackingEnabled,amazon);
  const indexable=(state.shops>=2||(trackingEnabled&&state.indexable))&&quantity===1&&territory==='standard';
  let localImage='';if(indexable&&/^\/img\/p\/[a-f0-9]{24}-400\.webp$/.test(p.image_local||'')){const asset=await env.ASSETS.fetch(new Request(new URL(p.image_local,url.origin),{method:'HEAD'}));if(asset.ok)localImage=new URL(p.image_local,url.origin).href;}
