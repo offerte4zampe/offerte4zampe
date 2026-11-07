@@ -5,6 +5,7 @@ stay isolated; similarity produces review candidates, never a false comparison.
 """
 import datetime as dt
 import gzip
+import os
 import hashlib
 import json
 import math
@@ -287,7 +288,7 @@ def main():
     catalog=json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()));state=ROOT/'automation/product-registry.json'
     previous=json.loads(state.read_text()) if state.exists() else {}
     history_path=ROOT/'site/data/price-history.json.gz'
-    history=json.loads(gzip.decompress(history_path.read_bytes())) if history_path.exists() else {}
+    history=json.loads(gzip.decompress(history_path.read_bytes())) if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() == 'true' and history_path.exists() else {}
     model=build(catalog,previous,history);write(model,ROOT/'site');state.write_text(json.dumps(model['registry'],ensure_ascii=False,separators=(',',':'))+'\n')
     # Consumers keep merchant IDs; canonical identity is an explicit separate relation.
     catalog['offers']=model['offers'];(ROOT/'site/data/catalog.json.gz').write_bytes(gzip.compress(json.dumps(catalog,ensure_ascii=False,separators=(',',':')).encode(),mtime=0))
