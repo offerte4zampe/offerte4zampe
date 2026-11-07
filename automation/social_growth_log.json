@@ -227,6 +227,68 @@
       ],
       "replies_confirmed": [],
       "notes": "Nessun nuovo commento sui post del brand nel filtro notifiche. La reazione di lillo.bassotto al commento precedente conteneva solo emoji."
+    },
+    {
+      "date": "2026-11-07",
+      "checked_at": "2026-11-07T09:22:24+01:00",
+      "source": "Windsor Instagram account data (data_fetched_at 2026-11-07T08:26:58); Metricool planner; Wikimedia Commons; Cats Protection; ASPCA",
+      "followers": 56,
+      "following": 109,
+      "posts": 15,
+      "metrics_data_fetched_at": "2026-11-07T08:26:58",
+      "comparison": "Unchanged versus browser-authenticated Instagram session verified 2026-11-06 (56 followers, 109 following, 15 posts).",
+      "comments_query": "No comment rows returned for 2026-11-05 through 2026-11-07; no replies to previous external-profile comments could be checked in this run.",
+      "new_follows_confirmed": [],
+      "new_likes_confirmed": [],
+      "new_comments_confirmed": [],
+      "replies_confirmed": [],
+      "collaboration_contacts_confirmed": 0,
+      "scheduled": [
+        {
+          "network": "facebook",
+          "time": "2026-11-07T10:05:00+01:00",
+          "id": 419768916,
+          "uuid": "-8456938211265263707",
+          "topic": "perché il gatto graffia e come offrirgli superfici adatte",
+          "status": "PENDING",
+          "image": "Cat Scratching.jpg",
+          "author": "Asabae2752",
+          "license": "CC0 1.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Cat_Scratching.jpg"
+        },
+        {
+          "network": "instagram",
+          "time": "2026-11-07T10:15:00+01:00",
+          "id": 419768892,
+          "uuid": "2093912808587085480",
+          "topic": "perché il gatto graffia e come offrirgli superfici adatte",
+          "status": "PENDING",
+          "image": "Cat Scratching.jpg",
+          "author": "Asabae2752",
+          "license": "CC0 1.0",
+          "source": "https://commons.wikimedia.org/wiki/File:Cat_Scratching.jpg"
+        }
+      ],
+      "published_verified_previous": [
+        {
+          "date": "2026-11-06",
+          "network": "instagram",
+          "url": "https://www.instagram.com/p/DfZXprxlWvl/"
+        },
+        {
+          "date": "2026-11-06",
+          "network": "facebook",
+          "url": "https://facebook.com/122097890763524836/posts/122106927657524836"
+        }
+      ],
+      "telegram": "No new send or live bot response verified. Reviewed worker/telegram.mjs; product posts require a fresh authorized product photo and the scheduled worker has no text-only guide fallback. No formatter change made because no failing test or safe image-backed guide path was established.",
+      "limitations": "No browser-cloud Work control exposed in this automation run. Windsor Instagram connector exposes comment/reply actions but no follow, like, or DM actions; no comments were returned in the query. No Telegram Worker/Durable Object action available. Website HTTPS open check failed, so no unverified site CTA was included.",
+      "weekly_overlap": "No duplicate with weekly social automation: current planner already contains Black Friday tips for 2026-11-09 and Biokat's price comparison for 2026-11-11.",
+      "sources": [
+        "https://www.cats.org.uk/help-and-advice/cat-behaviour/scratching",
+        "https://www.aspca.org/pet-care/cat-care/common-cat-behavior-issues/destructive-scratching",
+        "https://commons.wikimedia.org/wiki/File:Cat_Scratching.jpg"
+      ]
     }
   ]
 }
