@@ -21,6 +21,12 @@ export default {
     // Amazon Associates default: no historical price tracking or alert endpoints.
     // Fail closed before ASSETS access, metrics or any storage interactions.
     const priceTrackingEnabled = env.PRICE_TRACKING_ENABLED === 'true';
+    if (!priceTrackingEnabled && /^\/preferiti(?:\.html|\/)?$/.test(url.pathname)) {
+      const headers={'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','X-Robots-Tag':'noindex, nofollow'};
+      const body='<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Funzione non disponibile | Offerte a 4 Zampe</title></head><body><main><h1>Funzione non disponibile</h1><p>Questo strumento non è attualmente disponibile. Puoi comunque consultare le offerte correnti dei negozi.</p><p><a href="/confronta-cibo">Vai al comparatore</a></p></main></body></html>';
+      return new Response(request.method==='HEAD'?null:body,{status:410,headers});
+    }
+
     if (!priceTrackingEnabled && (
       /^\/data\/history(?:\/|$)/.test(url.pathname) ||
       /^\/data\/(?:price-history|price-observatory)(?:\.|\/|$)/.test(url.pathname) ||
