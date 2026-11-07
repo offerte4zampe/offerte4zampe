@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
 
 export async function checkGuides(page, origin) {
   const canonicalRoutes=new Set(JSON.parse(await fs.readFile(new URL('../site/data/canonical-route-list.json',import.meta.url),'utf8')));
@@ -8,17 +9,25 @@ export async function checkGuides(page, origin) {
     assert.equal(await page.$$eval('main h1', es=>es.length),1);
     const rules=JSON.parse(await fs.readFile(new URL('../site/data/shipping-rules.json',import.meta.url),'utf8'));
     const generated=await page.$eval('time[datetime]',e=>e.getAttribute('datetime'));
-    const age=(Date.parse(generated.slice(0,10))-Date.parse(rules.checked_at))/86400000;
-    const expiredShipping=slug==='spedizione-gratuita-conviene'&&!(age>=0&&age<=7);
+    const validShipping=slug==='spedizione-gratuita-conviene'?JSON.parse(execFileSync('python',[
+      '-c','import json,sys; from automation.build_savings_guides import verified_shipping_rules, shipping_instant; print(json.dumps([mid for mid,_,_ in verified_shipping_rules(json.loads(sys.stdin.read()), shipping_instant(sys.argv[1]))]))',
+      generated,
+    ],{input:JSON.stringify(rules),encoding:'utf8',cwd:new URL('../',import.meta.url)})):null;
+    const expiredShipping=validShipping!==null&&validShipping.length===0;
     const caption=await page.$('.guide-table table caption');
     const links=await page.$$eval('.guide-table a',es=>es.map(e=>e.href));
     if(expiredShipping){
       assert.equal(caption,null,'Expired shipping conditions must not be shown as verified');
       assert.equal(links.length,0);
-      assert(await page.$eval('main',e=>e.textContent.includes('Le condizioni disponibili hanno superato la finestra di verifica di sette giorni o non sono complete')));
+      assert(await page.$eval('main',e=>e.textContent.includes('Nessuna regola di spedizione con verifica e scadenza valide')));
     }else{
       assert(caption,slug+' needs a caption');
       assert(links.length>0,slug+' table needs source links');
+    }
+    if(validShipping!==null){
+      const visible=await page.$$eval('.guide-table tr[data-shipping-merchant]',rows=>rows.map(row=>row.dataset.shippingMerchant));
+      assert.deepEqual(visible.sort(),validShipping.sort(),'Guide must show exactly the shops with current verified rules');
+      assert(await page.$eval('main',e=>e.textContent.includes('totale resta ignoto')));
     }
     for(const href of links){const u=new URL(href);if(u.origin===origin){
       if(u.pathname==='/prodotto.html'){assert(u.searchParams.has('id'));}
