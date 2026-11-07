@@ -86,6 +86,16 @@ def verify_quantity(row, page, now=None, diagnostics=None):
     if not match: return failure('missing_product_data')
     try:
         p=json.loads(html.unescape(match[1]));attrs=list(p.get('attributes',{}).values())
+        if diagnostics is not None:
+            try:
+                diagnostics['page_ean13'] = [
+                    str(a.get('ean13','')) for a in attrs if a.get('ean13')]
+                diagnostics['page_variant_id'] = [
+                    str(k) for k in p.get('attributes',{}).keys()]
+                diagnostics['page_variant_label'] = [
+                    str(a.get('name','')) for a in attrs]
+            except Exception as error:
+                diagnostic_warning('page_context',error)
         codes={str(a.get('ean13','')).strip().zfill(14) for a in attrs if a.get('ean13')}
         if codes!={str(row['feed_gtin']).zfill(14)} or not codes: return failure('ean_mismatch')
         if abs(float(p['price_amount'])-row['price'])>.005: return failure('price_mismatch')
@@ -157,20 +167,34 @@ def collect():
                     malformed_product_data=0, fetch_error=0, robots_disallowed=0)
     successful = 0
     attempted_requests = 0
+    private_records = []  # Never included in offers, sources or public HTML.
     rp=urllib.robotparser.RobotFileParser()
     try:
         with urllib.request.urlopen(urllib.request.Request(ORIGIN+'/robots.txt',headers={'User-Agent':UA}),timeout=15) as response: rp.parse(response.read().decode().splitlines())
         def inspect(i):
             row=dict(rows[i],quantity_verification_attempted_at=now.isoformat())
-            if not rp.can_fetch(UA,row['url']): return i,row,'robots_disallowed',False
+            if not rp.can_fetch(UA,row['url']): return i,row,'robots_disallowed',False,{}
             try:
                 with urllib.request.urlopen(urllib.request.Request(row['url'],headers={'User-Agent':UA}),timeout=12) as response: page=response.read(3000000).decode('utf-8')
                 check = {}
                 verified = verify_quantity(row,page,now,diagnostics=check)
-                return i,verified,check.get('reason'),True
-            except Exception: return i,row,'fetch_error',True
+                return i,verified,check.get('reason'),True,check
+            except Exception: return i,row,'fetch_error',True,{}
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-            for i,row,reason,requested in pool.map(inspect,chosen):
+            for i,row,reason,requested,context in pool.map(inspect,chosen):
+                # Capture only the already-fetched selected-variant response.
+                try:
+                    from .merchant_evidence import paco_record
+                except ImportError:
+                    from merchant_evidence import paco_record
+                try:
+                    if len(private_records)<80:
+                        record=paco_record(rows[i], reason, now, context,
+                                           verified=row if not reason else None)
+                        if record is not None:
+                            private_records.append(record)
+                except Exception as error:
+                    diagnostic_warning('private_record',error)
                 rows[i]=row
                 try:
                     attempted_requests += int(requested)
@@ -187,6 +211,15 @@ def collect():
             failures['fetch_error'] += max(0, attempted_requests-successful-sum(failures.values()))
         except Exception as error:
             diagnostic_warning('failure_aggregate',error)
+    try:
+        try:
+            from .merchant_evidence import save_section
+        except ImportError:
+            from merchant_evidence import save_section
+        save_section('paco', {'checked_at':now.isoformat(),
+                     'records':private_records[:80]})
+    except Exception as error:
+        diagnostic_warning('private_write',error)
     status=dict(id='paco',name='Paco Pet Shop',status='ok',offers=len(rows),checked_at=now.isoformat(),
         source='TradeTracker:1216771',method='Feed ufficiale TradeTracker · aggiornamento giornaliero',
         retrieved_at=now.isoformat(),upstream_last_modified=modified,
