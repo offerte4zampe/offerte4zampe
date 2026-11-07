@@ -1,7 +1,7 @@
 """Private, best-effort merchant evidence from data already fetched.
 
-Local runner-only output. Never place under site/ and never commit or upload
-the contents to public GitHub Actions artifacts or logs.
+Read-only capture in memory; authorized evidence is emitted to GitHub Actions
+logs and step summary only. Never commit or upload a separate artifact.
 """
 import hashlib
 import json
@@ -194,6 +194,7 @@ def emit_summary():
             # the repository. GitHub itself makes the same data visible in logs.
             with open(summary,'a',encoding='utf-8') as handle:
                 handle.write('## Merchant diagnostics\\n\\n')
-                handle.write('\\n'.join('\\`'+line+'\\`' for line in lines)+'\\n')
+                for line in lines:
+                    handle.write('\\`' + line.replace('\\`', r'\\\\`') + '\\`\\n')
     except Exception as error:
         warn('emit',error)
