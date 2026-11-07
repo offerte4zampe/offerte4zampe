@@ -29,6 +29,8 @@ def redact_html(html):
         (r'(?i)\b(?:buon\s+momento\s+per\s+comprare|prezzo\s+pi[uù]\s+basso\s+di\s+sempre)\b', ''),
         (r'(?i)\b(?:ribassi?\s+(?:storici?|di\s+prezzo)|monitoraggio\s+(?:dei\s+)?prezzi|monitora(?:re)?\s+(?:il|i|l.andamento\s+dei)\s+prezz\w*)\b', ''),
     ]
+    # Previously published privacy wording must not promise the disabled target feature.
+    html = re.sub(r'<h2>Preferiti[^<]*</h2>\\s*<p>.*?</p>', '', html, flags=re.I|re.S)
     for pattern, replacement in replacements:
         html = re.sub(pattern, replacement, html)
     return html
@@ -36,7 +38,7 @@ def redact_html(html):
 def apply(site=SITE):
     if enabled():
         # Browser widgets are opt-in only; Worker must have the same runtime flag.
-        for path in site.glob("*.html"):
+        for path in site.rglob("*.html"):
             html = path.read_text(encoding="utf-8")
             if "O4ZPriceTrackingEnabled" not in html:
                 path.write_text(html.replace("<head>", "<head><script>window.O4ZPriceTrackingEnabled=true</script>", 1), encoding="utf-8")
