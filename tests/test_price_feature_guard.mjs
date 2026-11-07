@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import worker from '../worker/index.mjs';
 
-const blocked=['/data/history/00.json.gz','/data/price-history.json.gz','/data/price-observatory.json','/api/price-history/thing','/api/price-alerts','/api/alerts/subscribe','/api/watchlist','/osservatorio-prezzi','/leggere-storico-prezzi'];
+const blocked=['/data/history/00.json.gz','/data/price-history.json.gz','/data/price-observatory.json','/api/price-history/thing','/api/price-alerts','/api/alerts/subscribe','/api/watchlist','/osservatorio-prezzi','/leggere-storico-prezzi','/preferiti'];
 test('default-off worker returns 410 before asset access on historical and alert routes',async()=>{
   let fetched=0;
   const env={ASSETS:{fetch:async()=>{fetched++;throw Error('asset must not be read')}}};
