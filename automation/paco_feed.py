@@ -217,7 +217,13 @@ def collect():
         except ImportError:
             from merchant_evidence import save_section
         save_section('paco', {'checked_at':now.isoformat(),
-                     'records':private_records[:80]})
+                     'records':private_records[:80],
+                     'aggregate':{
+                         'scheduled':len(chosen),'attempted':attempted_requests,
+                         'succeeded':successful,
+                         'skipped_limit':diagnostic_plan.get('skipped_limit',0),
+                         'reused_proof':diagnostic_plan.get('reused_proof',0),
+                         'failures':dict(failures)}})
     except Exception as error:
         diagnostic_warning('private_write',error)
     status=dict(id='paco',name='Paco Pet Shop',status='ok',offers=len(rows),checked_at=now.isoformat(),
