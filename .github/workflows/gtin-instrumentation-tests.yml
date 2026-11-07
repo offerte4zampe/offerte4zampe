@@ -3,6 +3,10 @@ on:
   pull_request:
     paths:
       - 'automation/gtin_diagnostics.py'
+      - 'automation/merchant_evidence.py'
+      - 'tests/test_merchant_evidence.py'
+      - 'tests/check_merchant_evidence_snapshot.py'
+      - '.gitignore'
       - 'automation/paco_feed.py'
       - 'automation/update_catalog.py'
       - 'tests/test_gtin_diagnostics.py'
@@ -33,3 +37,5 @@ jobs:
         run: node --test tests/test_*.mjs
       - name: Offline main compressed snapshot and six generated HTML parity
         run: python tests/check_gtin_snapshot_invariance.py
+      - name: Offline classified evidence on real main compressed snapshot
+        run: python tests/check_merchant_evidence_snapshot.py
