@@ -1,4 +1,6 @@
 import datetime
+import os
+from unittest.mock import patch
 import unittest
 
 from automation.build_home_data import build, pick, render_home
@@ -19,6 +21,12 @@ def catalog(offers):
                 generated_at=STAMP, refresh_hours=6)
 
 class MerchandisingTests(unittest.TestCase):
+    def setUp(self):
+        # These legacy cases validate behavior only if Amazon explicitly permits history.
+        self._flag = patch.dict(os.environ, {'PRICE_TRACKING_ENABLED':'true'})
+        self._flag.start()
+        self.addCleanup(self._flag.stop)
+
     def test_observed_drop_is_prioritized_not_seller_previous_price(self):
         a,b,c = offer(1), offer(2), offer(3)
         b['previous_price'] = 1000  # unverified vendor reference cannot create a discount
