@@ -15,13 +15,22 @@ def enabled():
     return os.environ.get("PRICE_TRACKING_ENABLED", "false").lower() == "true"
 
 def redact_html(html):
-    # Hide feature-specific navigation and inline SEO promises. Never modify coupons.
-    html = re.sub(r'<a\b[^>]*href=["\'][^"\']*(?:osservatorio-prezzi|leggere-storico-prezzi|/preferiti)[^"\']*["\'][^>]*>.*?</a>', '', html, flags=re.I|re.S)
-    html = re.sub(r'(?i)(?:e\s+)?storico\s+(?:dei\s+)?prezzi(?:\s+osservati)?', '', html)
-    html = re.sub(r'(?i)avvisi?\s+(?:di\s+)?prezzo', '', html)
-    html = re.sub(r'(?i)prezzo\s+desiderato', '', html)
-    html = re.sub(r'(?i)(?:minimo|massimo)\\s+storico|buon\\s+momento\\s+per\\s+comprare|storico\\s+del\\s+prezzo(?:\\s+rilevato)?', '', html)
-    html = re.sub(r'<div\\b[^>]*data-history-offer=[^>]*>\\s*</div>', '', html, flags=re.I)
+    """Remove disabled-feature links and rewrite price-history promises, not generic shipping notices."""
+    # Preserve the parent nav/list layout; remove the entire anchor only.
+    html = re.sub(r'<a\b[^>]*href=["\'][^"\']*(?:osservatorio-prezzi|leggere-storico-prezzi|/preferiti)(?:\.html)?[^"\']*["\'][^>]*>.*?</a>', '', html, flags=re.I|re.S)
+    # Do not recreate historical indicators as allegedly verified retailer discounts.
+    html = re.sub(r'<(?:div|section)\b[^>]*class=["\'][^"\']*(?:observed-history|history-chart|history-summary)[^"\']*["\'][^>]*>.*?</(?:div|section)>', '', html, flags=re.I|re.S)
+    html = re.sub(r'<div\b[^>]*data-history-offer=[^>]*>\s*</div>', '', html, flags=re.I)
+    replacements = [
+        (r'(?i)\b(?:minimo|massimo)\s+storico\b', ''),
+        (r'(?i)\b(?:storico\s+(?:dei|del|di)\s+prezz\w*|storico\s+prezzi|storico\s+del\s+prezzo)\b', 'prezzi correnti'),
+        (r'(?i)\b(?:storico|storici|storica|storiche)\b', ''),
+        (r'(?i)\b(?:avvisi?\s+(?:di\s+)?prezzo|alert\s+(?:di\s+)?prezzo|prezzo\s+desiderato|soglia\s+di\s+prezzo)\b', ''),
+        (r'(?i)\b(?:buon\s+momento\s+per\s+comprare|prezzo\s+pi[uù]\s+basso\s+di\s+sempre)\b', ''),
+        (r'(?i)\b(?:ribassi?\s+(?:storici?|di\s+prezzo)|monitoraggio\s+(?:dei\s+)?prezzi|monitora(?:re)?\s+(?:il|i|l.andamento\s+dei)\s+prezz\w*)\b', ''),
+    ]
+    for pattern, replacement in replacements:
+        html = re.sub(pattern, replacement, html)
     return html
 
 def apply(site=SITE):
