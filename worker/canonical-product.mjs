@@ -40,7 +40,7 @@ function historyHTML(product,state){
  return '<section class="panel"><h3>Ultimi '+days+' giorni</h3><p>Minimo '+money(h.low)+' · massimo '+money(h.high)+' · media '+money(h.mean)+'. '+h.rows.length+' giorni con rilevazioni.</p><svg viewBox="0 0 300 100" role="img" aria-label="Prezzi osservati: minimo '+esc(money(h.low))+', massimo '+esc(money(h.high))+', media '+esc(money(h.mean))+'. Ogni punto è un giorno realmente rilevato" style="max-width:420px;width:100%">'+dots+'</svg><p class="micro">Media delle ultime osservazioni giornaliere disponibili, una per negozio; giorni mancanti non ricostruiti. Spedizione esclusa.</p></section>';
  }).join('');
 }
-export function content(product,state){
+export function content(product,state,priceTrackingEnabled=true){
  const url='https://offerte4zampe.it/prodotto/'+product.slug;
  const single=state.shops<2;
  const brandURL=/^\/marca-[a-z0-9-]+$/.test(product.brand_url||'')?product.brand_url:'/marche';
@@ -79,8 +79,10 @@ async function renderCanonicalProduct(request,env,now=Date.now()){
  if(!Number.isInteger(quantity)||quantity<1||quantity>10)return new Response('Quantità non valida',{status:400});
  const loaded=await shippingSource(env,p.offers,rules,{now,quantity,territory});
  const brands=await jsonAsset(env,url.origin,'/data/brand-pages.json');p.brand_url=brands?.[p.brand];
- const state=view(p,loaded.rules,now,quantity,territory),page=content(p,state);
- const indexable=state.indexable&&quantity===1&&territory==='standard';
+ const trackingEnabled=env.PRICE_TRACKING_ENABLED==='true';
+ if(!trackingEnabled)delete p.history;
+ const state=view(p,loaded.rules,now,quantity,territory),page=content(p,state,trackingEnabled);
+ const indexable=(state.shops>=2||(trackingEnabled&&state.indexable))&&quantity===1&&territory==='standard';
  let localImage='';if(indexable&&/^\/img\/p\/[a-f0-9]{24}-400\.webp$/.test(p.image_local||'')){const asset=await env.ASSETS.fetch(new Request(new URL(p.image_local,url.origin),{method:'HEAD'}));if(asset.ok)localImage=new URL(p.image_local,url.origin).href;}
  if(localImage)page.schema.image=localImage;
  const template=await env.ASSETS.fetch(new Request(new URL('/prodotto',url.origin)));if(!template.ok)return template;
