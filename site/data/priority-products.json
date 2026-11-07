@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-06T18:59:31.430058+00:00",
+  "generated_at": "2026-11-07T01:05:11.333581+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 15,
+  "at_target": 14,
   "with_third_store_lead": 24,
   "categories": {
-    "umido": 117,
+    "umido": 119,
     "snack": 63,
-    "crocchette": 111,
+    "crocchette": 109,
     "lettiere": 9
   },
   "priority_offer_ids": [
@@ -74,6 +74,7 @@
     "animaliapet:46976687571287",
     "animaliapet:46976689078615",
     "animaliapet:46976689242455",
+    "animaliapet:46976692027735",
     "animaliapet:46976693371223",
     "animaliapet:46976693961047",
     "animaliapet:46976694223191",
@@ -82,6 +83,7 @@
     "animaliapet:46976696779095",
     "animaliapet:46976700875095",
     "animaliapet:46976702284119",
+    "animaliapet:46976703594839",
     "animaliapet:46976705462615",
     "animaliapet:46976711491927",
     "animaliapet:46976714670423",
@@ -89,6 +91,7 @@
     "animaliapet:47343969141079",
     "animaliapet:47343990604119",
     "animaliapet:47344005284183",
+    "animaliapet:47392275661143",
     "animaliapet:47555389129047",
     "animaliapet:47739940831575",
     "animaliapet:48188453060951",
@@ -119,6 +122,7 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
+    "bauzaar:56819013976389",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
     "bauzaar:56819871285573",
@@ -134,7 +138,6 @@
     "bauzaar:56820043874629",
     "bauzaar:56820044824901",
     "bauzaar:56820046987589",
-    "bauzaar:56820052656453",
     "bauzaar:56820056097093",
     "bauzaar:56820056162629",
     "bauzaar:56820056424773",
@@ -154,7 +157,6 @@
     "bauzaar:56820104528197",
     "bauzaar:56820106625349",
     "bauzaar:56820106821957",
-    "bauzaar:56820107510085",
     "bauzaar:56820175307077",
     "bauzaar:56820177502533",
     "bauzaar:56820205683013",
@@ -305,7 +307,6 @@
     "bauzaar:57356131074373",
     "bauzaar:57356131991877",
     "bauzaar:57356132122949",
-    "bauzaar:57356132254021",
     "bauzaar:57412725604677",
     "bauzaar:57741776388421",
     "bauzaar:57822525915461",
@@ -327,6 +328,7 @@
     "bauzaar:58411832213829",
     "bauzaar:58411832246597",
     "bauzaar:58411832312133",
+    "bauzaar:58411833819461",
     "bauzaar:58411834179909",
     "bauzaar:58411836670277",
     "bauzaar:58411838308677",
@@ -463,7 +465,6 @@
     "paco:3830",
     "paco:3847",
     "paco:3895",
-    "paco:4038",
     "paco:4051",
     "paco:4110",
     "paco:4111",
@@ -482,7 +483,6 @@
     "paco:4744",
     "paco:4809",
     "paco:4820",
-    "paco:4821",
     "paco:4902",
     "paco:4914",
     "paco:4983",
@@ -499,11 +499,11 @@
     "paco:5206",
     "paco:5207",
     "paco:5208",
-    "paco:5213",
     "paco:5264",
     "paco:5267",
     "paco:5268",
     "paco:5269",
+    "paco:5342",
     "paco:5431",
     "paco:5432",
     "paco:5567",
@@ -1216,26 +1216,6 @@
         "animaliapet:46976541393239",
         "paco:3275",
         "bauzaar:56820290781509"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-1e2d9fba8030eb8743ab",
-      "name": "Nature's Protection Red Coat Adult Agnello 10kg Crocchette Cani",
-      "brand": "Nature's Protection",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "10 kg",
-      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-red-coat-adult-agnello-10kg-crocchette-cani-04771317472335-8743ab",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976692027735",
-        "bauzaar:56835073933637",
-        "paco:5342"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -2003,25 +1983,6 @@
       "offer_ids": [
         "paco:5802",
         "bauzaar:56820043776325"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-75dae1b33e8176c90690",
-      "name": "Exclusion Diet Metabolic & Mobility Medium/Large Breed Maiale e Fibre 12 kg",
-      "brand": "Exclusion Diet",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/exclusion-diet-metabolic-mobility-medium-large-breed-maiale-e-fibre-12-kg-12kg-08011259002730-c90690",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820107510085",
-        "paco:5213"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -3434,6 +3395,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-1e2d9fba8030eb8743ab",
+      "name": "Nature's Protection Red Coat Adult Agnello 10kg Crocchette Cani",
+      "brand": "Nature's Protection",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-red-coat-adult-agnello-10kg-crocchette-cani-04771317472335-8743ab",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976692027735",
+        "paco:5342"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-4ebcd480eedd035514b2",
       "name": "Nature's Protection Red Coat Salmone 1,5kg Crocchette Cani Small Adult",
       "brand": "Nature's Protection",
@@ -4112,25 +4092,6 @@
       "offer_ids": [
         "bauzaar:56962130051397",
         "paco:4820"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-588d8ff98afbb2a01447",
-      "name": "Terra Canis secco Canireo Grain Free al Manzo 2,5 kg",
-      "brand": "Terra Canis",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "2,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/terra-canis-secco-canireo-grain-free-al-manzo-2-5-kg-2-5kg-04260109622275-a01447",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820052656453",
-        "paco:4821"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -6253,26 +6214,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-b560f64bc9fd9f0ee69a",
-      "name": "Leonardo Cat food Kitten Finest Selection Puro Grain Free monoproteico 85 g Pollo - confezione da 16 pezzi",
-      "brand": "Leonardo",
-      "category": "umido",
-      "species": "gatto",
-      "format": "1,36 kg",
-      "url": "https://offerte4zampe.it/prodotto/leonardo-cat-food-kitten-finest-selection-puro-grain-free-monoproteico-85-g-pollo-confezione-da-16-pezzi-04002633756305-0ee69a",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:57356132254021"
-      ],
-      "candidate_offer_ids": [
-        "paco:4038"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-ac38875b0d9f130b6e0e",
       "name": "Lev Cat Adult Serilised Salmone 1,5 kg",
       "brand": "Lev",
@@ -6428,6 +6369,66 @@
       ],
       "candidate_offer_ids": [
         "isola-dei-tesori:000181482"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-7ae851ed475dcab5f514",
+      "name": "Marpet Aequilibriavet Gatto Anatra 85 g",
+      "brand": "Marpet",
+      "category": "umido",
+      "species": "gatto",
+      "format": "85 g",
+      "url": "https://offerte4zampe.it/prodotto/marpet-aequilibriavet-gatto-anatra-85-g-08031701202013-b5f514",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "isola-dei-tesori:000142079"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56820266139973"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-06150d9c60ab9e5514ac",
+      "name": "Natua Country Dog Adult Patè Grain Free 100 g Prosciutto - confezione da 6 pezzi",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "cane",
+      "format": "600 g",
+      "url": "https://offerte4zampe.it/prodotto/natua-country-dog-adult-pate-grain-free-100-g-prosciutto-confezione-da-6-pezzi-08057507370800-5514ac",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:58411833819461"
+      ],
+      "candidate_offer_ids": [
+        "animaliapet:46976703594839"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-06a3f83e64c61e7329e3",
+      "name": "Natua Natural Pollo in Jelly Lattina 150g Gatti",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "cane e gatto",
+      "format": "150 g",
+      "url": "https://offerte4zampe.it/prodotto/natua-natural-pollo-in-jelly-lattina-150g-gatti-08057507371036-7329e3",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "animaliapet:47392275661143"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56819013976389"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
