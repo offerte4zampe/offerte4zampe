@@ -27,9 +27,9 @@ function title(value,brand='',format=''){
  return text+(unit&&!hasFormat?' · '+unit:'')+' | Prezzi e offerte';
 }
 function description(offers,shops){
- const rows=(offers||[]).filter(o=>o.available&&Number.isFinite(o.price)&&o.price>0);if(!rows.length)return 'Offerte recenti non disponibili. Consulta lo storico dei prezzi osservati e verifica la disponibilità nel negozio.';
+ const rows=(offers||[]).filter(o=>o.available&&Number.isFinite(o.price)&&o.price>0);if(!rows.length)return 'Offerte recenti non disponibili. Verifica la disponibilità direttamente nel negozio.';
  const low=rows.reduce((a,b)=>a.price<=b.price?a:b),unit=Number.isFinite(low.unit_price)&&low.unit_price>0&&low.unit_price_unit?' ('+money.format(low.unit_price)+'/'+low.unit_price_unit+')':'';
- return (shops>=2?'Confronta '+shops+' negozi: da ':'Prezzo rilevato: ')+money.format(low.price)+unit+'. Spedizione stimata e storico prezzi.';
+ return (shops>=2?'Confronta '+shops+' negozi: da ':'Prezzo rilevato: ')+money.format(low.price)+unit+'. Spedizione da verificare nel negozio.';
 }
 const api={name,title,description};if(typeof module!=='undefined')module.exports=api;else root.O4ZProductMetadata=api;
 })(typeof window!=='undefined'?window:null);
