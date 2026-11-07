@@ -27,7 +27,7 @@ function render(){
  amazon.hidden=false;amazon.append(el('h2','Amazon'),el('p','Prezzo: non disponibile · Disponibilità: non verificata','micro'));
  if(amazonLink){
   amazon.append(el('p','Prezzo e disponibilità da verificare su Amazon. Questa opzione non partecipa alla classifica dei prezzi.','micro'));
-  const link=el('a','Verifica prezzo su Amazon ↗','btn secondary');link.href=amazonLink.url;link.target='_blank';link.rel='sponsored nofollow noopener noreferrer';amazon.append(link,el('p','Possiamo ricevere una commissione, senza costi aggiuntivi per te.','micro'));
+  const link=el('a','Verifica prezzo su Amazon ↗','btn secondary');link.href=amazonLink.url;link.target='_blank';link.rel='sponsored nofollow noopener noreferrer';amazon.append(link,el('p','In qualità di Affiliato Amazon io ricevo un guadagno dagli acquisti idonei. Il prezzo valido è quello indicato su Amazon al momento dell’acquisto; disponibilità e condizioni possono cambiare.','micro'));
  }
  else amazon.append(el('p','Corrispondenza esatta non ancora verificata: non proponiamo ricerche generiche o prodotti simili.','micro'));
  const o=view.seed;if(!$('product-watch').dataset.ready){O4ZWatch.mount($('product-watch'),o);$('product-watch').dataset.ready='1';}$('product-title').textContent=O4ZProductMetadata.name(o.canonical_title||o.title);document.title=O4ZProductMetadata.title(o.canonical_title||o.title,o.brand,o.canonical_format||o.variant);
