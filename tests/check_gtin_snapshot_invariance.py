@@ -15,9 +15,9 @@ import subprocess
 import sys
 import tempfile
 
-from automation.update_catalog import attach_gtin_diagnostics
-
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from automation.update_catalog import attach_gtin_diagnostics
 PAGES = [
     'site/index.html',
     'site/monge-maxi-adult-pollo.html',
