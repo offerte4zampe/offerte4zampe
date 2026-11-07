@@ -2,9 +2,8 @@
 const key='o4z-statistics-consent-v1';let enabled=false;try{enabled=localStorage.getItem(key)==='yes'}catch{}
 function syncConsent(){const permitted=enabled&&!navigator.globalPrivacyControl&&navigator.doNotTrack!=='1';try{document.cookie='__Host-o4z-statistics='+ (permitted?'yes':'no')+'; Path=/; Secure; SameSite=Lax'}catch{}}
 syncConsent();
-// Set this to the Google Analytics 4 web stream measurement ID (G-XXXXXXXXXX).
-// Leave empty until the correct property is confirmed. No GA request is sent otherwise.
-const ga4MeasurementId='';
+// GA4 web stream measurement ID for offerte4zampe.it.
+const ga4MeasurementId='G-KMQ20X9WDE';
 const ga4Configured=/^G-[A-Z0-9]+$/.test(ga4MeasurementId);
 let ga4Started=false;
 function ga4Allowed(){return enabled&&!navigator.globalPrivacyControl&&navigator.doNotTrack!=='1'}
