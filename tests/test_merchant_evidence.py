@@ -17,7 +17,7 @@ from automation.paco_feed import verify_quantity
 class PrivateMerchantEvidenceTests(unittest.TestCase):
     def test_classification_is_exclusive_without_normalizing_identifiers(self):
         samples = {
-            'spaces': ' 4006381333931',
+            'spaces': '400638 1333931',
             'separators': '400638-1333931',
             'non_numeric': '400638A333931',
             'leading_zeros': '0004006381333931',
