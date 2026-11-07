@@ -23,6 +23,7 @@ function render(){
  const view=O4ZProduct.productView(catalog,id,Date.now(),shippingRules,quantity,territory);
  if(!view){$('product-status').textContent='Questo prodotto non è presente nel catalogo corrente. Non mostriamo prezzi precedenti come attuali.';return}
  const amazon=$('product-amazon');amazon.replaceChildren();amazon.hidden=true;
+ if(window.O4ZAmazonLinksEnabled===true){
  const amazonLink=O4ZAmazon.comparisonLink(view.seed,catalog.offers,amazonLinks);
  amazon.hidden=false;amazon.append(el('h2','Amazon'),el('p','Prezzo: non disponibile · Disponibilità: non verificata','micro'));
  if(amazonLink){
@@ -30,6 +31,7 @@ function render(){
   const link=el('a','Verifica prezzo su Amazon ↗','btn secondary');link.href=amazonLink.url;link.target='_blank';link.rel='sponsored nofollow noopener noreferrer';amazon.append(link,el('p','In qualità di Affiliato Amazon io ricevo un guadagno dagli acquisti idonei. Il prezzo valido è quello indicato su Amazon al momento dell’acquisto; disponibilità e condizioni possono cambiare.','micro'));
  }
  else amazon.append(el('p','Corrispondenza esatta non ancora verificata: non proponiamo ricerche generiche o prodotti simili.','micro'));
+ }
  const o=view.seed;if(!$('product-watch').dataset.ready){O4ZWatch.mount($('product-watch'),o);$('product-watch').dataset.ready='1';}$('product-title').textContent=O4ZProductMetadata.name(o.canonical_title||o.title);document.title=O4ZProductMetadata.title(o.canonical_title||o.title,o.brand,o.canonical_format||o.variant);
  $('product-format').textContent=[o.brand,o.variant==='1ct'?'':o.variant,o.weight_kg?(o.weight_kg<1?Number((o.weight_kg*1000).toFixed(3))+' g':o.weight_kg+' kg'):''].filter(Boolean).join(' · ');
  const image=/^\/img\/p\/[a-f0-9]{24}-400\.webp$/.test(o.image_local||'')?o.image_local:safe(o.image);if(image){const img=document.createElement('img');img.src=image;img.alt=o.title;img.width=180;img.height=160;img.style.objectFit='contain';$('product-image').replaceChildren(img)}
