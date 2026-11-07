@@ -107,6 +107,7 @@ def build(now=None):
     out = re.sub(r'<title>.*?</title>', '<title>Codici sconto provati per animali | Offerte a 4 Zampe</title>', out)
     for key in ['name="description"', 'property="og:description"', 'property="og:title"']:
         out = re.sub('(<meta '+key+' content=")[^"]*', lambda m: m[1]+'Codici sconto per animali: condizioni, scadenze e prove nel carrello dei negozi.', out)
+    out = out.replace('Gli altri collegamenti restano diretti.', 'Il link Hygge Pet Food è affiliato tramite Awin. Gli altri collegamenti restano diretti.')
     out = out.replace(' aria-current="page"', '')
     out = out.replace('</head>', '<link rel="stylesheet" href="assets/coupons.css?v=1"></head>')
     out = out.replace('</body>', '<script src="assets/coupons.js?v=1" defer></script></body>')
