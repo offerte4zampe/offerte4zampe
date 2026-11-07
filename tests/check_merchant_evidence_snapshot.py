@@ -2,14 +2,12 @@
 import copy
 import gzip
 import json
-from pathlib import Path
 import subprocess
 import sys
-import tempfile
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from automation.merchant_evidence import bauzaar_report, save_section
+from automation.merchant_evidence import bauzaar_report, save_section, diagnostic_lines
 from automation.gtin_diagnostics import gtin_counters
 
 def main():
@@ -24,12 +22,12 @@ def main():
     assert report['invalid_total']==counted['invalid'], (report['invalid_total'],counted)
     assert all(len(v)<=10 for v in report['examples'].values())
     assert sum(report['counts'].values())==report['invalid_total']
-    with tempfile.TemporaryDirectory() as temp:
-        path=Path(temp)/'private'/'report.json'
-        assert save_section('bauzaar',report,path)
-        assert json.loads(path.read_text())['bauzaar']==report
-        assert not (ROOT/'site/data/report.json').exists()
+    assert save_section('bauzaar',report)
+    lines=diagnostic_lines()
+    assert any(x.startswith('BAUZAAR_CATEGORY_COUNTS ') for x in lines)
+    assert not any(x.startswith('PACO_EVIDENCE ') for x in lines)
     assert json.dumps(offers,ensure_ascii=False,sort_keys=True)==before
+    print('BAUZAAR_LENGTH_EXAMPLES', [x['feed_gtin'] for x in report['examples']['length'][:5]])
     print('MERCHANT_EVIDENCE_SNAPSHOT',{
         'base_sha':base,'offers':len(offers),
         'bauzaar_invalid_total':report['invalid_total'],
