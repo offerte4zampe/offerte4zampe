@@ -21,6 +21,15 @@ FEED_URL='https://pf.tradetracker.net/?aid=518044&encoding=utf-8&type=json&fid=1
 ORIGIN='https://www.pacopetshop.it'
 UA='Offerte4Zampe/1.0 (+https://offerte4zampe.it/contatti.html)'
 
+def diagnostic_warning(area, error):
+    """Diagnostic reporting is best-effort, never an import dependency."""
+    try:
+        import logging
+        logging.getLogger(__name__).warning(
+            'Paco diagnostic %s failed: %s', area, type(error).__name__)
+    except Exception:
+        pass
+
 def normalize(payload, now=None):
     now=now or dt.datetime.now(dt.timezone.utc)
     rows=[];seen=set()
@@ -65,8 +74,9 @@ def verify_quantity(row, page, now=None, diagnostics=None):
         if diagnostics is not None:
             try:
                 diagnostics['reason'] = reason
-            except Exception:
-                pass  # Failure classification cannot change the verification decision.
+            except Exception as error:
+                diagnostic_warning('failure_reason',error)
+                # Failure classification cannot change the verification decision.
         return row
     try:
         from .update_catalog import weight
@@ -120,8 +130,9 @@ def verification_plan(rows, previous, peers, now, limit=80, priority_ids=frozens
         try:
             diagnostics['skipped_limit'] = max(0, len(candidates) - limit)
             diagnostics['reused_proof'] = len(rows) - len(candidates)
-        except Exception:
-            pass  # Existing prioritization and the 80-item cap are authoritative.
+        except Exception as error:
+            diagnostic_warning('plan_counts',error)
+            # Existing prioritization and the 80-item cap are authoritative.
     return [entry[-1] for entry in sorted(candidates)[:limit]]
 
 def collect():
@@ -167,14 +178,15 @@ def collect():
                         failures[reason] = failures.get(reason, 0) + 1
                     elif row.get('quantity_verified'):
                         successful += 1
-                except Exception:
-                    pass  # Do not roll back a verified row due to diagnostics.
+                except Exception as error:
+                    diagnostic_warning('request_counts',error)
+                    # Do not roll back a verified row due to diagnostics.
     except Exception:
         # Existing fail-closed policy remains unchanged; these are planned attempts.
         try:
             failures['fetch_error'] += max(0, attempted_requests-successful-sum(failures.values()))
-        except Exception:
-            pass
+        except Exception as error:
+            diagnostic_warning('failure_aggregate',error)
     status=dict(id='paco',name='Paco Pet Shop',status='ok',offers=len(rows),checked_at=now.isoformat(),
         source='TradeTracker:1216771',method='Feed ufficiale TradeTracker · aggiornamento giornaliero',
         retrieved_at=now.isoformat(),upstream_last_modified=modified,
