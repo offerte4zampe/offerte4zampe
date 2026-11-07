@@ -5,7 +5,7 @@ import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 
 const source=readFileSync(new URL('../site/assets/metrics.js',import.meta.url),'utf8');
-assert.match(source,/const ga4MeasurementId='';/,'GA4 must remain unconfigured until the real ID is supplied');
+assert.match(source,/const ga4MeasurementId='G-KMQ20X9WDE';/,'GA4 must target the configured property');
 
 function run({consent=false,gpc=false,dnt='0',configured=true}={}){
   const scripts=[],requests=[],stored=new Map([['o4z-statistics-consent-v1',consent?'yes':'no']]);
@@ -27,7 +27,7 @@ function run({consent=false,gpc=false,dnt='0',configured=true}={}){
     fetch(url,opts){requests.push({url,opts});return Promise.resolve()},
     URL,Date,clearTimeout,setTimeout
   };
-  const testSource=configured?source.replace("const ga4MeasurementId='';","const ga4MeasurementId='G-TEST1234';"):source;
+  const testSource=configured?source:source.replace("const ga4MeasurementId='G-KMQ20X9WDE';","const ga4MeasurementId='';");
   vm.runInNewContext(testSource,context);
   return {scripts,requests,footer,listeners,window,stored,document};
 }
