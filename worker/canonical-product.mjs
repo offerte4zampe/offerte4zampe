@@ -80,7 +80,10 @@ async function renderCanonicalProduct(request,env,now=Date.now()){
  const loaded=await shippingSource(env,p.offers,rules,{now,quantity,territory});
  const brands=await jsonAsset(env,url.origin,'/data/brand-pages.json');p.brand_url=brands?.[p.brand];
  const state=view(p,loaded.rules,now,quantity,territory),page=content(p,state);
- const indexable=state.indexable&&quantity===1&&territory==='standard';
+ // The sitemap is generated from the product catalog snapshot. Use that same
+ // snapshot for the canonical URL to avoid transient noindex/index mismatches
+ // between catalog refreshes. Query variants must always remain noindex.
+ const indexable=p.indexable===true&&quantity===1&&territory==='standard';
  let localImage='';if(indexable&&/^\/img\/p\/[a-f0-9]{24}-400\.webp$/.test(p.image_local||'')){const asset=await env.ASSETS.fetch(new Request(new URL(p.image_local,url.origin),{method:'HEAD'}));if(asset.ok)localImage=new URL(p.image_local,url.origin).href;}
  if(localImage)page.schema.image=localImage;
  const template=await env.ASSETS.fetch(new Request(new URL('/prodotto',url.origin)));if(!template.ok)return template;
