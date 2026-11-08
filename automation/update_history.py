@@ -44,6 +44,6 @@ def build():
  print(('::warning::' if excluded else '::notice::')+message)
  if os.environ.get('GITHUB_STEP_SUMMARY'):
   with open(os.environ['GITHUB_STEP_SUMMARY'],'a',encoding='utf-8') as summary:
-   summary.write(f'### Amazon price-history protection\\n\\n{message}\\n\\n')
+   summary.write(f'### Amazon price-history protection\n\n{message}\n\n')
  d=update(old,catalog,today);p.write_bytes(gzip.compress(json.dumps(d,separators=(',',':')).encode(),mtime=0));write_shards(d,ROOT/'site/data/history');print('Observed history:',len(d['offers']),'offers since',d['started_at'])
 if __name__=='__main__':build()
