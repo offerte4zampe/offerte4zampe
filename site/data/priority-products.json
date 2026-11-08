@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T17:07:15.153929+00:00",
+  "generated_at": "2026-11-08T17:33:45.743274+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,9 +7,9 @@
   "at_target": 14,
   "with_third_store_lead": 24,
   "categories": {
-    "umido": 116,
+    "umido": 115,
     "snack": 66,
-    "crocchette": 110,
+    "crocchette": 111,
     "lettiere": 8
   },
   "priority_offer_ids": [
@@ -30,6 +30,7 @@
     "animaliapet:46976544735575",
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
+    "animaliapet:46976549060951",
     "animaliapet:46976563413335",
     "animaliapet:46976566165847",
     "animaliapet:46976569213271",
@@ -147,6 +148,7 @@
     "bauzaar:56820093124933",
     "bauzaar:56820094271813",
     "bauzaar:56820094533957",
+    "bauzaar:56820095615301",
     "bauzaar:56820104331589",
     "bauzaar:56820104429893",
     "bauzaar:56820104495429",
@@ -2137,6 +2139,25 @@
       "offer_ids": [
         "bauzaar:56820452131141",
         "paco:1342"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-77004fd8a94694fd4efd",
+      "name": "Farmina N&D Ocean Merluzzo Zucca Arancia 800g Crocchette Cani Adult Mini",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "800 g",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-ocean-canine-adult-mini-merluzzo-zucca-e-arancia-800-g-crocchette-monoproteiche-cane-0-8kg-08010276036513-fd4efd",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976549060951",
+        "bauzaar:56820095615301"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -5744,26 +5765,6 @@
       ],
       "candidate_offer_ids": [
         "paco:3847"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-a836c5069676bfc622de",
-      "name": "Farmina N&D Pumpkin Pollo Zucca Melograno 140g Lattina Cani Mini Adult",
-      "brand": "Farmina",
-      "category": "umido",
-      "species": "cane",
-      "format": "140 g",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-pumpkin-pollo-zucca-melograno-140g-lattina-cani-mini-adult-08606014102314-c622de",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "animaliapet:46976644677975"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56961280049477"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
