@@ -15,6 +15,50 @@ try:
 except ImportError:
     from report_link import error_link
 
+try:
+    from .product_link import product_url
+except ImportError:
+    from product_link import product_url
+
+# Search-specific navigation uses the existing comparator; no thin landing pages.
+SEARCH_INTENTS = {
+    'lettiere-gatti': [
+        ('Lettiera in silicio', 'lettiera silicio', 'Controlla il volume dichiarato: litri e kg non sono intercambiabili.'),
+        ('Lettiera vegetale e tofu', 'lettiera tofu', 'Verifica materiale, formato e indicazioni del produttore.'),
+        ('Lettiera agglomerante', 'lettiera agglomerante', 'Confronta confezioni comparabili e aggiungi la spedizione.'),
+    ],
+    'crocchette-cani': [
+        ('Crocchette 20 kg', 'crocchette 20 kg', 'Controlla ricetta, conservazione e prezzo al kg.'),
+        ('Crocchette 12 kg', 'crocchette 12 kg', 'Confronta soltanto la stessa ricetta e la stessa linea.'),
+        ('Monge e Royal Canin', 'Monge Royal Canin', 'Cerca la linea e il formato esatti: le ricette non sono equivalenti.'),
+    ],
+    'crocchette-gatti': [
+        ('Crocchette sterilized', 'crocchette gatto sterilized', 'Verifica linea e fascia di età sulla confezione.'),
+        ('Crocchette kitten', 'crocchette kitten', 'Le ricette kitten non sono intercambiabili con quelle adult.'),
+        ('Royal Canin e Purina', 'Royal Canin Purina', 'Seleziona marca, formato e ricetta esatti.'),
+    ],
+}
+
+
+def intent_html(slug):
+    rows = SEARCH_INTENTS.get(slug, [])
+    if not rows:
+        return ''
+    links = ''.join(
+        '<li><a href="/confronta-cibo?q=' + quote(query) + '">' + h(label) +
+        '</a> — ' + h(description) + '</li>'
+        for label, query, description in rows
+    )
+    return '<section aria-labelledby="ricerche-frequenti"><h2 id="ricerche-frequenti">Ricerche utili per confrontare i prodotti</h2><p>Esplora il catalogo per materiale, formato o linea. I risultati non sono classifiche dei prodotti più venduti.</p><ul>' + links + '</ul></section>'
+
+
+def category_items(selected):
+    """Structured lists link to canonical product pages, not affiliate destinations."""
+    return [
+        (o['title'] + ' — ' + (o.get('variant') or ''), 'https://offerte4zampe.it' + product_url(o))
+        for o in selected if product_url(o).startswith('/prodotto/')
+    ]
+
 ROOT = Path(__file__).resolve().parents[1]
 CATEGORIES = [
  ('crocchette-cani', 'Crocchette per cani: prezzi e offerte', 'crocchette cani', ('cani > cibo > secco', 'crocchette cani'), 'Confronta lo stesso alimento, la stessa ricetta e lo stesso formato. Un sacco più economico può contenere meno prodotto: quando il peso è dichiarato, controlla anche il prezzo al chilo. Le diete veterinarie presenti nel catalogo non sono consigli alimentari: segui le indicazioni del veterinario.'),
@@ -42,16 +86,16 @@ def build():
         for o in selected:
             price=f"{o['price']:.2f}".replace('.',',')
             unit=f" · {o['price']/o['weight_kg']:.2f} €/kg".replace('.',',') if o.get('weight_kg') else ''
-            cards.append(f'<article class="panel"><p class="micro">{h(o["merchant"])} · {h(o.get("brand", ""))}</p><h2 style="font-size:1.1rem"><a class="product-title-link" href="{h(o.get("affiliate_url") or o["url"],quote=True)}" rel="sponsored noopener noreferrer">{h(o["title"])}</a></h2><p>{h(o.get("variant", ""))}</p><p><strong>{price} €</strong>{unit}</p><p class="micro">Rilevato il {h(o["checked_at"][:10])} · spedizione esclusa</p><a class="btn" href="confronta-cibo.html?q={quote(o["title"])}">Confronta le offerte →</a> <a href="{h(o.get("affiliate_url") or o["url"],quote=True)}" rel="sponsored noopener noreferrer" target="_blank">Vedi nel negozio ↗</a>{error_link(o)}</article>')
+            cards.append(f'<article class="panel"><p class="micro">{h(o["merchant"])} · {h(o.get("brand", ""))}</p><h2 style="font-size:1.1rem"><a class="product-title-link" href="{h(product_url(o),quote=True)}">{h(o["title"])}</a></h2><p>{h(o.get("variant", ""))}</p><p><strong>{price} €</strong>{unit}</p><p class="micro">Rilevato il {h(o["checked_at"][:10])} · spedizione esclusa</p><a class="btn" href="confronta-cibo.html?q={quote(o["title"])}">Confronta le offerte →</a> <a href="{h(o.get("affiliate_url") or o["url"],quote=True)}" rel="sponsored noopener noreferrer" target="_blank">Vedi nel negozio ↗</a>{error_link(o)}</article>')
         links=' · '.join(f'<a href="{s}.html">{h(t)}</a>' for s,t,*_ in CATEGORIES if s!=slug)
-        body=f'<main id="main"><section class="pagehero"><div class="wrap"><span class="eyebrow">Cataloghi reali · aggiornamento automatico</span><h1>{h(title)}</h1><p>{h(guide)}</p><a class="btn" href="confronta-cibo.html?q={quote(query)}">Cerca nel comparatore →</a></div></section><section class="section"><div class="wrap"><p>Catalogo aggiornato il {date}. {len(candidates)} offerte disponibili in questa categoria tra i negozi importati. Qui mostriamo fino a 24 offerte, alternate per negozio e ordinate per nome: non è una classifica di convenienza.</p><p class="notice">Prezzi e disponibilità possono cambiare. Verifica ricetta, formato, spedizione e prezzo finale nel negozio. Non confrontiamo tutto il mercato. I link Bauzaar e Isola dei Tesori sono commerciali: possiamo ricevere una commissione, senza costi aggiuntivi per te.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px">{"".join(cards) or "<p>Nessuna offerta disponibile in questa rilevazione. Usa il comparatore per controllare il catalogo.</p>"}</div><h2>Altre categorie</h2><p>{links}</p><h2>Come leggiamo i prezzi</h2><p>Usiamo feed ufficiali e cataloghi pubblici dei negozi. Non presumiamo che due nomi simili indichino lo stesso prodotto e non inventiamo pesi mancanti. La selezione viene rigenerata insieme al catalogo ogni sei ore. <a href="chi-siamo.html">Leggi il metodo</a>.</p></div></section></main>'
+        body=f'<main id="main"><section class="pagehero"><div class="wrap"><span class="eyebrow">Cataloghi reali · aggiornamento automatico</span><h1>{h(title)}</h1><p>{h(guide)}</p><a class="btn" href="confronta-cibo.html?q={quote(query)}">Cerca nel comparatore →</a></div></section><section class="section"><div class="wrap"><p>Catalogo aggiornato il {date}. {len(candidates)} offerte disponibili in questa categoria tra i negozi importati. Qui mostriamo fino a 24 offerte, alternate per negozio e ordinate per nome: non è una classifica di convenienza.</p><p class="notice">Prezzi e disponibilità possono cambiare. Verifica ricetta, formato, spedizione e prezzo finale nel negozio. Non confrontiamo tutto il mercato. I link Bauzaar e Isola dei Tesori sono commerciali: possiamo ricevere una commissione, senza costi aggiuntivi per te.</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:20px">{"".join(cards) or "<p>Nessuna offerta disponibile in questa rilevazione. Usa il comparatore per controllare il catalogo.</p>"}</div>{intent_html(slug)}<h2>Altre categorie</h2><p>{links}</p><h2>Come leggiamo i prezzi</h2><p>Usiamo feed ufficiali e cataloghi pubblici dei negozi. Non presumiamo che due nomi simili indichino lo stesso prodotto e non inventiamo pesi mancanti. La selezione viene rigenerata insieme al catalogo ogni sei ore. <a href="chi-siamo.html">Leggi il metodo</a>.</p></div></section></main>'
         page=re.sub(r'<main\b.*?</main>',lambda _:body,template,flags=re.S)
         page=re.sub(r'<title>.*?</title>',f'<title>{h(title)} | Offerte a 4 Zampe</title>',page)
         page=re.sub(r'(<meta (?:name="description"|property="og:description") content=")[^"]*',lambda m:m[1]+h(guide,quote=True),page)
         page=re.sub(r'(<meta property="og:title" content=")[^"]*',lambda m:m[1]+h(title+' | Offerte a 4 Zampe',quote=True),page)
         page=page.replace('https://offerte4zampe.it/chi-siamo',f'https://offerte4zampe.it/{slug}')
         page=page.replace(' aria-current="page"','')
-        page=append_list_schema(page,title,[(o['title']+' — '+(o.get('variant') or ''),o.get('affiliate_url') or o['url']) for o in selected])
+        page=append_list_schema(page,title,category_items(selected))
         (ROOT/f'site/{slug}.html').write_text(page)
     sitemap=ROOT/'site/sitemap.xml'; text=sitemap.read_text()
     for slug,*_ in CATEGORIES:
