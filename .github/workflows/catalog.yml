@@ -87,6 +87,8 @@ on:
       - 'automation/brand_landings.py'
       - 'automation/apply_brand_links.py'
       - 'automation/build_line_pages.py'
+      - 'automation/build_commercial_lines.py'
+      - 'tests/test_commercial_lines.py'
       - 'tests/test_line_pages.py'
       - 'automation/list_schema.py'
       - 'automation/report_link.py'
@@ -146,6 +148,7 @@ jobs:
       - run: python automation/build_product_pages.py
       - run: python automation/build_matched_pages.py
       - run: python automation/build_line_pages.py
+      - run: python automation/build_commercial_lines.py
       - run: python automation/build_brand_pages.py
       - run: python automation/build_home_data.py
       - run: python automation/apply_brand_links.py
