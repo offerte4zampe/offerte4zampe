@@ -1,7 +1,11 @@
 """Daily observed min/max prices; no backfill and no fabricated historical points."""
-import gzip,json,datetime,hashlib,math,copy
+import gzip,json,datetime,hashlib,math,copy,os
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+def amazon_origin(offer):
+ # Only origin fields: a non-Amazon offer may legitimately have an Amazon affiliate link.
+ return any(str(offer.get(field) or '').strip().lower() in ('amazon','amazon.it','amazon_italy') for field in ('merchant_id','merchant','source_type','source'))
+
 def update(history,catalog,today):
  cutoff=(datetime.date.fromisoformat(today)-datetime.timedelta(days=179)).isoformat()
  rows=copy.deepcopy(history.get('offers',{}))
@@ -10,6 +14,7 @@ def update(history,catalog,today):
   rows[oid]=[r for r in rows[oid] if r['day']>=cutoff]
   if not rows[oid]:del rows[oid]
  for o in catalog['offers']:
+  if amazon_origin(o):continue
   # Failed imports retain old data: never invent an observation for the current day.
   if o['checked_at'][:10]!=today or not isinstance(o.get('price'),(int,float)) or not math.isfinite(o['price']) or o['price']<=0:continue
   fingerprint=hashlib.sha256(json.dumps([o.get(k) for k in ('merchant_id','title','variant','brand','gtin','weight_kg')],ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
@@ -34,5 +39,11 @@ def write_shards(history,directory):
 def build():
  p=ROOT/'site/data/price-history.json.gz';old=json.loads(gzip.decompress(p.read_bytes())) if p.exists() else {}
  catalog=json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()));today=datetime.datetime.now(datetime.timezone.utc).date().isoformat()
+ excluded=sum(amazon_origin(o) and o.get('checked_at','')[:10]==today and isinstance(o.get('price'),(int,float)) and not isinstance(o.get('price'),bool) and math.isfinite(o['price']) and o['price']>0 for o in catalog['offers'])
+ message=f'Amazon price-history protection: {excluded} Amazon observations excluded; historical records preserved.'
+ print(('::warning::' if excluded else '::notice::')+message)
+ if os.environ.get('GITHUB_STEP_SUMMARY'):
+  with open(os.environ['GITHUB_STEP_SUMMARY'],'a',encoding='utf-8') as summary:
+   summary.write(f'### Amazon price-history protection\n\n{message}\n\n')
  d=update(old,catalog,today);p.write_bytes(gzip.compress(json.dumps(d,separators=(',',':')).encode(),mtime=0));write_shards(d,ROOT/'site/data/history');print('Observed history:',len(d['offers']),'offers since',d['started_at'])
 if __name__=='__main__':build()
