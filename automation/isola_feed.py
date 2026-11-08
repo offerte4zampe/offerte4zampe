@@ -66,27 +66,32 @@ def normalize(payload, now=None, stats=None):
 
 
 def feed_schema_counts(payload):
-    """Aggregate schema names only; no feed values, prices, URLs or identifiers."""
+    """Only field names and aggregate presence/fill frequencies; no values."""
     try:
         products = payload.get('products', []) if isinstance(payload, dict) else []
         if not isinstance(products, list):
             return {'records': 0, 'fields': [], 'identifier_fields': []}
-        counts = {}
+        counters = {}
+        def register(key, value):
+            if not isinstance(key, str) or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_.-]{0,63}', key):
+                return
+            if key not in counters:
+                counters[key] = {'present': 0, 'filled': 0}
+            counters[key]['present'] += 1
+            if value is not None and value != '' and value != [] and value != {}:
+                counters[key]['filled'] += 1
         for item in products:
             if not isinstance(item, dict):
                 continue
-            names = set()
             for key, val in item.items():
-                if isinstance(key, str) and re.fullmatch(r'[A-Za-z][A-Za-z0-9_.-]{0,63}', key):
-                    names.add(key)
+                register(key, val)
                 if key == 'properties' and isinstance(val, dict):
-                    for subkey in val:
-                        if isinstance(subkey, str) and re.fullmatch(r'[A-Za-z][A-Za-z0-9_.-]{0,63}', subkey):
-                            names.add('properties.' + subkey)
-            for name in names:
-                counts[name] = counts.get(name, 0) + 1
-        fields = [{'key': k, 'filled': v, 'total': len(products)} for k, v in sorted(counts.items())]
-        identifiers = [k for k in sorted(counts) if re.search(r'(?:^|[._-])(?:eans?|gtin|upc|isbn|mpn|skus?|barcodes?|product_?codes?)(?:$|[._-])', k, re.I)]
+                    for subkey, subvalue in val.items():
+                        if isinstance(subkey, str):
+                            register('properties.' + subkey, subvalue)
+        fields = [{'key': k, 'present': v['present'], 'filled': v['filled'], 'total': len(products)}
+                  for k, v in sorted(counters.items())]
+        identifiers = [k for k in sorted(counters) if re.search(r'(?:^|[._-])(?:eans?|gtin|upc|isbn|mpn|skus?|barcodes?|product_?codes?)(?:$|[._-])', k, re.I)]
         return {'records': len(products), 'fields': fields, 'identifier_fields': identifiers}
     except Exception:
         return {'records': 0, 'fields': [], 'identifier_fields': []}
