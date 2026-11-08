@@ -12,7 +12,7 @@ class ObservatoryTests(unittest.TestCase):
         self.catalog={'offers':[]}
         self.history={'offers':{},'identities':{}}
         for i in range(10):
-            offer=dict(id=str(i),merchant_id=str(i%2),title='Fixture',variant='2 kg',brand='Fixture',gtin='',weight_kg=2,category='Fixture category')
+            offer=dict(id=str(i),merchant_id=('bauzaar' if i%2 else 'webpet'),title='Fixture',variant='2 kg',brand='Fixture',gtin='',weight_kg=2,category='Fixture category')
             self.catalog['offers'].append(offer)
             self.history['identities'][str(i)]=fingerprint(offer)
             self.history['offers'][str(i)]=[]
@@ -60,7 +60,7 @@ class ObservatoryTests(unittest.TestCase):
     def test_single_merchant_is_not_a_published_category_index(self):
         cat=copy.deepcopy(self.catalog);hist=copy.deepcopy(self.history)
         for offer in cat['offers']:
-            offer['merchant_id']='one'
+            offer['merchant_id']='bauzaar'
             hist['identities'][offer['id']]=fingerprint(offer)
         self.assertIsNone(self.october(catalog=cat,history=hist)['index_previous_month_100'])
 

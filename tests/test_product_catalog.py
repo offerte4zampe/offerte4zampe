@@ -40,7 +40,8 @@ class CanonicalProductTests(unittest.TestCase):
 
     def test_observed_history_and_retired_products_keep_identity(self):
         catalog={'offers':[self.a],'generated_at':self.now.isoformat()}
-        history={'offers':{'a:1':[{'day':'2026-10-27','low':19,'high':21,'last':20,'available':True}]}}
+        history={'offers':{'bauzaar:1':[{'day':'2026-10-27','low':19,'high':21,'last':20,'available':True}]}}
+        catalog['offers'][0].update(id='bauzaar:1',merchant_id='bauzaar')
         first=build(catalog,history=history,now=self.now)
         self.assertEqual(first['products'][0]['history'][0]['sum'],20)
         retired=build({'offers':[],'generated_at':self.now.isoformat()},first['registry'],now=self.now)
@@ -151,6 +152,7 @@ class CanonicalProductTests(unittest.TestCase):
         from automation.build_product_catalog import identity,format_label
         import hashlib,json
         cat=dict(self.a,title="Cat's Best Original lettiera 7lt / 3Kg",brand="Cat's Best",variant='3kg',weight_kg=3)
+        cat.update(id='bauzaar:1',merchant_id='bauzaar')
         q=quantity(cat);old_q={k:v for k,v in q.items() if k!='volume_source'}
         self.assertEqual(identity(cat,q),identity(cat,old_q))
         self.assertEqual(format_label(q),format_label(old_q))
@@ -158,7 +160,7 @@ class CanonicalProductTests(unittest.TestCase):
         expected='p-'+hashlib.sha256(json.dumps(identity(cat,old_q),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()[:20]
         self.assertEqual(p['id'],expected)
         old=first['registry'];old[p['id']]['slug']='historical-stable-catbest-slug'
-        history={'offers':{'a:1':[{'day':'2026-10-27','low':19,'high':21,'last':20,'available':True}]}}
+        history={'offers':{'bauzaar:1':[{'day':'2026-10-27','low':19,'high':21,'last':20,'available':True}]}}
         result=build({'offers':[cat],'generated_at':self.now.isoformat()},old,history,now=self.now)
         self.assertEqual(result['products'][0]['id'],p['id'])
         self.assertEqual(result['products'][0]['slug'],'historical-stable-catbest-slug')
