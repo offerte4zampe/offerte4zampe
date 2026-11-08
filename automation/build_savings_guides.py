@@ -251,20 +251,20 @@ GUIDES.append(('stesso-prodotto-formato-gtin','Stesso prodotto o solo un nome si
 def guide_cards():
     """Accessible cover images and stable links for generated guides."""
     art = {
-        'costo-crocchette-cane': '/assets/social-guide.png',
-        'confrontare-prezzi-lettiere': '/assets/social-compare.png',
-        'prezzo-confezione-o-prezzo-kg': '/assets/social-guide.png',
-        'spedizione-gratuita-conviene': '/assets/social-home.png',
-        'leggere-storico-prezzi': '/assets/social-compare.png',
-        'stesso-prodotto-formato-gtin': '/assets/social-guide.png',
+        'costo-crocchette-cane': '/assets/blog-crocchette.webp',
+        'confrontare-prezzi-lettiere': '/assets/blog-lettiera.webp',
+        'prezzo-confezione-o-prezzo-kg': '/assets/blog-crocchette.webp',
+        'spedizione-gratuita-conviene': '/assets/blog-copertina.webp',
+        'leggere-storico-prezzi': '/assets/blog-lettiera.webp',
+        'stesso-prodotto-formato-gtin': '/assets/blog-crocchette.webp',
     }
     cards = []
     for slug, title, description, _ in GUIDES:
-        image = art.get(slug, '/assets/pet-friends.svg')
+        image = art.get(slug, '/assets/blog-copertina.webp')
         cards.append(
             '<article class="blog-card">'
             f'<a href="/{h(slug)}" tabindex="-1" aria-hidden="true"><img class="blog-card-image" '
-            f'src="{h(image)}" width="1200" height="630" alt="" loading="lazy" decoding="async"></a>'
+            f'src="{h(image)}" width="960" height="504" alt="" loading="lazy" decoding="async"></a>'
             '<span class="blog-pill">Guide pratiche</span>'
             f'<h3><a href="/{h(slug)}">{h(title)}</a></h3><p>{h(description)}</p>'
             f'<a href="/{h(slug)}">Leggi la guida →</a></article>'
