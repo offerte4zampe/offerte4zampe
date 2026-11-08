@@ -64,6 +64,42 @@ def normalize(payload, now=None, stats=None):
     if not rows: raise ValueError('Empty feed')
     return rows
 
+
+def feed_schema_counts(payload):
+    """Aggregate schema names only; no feed values, prices, URLs or identifiers."""
+    try:
+        products = payload.get('products', []) if isinstance(payload, dict) else []
+        if not isinstance(products, list):
+            return {'records': 0, 'fields': [], 'identifier_fields': []}
+        counts = {}
+        for item in products:
+            if not isinstance(item, dict):
+                continue
+            names = set()
+            for key, val in item.items():
+                if isinstance(key, str) and re.fullmatch(r'[A-Za-z][A-Za-z0-9_.-]{0,63}', key):
+                    names.add(key)
+                if key == 'properties' and isinstance(val, dict):
+                    for subkey in val:
+                        if isinstance(subkey, str) and re.fullmatch(r'[A-Za-z][A-Za-z0-9_.-]{0,63}', subkey):
+                            names.add('properties.' + subkey)
+            for name in names:
+                counts[name] = counts.get(name, 0) + 1
+        fields = [{'key': k, 'filled': v, 'total': len(products)} for k, v in sorted(counts.items())]
+        identifiers = [k for k in sorted(counts) if re.search(r'(?:^|[._-])(?:eans?|gtin|upc|isbn|mpn|skus?|barcodes?|product_?codes?)(?:$|[._-])', k, re.I)]
+        return {'records': len(products), 'fields': fields, 'identifier_fields': identifiers}
+    except Exception:
+        return {'records': 0, 'fields': [], 'identifier_fields': []}
+
+
+def log_feed_schema(payload):
+    """Non-critical, log-only diagnostics; never change feed processing."""
+    try:
+        import logging
+        logging.getLogger(__name__).warning('ISOLA_FEED_SCHEMA %s', json.dumps(feed_schema_counts(payload), ensure_ascii=True, separators=(',', ':')))
+    except Exception:
+        pass
+
 def collect():
     now = dt.datetime.now(dt.timezone.utc)
     req = urllib.request.Request(FEED_URL, headers={'User-Agent':'Offerte4Zampe/1.0','Accept':'application/json'})
@@ -72,6 +108,7 @@ def collect():
         if len(raw) > 40_000_000: raise ValueError('Feed too large')
         last_modified = response.headers.get('Last-Modified')
     payload = json.loads(raw)
+    log_feed_schema(payload)
     stats = {}
     rows = normalize(payload, now, stats)
     return rows, dict(id='isola-dei-tesori', name='Isola dei Tesori', status='ok', checked_at=now.isoformat(), offers=len(rows), excluded_unverified_quantity=len(payload['products'])-len(rows)-stats.get('excluded_unknown_availability', 0),
