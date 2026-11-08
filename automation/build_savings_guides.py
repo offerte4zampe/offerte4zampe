@@ -249,13 +249,28 @@ GUIDES.append(('stesso-prodotto-formato-gtin','Stesso prodotto o solo un nome si
 
 
 def guide_cards():
-    """Stable SEO links for all automatically generated practical guides."""
-    return ''.join(
-        '<article class="blog-card"><span class="blog-pill">Guide pratiche</span>'
-        f'<h3><a href="/{h(slug)}">{h(title)}</a></h3><p>{h(description)}</p>'
-        f'<a href="/{h(slug)}">Leggi la guida →</a></article>'
-        for slug, title, description, _ in GUIDES
-    )
+    """Accessible cover images and stable links for generated guides."""
+    art = {
+        'costo-crocchette-cane': '/assets/social-guide.png',
+        'confrontare-prezzi-lettiere': '/assets/social-compare.png',
+        'prezzo-confezione-o-prezzo-kg': '/assets/social-guide.png',
+        'spedizione-gratuita-conviene': '/assets/social-home.png',
+        'leggere-storico-prezzi': '/assets/social-compare.png',
+        'stesso-prodotto-formato-gtin': '/assets/social-guide.png',
+    }
+    cards = []
+    for slug, title, description, _ in GUIDES:
+        image = art.get(slug, '/assets/pet-friends.svg')
+        cards.append(
+            '<article class="blog-card">'
+            f'<a href="/{h(slug)}" tabindex="-1" aria-hidden="true"><img class="blog-card-image" '
+            f'src="{h(image)}" width="1200" height="630" alt="" loading="lazy" decoding="async"></a>'
+            '<span class="blog-pill">Guide pratiche</span>'
+            f'<h3><a href="/{h(slug)}">{h(title)}</a></h3><p>{h(description)}</p>'
+            f'<a href="/{h(slug)}">Leggi la guida →</a></article>'
+        )
+    return ''.join(cards)
+
 
 
 def refresh_unified_blog():
