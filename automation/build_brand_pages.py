@@ -55,6 +55,8 @@ def build():
     offers = json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()))['offers']
     template = (ROOT/'site/chi-siamo.html').read_text()
     matched = groups(offers)
+    commercial_path = ROOT/'site/data/commercial-lines.json'
+    commercial_lines = json.loads(commercial_path.read_text()).get('active', []) if commercial_path.exists() else []
     canonical = {name:'/marca-'+slug for slug,name in brand_pages(offers) if len(select(offers,name)[0])>=5}
     legacy = {name:'/marca-'+slug for slug,name in legacy_brand_pages(offers)}
     prior_path = ROOT/'site/data/brand-pages.json'
@@ -99,6 +101,14 @@ def build():
         output=page(template,slug,title,brand+': '+str(len(rows))+' offerte rilevate in '+shops+'. Consulta schede, confezioni e prezzi; confronta i negozi sullo stesso prodotto. Spedizione esclusa.',body)
         if brand.casefold()=='bauzaar':
             output=output.replace('content="index,follow"','content="noindex,follow"')
+        # Only link the commercial lines that passed the exact catalog gate.
+        brand_lines = [line for line in commercial_lines if brand.casefold() in line['brands']]
+        if brand_lines:
+            line_links = '<section aria-label="Linee commerciali selezionate"><h2>Linee disponibili nel catalogo</h2><ul>' + ''.join(
+                '<li><a href="/' + h(line['slug'], quote=True) + '">' + h(line['label']) + '</a></li>'
+                for line in brand_lines
+            ) + '</ul></section>'
+            output = output.replace('<div class="catalog-grid">',line_links+'<div class="catalog-grid">',1)
         if brand=='Monge' and (ROOT/'site/linea-monge-bwild.html').exists():
             output=output.replace('<div class="catalog-grid">','<p><a href="linea-monge-bwild.html">Esplora la linea Monge BWild: ricette e formati distinti</a></p><div class="catalog-grid">',1)
         output=output.replace('</head>','<script type="application/ld+json">'+json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')+'</script></head>')
@@ -110,6 +120,8 @@ def build():
             old.write_text(old.read_text().replace('content="index,follow"','content="noindex,follow"'))
     if (ROOT/'site/linea-monge-bwild.html').exists():
         links.append('<li><a href="linea-monge-bwild.html">Linea Monge BWild</a> · ricette e formati distinti</li>')
+    for line in commercial_lines:
+        links.append('<li><a href="/' + h(line['slug'], quote=True) + '">Linea ' + h(line['label']) + '</a> · formati e prezzi rilevati</li>')
     body='<section class="pagehero"><div class="wrap"><h1>Marche: trova i tuoi prodotti abituali</h1><p>Tutte le marche con almeno cinque offerte disponibili e recenti nei cataloghi. Ogni pagina distingue nomi, formati, fonti e data di recupero.</p></div></section><section class="section"><div class="wrap content"><ul>'+''.join(links)+'</ul><p>Le marche con meno di cinque offerte recenti restano disponibili nel comparatore. <a href="confronta-cibo.html">Usa il filtro marca nel comparatore</a> per esplorare il catalogo completo.</p></div></section>'
     (ROOT/'site/marche.html').write_text(append_list_schema(page(template,'marche','Marche di prodotti per animali: prezzi e formati','Marche con dati di catalogo sufficienti: ricette, confezioni, negozi e prezzi rilevati.',body),'Marche nel catalogo',list_items))
     home=ROOT/'site/index.html'
