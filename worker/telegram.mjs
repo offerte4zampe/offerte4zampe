@@ -85,7 +85,7 @@ export class TelegramPublisher {
  constructor(state,env){this.state=state;this.env=env;this.chain=Promise.resolve();}
  fetch(request){
   // Internal binding only; request body cannot supply text, recipient or URLs.
-  if(request.method==='GET')return Promise.all([this.state.storage.get('post:'+TEST_POST.id),this.state.storage.get('last_day'),this.state.storage.get('halted')]).then(([test,last_day,halted])=>Response.json({integration:'telegram-v1',configured:Boolean(this.env.TELEGRAM_BOT_TOKEN)&&this.env.TELEGRAM_CHANNEL_ID==='@sconti4zampe',token_present:Boolean(this.env.TELEGRAM_BOT_TOKEN),channel_present:Boolean(this.env.TELEGRAM_CHANNEL_ID),channel_matches:this.env.TELEGRAM_CHANNEL_ID==='@sconti4zampe',test_status:test?.status||'pending',test_message_id:test?.message_id||null,last_sent_day:last_day||null,halted:Boolean(halted)}));
+  if(request.method==='GET')return Promise.all([this.state.storage.get('post:'+TEST_POST.id),this.state.storage.get('last_day'),this.state.storage.get('halted'),this.state.storage.get('last_publication')]).then(([test,last_day,halted,last_publication])=>Response.json({integration:'telegram-v1',configured:Boolean(this.env.TELEGRAM_BOT_TOKEN)&&this.env.TELEGRAM_CHANNEL_ID==='@sconti4zampe',token_present:Boolean(this.env.TELEGRAM_BOT_TOKEN),channel_present:Boolean(this.env.TELEGRAM_CHANNEL_ID),channel_matches:this.env.TELEGRAM_CHANNEL_ID==='@sconti4zampe',test_status:test?.status||'pending',test_message_id:test?.message_id||null,last_sent_day:last_day||null,last_publication:last_publication||null,halted:Boolean(halted)}));
   if(request.method!=='POST')return Promise.resolve(new Response(null,{status:405}));
   const run=this.chain.then(()=>this.tick());this.chain=run.catch(()=>{});
   return run.then(result=>Response.json(result));
@@ -158,6 +158,8 @@ export class TelegramPublisher {
   await store.put(key,record);
   if(outcome.status==='sent'){
    await store.put('last_day',new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit'}).format(now));
+   // Public, minimal publication receipt for cross-channel coordination. No token or raw payload.
+   await store.put('last_publication',{kind:post.kind,path:post.path,message_id:outcome.message_id,sent_at:new Date().toISOString()});
   }else if(outcome.status!=='retry')await store.put('halted',true);
   console.log({type:'telegram_publish',id:post.id,status:outcome.status,...(outcome.message_id?{message_id:outcome.message_id}:{})});
   return {status:outcome.status};
