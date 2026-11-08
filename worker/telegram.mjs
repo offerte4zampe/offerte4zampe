@@ -211,6 +211,7 @@ export class TelegramPublisher {
   await store.put(key,record);
   if(outcome.status==='sent'){
    await store.put('last_day',new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit'}).format(now));
+   await store.put('last_publication',{kind:post.kind,path:post.path,message_id:outcome.message_id,sent_at:new Date().toISOString()});
   }else if(outcome.status!=='retry')await store.put('halted',true);
   console.log({type:'telegram_publish',id:post.id,status:outcome.status,...(outcome.message_id?{message_id:outcome.message_id}:{})});
   return {status:outcome.status};
