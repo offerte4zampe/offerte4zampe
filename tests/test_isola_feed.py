@@ -43,6 +43,7 @@ class IsolaFeedTests(unittest.TestCase):
         p=copy.deepcopy(self.p)
         p['properties']['MPN']=['PRIVATE-MPN-DO-NOT-LOG']
         p['properties']['sku']=['PRIVATE-SKU-DO-NOT-LOG']
+        p['properties']['empty_field']=[]
         p['URL']='https://example.com/PRIVATE-URL-DO-NOT-LOG'
         p['price']['amount']=987654
         payload={'products':[p,copy.deepcopy(p)]}
@@ -51,6 +52,7 @@ class IsolaFeedTests(unittest.TestCase):
         self.assertEqual(names['properties.GTIN'],2)
         self.assertEqual(names['properties.MPN'],2)
         self.assertEqual(names['properties.sku'],2)
+        self.assertEqual(names['properties.empty_field'],0)
         self.assertIn('properties.GTIN',a['identifier_fields'])
         self.assertNotIn('PRIVATE-SKU-DO-NOT-LOG',str(a))
         with self.assertLogs(m.__name__,level='WARNING') as log:
