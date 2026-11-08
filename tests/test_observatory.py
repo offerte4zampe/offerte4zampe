@@ -12,7 +12,7 @@ class ObservatoryTests(unittest.TestCase):
         self.catalog={'offers':[]}
         self.history={'offers':{},'identities':{}}
         for i in range(10):
-            offer=dict(id=str(i),merchant_id=str(i%2),title='Fixture',variant='2 kg',brand='Fixture',gtin='',weight_kg=2,category='Fixture category')
+            offer=dict(id=str(i),merchant_id=('bauzaar' if i%2 else 'webpet'),title='Fixture',variant='2 kg',brand='Fixture',gtin='',weight_kg=2,category='Fixture category')
             self.catalog['offers'].append(offer)
             self.history['identities'][str(i)]=fingerprint(offer)
             self.history['offers'][str(i)]=[]
