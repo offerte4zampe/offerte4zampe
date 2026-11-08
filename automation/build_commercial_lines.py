@@ -21,21 +21,21 @@ ROOT = Path(__file__).resolve().parents[1]
 # Explicit editorial allowlist: never discover/publish unlimited line URLs.
 # Each title token must match the actual merchant title, not a guessed synonym.
 LINES = (
-    ('monge-supreme', 'Monge Supreme', ('monge',), r'\\bsupreme\\b'),
-    ('monge-monoprotein', 'Monge Monoprotein', ('monge',), r'\\bmonoprotein\\b'),
-    ('royal-canin-sterilised', 'Royal Canin Sterilised', ('royal canin',), r'\\bsterili[sz]ed\\b'),
-    ('royal-canin-mini-adult', 'Royal Canin Mini Adult', ('royal canin',), r'\\bmini\\s+adult\\b'),
-    ('royal-canin-kitten', 'Royal Canin Kitten', ('royal canin',), r'\\bkitten\\b'),
-    ('farmina-vet-life', 'Farmina Vet Life', ('farmina',), r'\\bvet\\s+life\\b'),
-    ('farmina-nd', 'Farmina N&D', ('farmina',), r'\\bn\\s*&\\s*d\\b|\\bn\\s+and\\s+d\\b'),
-    ('natural-trainer-sterilised', 'Natural Trainer Sterilised', ('natural trainer','trainer'), r'\\bsterili[sz]ed\\b'),
-    ('gourmet-gold', 'Gourmet Gold', ('gourmet',), r'\\bgold\\b'),
-    ('gourmet-perle', 'Gourmet Perle', ('gourmet',), r'\\bperle\\b'),
-    ('almo-nature-hfc', 'Almo Nature HFC', ('almo nature',), r'\\bhfc\\b'),
-    ('biokats-bianco', "Biokat's Bianco", ("biokat's", 'biokats'), r'\\bbianco\\b'),
-    ('purina-pro-plan', 'Purina Pro Plan', ('purina pro plan',), r'\\bpro\\s+plan\\b'),
-    ('acana-adult', 'Acana Adult', ('acana',), r'\\badult\\b'),
-    ('hills-science-plan', "Hill's Science Plan", ("hill's science plan", "hill's"), r'\\bscience\\s+plan\\b'),
+    ('monge-supreme', 'Monge Supreme', ('monge',), r'\bsupreme\b'),
+    ('monge-monoprotein', 'Monge Monoprotein', ('monge',), r'\bmonoprotein\b'),
+    ('royal-canin-sterilised', 'Royal Canin Sterilised', ('royal canin',), r'\bsterili[sz]ed\b'),
+    ('royal-canin-mini-adult', 'Royal Canin Mini Adult', ('royal canin',), r'\bmini\s+adult\b'),
+    ('royal-canin-kitten', 'Royal Canin Kitten', ('royal canin',), r'\bkitten\b'),
+    ('farmina-vet-life', 'Farmina Vet Life', ('farmina',), r'\bvet\s+life\b'),
+    ('farmina-nd', 'Farmina N&D', ('farmina',), r'\bn\s*&\s*d\b|\bn\s+and\s+d\b'),
+    ('natural-trainer-sterilised', 'Natural Trainer Sterilised', ('natural trainer','trainer'), r'\bsterili[sz]ed\b'),
+    ('gourmet-gold', 'Gourmet Gold', ('gourmet',), r'\bgold\b'),
+    ('gourmet-perle', 'Gourmet Perle', ('gourmet',), r'\bperle\b'),
+    ('almo-nature-hfc', 'Almo Nature HFC', ('almo nature',), r'\bhfc\b'),
+    ('biokats-bianco', "Biokat's Bianco", ("biokat's", 'biokats'), r'\bbianco\b'),
+    ('purina-pro-plan', 'Purina Pro Plan', ('purina pro plan',), r'\bpro\s+plan\b'),
+    ('acana-adult', 'Acana Adult', ('acana',), r'\badult\b'),
+    ('hills-science-plan', "Hill's Science Plan", ("hill's science plan", "hill's"), r'\bscience\s+plan\b'),
 )
 MIN_OFFERS = 12
 MIN_MERCHANTS = 2
