@@ -60,7 +60,7 @@ class ObservatoryTests(unittest.TestCase):
     def test_single_merchant_is_not_a_published_category_index(self):
         cat=copy.deepcopy(self.catalog);hist=copy.deepcopy(self.history)
         for offer in cat['offers']:
-            offer['merchant_id']='one'
+            offer['merchant_id']='bauzaar'
             hist['identities'][offer['id']]=fingerprint(offer)
         self.assertIsNone(self.october(catalog=cat,history=hist)['index_previous_month_100'])
 
