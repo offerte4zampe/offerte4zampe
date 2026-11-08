@@ -60,7 +60,9 @@ class IsolaFeedTests(unittest.TestCase):
         output='\\n'.join(log.output)
         for secret in ('PRIVATE-MPN-DO-NOT-LOG','PRIVATE-SKU-DO-NOT-LOG','PRIVATE-URL-DO-NOT-LOG','987654','1234567890128'):
             self.assertNotIn(secret,output)
-        self.assertEqual(m.normalize({'products':[self.p]}),m.normalize({'products':[copy.deepcopy(self.p)]}))
+        import datetime as dt
+        fixed=dt.datetime(2026,11,8,tzinfo=dt.timezone.utc)
+        self.assertEqual(m.normalize({'products':[self.p]},now=fixed),m.normalize({'products':[copy.deepcopy(self.p)]},now=fixed))
 
     def test_schema_diagnostic_best_effort_and_unusual_keys(self):
         result=m.feed_schema_counts({'products':[{'bad\\nkey':'value','properties':{'bad\\nsecret':'value'},'SKU':'SAFE'}]})
