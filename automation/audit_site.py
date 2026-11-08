@@ -51,6 +51,14 @@ def _internal_target(current, href):
     if u.netloc and u.netloc!=BASE:
         return None
     path=unquote(u.path)
+    # Static editorial articles live in nested directory index files.
+    if path.startswith('/blog/') or path == '/blog':
+        clean = path.strip('/')
+        if clean.endswith('/index.html'):
+            clean = clean[:-len('/index.html')]
+        if clean.endswith('.html'):
+            clean = clean[:-5]
+        return clean + '/index.html', unquote(u.fragment)
     if not path:
         target=current
     else:
@@ -69,12 +77,12 @@ def _internal_target(current, href):
 
 
 def inspect(site):
-    files=sorted(site.glob('*.html'));issues=[];pages=[];canonicals={};parsed={}
+    files=sorted(site.glob('*.html')) + sorted((site/'blog').rglob('index.html'));issues=[];pages=[];canonicals={};parsed={}
     for path in files:
         # Search Console ownership tokens are machine verification files, not pages.
         if path.name.startswith('google') and path.name.endswith('.html'):
             continue
-        p=Page(path.read_text());parsed[path.name]=p
+        p=Page(path.read_text());parsed[path.relative_to(site).as_posix()]=p
     available=set(parsed)
     route_path=site/'data/canonical-route-list.json'
     dynamic={'/prodotto/'+slug for slug in json.loads(route_path.read_text())} if route_path.exists() else set()
