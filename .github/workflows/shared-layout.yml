@@ -2,6 +2,9 @@ name: Shared site layout regression
 on:
   pull_request:
     paths:
+      - 'automation/build_commercial_lines.py'
+      - 'automation/build_brand_pages.py'
+      - 'tests/test_commercial_lines.py'
       - 'automation/apply_navigation.py'
       - 'automation/clean_urls.py'
       - 'automation/*images.py'
@@ -36,6 +39,7 @@ jobs:
           node-version: '22'
       - run: python -m pip install Pillow==12.3.0
       - run: python automation/check_d1_activation.py --prepare-build
+      - run: python automation/build_commercial_lines.py
       - run: python automation/build_brand_pages.py
       - run: python automation/apply_brand_links.py
       - run: python automation/apply_product_metadata.py

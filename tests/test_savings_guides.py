@@ -11,6 +11,31 @@ class SavingsGuidesTests(unittest.TestCase):
         # Synthetic fixtures used only in tests, never written as public offers.
         self.o=dict(id='a',merchant_id='a',merchant='Shop A',brand='Brand',title='Food cane',category='Crocchette cani',price=12,weight_kg=2,available=True,url='https://example.com/product',checked_at=self.now.isoformat(),gtin='4006381333931')
 
+    def test_unified_editorial_hub_keeps_blog_posts_and_all_generated_guides(self):
+        import tempfile
+        from pathlib import Path
+        from unittest.mock import patch
+        from automation import build_savings_guides as guides
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            index = root / 'site/blog/index.html'
+            index.parent.mkdir(parents=True)
+            index.write_text('<main><a href="/blog/example/">Blog originale</a>'
+                             '<!-- guide-catalogo:start -->Vecchio elenco'
+                             '<!-- guide-catalogo:end --></main>')
+            with patch.object(guides, 'ROOT', root):
+                guides.refresh_unified_blog()
+                first = index.read_text()
+                guides.refresh_unified_blog()
+                self.assertEqual(index.read_text(), first)
+            self.assertIn('Blog originale', first)
+            for slug, _, _, _ in guides.GUIDES:
+                self.assertIn('href="/' + slug + '"', first)
+            self.assertEqual(first.count('class="blog-card"'), len(guides.GUIDES))
+            self.assertEqual(first.count('class="blog-card-image"'), len(guides.GUIDES))
+            self.assertIn('loading="lazy"', first)
+            self.assertIn('alt=""', first)
+
     def test_manual_ration_is_explicit_and_price_math_uses_actual_net_weight(self):
         html=food_content([self.o],self.now)
         self.assertIn('6,00 €/kg',html);self.assertIn('1,50 €',html);self.assertIn('45,00 €',html)
