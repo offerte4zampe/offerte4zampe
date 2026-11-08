@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T20:59:53.095139+00:00",
+  "generated_at": "2026-11-08T01:12:04.358932+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,8 +7,8 @@
   "at_target": 14,
   "with_third_store_lead": 24,
   "categories": {
-    "umido": 119,
-    "snack": 63,
+    "umido": 118,
+    "snack": 64,
     "crocchette": 109,
     "lettiere": 9
   },
@@ -90,7 +90,6 @@
     "animaliapet:47343969141079",
     "animaliapet:47343990604119",
     "animaliapet:47344005284183",
-    "animaliapet:47392275661143",
     "animaliapet:47555389129047",
     "animaliapet:47739940831575",
     "animaliapet:48188453060951",
@@ -120,7 +119,6 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
-    "bauzaar:56819013976389",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
     "bauzaar:56819871285573",
@@ -351,6 +349,7 @@
     "bauzaar:58411853939013",
     "bauzaar:58411855348037",
     "bauzaar:58411855806789",
+    "bauzaar:58411856167237",
     "bauzaar:58411856232773",
     "bauzaar:58411856265541",
     "bauzaar:58411856298309",
@@ -411,6 +410,7 @@
     "isola-dei-tesori:000146125",
     "isola-dei-tesori:000150008",
     "isola-dei-tesori:000150011",
+    "isola-dei-tesori:000150012",
     "isola-dei-tesori:000150032",
     "isola-dei-tesori:000150078",
     "isola-dei-tesori:000150079",
@@ -6154,6 +6154,26 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-a4897514acb23fc665e2",
+      "name": "Joki Plus 15 g salmone",
+      "brand": "Joki Plus",
+      "category": "snack",
+      "species": "gatto",
+      "format": "15 g",
+      "url": "https://offerte4zampe.it/prodotto/joki-plus-15-g-salmone-08000560750201-c665e2",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "isola-dei-tesori:000150012"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:58411856167237"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-a7499a1cc3761472343a",
       "name": "Joki Plus 15 g manzo",
       "brand": "Joki Plus",
@@ -6409,26 +6429,6 @@
       ],
       "candidate_offer_ids": [
         "animaliapet:46976703594839"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-06a3f83e64c61e7329e3",
-      "name": "Natua Natural Pollo in Jelly Lattina 150g Gatti",
-      "brand": "Natua",
-      "category": "umido",
-      "species": "cane e gatto",
-      "format": "150 g",
-      "url": "https://offerte4zampe.it/prodotto/natua-natural-pollo-in-jelly-lattina-150g-gatti-08057507371036-7329e3",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "animaliapet:47392275661143"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56819013976389"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
