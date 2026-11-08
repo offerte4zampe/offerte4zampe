@@ -2,7 +2,7 @@
 import datetime as dt
 import unittest
 from automation.price_merchant_policy import price_history_allowed,history_offer_allowed
-from automation.update_history import update
+from automation.update_history import update, write_shards
 from automation.build_product_catalog import observed_history
 
 class AmazonHistoryIsolationTests(unittest.TestCase):
@@ -27,6 +27,18 @@ class AmazonHistoryIsolationTests(unittest.TestCase):
         self.assertNotIn('amazon:ASIN',output['offers'])
         self.assertNotIn('amazon:ASIN',output['identities'])
         self.assertIn('bauzaar:1',output['offers'])
+
+    def test_history_shards_cannot_publish_amazon_even_with_legacy_input(self):
+        import tempfile, gzip, hashlib, json
+        history={'started_at':'2026-11-08','updated_at':'2026-11-08T07:00:00Z','retention_days':180,
+                 'offers':{'amazon:ASIN':[{'day':'2026-11-08','low':1,'high':2}],
+                           'bauzaar:1':[{'day':'2026-11-08','low':10,'high':11}]}}
+        with tempfile.TemporaryDirectory() as d:
+            from pathlib import Path
+            write_shards(history,Path(d))
+            for file in Path(d).glob('*.json.gz'):
+                contents=json.loads(gzip.decompress(file.read_bytes()))
+                self.assertNotIn('amazon:ASIN',contents['offers'])
 
     def test_aggregate_min_max_mean_ignores_amazon(self):
         today='2026-11-08'
