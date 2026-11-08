@@ -1,6 +1,8 @@
 /* Observations only. Missing days are not interpolated. No historical discount claim. */
 (function(root){'use strict';
 const DAY=86400000;
+const ALLOWED_MERCHANTS=new Set(['bauzaar','isola-dei-tesori','paco','webpet','animaliapet']);
+function allowedOffer(id){return typeof id==='string'&&id.includes(':')&&ALLOWED_MERCHANTS.has(id.split(':',1)[0].toLowerCase());}
 function summarize(rows,days,now=Date.now()){
  days=[30,90,180].includes(Number(days))?Number(days):30;
  const today=Math.floor(now/DAY)*DAY,cutoff=today-(days-1)*DAY;
@@ -10,10 +12,12 @@ function summarize(rows,days,now=Date.now()){
 }
 const pending=new Map();
 async function load(id){
+ if(!allowedOffer(id))throw Error('merchant history not allowed');
  const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(id)),prefix=new Uint8Array(hash)[0].toString(16).padStart(2,'0');
  if(!pending.has(prefix))pending.set(prefix,fetch('data/history/'+prefix+'.json.gz').then(async r=>{if(!r.ok)throw Error('history');const b=await r.arrayBuffer(),raw=new Uint8Array(b);return JSON.parse(raw[0]===31&&raw[1]===139?await new Response(new Blob([b]).stream().pipeThrough(new DecompressionStream('gzip'))).text():new TextDecoder().decode(b));}).catch(e=>{pending.delete(prefix);throw e}));return pending.get(prefix);
 }
 function mount(id){
+ if(!allowedOffer(id))return document.createDocumentFragment();
  if(root?.O4ZPriceTrackingEnabled!==true)return document.createDocumentFragment();
  const date=value=>root.O4ZTrade?.formatTimestamp(value)||value;
  const node=(tag,value)=>{const n=document.createElement(tag);if(value)n.textContent=value;return n;};

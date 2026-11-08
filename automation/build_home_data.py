@@ -17,6 +17,10 @@ except ImportError:
     from report_link import error_link
     from product_link import product_url
 
+try:
+    from .price_merchant_policy import price_history_allowed
+except ImportError:
+    from price_merchant_policy import price_history_allowed
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
@@ -69,7 +73,7 @@ def build(catalog, now=None, history=None):
             continue
         o = dict(original)
         past = []
-        for entry in history_rows.get(o['id'], []):
+        for entry in (history_rows.get(o['id'], []) if price_history_allowed(o.get('merchant_id')) else []):
             try:
                 day = datetime.date.fromisoformat(entry['day'])
                 value = entry['last']

@@ -15,6 +15,10 @@ try:
 except ImportError:
     from build_product_pages import page
 
+try:
+    from .price_merchant_policy import price_history_allowed
+except ImportError:
+    from price_merchant_policy import price_history_allowed
 ROOT=Path(__file__).resolve().parents[1]
 # Minimum coverage is editorial, never proof of a representative market sample.
 MIN_DAYS=7
@@ -40,7 +44,7 @@ def calculate(catalog,history,today):
     seen=set()
     for o in catalog.get('offers',[]):
         oid=o.get('id')
-        if not oid or oid in seen:continue
+        if not oid or oid in seen or not price_history_allowed(o.get('merchant_id')):continue
         seen.add(oid)
         category=o.get('category','').strip()
         if not category or not o.get('merchant_id') or not positive(o.get('weight_kg')):continue
