@@ -16,7 +16,14 @@ test('SSR JSON-LD AggregateOffer ranges use current available merchant prices, n
   assert.equal(page.schema.offers.offerCount,2);
   assert.notEqual(page.schema.offers.highPrice,999);
 });
-test('SSR history remains recoverable behind explicitly enabled feature flag',()=>{
-  const page=content(product,state,true);
+test('SSR history remains recoverable for an eligible non-Amazon merchant with flag enabled',()=>{
+  const offer={id:'bauzaar:fixture',merchant_id:'bauzaar',merchant:'Bauzaar',title:'Demo 2 kg',price:12,available:true,checked_at:'2026-11-07T11:00:00Z',quantity:{verified:true},unit_price:null,unit_prices:{},url:'https://example.test/item'};
+  const enabledState={...state,rows:[offer],quotes:new Map([[offer.id,{status:'unknown',destination:'Italia'}]]),aggregateHistorySafe:true};
+  const page=content({...product,offers:[offer]},enabledState,true);
   assert.match(page.body,/Storico prezzi/);
+  assert.match(page.body,/data-history-offer="bauzaar:fixture"/);
+  const denied={...offer,id:'amazon:ASIN',merchant_id:'amazon',merchant:'Amazon'};
+  const mixed=content({...product,offers:[offer,denied]}, {...enabledState,rows:[offer,denied],quotes:new Map([[offer.id,{status:'unknown',destination:'Italia'}],[denied.id,{status:'unknown',destination:'Italia'}]]),aggregateHistorySafe:false}, true);
+  assert.doesNotMatch(mixed.body,/data-history-offer="amazon:ASIN"/);
+  assert.doesNotMatch(mixed.body,/Minimo 0,01/);
 });
