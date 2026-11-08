@@ -43,6 +43,26 @@ jobs:
           assert tracked_before==files(pr),'Tracked HTML/sitemaps differ before build'
           catalog=load(pr,'catalog.json.gz')
           assert len(catalog['offers'])>100,'Real snapshot missing; refusing fixture-only parity'
+          # Freeze wall clock for both builds: sitemap lastmod must not drift
+          # merely because the two offline invocations run seconds apart.
+          clock_dir=pathlib.Path(os.environ['RUNNER_TEMP'])/'frozen-clock'
+          clock_dir.mkdir(parents=True,exist_ok=True)
+          import datetime
+          fixed_now=datetime.datetime.now(datetime.timezone.utc).isoformat()
+          (clock_dir/'sitecustomize.py').write_text(
+              'import datetime as _d, os as _o\n'
+              '_real=_d.datetime\n'
+              'class _Frozen(_real):\n'
+              ' @classmethod\n'
+              ' def now(cls, tz=None):\n'
+              '  instant=_real.fromisoformat(_o.environ["SNAPSHOT_FIXED_NOW"])\n'
+              '  return instant.astimezone(tz) if tz is not None else instant.replace(tzinfo=None)\n'
+              ' @classmethod\n'
+              ' def utcnow(cls):\n'
+              '  return cls.now(_d.timezone.utc).replace(tzinfo=None)\n'
+              '_d.datetime=_Frozen\n')
+          env={**os.environ,'SNAPSHOT_FIXED_NOW':fixed_now,
+               'PYTHONPATH':str(clock_dir)+os.pathsep+os.environ.get('PYTHONPATH','')}
           for root in [base,pr]:
               for cmd in [
                   ['python','automation/update_history.py'],
@@ -51,7 +71,7 @@ jobs:
                   ['python','automation/build_home_data.py'],
                   ['python','automation/build_sitemaps.py'],
               ]:
-                  subprocess.run(cmd,cwd=root,check=True)
+                  subprocess.run(cmd,cwd=root,check=True,env=env)
           assert sha(base/'site/data/catalog.json.gz')==sha(pr/'site/data/catalog.json.gz'),'Merchant offers snapshot changed'
           base_model=load(base,'product-catalog.json.gz')
           pr_model=load(pr,'product-catalog.json.gz')
