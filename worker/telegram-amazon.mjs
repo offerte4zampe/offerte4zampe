@@ -26,7 +26,7 @@ export function amazonPick(entry, now = Date.now()) {
   const review = Date.parse(entry.reviewed_at);
   if (!Number.isFinite(review) || review > now || now - review > 7 * 86400000) return null;
   // Only a self-owned original product photo, not Amazon media or hotlinks.
-  if (typeof entry.image !== 'string' || !/^\\/assets\\/telegram-amazon\\/[a-z0-9-]+\\.(?:jpg|jpeg|png)$/i.test(entry.image)) return null;
+  if (typeof entry.image !== 'string' || !/^\/assets\/telegram-amazon\/[a-z0-9-]+\.(?:jpg|jpeg|png)$/i.test(entry.image)) return null;
   return {
     id: 'amazon:' + entry.asin,
     kind: 'amazon_pick',
