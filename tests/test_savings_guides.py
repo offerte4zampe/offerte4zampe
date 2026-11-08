@@ -32,6 +32,9 @@ class SavingsGuidesTests(unittest.TestCase):
             for slug, _, _, _ in guides.GUIDES:
                 self.assertIn('href="/' + slug + '"', first)
             self.assertEqual(first.count('class="blog-card"'), len(guides.GUIDES))
+            self.assertEqual(first.count('class="blog-card-image"'), len(guides.GUIDES))
+            self.assertIn('loading="lazy"', first)
+            self.assertIn('alt=""', first)
 
     def test_manual_ration_is_explicit_and_price_math_uses_actual_net_weight(self):
         html=food_content([self.o],self.now)
