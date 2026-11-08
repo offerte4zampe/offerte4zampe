@@ -30,6 +30,7 @@ def write_shards(history,directory):
  directory.mkdir(parents=True,exist_ok=True)
  buckets={format(n,'02x'):{} for n in range(256)}
  for oid,rows in history['offers'].items():
+  if not history_offer_allowed(oid):continue
   buckets[hashlib.sha256(oid.encode()).hexdigest()[:2]][oid]=rows
  for prefix,offers in buckets.items():
   data={k:history[k] for k in ('started_at','updated_at','retention_days')}
