@@ -9,6 +9,8 @@ on:
       - '.gitignore'
       - 'automation/paco_feed.py'
       - 'automation/update_catalog.py'
+      - 'automation/isola_feed.py'
+      - 'tests/test_isola_feed.py'
       - 'tests/test_gtin_diagnostics.py'
       - 'tests/check_gtin_snapshot_invariance.py'
       - '.github/workflows/gtin-instrumentation-tests.yml'
