@@ -247,6 +247,30 @@ def identity_content(offers, now):
 GUIDES.append(('stesso-prodotto-formato-gtin','Stesso prodotto o solo un nome simile? Controlla formato e GTIN','Esempi del catalogo per distinguere codice prodotto, formato e multipack prima di confrontare i prezzi tra negozi.',identity_content))
 
 
+
+def guide_cards():
+    """Stable SEO links for all automatically generated practical guides."""
+    return ''.join(
+        '<article class="blog-card"><span class="blog-pill">Guide pratiche</span>'
+        f'<h3><a href="/{h(slug)}">{h(title)}</a></h3><p>{h(description)}</p>'
+        f'<a href="/{h(slug)}">Leggi la guida →</a></article>'
+        for slug, title, description, _ in GUIDES
+    )
+
+
+def refresh_unified_blog():
+    """Update only the generated card region; keep original blog articles intact."""
+    target = ROOT/'site/blog/index.html'
+    html = target.read_text()
+    start = '<!-- guide-catalogo:start -->'
+    end = '<!-- guide-catalogo:end -->'
+    if html.count(start) != 1 or html.count(end) != 1:
+        raise ValueError('Unified blog marker missing or duplicated')
+    cards = guide_cards()
+    html = html[:html.index(start) + len(start)] + cards + html[html.index(end):]
+    target.write_text(html)
+
+
 def build():
     now=dt.datetime.now(dt.timezone.utc)
     catalog=json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()))
@@ -255,7 +279,13 @@ def build():
         (ROOT/f'site/{slug}.html').write_text(document(template,slug,title,description,render(catalog['offers'],now),now))
     links=''.join(f'<article class="panel"><h2><a href="{slug}.html">{h(title)}</a></h2><p>{h(description)}</p></article>' for slug,title,description,_ in GUIDES)
     body='<section class="pagehero"><div class="wrap"><h1>Guide pratiche al risparmio per cani e gatti</h1><p>Metodi riproducibili ed esempi del catalogo, con fonti, date e limiti. Nessuna classifica nutrizionale.</p></div></section><section class="section"><div class="wrap content">'+links+'<p><a href="confronta-cibo.html">Confronta prezzi</a> · <a href="osservatorio-prezzi.html">Osservatorio prezzi</a> · <a href="chi-siamo.html">Metodo editoriale</a>.</p></div></section>'
-    (ROOT/'site/guide-risparmio.html').write_text(page(template,'guide-risparmio','Guide pratiche al risparmio per animali','Guide con esempi reali per confrontare confezioni, costo al kg e spese di spedizione.',body))
+    # Single editorial index. Keep the legacy URL reachable as a redirect fallback.
+    refresh_unified_blog()
+    legacy = page(template,'guide-risparmio','Guide pratiche: nuova sezione','Le guide pratiche e il blog sono ora in una sola sezione.', '<section class="pagehero"><div class="wrap"><h1>Guide e consigli</h1><p>Le guide e il blog si trovano ora in <a href="/blog/">Guide e consigli</a>.</p></div></section>')
+    legacy = legacy.replace('https://offerte4zampe.it/guide-risparmio','https://offerte4zampe.it/blog/')
+    legacy = legacy.replace('name="robots" content="index,follow"', 'name="robots" content="noindex,follow"')
+    legacy = legacy.replace('</head>', '<meta http-equiv="refresh" content="0; url=/blog/"></head>')
+    (ROOT/'site/guide-risparmio.html').write_text(legacy)
 
 
 if __name__=='__main__':build()
