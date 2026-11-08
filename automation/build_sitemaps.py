@@ -79,7 +79,10 @@ def group_for(path, html):
 
 def inventory(site, old, now):
     state, partitions = {}, defaultdict(list)
-    # Editorial posts are nested HTML pages. Do not descend into generated product\n    # directories: canonical product URLs are already imported from their manifest.\n    pages = list(site.glob('*.html')) + list((site / 'blog').rglob('index.html'))\n    for path in sorted(pages):
+    # Editorial posts are nested HTML pages. Do not descend into generated product
+    # directories: canonical product URLs are already imported from their manifest.
+    pages = list(site.glob('*.html')) + list((site / 'blog').rglob('index.html'))
+    for path in sorted(pages):
         html = path.read_text()
         meta = Metadata(html)
         if not meta.canonical or 'noindex' in meta.robots or 'none' in meta.robots:
