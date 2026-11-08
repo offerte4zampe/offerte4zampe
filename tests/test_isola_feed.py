@@ -36,3 +36,32 @@ class IsolaFeedTests(unittest.TestCase):
         self.assertEqual([r['id'] for r in rows],['isola-dei-tesori:000123'])
         self.assertEqual(stats['excluded_unknown_availability'],1)
         with self.assertRaises(ValueError):m.normalize({'products':[p]})
+
+    def test_schema_diagnostic_counts_only_names_never_values(self):
+        import contextlib
+        import io
+        p=copy.deepcopy(self.p)
+        p['properties']['MPN']=['PRIVATE-MPN-DO-NOT-LOG']
+        p['properties']['sku']=['PRIVATE-SKU-DO-NOT-LOG']
+        p['URL']='https://example.com/PRIVATE-URL-DO-NOT-LOG'
+        p['price']['amount']=987654
+        payload={'products':[p,copy.deepcopy(p)]}
+        a=m.feed_schema_counts(payload)
+        names={x['key']:x['filled'] for x in a['fields']}
+        self.assertEqual(names['properties.GTIN'],2)
+        self.assertEqual(names['properties.MPN'],2)
+        self.assertEqual(names['properties.sku'],2)
+        self.assertIn('properties.GTIN',a['identifier_fields'])
+        self.assertNotIn('PRIVATE-SKU-DO-NOT-LOG',str(a))
+        with self.assertLogs(m.__name__,level='WARNING') as log:
+            m.log_feed_schema(payload)
+        output='\\n'.join(log.output)
+        for secret in ('PRIVATE-MPN-DO-NOT-LOG','PRIVATE-SKU-DO-NOT-LOG','PRIVATE-URL-DO-NOT-LOG','987654','1234567890128'):
+            self.assertNotIn(secret,output)
+        self.assertEqual(m.normalize({'products':[self.p]}),m.normalize({'products':[copy.deepcopy(self.p)]}))
+
+    def test_schema_diagnostic_best_effort_and_unusual_keys(self):
+        result=m.feed_schema_counts({'products':[{'bad\\nkey':'value','properties':{'bad\\nsecret':'value'},'SKU':'SAFE'}]})
+        self.assertEqual([x['key'] for x in result['fields']],['SKU','properties'])
+        self.assertEqual(m.feed_schema_counts(None)['records'],0)
+        m.log_feed_schema(None)
