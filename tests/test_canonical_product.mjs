@@ -13,6 +13,17 @@ test('canonical HTML contains actual prices, totals and Product schema without c
  assert(html.includes('Shop A'));assert(html.includes('Shop B'));assert(html.includes('21,00'));assert(html.includes('26,00'));assert(html.includes('AggregateOffer'));assert(html.includes('index,follow'));assert(!html.includes('assets/product.js'));assert(html.includes('<base href="/">'));
  assert(html.indexOf('Shop A')<html.indexOf('Shop B'),'total includes shipping, not just product price');
 });
+test('canonical robots state matches catalog sitemap snapshot even if observations age',async()=>{
+ const past=now+37*3600000;
+ const expected=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+product.slug),env(product),past);
+ assert.equal(expected.status,200);assert.equal(expected.headers.get('X-Robots-Tag'),'index, follow');
+ assert.match(await expected.text(),/<meta name="robots" content="index,follow">/);
+ const excluded={...product,indexable:false};
+ const hidden=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+product.slug),env(excluded),now);
+ assert.equal(hidden.headers.get('X-Robots-Tag'),'noindex, follow');
+ const variant=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+product.slug+'?quantity=2'),env(product),now);
+ assert.equal(variant.headers.get('X-Robots-Tag'),'noindex, follow');
+});
 test('unknown shipping never becomes zero or wins a total badge',()=>{const v=view(product,{checked_at:'2026-10-28',merchants:{a:{fee:1}}},now);assert.equal(v.quotes.get('b:1').total,undefined);assert.equal(v.rows[0].id,'a:1');assert.equal(v.best,21)});
 test('single-store page describes an offer, never claims a multi-shop comparison',()=>{
  const p={...product,offers:[a],indexable:false};const v=view(p,rules,now),c=content(p,v);assert(c.body.includes('non è un confronto tra negozi'));assert.equal(v.indexable,false);
