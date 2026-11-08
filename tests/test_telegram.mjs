@@ -84,3 +84,51 @@ test('curated verified photo feed supplies a new product after home highlights a
   assert.equal(sends,1);
  }finally{global.fetch=original;}
 });
+
+
+test('Amazon-only mode refuses all publishing until channel approval and registration',async()=>{
+ const x=setup(),original=global.fetch;
+ x.env.TELEGRAM_CONTENT_MODE='amazon_only';
+ x.env.AMAZON_TELEGRAM_PLACEMENT_APPROVED='false';
+ x.env.AMAZON_TELEGRAM_CHANNEL_REGISTERED='false';
+ let sends=0; global.fetch=async()=>{sends++;return ok();};
+ try{
+  x.map.set('retry_post',TEST_POST);
+  assert.equal((await x.object.tick()).status,'amazon_placement_not_approved');
+  assert.equal(sends,0);
+  assert.equal(x.map.get('post:'+TEST_POST.id),undefined);
+  const status=await (await x.object.fetch(new Request('https://internal/status'))).json();
+  assert.equal(status.content_mode,'amazon_only');
+  assert.equal(status.amazon_placement_approved,false);
+ }finally{global.fetch=original;}
+});
+test('Amazon-only feed publishes only reviewed product with direct tagged URL, never a price',async()=>{
+ const x=setup(),original=global.fetch,now=Date.parse('2026-11-08T10:00:00Z');
+ Object.assign(x.env,{
+  TELEGRAM_CONTENT_MODE:'amazon_only',
+  AMAZON_TELEGRAM_PLACEMENT_APPROVED:'true',
+  AMAZON_TELEGRAM_CHANNEL_REGISTERED:'true',
+  AMAZON_ASSOCIATE_TAG:'example-21'
+ });
+ const offer={asin:'B012345678',title:'Ciotola da viaggio per cani',note:'La ciotola pieghevole può essere utile durante le passeggiate, verificando dimensioni e materiali.',image:'/assets/telegram-amazon/ciotola.jpg',rights_confirmed:true,editorial_reviewed:true,reviewed_at:'2026-11-07T12:00:00Z'};
+ x.env.ASSETS.fetch=async request=>new URL(request.url).pathname==='/data/telegram-amazon.json'
+  ?Response.json({offers:[{...offer,asin:'BAD'},offer]})
+  :new Response('photo',{headers:{'content-type':'image/jpeg'}});
+ let sends=0;
+ global.fetch=async (url,init)=>{sends++;assert.match(String(url),/api.telegram.org/);const b=JSON.parse(init.body);assert.match(b.caption,/amazon.it\/dp\/B012345678\?tag=example-21/);assert.match(b.caption,/#pubblicità/);assert.doesNotMatch(b.caption,/prezzo|ribasso|minimo storico|€\s*\d/i);return ok();};
+ try{
+  assert.equal((await x.object.tick(now)).status,'sent');
+  assert.equal((await x.object.tick(now+900000)).status,'idle');
+  assert.equal(sends,1);
+  assert.equal(x.map.get('last_publication').asin,'B012345678');
+ }finally{global.fetch=original;}
+});
+test('Amazon direct-link data rejects stale, unlicensed and foreign image content',async()=>{
+ const {amazonPick,amazonLink}=await import('../worker/telegram-amazon.mjs');
+ const now=Date.parse('2026-11-08T10:00:00Z');
+ const base={asin:'B012345678',title:'Ciotola da viaggio per cani',note:'Testo originale verificato per descrivere questo prodotto.',image:'/assets/telegram-amazon/ciotola.jpg',rights_confirmed:true,editorial_reviewed:true,reviewed_at:'2026-11-08T09:00:00Z'};
+ assert.ok(amazonPick(base,now));
+ for(const change of [{asin:'B0BAD'},{reviewed_at:'2026-10-01T09:00:00Z'},{rights_confirmed:false},{editorial_reviewed:false},{image:'https://images.amazon.com/image.jpg'},{image:'/assets/not-ours.jpg'}])assert.equal(amazonPick({...base,...change},now),null);
+ assert.equal(amazonLink('B012345678','example-21'),'https://www.amazon.it/dp/B012345678?tag=example-21');
+ assert.throws(()=>amazonLink('B012345678','bad-value'));
+});
