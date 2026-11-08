@@ -25,12 +25,17 @@ try:
     from .image_policy import local_image
 except ImportError:
     from image_policy import local_image
+try:
+    from .price_merchant_policy import price_history_allowed
+except ImportError:
+    from price_merchant_policy import price_history_allowed
 BRAND_ALIASES=json.loads((ROOT/'automation/brand_aliases.json').read_text())
 
 
 def observed_history(rows, history):
     daily=defaultdict(dict)
     for o in rows:
+        if not price_history_allowed(o.get('merchant_id')):continue
         for item in history.get('offers',{}).get(o['id'],[]):
             if not item.get('available') or not isinstance(item.get('last'),(int,float)):continue
             prior=daily[item['day']].get(o['merchant_id'])
