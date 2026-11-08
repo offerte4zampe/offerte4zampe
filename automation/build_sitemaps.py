@@ -64,6 +64,8 @@ def fingerprint(html):
 
 def group_for(path, html):
     slug = path.stem
+    if 'blog' in path.parts and path.name == 'index.html':
+        return 'guides'
     if slug.startswith(('marca-','linea-')) or slug == 'marche':
         return 'brands'
     if slug in ['crocchette-cani','crocchette-gatti','lettiere-gatti']:
@@ -77,7 +79,7 @@ def group_for(path, html):
 
 def inventory(site, old, now):
     state, partitions = {}, defaultdict(list)
-    for path in sorted(site.glob('*.html')):
+    # Editorial posts are nested HTML pages. Do not descend into generated product\n    # directories: canonical product URLs are already imported from their manifest.\n    pages = list(site.glob('*.html')) + list((site / 'blog').rglob('index.html'))\n    for path in sorted(pages):
         html = path.read_text()
         meta = Metadata(html)
         if not meta.canonical or 'noindex' in meta.robots or 'none' in meta.robots:
