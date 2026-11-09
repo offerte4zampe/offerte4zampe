@@ -1,0 +1,30 @@
+name: Public HTTP SEO smoke (read only)
+on:
+  pull_request:
+    paths:
+      - 'tests/smoke_public_seo_http.py'
+      - 'worker/canonical-product.mjs'
+      - 'site/assets/style.css'
+      - '.github/workflows/public-seo-http-smoke.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check public HTTP, redirects, robots and XML sitemaps
+        run: python tests/smoke_public_seo_http.py
+      - name: Upload evidence even if check fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-seo-http-smoke
+          path: seo-http-smoke-results.json
+          if-no-files-found: warn
+          retention-days: 14

@@ -186,3 +186,16 @@ test('explicit Telegram recovery triggers one internal tick without caller-selec
  assert.equal(reads,2);
  assert.equal((await worker.fetch(new Request('https://offerte4zampe.it/api/telegram/status?recover=1',{method:'POST'}),env,ctx)).status,405);
 });
+test('Amazon promo copy is inviting but clearly disclosed at the linked CTA',async()=>{
+ const {amazonText}=await import('../worker/telegram-amazon.mjs');
+ const {escapeTelegramHtml}=await import('../worker/telegram.mjs');
+ const post={title:'KONG Classic S',note:'Gioco in gomma per cani, scegli la taglia giusta.',image:null};
+ const link='https://www.amazon.it/dp/B0002AR15U?tag=offerte4zam0c-21';
+ const payload=amazonText(post,link,escapeTelegramHtml);
+ assert.equal(payload.method,'sendMessage');
+ assert.match(payload.body.text,/SCELTO PER TE/);
+ assert.match(payload.body.text,/Scoprilo su Amazon/);
+ assert.match(payload.body.text,/#pubblicità · link affiliato/);
+ assert.doesNotMatch(payload.body.text,/ricevo un guadagno dagli acquisti idonei/i);
+ assert.ok(payload.body.text.indexOf('#pubblicità')>payload.body.text.indexOf('amazon.it/dp/'));
+});
