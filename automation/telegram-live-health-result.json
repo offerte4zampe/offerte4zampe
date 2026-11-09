@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-11-09T13:26:53.177521+00:00",
+  "/api/telegram/status": {
+    "http": 200,
+    "status": {
+      "integration": "telegram-v1",
+      "content_mode": "amazon_only",
+      "amazon_owner_enabled": true,
+      "configured": true,
+      "token_present": true,
+      "channel_present": true,
+      "channel_matches": true,
+      "last_sent_day": "2026-11-08",
+      "last_publication": null,
+      "halted": false
+    }
+  },
+  "/data/telegram-amazon.json": {
+    "http": 200,
+    "offer_count": 3,
+    "asins": [
+      "B0002AR15U",
+      "B0002AR0I8",
+      "B0002AR0HO"
+    ]
+  }
+}\n
