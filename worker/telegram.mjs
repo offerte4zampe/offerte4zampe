@@ -141,7 +141,7 @@ export class TelegramPublisher {
    if(!Array.isArray(entries))return {status:'amazon_feed_invalid'};
    let post;
    for(const item of entries){
-    const candidate=amazonPick(item,now);
+    const candidate=amazonPick(item,now,this.env);
     if(candidate&&!(await store.get('post:'+candidate.id))){post=candidate;break;}
    }
    if(!post)return {status:'no_approved_amazon_pick'};
