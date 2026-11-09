@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-09T07:34:14.391486+00:00",
+  "generated_at": "2026-11-09T21:56:56.650652+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 13,
-  "with_third_store_lead": 24,
+  "at_target": 12,
+  "with_third_store_lead": 25,
   "categories": {
     "umido": 115,
     "snack": 66,
@@ -69,6 +69,7 @@
     "animaliapet:46976683016535",
     "animaliapet:46976683409751",
     "animaliapet:46976684556631",
+    "animaliapet:46976685048151",
     "animaliapet:46976685244759",
     "animaliapet:46976687210839",
     "animaliapet:46976687407447",
@@ -119,6 +120,7 @@
     "bauzaar:56807970472261",
     "bauzaar:56811242783045",
     "bauzaar:56818660442437",
+    "bauzaar:56818662113605",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
     "bauzaar:56819869909317",
@@ -159,6 +161,7 @@
     "bauzaar:56820177502533",
     "bauzaar:56820205683013",
     "bauzaar:56820205912389",
+    "bauzaar:56820206240069",
     "bauzaar:56820207255877",
     "bauzaar:56820207288645",
     "bauzaar:56820207354181",
@@ -190,7 +193,6 @@
     "bauzaar:56820437320005",
     "bauzaar:56820439941445",
     "bauzaar:56820443087173",
-    "bauzaar:56820449968453",
     "bauzaar:56820451115333",
     "bauzaar:56820451803461",
     "bauzaar:56820452131141",
@@ -469,6 +471,7 @@
     "paco:3830",
     "paco:3847",
     "paco:3895",
+    "paco:3954",
     "paco:4051",
     "paco:4110",
     "paco:4111",
@@ -478,7 +481,6 @@
     "paco:4327",
     "paco:4365",
     "paco:4435",
-    "paco:4517",
     "paco:4519",
     "paco:4557",
     "paco:4728",
@@ -491,6 +493,7 @@
     "paco:4821",
     "paco:4902",
     "paco:4914",
+    "paco:4915",
     "paco:4983",
     "paco:5045",
     "paco:5046",
@@ -550,7 +553,6 @@
     "paco:820",
     "paco:882",
     "paco:955",
-    "webpet:52568949621076",
     "webpet:52568955552084",
     "webpet:52568971936084",
     "webpet:52569129189716",
@@ -833,6 +835,27 @@
       ],
       "candidate_offer_ids": [
         "paco:4914"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-9625acb3355a30fbed8b",
+      "name": "Nature's Protection White Dogs Agnello 10kg Small & Mini Adult Crocchette Cani",
+      "brand": "Nature's Protection",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-white-dogs-agnello-10kg-small-mini-adult-crocchette-cani-04771317456649-fbed8b",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976685048151",
+        "bauzaar:56818662113605"
+      ],
+      "candidate_offer_ids": [
+        "paco:4915"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1224,26 +1247,6 @@
         "animaliapet:46976541950295",
         "isola-dei-tesori:000181425",
         "bauzaar:56961724383557"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-9625acb3355a30fbed8b",
-      "name": "Nature's Protection White Dogs Agnello 10kg Small & Mini Adult Crocchette Cani",
-      "brand": "Nature's Protection",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "10 kg",
-      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-white-dogs-agnello-10kg-small-mini-adult-crocchette-cani-04771317456649-fbed8b",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976685048151",
-        "bauzaar:56818662113605",
-        "paco:4915"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -4022,8 +4025,7 @@
       "missing_shops": 1,
       "offer_ids": [
         "bauzaar:56962043838789",
-        "webpet:52569137545556",
-        "paco:4517"
+        "webpet:52569137545556"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -4068,25 +4070,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-7ac60e41fb67b8c9a270",
-      "name": "Prolife Veterinary Formula Intestinal Sensitive Medium/Large 2 kg",
-      "brand": "Prolife",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "2 kg",
-      "url": "https://offerte4zampe.it/prodotto/prolife-intestinal-sensitive-medium-large-crocchette-dietetiche-per-cani-adulti-con-problemi-intestinali-2kg-08015579043411-c9a270",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820449968453",
-        "webpet:52568949621076"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-869fde4aeadb4e2ad9f7",
       "name": "Prolife Senior Manzo E Riso Cibo Umido Per Gatti · 12 bustine da 85 gr",
       "brand": "Prolife",
@@ -4119,6 +4102,25 @@
       "offer_ids": [
         "bauzaar:56819869909317",
         "webpet:52568971936084"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-bb3fb6468e6aa371c94b",
+      "name": "Prolife Sensitive Grain Free Mini Con Pesce E Patate Per Cani · Sacco da 7 kg",
+      "brand": "Prolife",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "7 kg",
+      "url": "https://offerte4zampe.it/prodotto/prolife-sensitive-grain-free-mini-con-pesce-e-patate-per-cani-sacco-da-7-kg-08015579035447-71c94b",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "paco:3954",
+        "bauzaar:56820206240069"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
