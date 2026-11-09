@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-09T01:15:30.390308+00:00",
+  "generated_at": "2026-11-09T07:34:14.391486+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 14,
+  "at_target": 13,
   "with_third_store_lead": 24,
   "categories": {
     "umido": 115,
@@ -280,6 +280,7 @@
     "bauzaar:56962038137157",
     "bauzaar:56962042593605",
     "bauzaar:56962042986821",
+    "bauzaar:56962043838789",
     "bauzaar:56962044821829",
     "bauzaar:56962045804869",
     "bauzaar:56962081685829",
@@ -477,6 +478,7 @@
     "paco:4327",
     "paco:4365",
     "paco:4435",
+    "paco:4517",
     "paco:4519",
     "paco:4557",
     "paco:4728",
@@ -557,6 +559,7 @@
     "webpet:52569129648468",
     "webpet:52569129681236",
     "webpet:52569129714004",
+    "webpet:52569137545556",
     "webpet:52569137676628"
   ],
   "products": [
@@ -1106,6 +1109,46 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-037ee48afd8f1af968d2",
+      "name": "Monge Natural Superpremium Crocchette per cani adulti con Maiale, riso e patate 12 kg",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-all-breeds-adult-monoprotein-con-maiale-riso-e-patate-per-cani-sacco-da-12-kg-tutte-le-taglie-08009470011112-f968d2",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "isola-dei-tesori:000124434",
+        "paco:3004",
+        "bauzaar:56820290978117"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-15300f54eb6acf57c2af",
+      "name": "Monge Monoprotein Coniglio 1.5Kg Crocchette Gatti",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-monoprotein-coniglio-1-5kg-crocchette-gatti-08009470011945-57c2af",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976544145751",
+        "paco:4587",
+        "isola-dei-tesori:000140486"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-185b52ed59af1fadc50d",
       "name": "Monge Supreme Kitten Tonno Piselli e Carote Bustine 80g Kitten",
       "brand": "Monge",
@@ -1133,12 +1176,13 @@
       "species": "gatto",
       "format": "1,5 kg",
       "url": "https://offerte4zampe.it/prodotto/monge-sterilized-monoprotein-trota-1-5kg-crocchette-gatti-08009470005494-590dc3",
-      "verified_shops": 3,
+      "verified_shops": 4,
       "target_shops": 3,
       "missing_shops": 0,
       "offer_ids": [
         "animaliapet:46976541262167",
         "paco:4241",
+        "isola-dei-tesori:000140606",
         "bauzaar:58411837882693"
       ],
       "candidate_offer_ids": [],
@@ -1186,46 +1230,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-3ee7f25a7b409b603d9f",
-      "name": "Monge Maxi Adult Pollo 12Kg Crocchette Cani",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-maxi-adult-pollo-12kg-crocchette-cani-08009470004411-603d9f",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976541557079",
-        "paco:2995",
-        "bauzaar:56820456423749"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-4c2f52c6cbc92f4ccffe",
-      "name": "Monge All Breed Adult Coniglio, Riso e Patate 12Kg Crocchette",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-all-breed-adult-coniglio-riso-e-patate-12kg-crocchette-08009470011150-4ccffe",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976541393239",
-        "paco:3275",
-        "bauzaar:56820290781509"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-9625acb3355a30fbed8b",
       "name": "Nature's Protection White Dogs Agnello 10kg Small & Mini Adult Crocchette Cani",
       "brand": "Nature's Protection",
@@ -1240,26 +1244,6 @@
         "animaliapet:46976685048151",
         "bauzaar:56818662113605",
         "paco:4915"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-628f01189e80be5b704e",
-      "name": "Prolife Lifestyle Gatto Kitten Salmone e Riso 1,5 kg",
-      "brand": "Prolife",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/prolife-kitten-salmone-e-riso-per-gattini-sacco-da-1-5-kg-08015579036055-5b704e",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "bauzaar:56962043838789",
-        "paco:4517",
-        "webpet:52569137545556"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -4020,6 +4004,26 @@
       "offer_ids": [
         "bauzaar:56962038137157",
         "paco:5094"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-628f01189e80be5b704e",
+      "name": "Prolife Lifestyle Gatto Kitten Salmone e Riso 1,5 kg",
+      "brand": "Prolife",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/prolife-kitten-salmone-e-riso-per-gattini-sacco-da-1-5-kg-08015579036055-5b704e",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56962043838789",
+        "webpet:52569137545556",
+        "paco:4517"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
