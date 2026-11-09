@@ -57,7 +57,7 @@ jobs:
                   print(f"::error::{path}: {type(e).__name__} {str(e)[:250]}")
                   results[path]={"error":type(e).__name__,"detail":str(e)[:160]}
                   continue
-          pathlib.Path("automation/telegram-live-health-result.json").write_text(json.dumps(results,ensure_ascii=False,indent=2)+"\\n",encoding="utf8")
+          pathlib.Path("automation/telegram-live-health-result.json").write_text(json.dumps(results,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
           PY
       - name: Save redacted health result to repository
         shell: bash
