@@ -57,10 +57,10 @@ export function amazonText(post, link, escape) {
   const disclosure = '#pubblicità · link affiliato';
   const title = '✨ <b>' + escape(post.title) + '</b>';
   const fmt = cents => new Intl.NumberFormat('it-IT', {style:'currency',currency:'EUR'}).format(cents / 100);
-  const cost = post.price ? '\\n\\n💶 <b>Prezzo Amazon: ' + escape(fmt(post.price.amount_cents)) + '</b>' +
-    (post.price.shipping_cents === null ? '\\n🚚 Spedizione da verificare' : '\\n🚚 Spedizione: ' + escape(fmt(post.price.shipping_cents))) +
-    '\\n⏱ Rilevato: ' + escape(new Intl.DateTimeFormat('it-IT', {timeZone:'Europe/Rome',dateStyle:'short',timeStyle:'short'}).format(post.price.observed_at)) +
-    '\\nPrezzo e disponibilità possono cambiare; fa fede Amazon al momento dell’acquisto.' : '';
+  const cost = post.price ? '\n\n💶 <b>Prezzo Amazon: ' + escape(fmt(post.price.amount_cents)) + '</b>' +
+    (post.price.shipping_cents === null ? '\n🚚 Spedizione da verificare' : '\n🚚 Spedizione: ' + escape(fmt(post.price.shipping_cents))) +
+    '\n⏱ Rilevato: ' + escape(new Intl.DateTimeFormat('it-IT', {timeZone:'Europe/Rome',dateStyle:'short',timeStyle:'short'}).format(post.price.observed_at)) +
+    '\nPrezzo e disponibilità possono cambiare; fa fede Amazon al momento dell’acquisto.' : '';
   const text = '🐾 <b>SCELTO PER TE</b>\n\n' + title +
     '\n\n💡 ' + escape(post.note) + cost +
     '\n\n<a href="' + escape(link) + '">🛒 Scoprilo su Amazon</a>' +
