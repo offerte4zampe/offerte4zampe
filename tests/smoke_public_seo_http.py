@@ -37,7 +37,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 OPENER = urllib.request.build_opener(NoRedirect)
 
-def inspect(path, expect_html=False, expect_index=False):
+def inspect(path, expect_html=False, expect_index=False, expect_noindex=False):
     url = BASE + path
     redirects = []
     record = {"path": path, "status": None, "location": None, "x_robots_tag": None,
@@ -76,12 +76,15 @@ def inspect(path, expect_html=False, expect_index=False):
                 if expect_html and status != 200:
                     record["errors"].append(f"Expected HTML HTTP 200, got {status}")
                 if expect_html and status == 200:
-                    expected_url = BASE + path
+                    expected_url = BASE + path.split('?')[0]
                     if parser.canonicals != [expected_url]:
                         record["errors"].append(f"Canonical differs from {expected_url}")
                     if expect_index and ("noindex" in str(parser.robots).lower() or
                                          "noindex" in str(record["x_robots_tag"]).lower()):
                         record["errors"].append("Indexable page served noindex")
+                    if expect_noindex and ("noindex" not in str(parser.robots).lower() or
+                                           "noindex" not in str(record["x_robots_tag"]).lower()):
+                        record["errors"].append("Query variant missing meta/header noindex")
             if path == "/robots.txt":
                 if status != 200 or "Sitemap: " + BASE + "/sitemap.xml" not in text:
                     record["errors"].append("robots.txt missing expected sitemap declaration")
@@ -98,6 +101,8 @@ def inspect(path, expect_html=False, expect_index=False):
                         record["xml_root"] = root.tag.split("}")[-1]
                         record["loc_count"] = len(locs)
                         record["example_locs"] = locs[:3]
+                        if path == "/sitemap-products.xml":
+                            record["product_samples"] = [x for x in locs if x and "/prodotto/" in x][:2]
                         if not locs:
                             record["errors"].append("Sitemap has no <loc> entries")
                         if any(not x.startswith(BASE + "/") for x in locs if x):
@@ -123,11 +128,15 @@ def main():
     for path in CHECKS:
         inspect(path, expect_html=path in html_paths, expect_index=path in html_paths)
     product_sitemap = next((x for x in REPORT if x["path"] == "/sitemap-products.xml"), None)
-    if product_sitemap and product_sitemap.get("example_locs"):
-        # Check a real product URL published in the sitemap, not a fabricated slug.
-        samples = [u for u in product_sitemap["example_locs"] if "/prodotto/" in u]
-        if samples:
-            inspect(urlparse(samples[0]).path, expect_html=True, expect_index=True)
+    if product_sitemap and product_sitemap.get("product_samples"):
+        # Exact public product URL, selected from the *complete* XML sitemap.
+        path = urlparse(product_sitemap["product_samples"][0]).path
+        inspect(path, expect_html=True, expect_index=True)
+        inspect(path + '?quantity=2', expect_html=True, expect_noindex=True)
+    else:
+        REPORT.append({"path": "/prodotto/", "status": None, "location": None,
+                       "x_robots_tag": None, "canonical": [], "meta_robots": [],
+                       "errors": ["No product URL found in product sitemap"]})
     failures = [(r["path"], e) for r in REPORT for e in r["errors"]]
     with open("seo-http-smoke-results.json", "w", encoding="utf-8") as f:
         json.dump({"base": BASE, "checks": REPORT, "failures": failures}, f,
