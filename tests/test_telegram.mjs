@@ -107,20 +107,20 @@ test('Amazon-only mode refuses all publishing until channel approval and registr
  let sends=0; global.fetch=async()=>{sends++;return ok();};
  try{
   x.map.set('retry_post',TEST_POST);
-  assert.equal((await x.object.tick()).status,'amazon_placement_not_approved');
+  assert.equal((await x.object.tick()).status,'amazon_owner_disabled');
   assert.equal(sends,0);
   assert.equal(x.map.get('post:'+TEST_POST.id),undefined);
   const status=await (await x.object.fetch(new Request('https://internal/status'))).json();
   assert.equal(status.content_mode,'amazon_only');
-  assert.equal(status.amazon_placement_approved,false);
+  assert.equal(status.amazon_owner_enabled,false);
  }finally{global.fetch=original;}
 });
 test('Amazon-only feed publishes only reviewed product with direct tagged URL, never a price',async()=>{
  const x=setup(),original=global.fetch,now=Date.parse('2026-11-08T10:00:00Z');
  Object.assign(x.env,{
   TELEGRAM_CONTENT_MODE:'amazon_only',
-  AMAZON_TELEGRAM_PLACEMENT_APPROVED:'true',
-  AMAZON_TELEGRAM_CHANNEL_REGISTERED:'true',
+  TELEGRAM_AMAZON_OWNER_ENABLED:'true',
+  
   AMAZON_ASSOCIATE_TAG:'example-21'
  });
  const offer={asin:'B012345678',title:'Ciotola da viaggio per cani',note:'La ciotola pieghevole può essere utile durante le passeggiate, verificando dimensioni e materiali.',image:'/assets/telegram-amazon/ciotola.jpg',rights_confirmed:true,editorial_reviewed:true,reviewed_at:'2026-11-07T12:00:00Z'};
@@ -144,4 +144,24 @@ test('Amazon direct-link data rejects stale, unlicensed and foreign image conten
  for(const change of [{asin:'B0BAD'},{reviewed_at:'2026-10-01T09:00:00Z'},{rights_confirmed:false},{editorial_reviewed:false},{image:'https://images.amazon.com/image.jpg'},{image:'/assets/not-ours.jpg'}])assert.equal(amazonPick({...base,...change},now),null);
  assert.equal(amazonLink('B012345678','example-21'),'https://www.amazon.it/dp/B012345678?tag=example-21');
  assert.throws(()=>amazonLink('B012345678','bad-value'));
+});
+test('Amazon editorial selection can send a text-only message without images or prices',async()=>{
+ const x=setup(),original=global.fetch,now=Date.parse('2026-11-09T10:00:00Z');
+ Object.assign(x.env,{TELEGRAM_CONTENT_MODE:'amazon_only',TELEGRAM_AMAZON_OWNER_ENABLED:'true',AMAZON_ASSOCIATE_TAG:'offerte4zam0c-21'});
+ const entry={asin:'B0002AR15U',title:'KONG Classic rosso, taglia S',note:'Gioco per cani: verifica taglia, prezzo e disponibilità direttamente nello shop prima di acquistare.',reviewed_at:'2026-10-21T00:00:00Z',editorial_reviewed:true};
+ x.env.ASSETS.fetch=async req=>Response.json({offers:[entry]});
+ let count=0;
+ global.fetch=async (url,init)=>{
+  count++;
+  assert.equal(String(url).includes('sendMessage'),true);
+  const payload=JSON.parse(init.body);
+  assert.match(payload.text,/B0002AR15U\\?tag=offerte4zam0c-21/);
+  assert.doesNotMatch(payload.text,/€|minimo storico|sconto del/);
+  return ok();
+ };
+ try{
+  assert.equal((await x.object.tick(now)).status,'sent');
+  assert.equal((await x.object.tick(now+900000)).status,'idle');
+  assert.equal(count,1);
+ }finally{global.fetch=original;}
 });
