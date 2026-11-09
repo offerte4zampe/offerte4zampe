@@ -1,6 +1,6 @@
 import datetime as dt
 import unittest
-from automation.build_product_catalog import build,clean_title,quantity
+from automation.build_product_catalog import build,clean_title,quantity,history_count
 
 class CanonicalProductTests(unittest.TestCase):
     def setUp(self):
@@ -17,6 +17,32 @@ class CanonicalProductTests(unittest.TestCase):
     def test_single_store_multiple_offers_is_not_a_multishop_comparison(self):
         m=self.model([self.a,dict(self.a,id='a:2')]);self.assertEqual(m['metrics']['multi_shop_products'],0)
         self.assertEqual(m['products'][0]['verified_shop_count'],1)
+    def test_indexation_requires_two_verified_active_merchants_even_after_30_days(self):
+        # 31 independently observed dates must not create an indexable single-store page.
+        days=[self.now.date()-dt.timedelta(days=i+1) for i in range(31)]
+        history={'offers':{'a:1':[{'day':day.isoformat(),'low':20,'high':20,
+                                    'last':20,'available':True} for day in days]}}
+        catalog={'offers':[self.a],'generated_at':self.now.isoformat()}
+        solo=build(catalog,history=history,now=self.now)['products'][0]
+        self.assertEqual(history_count(solo['history'],self.now),31)
+        self.assertEqual(solo['verified_shop_count'],1)
+        self.assertFalse(solo['indexable'])
+        second=dict(self.a,id='b:1',merchant_id='b',merchant='B',price=19)
+        multiple=build({'offers':[self.a,second],'generated_at':self.now.isoformat()},
+                       history=history,now=self.now)['products'][0]
+        self.assertEqual(multiple['verified_shop_count'],2)
+        self.assertTrue(multiple['indexable'])
+        inactive=dict(self.a,available=False)
+        inactive_result=build({'offers':[inactive],'generated_at':self.now.isoformat()},
+                              history=history,now=self.now)['products'][0]
+        self.assertEqual(inactive_result['active_shop_count'],0)
+        self.assertFalse(inactive_result['indexable'])
+        archived=build({'offers':[],'generated_at':self.now.isoformat()},
+                       old_registry=build(catalog,history=history,now=self.now)['registry'],
+                       history=history,now=self.now)['products'][0]
+        self.assertEqual(archived['active_shop_count'],0)
+        self.assertFalse(archived['indexable'])
+
     def test_missing_gtin_and_different_formats_are_never_fuzzy_merged(self):
         rows=[self.a,dict(self.a,id='b:1',merchant_id='b',gtin=''),dict(self.a,id='c:1',merchant_id='c',weight_kg=4)]
         self.assertEqual(len(self.model(rows)['products']),3)
@@ -132,3 +158,34 @@ class CanonicalProductTests(unittest.TestCase):
             self.assertEqual({o['image_local'] for o in model['offers']},{local})
             split=self.model([a,b|{'weight_kg':4}]);self.assertNotIn('image_local',next(o for o in split['offers'] if o['id']=='b:1'))
             changed=self.model([a|{'image':'https://images.test/replaced.png'},b]);self.assertTrue(all('image_local' not in o for o in changed['offers']))
+
+    def test_liter_prices_require_explicit_consistent_per_offer_sources(self):
+        cat=dict(self.a,title="Cat's Best Original lettiera 7lt / 3Kg",brand="Cat's Best",variant='3kg',weight_kg=3,price=8.12)
+        m=self.model([cat]);o=m['offers'][0]
+        self.assertEqual(o['quantity']['volume_source'],'title')
+        self.assertEqual(o['unit_prices']['l'],1.16)
+        self.assertEqual(m['products'][0]['format'],'3 kg')
+        for changed in [dict(title="Cat's Best Original lettiera 3kg"),dict(variant='10 l'),dict(title="Cat's Best Original lettiera 7l / 10l"),dict(quantity_verified=False),dict(weight_conflict=True)]:
+            row=self.model([dict(cat,**changed)])['offers'][0]
+            self.assertNotIn('l',row['unit_prices'])
+            self.assertIsNone(row['quantity']['volume_source'])
+        agreed=self.model([dict(cat,variant='7 l')])['offers'][0]
+        self.assertEqual(agreed['quantity']['volume_source'],'title_and_variant')
+        self.assertEqual(agreed['unit_prices']['l'],1.16)
+
+    def test_volume_provenance_preserves_product_identity_registry_slug_and_history(self):
+        from automation.build_product_catalog import identity,format_label
+        import hashlib,json
+        cat=dict(self.a,title="Cat's Best Original lettiera 7lt / 3Kg",brand="Cat's Best",variant='3kg',weight_kg=3)
+        q=quantity(cat);old_q={k:v for k,v in q.items() if k!='volume_source'}
+        self.assertEqual(identity(cat,q),identity(cat,old_q))
+        self.assertEqual(format_label(q),format_label(old_q))
+        first=self.model([cat]);p=first['products'][0]
+        expected='p-'+hashlib.sha256(json.dumps(identity(cat,old_q),ensure_ascii=False,separators=(',',':')).encode()).hexdigest()[:20]
+        self.assertEqual(p['id'],expected)
+        old=first['registry'];old[p['id']]['slug']='historical-stable-catbest-slug'
+        history={'offers':{'a:1':[{'day':'2026-10-27','low':19,'high':21,'last':20,'available':True}]}}
+        result=build({'offers':[cat],'generated_at':self.now.isoformat()},old,history,now=self.now)
+        self.assertEqual(result['products'][0]['id'],p['id'])
+        self.assertEqual(result['products'][0]['slug'],'historical-stable-catbest-slug')
+        self.assertEqual(result['products'][0]['history'][0]['sum'],20)

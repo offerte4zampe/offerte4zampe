@@ -11,6 +11,31 @@ class SavingsGuidesTests(unittest.TestCase):
         # Synthetic fixtures used only in tests, never written as public offers.
         self.o=dict(id='a',merchant_id='a',merchant='Shop A',brand='Brand',title='Food cane',category='Crocchette cani',price=12,weight_kg=2,available=True,url='https://example.com/product',checked_at=self.now.isoformat(),gtin='4006381333931')
 
+    def test_unified_editorial_hub_keeps_blog_posts_and_all_generated_guides(self):
+        import tempfile
+        from pathlib import Path
+        from unittest.mock import patch
+        from automation import build_savings_guides as guides
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            index = root / 'site/blog/index.html'
+            index.parent.mkdir(parents=True)
+            index.write_text('<main><a href="/blog/example/">Blog originale</a>'
+                             '<!-- guide-catalogo:start -->Vecchio elenco'
+                             '<!-- guide-catalogo:end --></main>')
+            with patch.object(guides, 'ROOT', root):
+                guides.refresh_unified_blog()
+                first = index.read_text()
+                guides.refresh_unified_blog()
+                self.assertEqual(index.read_text(), first)
+            self.assertIn('Blog originale', first)
+            for slug, _, _, _ in guides.GUIDES:
+                self.assertIn('href="/' + slug + '"', first)
+            self.assertEqual(first.count('class="blog-card"'), len(guides.GUIDES))
+            self.assertEqual(first.count('class="blog-card-image"'), len(guides.GUIDES))
+            self.assertIn('loading="lazy"', first)
+            self.assertIn('alt=""', first)
+
     def test_manual_ration_is_explicit_and_price_math_uses_actual_net_weight(self):
         html=food_content([self.o],self.now)
         self.assertIn('6,00 €/kg',html);self.assertIn('1,50 €',html);self.assertIn('45,00 €',html)
@@ -44,13 +69,48 @@ class SavingsGuidesTests(unittest.TestCase):
         self.assertIn('ricette differenti',html)
         self.assertNotIn('<table',pack_content([offer|dict(weight_kg=None)],self.now))
 
-    def test_shipping_rules_expire_and_preserve_uncertainty_without_free_defaults(self):
-        rules={'checked_at':self.now.date().isoformat(),'merchants':{'a':{'name':'A','note':'Tariffa da verificare, soglia ambigua','source':'https://example.com/shipping'}}}
+    def shipping_fixture(self, **patch):
+        rule={'name':'A','fee':5.9,'note':'Soglia esatta ambigua: totale ignoto; Bauzaar massimo 35 kg con peso noto.',
+              'source':'https://example.com/shipping',
+              'checked_at':(self.now-dt.timedelta(days=20)).isoformat(),
+              'verified_until':(self.now+dt.timedelta(seconds=1)).isoformat(),**patch}
+        return {'merchants':{'a':rule},'scope':'Esclusi isole, CAP disagiati, Punto Poste e Fermopoint BRT.'}
+
+    def test_shipping_date_and_timestamp_forms_use_aware_instants(self):
+        for checked in ['2026-11-01','2026-11-01T00:00:00Z','2026-11-01T01:00:00+01:00']:
+            rules=self.shipping_fixture(checked_at=checked,verified_until='2026-12-05T11:31:55+01:00')
+            html=shipping_content([],dt.datetime(2026,11,7,tzinfo=dt.timezone.utc),rules)
+            self.assertIn('<caption>',html)
+            self.assertIn('https://example.com/shipping',html)
+
+    def test_shipping_expiry_is_per_merchant_and_precise_to_the_second(self):
+        for delta,shown in [(-1,False),(0,False),(1,True)]:
+            rules=self.shipping_fixture(verified_until=(self.now+dt.timedelta(seconds=delta)).isoformat())
+            html=shipping_content([],self.now,rules)
+            self.assertEqual('<caption>' in html,shown)
+        rules=self.shipping_fixture()
+        rules['checked_at']='not-a-date'
+        self.assertIn('<caption>',shipping_content([],self.now,rules),'A current per-shop verification overrides global metadata')
+
+    def test_invalid_missing_expired_and_conflicting_shipping_stays_unknown(self):
+        for patch in [{'checked_at':'bad'},{'verified_until':'bad'},{'verified_until':None},
+                      {'checked_at':(self.now+dt.timedelta(days=1)).isoformat()},
+                      {'conflict':True},{'status':'unknown'},{'fee':None}]:
+            with self.subTest(patch=patch):
+                self.assertNotIn('<table',shipping_content([],self.now,self.shipping_fixture(**patch)))
+        self.assertNotIn('<table',shipping_content([],self.now,{'merchants':{}}))
+
+    def test_shipping_table_excludes_invalid_shops_and_preserves_conditions(self):
+        rules=self.shipping_fixture()
+        rules['merchants']['animaliapet']={**rules['merchants']['a'],'name':'Animaliapet','conflict':True}
         html=shipping_content([],self.now,rules)
-        self.assertIn('Tariffa da verificare, soglia ambigua',html)
-        self.assertIn('https://example.com/shipping',html)
-        for day in ['2020-01-01',(self.now.date()+dt.timedelta(days=1)).isoformat(),'not-a-date']:
-            self.assertNotIn('<table',shipping_content([],self.now,rules|{'checked_at':day}))
+        self.assertIn('<caption>',html)
+        self.assertIn('data-shipping-merchant="a"',html)
+        self.assertNotIn('data-shipping-merchant="animaliapet"',html)
+        self.assertNotIn('data-shipping-merchant="hygge"',html)
+        for text in ['Soglia esatta ambigua','35 kg','peso noto','Punto Poste','Fermopoint BRT','totale resta ignoto']:
+            self.assertIn(text,html)
+        self.assertNotIn('sette giorni',html)
 
     def test_history_counts_real_days_and_rejects_changed_identity_and_bad_rows(self):
         import hashlib

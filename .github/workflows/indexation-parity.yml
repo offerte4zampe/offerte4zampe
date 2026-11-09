@@ -1,0 +1,85 @@
+name: Verified-shop indexation real-snapshot parity
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'automation/build_product_catalog.py'
+      - 'tests/test_product_catalog.py'
+      - '.github/workflows/indexation-parity.yml'
+permissions:
+  contents: read
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==12.3.0
+      - name: Compare real sitemap, offers and HTML before and after indexability change
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="$(git merge-base HEAD origin/main)"
+          git worktree add --detach "$RUNNER_TEMP/indexation-main" "$BASE"
+          BASE_DIR="$RUNNER_TEMP/indexation-main" PR_DIR="$GITHUB_WORKSPACE" python - <<'PY'
+          import datetime, gzip, hashlib, json, os, pathlib, subprocess
+          base=pathlib.Path(os.environ['BASE_DIR']);pr=pathlib.Path(os.environ['PR_DIR'])
+          def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+          def load(root,path):return json.loads(gzip.decompress((root/path).read_bytes()))
+          for name in ['site/data/catalog.json.gz','site/data/price-history.json.gz','automation/product-registry.json']:
+              assert sha(base/name)==sha(pr/name),f'Input snapshot differs: {name}'
+          catalog=load(pr,'site/data/catalog.json.gz')
+          assert len(catalog['offers'])>100,'Missing real merchant snapshot'
+          clock_dir=pathlib.Path(os.environ['RUNNER_TEMP'])/'indexation-clock'
+          clock_dir.mkdir(parents=True,exist_ok=True)
+          (clock_dir/'sitecustomize.py').write_text(
+              'import datetime as _d,os as _o\n'
+              '_real=_d.datetime\n'
+              'class _Frozen(_real):\n'
+              ' @classmethod\n'
+              ' def now(cls,tz=None):\n'
+              '  instant=_real.fromisoformat(_o.environ["SNAPSHOT_FIXED_NOW"])\n'
+              '  return instant.astimezone(tz) if tz is not None else instant.replace(tzinfo=None)\n'
+              ' @classmethod\n'
+              ' def utcnow(cls):\n'
+              '  return cls.now(_d.timezone.utc).replace(tzinfo=None)\n'
+              '_d.datetime=_Frozen\n')
+          env={**os.environ,
+               'SNAPSHOT_FIXED_NOW':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+               'PYTHONPATH':str(clock_dir)+os.pathsep+os.environ.get('PYTHONPATH','')}
+          def file_map(root):
+              paths=list((root/'site').rglob('*.html'))+list((root/'site').glob('sitemap*.xml'))
+              return {str(p.relative_to(root/'site')):sha(p) for p in paths}
+          assert file_map(base)==file_map(pr),'HTML or sitemap differs before builds'
+          for root in [base,pr]:
+              for command in [
+                  ['python','automation/build_product_catalog.py'],
+                  ['python','automation/build_product_pages.py'],
+                  ['python','automation/build_home_data.py'],
+                  ['python','automation/build_sitemaps.py'],
+              ]:
+                  subprocess.run(command,cwd=root,env=env,check=True)
+          for name in ['site/data/catalog.json.gz','site/data/price-history.json.gz',
+                       'site/data/canonical-sitemap.json']:
+              assert sha(base/name)==sha(pr/name),f'Byte mismatch: {name}'
+          base_products=load(base,'site/data/product-catalog.json.gz')
+          pr_products=load(pr,'site/data/product-catalog.json.gz')
+          assert base_products['offers']==pr_products['offers'],'Merchant offers differ'
+          assert base_products['products']==pr_products['products'],'Canonical products/indexability changed on real snapshot'
+          assert file_map(base)==file_map(pr),'HTML or sitemap XML bytes differ after builds'
+          xml_files=sorted(p for p in file_map(pr) if p.startswith('sitemap') and p.endswith('.xml'))
+          summary=(f'## Indexability real-snapshot parity\n'
+                   f'- Real merchant offers: {len(catalog["offers"])}\n'
+                   f'- Canonical offers identical: {len(pr_products["offers"])}\n'
+                   f'- Sitemap XML files byte-identical: {len(xml_files)}\n'
+                   f'- HTML and sitemap files byte-identical: {len(file_map(pr))}\n'
+                   f'- canonical-sitemap.json byte-identical: yes\n')
+          print(summary)
+          if os.environ.get('GITHUB_STEP_SUMMARY'):
+              with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:f.write(summary)
+          PY

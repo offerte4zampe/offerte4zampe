@@ -79,26 +79,37 @@ def clean_title(title,brand='',variant=''):
     return title
 
 
+def explicit_volume(label, title=''):
+    """Read declared selling volume only; never infer liters from package mass."""
+    text=str(label or '').lower().replace(',','.')
+    if '+' in text or re.search(r'\d\s*[-/]\s*\d',text):return None
+    units=re.findall(r'(?<![\d.])(\d+(?:\.\d+)?)\s*(ml|litri|litro|lt|l)\b',text)
+    values={round(float(n)*(1 if u=='ml' else 1000),6) for n,u in units}
+    pack=re.search(r'(\d+)\s*(?:confezioni\s+da\s+|[x×]\s*)(\d+(?:\.\d+)?)\s*(ml|litri|litro|lt|l)\b',text)
+    if pack:
+        each=float(pack[2])*(1 if pack[3]=='ml' else 1000);total=int(pack[1])*each
+        return total if values and values<={round(each,6),round(total,6)} and 0<total<=1000000 else None
+    if len(values)!=1:return None
+    volume=next(iter(values))
+    if pack_count(title)>1:volume*=pack_count(title)
+    elif re.search(r'\d+\s*(?:confezioni|pezzi|pz)\b',text):return None
+    return volume if 0<volume<=1000000 else None
+
+
 def quantity(o):
     blocked=o.get('quantity_verified') is False or o.get('weight_conflict')
     kg=o.get('weight_kg')
     mass=round(kg*1000,6) if isinstance(kg,(float,int)) and not isinstance(kg,bool) and math.isfinite(kg) and 0<kg<=1000 and not blocked else None
-    label=o.get('variant','')
-    if not re.search(r'\d\s*(?:l|lt|litri|litro|ml)\b',label,re.I):label=o.get('title','')
-    text=str(label).lower().replace(',','.')
-    volume=None
-    if not blocked and re.search(r'lettier|litter|shampoo|balsamo|detergent|biocondizion|fertilizz|latte|soluzione|\bolio\b',o.get('title','')+' '+o.get('category',''),re.I) and '+' not in text and not re.search(r'\d\s*[-/]\s*\d',text):
-        units=re.findall(r'(?<![\d.])(\d+(?:\.\d+)?)\s*(ml|litri|litro|lt|l)\b',text)
-        values={round(float(n)*(1 if u=='ml' else 1000),6) for n,u in units}
-        pack=re.search(r'(\d+)\s*(?:confezioni\s+da\s+|[x×]\s*)(\d+(?:\.\d+)?)\s*(ml|litri|litro|lt|l)\b',text)
-        if pack:
-            each=float(pack[2])*(1 if pack[3]=='ml' else 1000);total=int(pack[1])*each
-            if values and values<={round(each,6),round(total,6)}:volume=total
-        if volume is None and len(values)==1:
-            volume=next(iter(values));multi=re.search(r'(\d+)\s*[x×]\s*\d+(?:\.\d+)?\s*(?:ml|litri|litro|lt|l)\b',text)
-            if multi:volume*=int(multi[1])
-            elif pack_count(o.get('title',''))>1:volume*=pack_count(o['title'])
-            elif re.search(r'\d+\s*(?:confezioni|pezzi|pz)\b',text):volume=None
+    volume=None;volume_source=None
+    if not blocked and re.search(r'lettier|litter|shampoo|balsamo|detergent|biocondizion|fertilizz|latte|soluzione|\bolio\b',o.get('title','')+' '+o.get('category',''),re.I):
+        declared=lambda text: bool(re.search(r'\d\s*(?:l|lt|litri|litro|ml)\b',str(text or ''),re.I))
+        title=o.get('title','');variant=o.get('variant','')
+        title_volume=explicit_volume(title,title);variant_volume=explicit_volume(variant,title)
+        # Conflicting/ambiguous explicit sources cannot authorize a liter price.
+        if declared(title) and declared(variant):
+            if title_volume is not None and title_volume==variant_volume:volume=title_volume;volume_source='title_and_variant'
+        elif declared(variant):volume=variant_volume;volume_source='variant' if volume else None
+        elif declared(title):volume=title_volume;volume_source='title' if volume else None
     pieces=None
     if not blocked:
         declared=re.findall(r'\b(\d+)\s*(?:pz|pezzi|bustine|compresse|lattine|buste)\b',str(o.get('title','')).lower())
@@ -109,7 +120,7 @@ def quantity(o):
     elif volume and 0<volume<=1000000:kind,value,unit='volume',volume/1000,'l'
     elif pieces:kind,value,unit='pieces',pieces,'pz'
     else:kind,value,unit='sales_unit',1,'confezione'
-    return dict(weight_g=mass,volume_ml=volume,pieces=pieces,kind=kind,value=value,unit=unit,verified=not blocked)
+    return dict(weight_g=mass,volume_ml=volume,pieces=pieces,kind=kind,value=value,unit=unit,verified=not blocked,volume_source=volume_source)
 
 
 def format_label(q):
@@ -186,7 +197,11 @@ def build(catalog,old_registry=None,history=None,now=None):
         p['lastmod']=lastmod
         # Preserve the real observed history relation by offer ID, never backfill.
         p['history']=observed_history(rows,history)
-        p['indexable']=len(verified_shops)>=2 or history_count(p['history'],now)>=30
+        # Historical-depth indexing is disabled: only two *active*, quantity-verified merchants qualify.
+        # To restore it after explicit approval, define a reviewed HISTORY_INDEX_DAYS threshold
+        # and add `or history_count(p['history'], now) >= HISTORY_INDEX_DAYS` here.
+        # Do not enable historical-only indexing for retired/inactive products below.
+        p['indexable']=len(verified_shops)>=2
         products.append(p);registry[pid]={'slug':slug,'content_hash':signature,'lastmod':lastmod,'product':{k:v for k,v in p.items() if k!='history'}}
         if q['kind']!='sales_unit':by_bucket[(normalized(p['brand']),attrs['species'],q['kind'],q['value'])].append(p)
         for o in rows:
@@ -223,7 +238,7 @@ def build(catalog,old_registry=None,history=None,now=None):
                 archived['redirect_slug']=next(iter(targets))[1]
             archived.pop('image_local',None);archived.pop('image_source_offer',None)
             archived['history']=observed_history([{'id':oid,'merchant_id':oid.split(':',1)[0]} for oid in old_ids],history)
-            archived['indexable']='redirect_slug' not in archived and history_count(archived['history'],now)>=30
+            archived['indexable']=False  # No active merchants: never index solely on historical observations.
             products.append(archived);registry[pid]=entry
     families=defaultdict(list)
     for p in products:

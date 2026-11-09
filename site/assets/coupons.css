@@ -10,3 +10,36 @@
 @media(prefers-color-scheme:dark){:root{--ink:#f0e9df;--muted:#cfbfb4;--cream:#211e28;--green:#8ed6c9;--line:#796877}body,header{background:#211e28}.hero{background:#302735;border-color:var(--line)}.hero h1 em,.kicker{color:#ffc18b}.coupon,.coupon-empty{background:#2d2733}.code-row,.filter{background:#392d42;color:#f0e9df}.copy{background:#493c50;color:#fff}.filter[aria-pressed=true],.coupon-visit{background:#216d68;color:#fff}.notice{background:#493729;color:#ffe0b7}.shop-logo{background:white}.status{background:#304d3d;color:#c6eed4}.navlinks a{color:#f0e9df}}
 
 @media(max-width:850px){.navlinks{display:none}.navlinks.open{display:flex}}
+
+
+/* Contrast fixes for coupon cards and controls, including iOS dark appearance. */
+@media screen and (prefers-color-scheme:dark){
+ .coupon .discount{color:#a5e4d7}
+ .coupon .description,.coupon .footnote,.coupon .shop small,.coupon details p{color:#d0d9d5}
+ .coupon .number{background:#294a45;color:#c7efe5}
+ .coupon .shop-button{background:#394441;color:#d5e5df;border-color:#79948b}
+ .coupon .shopmark{background:#dcebe1;color:#214e3e}
+ .coupon .shopmark.b{background:#fce5c9;color:#69401f}
+ .coupon .shopmark.p{background:#efdfd0;color:#653c25}
+ .coupon .copy{background:#354e49;color:#f0faf6;border-color:#88b8a7}
+ .coupon .code-row{border-color:#819e91}
+ .coupon .status{background:#304d3d;color:#d5f3dd}
+ .coupon .coupon-visit{background:#216d68;color:#fff;border-color:#91c9bd}
+ .coupon .coupon-visit:hover{background:#17534f;color:#fff}
+}
+@media(max-width:800px){
+ .menu{background:#fffdf7;color:#24423e;border:2px solid #9aafa6;font-weight:800}
+ .menu:hover,.menu[aria-expanded="true"]{background:#e8f3ed;color:#173b36}
+ .navlinks.open{background:#fffaf2;color:#263f43}
+ .navlinks.open a{color:#263f43}
+ .filter{color:#304a45;border-color:#a3b9af}
+ .copy{min-height:44px;min-width:44px}
+}
+@media screen and (max-width:800px) and (prefers-color-scheme:dark){
+ .menu{background:#294743;color:#f0faf6;border-color:#8cb7a9}
+ .menu:hover,.menu[aria-expanded="true"]{background:#365b55;color:#fff}
+ .navlinks.open{background:#211e28;color:#f0e9df}
+ .navlinks.open a{color:#f0e9df}
+ .filter{background:#392d42;color:#f0e9df;border-color:#93839b}
+ .filter[aria-pressed="true"]{background:#216d68;color:#fff}
+}

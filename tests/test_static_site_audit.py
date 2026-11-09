@@ -14,6 +14,23 @@ class StaticSiteAuditTests(unittest.TestCase):
             for name,html in pages.items():(root/name).write_text(html)
             return inspect(root)
 
+    def test_nested_blog_pages_and_links_are_audited(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'blog' / 'article').mkdir(parents=True)
+            (root / 'index.html').write_text(BASE.format(
+                slug='', body='<a href="/blog/">Blog</a><a href="/blog/article/">Articolo</a>'))
+            (root / 'blog' / 'index.html').write_text(BASE.format(
+                slug='blog/', body='<a href="/blog/article/">Articolo</a>'))
+            (root / 'blog' / 'article' / 'index.html').write_text(BASE.format(
+                slug='blog/article/', body='<a href="/blog/">Blog</a><a href="/">Home</a>'))
+            report = inspect(root)
+            self.assertEqual(report['pages_scanned'], 3)
+            self.assertEqual(report['issues'], [])
+            (root / 'blog' / 'article' / 'index.html').write_text(BASE.format(
+                slug='blog/article/', body='<a href="/blog/not-found/">Manca</a>'))
+            self.assertIn('valid_internal_link', {row['rule'] for row in inspect(root)['issues']})
+
     def test_valid_page_and_commercial_link_require_sponsored(self):
         html=BASE.format(slug='one',body='<a href="https://tc.tradetracker.net/x" rel="sponsored noopener noreferrer" target="_blank">Shop</a><img src="x" alt="" width="4" height="5"><script type="application/ld+json">{"@context":"https://schema.org"}</script>')
         self.assertEqual(self.run_site({'one.html':html})['issues'],[])

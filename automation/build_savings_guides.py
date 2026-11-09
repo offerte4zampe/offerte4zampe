@@ -8,9 +8,11 @@ import re
 from html import escape as h
 from pathlib import Path
 try:
+    from .monitor_shipping_rules import report as shipping_report, parse as shipping_instant
     from .build_product_pages import page, fresh
     from .build_matched_pages import groups, merchant_url, product_label, slug_for
 except ImportError:
+    from monitor_shipping_rules import report as shipping_report, parse as shipping_instant
     from build_product_pages import page, fresh
     from build_matched_pages import groups, merchant_url, product_label, slug_for
 
@@ -103,26 +105,44 @@ def pack_content(offers, now):
 GUIDES.append(('prezzo-confezione-o-prezzo-kg','Prezzo della confezione o prezzo al kg: cosa confrontare','Esempi dal catalogo per leggere il costo del sacco, verificare formati e multipack e distinguere prezzo unitario da spesa totale.',pack_content))
 
 
+def verified_shipping_rules(rules, now):
+    """Select current evidence with the existing shipping monitor's classification."""
+    now = now.replace(tzinfo=now.tzinfo or dt.timezone.utc)
+    result = []
+    for evidence in shipping_report(rules, now, expected=())['merchants']:
+        if evidence['quote_status'] != 'requires_offer_check':
+            continue
+        merchant = evidence['merchant']
+        rule = rules['merchants'][merchant]
+        fee = rule.get('fee')
+        if (rule.get('status') not in (None, 'verified')
+                or not isinstance(fee, (int, float)) or isinstance(fee, bool)
+                or not math.isfinite(fee) or fee < 0
+                or not str(rule.get('source', '')).startswith('https://')):
+            continue
+        try:
+            if (rule.get('valid_from') is not None and shipping_instant(rule['valid_from']) > now
+                    or rule.get('valid_to') is not None and shipping_instant(rule['valid_to']) <= now):
+                continue
+        except (TypeError, ValueError, OverflowError):
+            continue
+        result.append((merchant, rule, evidence['checked_at']))
+    return sorted(result, key=lambda row: row[1].get('name', row[0]).casefold())
+
+
 def shipping_content(offers, now, rules=None):
     if rules is None:
         rules=json.loads((ROOT/'site/data/shipping-rules.json').read_text())
-    try:
-        age=(now.date()-dt.date.fromisoformat(rules.get('checked_at',''))).days
-        valid=0 <= age <= 7
-    except (TypeError, ValueError):
-        valid=False
     rows=[]
-    if valid:
-        for mid,rule in sorted(rules.get('merchants',{}).items(),key=lambda item:item[1].get('name','').casefold()):
-            source=rule.get('source','')
-            if not source.startswith('https://'):continue
-            rows.append(f'<tr><td>{h(rule["name"])}</td><td>{h(rule.get("note","Condizioni non disponibili"))}</td><td><a href="{h(source,quote=True)}" rel="noopener noreferrer">Condizioni ufficiali</a></td><td>{h(rules["checked_at"])}</td></tr>')
-    table='<p>Le condizioni disponibili hanno superato la finestra di verifica di sette giorni o non sono complete: consulta il checkout dei negozi per le tariffe attuali.</p>'
+    for merchant, rule, checked in verified_shipping_rules(rules, now):
+        rows.append(f'<tr data-shipping-merchant="{h(merchant,quote=True)}"><td>{h(rule.get("name",merchant))}</td><td>{h(rule.get("note","Condizioni non disponibili"))}</td><td><a href="{h(rule["source"],quote=True)}" rel="noopener noreferrer">Condizioni ufficiali</a></td><td>{h(checked)}</td></tr>')
+    table='<p>Nessuna regola di spedizione con verifica e scadenza valide: consulta il checkout dei negozi per le tariffe attuali.</p>'
     if rows:
-        table='<div class="guide-table" tabindex="0" role="region" aria-label="Condizioni di spedizione verificate"><table><caption>Consegna standard Italia: limiti e località particolari possono cambiare il totale</caption><thead><tr><th>Negozio</th><th>Condizioni e limiti</th><th>Fonte</th><th>Verifica</th></tr></thead><tbody>'+''.join(rows)+'</tbody></table></div>'
-    return ('<h2>La soglia gratuita è una condizione dell’ordine</h2><p>Quando un negozio propone la spedizione gratuita oltre un importo minimo, il vantaggio riguarda il costo della consegna. Per capire se conviene aggiungere un prodotto devi confrontare due pagamenti completi: la lista che ti serve con la sua spedizione, e la lista ampliata con la nuova spedizione. Raggiungere la soglia non dimostra automaticamente un risparmio.</p>'
+        table='<div class="guide-table" tabindex="0" role="region" aria-label="Condizioni di spedizione verificate"><table><caption>Consegna standard Italia continentale: soglie esatte dubbie, peso mancante o oltre i limiti e servizi esclusi lasciano il totale ignoto</caption><thead><tr><th>Negozio</th><th>Condizioni e limiti</th><th>Fonte</th><th>Verifica</th></tr></thead><tbody>'+''.join(rows)+'</tbody></table></div>'
+    scope='<p class="micro">'+h(rules.get('scope',''))+'</p>' if rules.get('scope') else ''
+    return (scope+'<h2>La soglia gratuita è una condizione dell’ordine</h2><p>Quando un negozio propone la spedizione gratuita oltre un importo minimo, il vantaggio riguarda il costo della consegna. Per capire se conviene aggiungere un prodotto devi confrontare due pagamenti completi: la lista che ti serve con la sua spedizione, e la lista ampliata con la nuova spedizione. Raggiungere la soglia non dimostra automaticamente un risparmio.</p>'
         '<h2>Il confronto da fare senza inventare un carrello</h2><p>Indica con S il subtotale degli articoli necessari e con F la consegna prevista per quella lista. La prima alternativa costa S + F. Se aggiungi un articolo da A euro e la consegna diventa gratuita, la seconda costa S + A. La differenza è A − F: quando A è maggiore di F, paghi di più oggi. Se la consegna non diventa gratuita, va aggiunta anche la nuova tariffa. Questo calcolo confronta l’esborso; l’utilità dell’articolo aggiunto rimane una tua scelta.</p>'
-        '<h2>Le condizioni che abbiamo effettivamente controllato</h2><p>La tabella riprende il registro usato dal carrello risparmio, con fonte e data. Mantiene esplicite le soglie ambigue e le informazioni discordanti. Una tariffa non verificata non viene sostituita con zero. Le condizioni sono mostrate solo entro sette giorni dalla verifica registrata; il checkout resta il riferimento per la tua destinazione.</p>'+table+
+        '<h2>Le condizioni che abbiamo effettivamente controllato</h2><p>La tabella riprende il registro usato dal carrello risparmio, con fonte e data. Mantiene esplicite le soglie ambigue e le informazioni discordanti. Una tariffa non verificata non viene sostituita con zero. Ogni negozio compare solo fino alla scadenza della sua verifica. Le note sono condizioni, non preventivi: il totale resta ignoto alla soglia esatta dubbia, con peso di spedizione mancante o oltre il limite e per destinazioni o servizi esclusi. Il checkout resta il riferimento per la tua destinazione.</p>'+table+
         '<h2>“Da” e “oltre” non sono la stessa soglia</h2><p>Se le condizioni dicono “da” un certo importo, la soglia può includere quell’importo esatto. “Oltre” richiede invece di superarlo. Quando il testo del negozio non chiarisce il punto di confine, il nostro calcolo lascia il totale non disponibile per quel caso. Non aggiungere un centesimo immaginario o una quantità non selezionabile per risolvere il confronto: verifica i prodotti e le condizioni reali del tuo ordine.</p>'
         '<h2>Controlla anche peso e destinazione</h2><p>La gratuità può avere un limite di peso o escludere alcune località e servizi. Il peso netto serve per il prezzo/kg del prodotto; il peso di spedizione serve per i limiti del corriere. Sono dati diversi. Una confezione con peso netto noto non basta a dimostrare che un ordine rientri nel limite logistico. Se manca il peso necessario o la destinazione richiede un supplemento non noto, evita di considerare certo il totale stimato.</p>'
         '<h2>Confronta la stessa lista tra negozi</h2><p>Salva gli articoli che ti servono nella <a href="carrello-risparmio.html">lista risparmio</a> e imposta le quantità. Il confronto completo richiede la stessa identità del prodotto e lo stesso formato per ogni voce. Un negozio che dispone solo di parte della lista non è un’alternativa equivalente, anche se il suo subtotale è più basso. La spedizione si applica una volta al singolo ordine, non una volta per ciascun prodotto.</p>'
@@ -227,6 +247,45 @@ def identity_content(offers, now):
 GUIDES.append(('stesso-prodotto-formato-gtin','Stesso prodotto o solo un nome simile? Controlla formato e GTIN','Esempi del catalogo per distinguere codice prodotto, formato e multipack prima di confrontare i prezzi tra negozi.',identity_content))
 
 
+
+def guide_cards():
+    """Accessible cover images and stable links for generated guides."""
+    art = {
+        'costo-crocchette-cane': '/assets/blog-crocchette.webp',
+        'confrontare-prezzi-lettiere': '/assets/blog-lettiera.webp',
+        'prezzo-confezione-o-prezzo-kg': '/assets/blog-crocchette.webp',
+        'spedizione-gratuita-conviene': '/assets/blog-copertina.webp',
+        'leggere-storico-prezzi': '/assets/blog-lettiera.webp',
+        'stesso-prodotto-formato-gtin': '/assets/blog-crocchette.webp',
+    }
+    cards = []
+    for slug, title, description, _ in GUIDES:
+        image = art.get(slug, '/assets/blog-copertina.webp')
+        cards.append(
+            '<article class="blog-card">'
+            f'<a href="/{h(slug)}" tabindex="-1" aria-hidden="true"><img class="blog-card-image" '
+            f'src="{h(image)}" width="960" height="504" alt="" loading="lazy" decoding="async"></a>'
+            '<span class="blog-pill">Guide pratiche</span>'
+            f'<h3><a href="/{h(slug)}">{h(title)}</a></h3><p>{h(description)}</p>'
+            f'<a href="/{h(slug)}">Leggi la guida →</a></article>'
+        )
+    return ''.join(cards)
+
+
+
+def refresh_unified_blog():
+    """Update only the generated card region; keep original blog articles intact."""
+    target = ROOT/'site/blog/index.html'
+    html = target.read_text()
+    start = '<!-- guide-catalogo:start -->'
+    end = '<!-- guide-catalogo:end -->'
+    if html.count(start) != 1 or html.count(end) != 1:
+        raise ValueError('Unified blog marker missing or duplicated')
+    cards = guide_cards()
+    html = html[:html.index(start) + len(start)] + cards + html[html.index(end):]
+    target.write_text(html)
+
+
 def build():
     now=dt.datetime.now(dt.timezone.utc)
     catalog=json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()))
@@ -235,7 +294,13 @@ def build():
         (ROOT/f'site/{slug}.html').write_text(document(template,slug,title,description,render(catalog['offers'],now),now))
     links=''.join(f'<article class="panel"><h2><a href="{slug}.html">{h(title)}</a></h2><p>{h(description)}</p></article>' for slug,title,description,_ in GUIDES)
     body='<section class="pagehero"><div class="wrap"><h1>Guide pratiche al risparmio per cani e gatti</h1><p>Metodi riproducibili ed esempi del catalogo, con fonti, date e limiti. Nessuna classifica nutrizionale.</p></div></section><section class="section"><div class="wrap content">'+links+'<p><a href="confronta-cibo.html">Confronta prezzi</a> · <a href="osservatorio-prezzi.html">Osservatorio prezzi</a> · <a href="chi-siamo.html">Metodo editoriale</a>.</p></div></section>'
-    (ROOT/'site/guide-risparmio.html').write_text(page(template,'guide-risparmio','Guide pratiche al risparmio per animali','Guide con esempi reali per confrontare confezioni, costo al kg e spese di spedizione.',body))
+    # Single editorial index. Keep the legacy URL reachable as a redirect fallback.
+    refresh_unified_blog()
+    legacy = page(template,'guide-risparmio','Guide pratiche: nuova sezione','Le guide pratiche e il blog sono ora in una sola sezione.', '<section class="pagehero"><div class="wrap"><h1>Guide e consigli</h1><p>Le guide e il blog si trovano ora in <a href="/blog/">Guide e consigli</a>.</p></div></section>')
+    legacy = legacy.replace('https://offerte4zampe.it/guide-risparmio','https://offerte4zampe.it/blog/')
+    legacy = legacy.replace('name="robots" content="index,follow"', 'name="robots" content="noindex,follow"')
+    legacy = legacy.replace('</head>', '<meta http-equiv="refresh" content="0; url=/blog/"></head>')
+    (ROOT/'site/guide-risparmio.html').write_text(legacy)
 
 
 if __name__=='__main__':build()

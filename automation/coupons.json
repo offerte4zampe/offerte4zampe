@@ -1,6 +1,6 @@
 {
   "method_version": 1,
-  "verification_policy": "Date conservative: verified_at uses UTC start of the observed day, not an invented exact test time. Maximum 48h without a new cart test. Every published coupon must have a positive item-level cart test; partner-provided and source-only offers are never publishable. Owner-confirmed CIOTOLA30 may be published on the owner's explicit restoration instruction, labelled separately; this does not renew or fabricate a cart test.",
+  "verification_policy": "Date conservative: verified_at uses UTC start of the observed day, not an invented exact test time. Maximum 48h without a new cart test. Every published coupon must have a positive item-level cart test; partner-provided and source-only offers are never publishable. Owner-confirmed CIOTOLA30 is published distinctly from cart-tested offers; its confirmation must be dated, with recheck_after exactly 14 days later. After that point the card says 'Da riconfermare' until expires_at, when it must no longer be active. This does not renew or fabricate a cart test.",
   "coupons": [
     {
       "code": "FC20",
@@ -108,6 +108,7 @@
         "date": "2026-11-07",
         "note": "Il titolare conferma che il codice era già verificato e ne richiede esplicitamente il ripristino. Dettagli e data della precedente prova non disponibili; nessuna nuova prova del carrello eseguita."
       },
+      "recheck_after": "2026-11-21T00:00:00Z",
       "affiliate_url": "https://www.awin1.com/cread.php?awinmid=121988&awinaffid=3126265&ued=https%3A%2F%2Fhyggepetfood.com%2F",
       "affiliate_link_source": {
         "url": "https://ui.awin.com/link-builder/it/awin/publisher/3126265",

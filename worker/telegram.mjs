@@ -1,3 +1,4 @@
+import {amazonMode,amazonApproved,amazonLink,amazonPick,amazonText} from './telegram-amazon.mjs';
 // No public publishing route. Only the Worker's scheduled handler reaches this object.
 export const TEST_POST = {id:'telegram-test-v1',kind:'test',text:'🧪 MESSAGGIO DI PROVA — Offerte a 4 Zampe\nIl collegamento automatico al canale è attivo. Qui troverai consigli per risparmiare e segnalazioni verificate per cane e gatto.',path:'/'};
 export const POSTS = [
@@ -42,6 +43,11 @@ export function escapeTelegramHtml(value){
 }
 export function payload(post,channel){
  if(channel!=='@sconti4zampe')throw new Error('invalid_channel');
+ if(post.kind==='amazon_pick'){
+  // Never turn this into a redirect through our own site.
+  const link=amazonLink(post.asin,post.associate_tag);
+  return amazonText(post,link,escapeTelegramHtml);
+ }
  const target=escapeTelegramHtml(trackedUrl(post));
  const disclosure='Link affiliati: potremmo ricevere una commissione senza costi aggiuntivi.';
  let visible,text;
@@ -85,15 +91,64 @@ export class TelegramPublisher {
  constructor(state,env){this.state=state;this.env=env;this.chain=Promise.resolve();}
  fetch(request){
   // Internal binding only; request body cannot supply text, recipient or URLs.
-  if(request.method==='GET')return Promise.all([this.state.storage.get('post:'+TEST_POST.id),this.state.storage.get('last_day'),this.state.storage.get('halted')]).then(([test,last_day,halted])=>Response.json({integration:'telegram-v1',configured:Boolean(this.env.TELEGRAM_BOT_TOKEN)&&this.env.TELEGRAM_CHANNEL_ID==='@sconti4zampe',token_present:Boolean(this.env.TELEGRAM_BOT_TOKEN),channel_present:Boolean(this.env.TELEGRAM_CHANNEL_ID),channel_matches:this.env.TELEGRAM_CHANNEL_ID==='@sconti4zampe',test_status:test?.status||'pending',test_message_id:test?.message_id||null,last_sent_day:last_day||null,halted:Boolean(halted)}));
+  if(request.method==='GET')return Promise.all([this.state.storage.get('post:'+TEST_POST.id),this.state.storage.get('last_day'),this.state.storage.get('halted'),this.state.storage.get('last_publication')]).then(([test,last_day,halted,last_publication])=>Response.json({integration:'telegram-v1',content_mode:amazonMode(this.env)?'amazon_only':'catalog',amazon_owner_enabled:amazonApproved(this.env),configured:Boolean(this.env.TELEGRAM_BOT_TOKEN)&&this.env.TELEGRAM_CHANNEL_ID==='@sconti4zampe',token_present:Boolean(this.env.TELEGRAM_BOT_TOKEN),channel_present:Boolean(this.env.TELEGRAM_CHANNEL_ID),channel_matches:this.env.TELEGRAM_CHANNEL_ID==='@sconti4zampe',test_status:test?.status||'pending',test_message_id:test?.message_id||null,last_sent_day:last_day||null,last_publication:last_publication||null,halted:Boolean(halted)}));
   if(request.method!=='POST')return Promise.resolve(new Response(null,{status:405}));
   const run=this.chain.then(()=>this.tick());this.chain=run.catch(()=>{});
   return run.then(result=>Response.json(result));
  }
+ async publishAmazon(post,now,day){
+  // One post/day, durable dedupe and bounded errors, same as catalog publisher.
+  const store=this.state.storage,key='post:'+post.id,prior=await store.get(key);
+  if(prior)return {status:prior.status};
+  if(post.image){
+   let photo;
+   try{photo=await this.env.ASSETS.fetch(new Request('https://offerte4zampe.it'+post.image));}
+   catch{return {status:'photo_unavailable'};}
+   if(!photo.ok||!String(photo.headers.get('content-type')||'').startsWith('image/'))return {status:'photo_unavailable'};
+  }
+  let request;
+  try{request=payload(post,this.env.TELEGRAM_CHANNEL_ID);}
+  catch{return {status:'invalid_amazon_pick'};}
+  await store.put(key,{id:post.id,status:'sending',attempts:1,attempted_at:new Date(now).toISOString()});
+  const outcome=await telegramCall(this.env.TELEGRAM_BOT_TOKEN,request.method,request.body);
+  await store.put(key,{id:post.id,status:outcome.status,message_id:outcome.message_id||null,finished_at:new Date().toISOString()});
+  if(outcome.status==='sent'){
+   await store.put('last_day',day);
+   await store.put('last_publication',{kind:'amazon_pick',path:null,asin:post.asin,message_id:outcome.message_id,sent_at:new Date().toISOString()});
+  }else{
+   // No blind retry: rate limit, timeout or a restart may leave delivery uncertain.
+   await store.put('halted',true);
+  }
+  return {status:outcome.status};
+ }
  async tick(now=Date.now()){
   const store=this.state.storage;
   if(!this.env.TELEGRAM_BOT_TOKEN||this.env.TELEGRAM_CHANNEL_ID!=='@sconti4zampe')return {status:'not_configured'};
+  // AMAZON-ONLY is deliberately fail-closed. Old catalog/test/retry posts may
+  // not be transmitted while this mode is selected, even on the first cron.
+  if(amazonMode(this.env)&&!amazonApproved(this.env))return {status:'amazon_owner_disabled'};
   if(await store.get('halted'))return {status:'halted'};
+  if(amazonMode(this.env)){
+   const day=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
+   const time=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Rome',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(now);
+   if(time<'09:15'||await store.get('last_day')===day)return {status:'idle'};
+   let entries;
+   try{
+    const r=await this.env.ASSETS.fetch(new Request('https://offerte4zampe.it/data/telegram-amazon.json'));
+    if(!r.ok)return {status:'amazon_feed_unavailable'};
+    entries=(await r.json()).offers;
+   }catch{return {status:'amazon_feed_unavailable'};}
+   if(!Array.isArray(entries))return {status:'amazon_feed_invalid'};
+   let post;
+   for(const item of entries){
+    const candidate=amazonPick(item,now,this.env);
+    if(candidate&&!(await store.get('post:'+candidate.id))){post=candidate;break;}
+   }
+   if(!post)return {status:'no_approved_amazon_pick'};
+   try{post.associate_tag=this.env.AMAZON_ASSOCIATE_TAG;amazonLink(post.asin,post.associate_tag);}
+   catch{return {status:'amazon_tag_not_configured'};}
+   return this.publishAmazon(post,now,day);
+  }
   const test=await store.get('post:'+TEST_POST.id);
   let post;
   if(test?.status!=='sent')post=TEST_POST;
@@ -158,6 +213,7 @@ export class TelegramPublisher {
   await store.put(key,record);
   if(outcome.status==='sent'){
    await store.put('last_day',new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Rome',year:'numeric',month:'2-digit',day:'2-digit'}).format(now));
+   await store.put('last_publication',{kind:post.kind,path:post.path,message_id:outcome.message_id,sent_at:new Date().toISOString()});
   }else if(outcome.status!=='retry')await store.put('halted',true);
   console.log({type:'telegram_publish',id:post.id,status:outcome.status,...(outcome.message_id?{message_id:outcome.message_id}:{})});
   return {status:outcome.status};

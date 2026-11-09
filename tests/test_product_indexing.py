@@ -1,6 +1,6 @@
 import datetime as dt
 import unittest
-from automation.build_product_catalog import build
+from automation.build_product_catalog import build,history_count
 class ProductIndexingTests(unittest.TestCase):
     def test_history_threshold_is_observed_dates_not_calendar_span(self):
         now=dt.datetime(2026,10,30,12,tzinfo=dt.timezone.utc)
@@ -9,7 +9,8 @@ class ProductIndexingTests(unittest.TestCase):
         catalog={'generated_at':now.isoformat(),'offers':[offer]}
         self.assertFalse(build(catalog,history={'offers':{'a:1':rows[:29]}},now=now)['products'][0]['indexable'])
         model=build(catalog,history={'offers':{'a:1':rows}},now=now)
-        self.assertTrue(model['products'][0]['indexable'])
+        self.assertEqual(history_count(model['products'][0]['history'],now),30)
+        self.assertFalse(model['products'][0]['indexable'])
         archived=build({'generated_at':now.isoformat(),'offers':[]},model['registry'],history={'offers':{'a:1':rows}},now=now)
-        self.assertTrue(archived['products'][0]['indexable'])
+        self.assertFalse(archived['products'][0]['indexable'])
         self.assertEqual(len(archived['products'][0]['history']),30)

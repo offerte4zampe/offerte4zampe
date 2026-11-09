@@ -21,6 +21,15 @@ FEED_URL='https://pf.tradetracker.net/?aid=518044&encoding=utf-8&type=json&fid=1
 ORIGIN='https://www.pacopetshop.it'
 UA='Offerte4Zampe/1.0 (+https://offerte4zampe.it/contatti.html)'
 
+def diagnostic_warning(area, error):
+    """Diagnostic reporting is best-effort, never an import dependency."""
+    try:
+        import logging
+        logging.getLogger(__name__).warning(
+            'Paco diagnostic %s failed: %s', area, type(error).__name__)
+    except Exception:
+        pass
+
 def normalize(payload, now=None):
     now=now or dt.datetime.now(dt.timezone.utc)
     rows=[];seen=set()
@@ -59,29 +68,47 @@ def normalize(payload, now=None):
     if not rows: raise ValueError('Empty feed')
     return rows
 
-def verify_quantity(row, page, now=None):
+def verify_quantity(row, page, now=None, diagnostics=None):
     """Bind only the current selected variant whose code AND whole-pack price match."""
+    def failure(reason):
+        if diagnostics is not None:
+            try:
+                diagnostics['reason'] = reason
+            except Exception as error:
+                diagnostic_warning('failure_reason',error)
+                # Failure classification cannot change the verification decision.
+        return row
     try:
         from .update_catalog import weight
     except ImportError:
         from update_catalog import weight
     match=re.search(r'data-product="([^"]+)"',page)
-    if not match: return row
+    if not match: return failure('missing_product_data')
     try:
         p=json.loads(html.unescape(match[1]));attrs=list(p.get('attributes',{}).values())
+        if diagnostics is not None:
+            try:
+                diagnostics['page_ean13'] = [
+                    str(a.get('ean13','')) for a in attrs if a.get('ean13')]
+                diagnostics['page_variant_id'] = [
+                    str(k) for k in p.get('attributes',{}).keys()]
+                diagnostics['page_variant_label'] = [
+                    str(a.get('name','')) for a in attrs]
+            except Exception as error:
+                diagnostic_warning('page_context',error)
         codes={str(a.get('ean13','')).strip().zfill(14) for a in attrs if a.get('ean13')}
-        if codes!={str(row['feed_gtin']).zfill(14)} or not codes: return row
-        if abs(float(p['price_amount'])-row['price'])>.005: return row
+        if codes!={str(row['feed_gtin']).zfill(14)} or not codes: return failure('ean_mismatch')
+        if abs(float(p['price_amount'])-row['price'])>.005: return failure('price_mismatch')
         labels=[str(a.get('name','')) for a in attrs]
         quantities=[x for x in labels if re.search(r'\d\s*(?:kg|gr|g)\b',x,re.I)]
-        if len(quantities)!=1: return row
+        if len(quantities)!=1: return failure('ambiguous_quantity')
         kg=weight(re.sub(r'\bgr\b','g',quantities[0],flags=re.I))
-        if not kg or not 0<kg<=1000: return row
+        if not kg or not 0<kg<=1000: return failure('unparseable_weight')
         # The explicit label must account for all units; bare title weight is insufficient.
         return dict(row,variant=' · '.join(labels),gtin=row['feed_gtin'],weight_kg=kg,
                     quantity_checked_at=(now or dt.datetime.now(dt.timezone.utc)).isoformat(),
                     weight_source='merchant:selected_variant',quantity_verified=True)
-    except (ValueError,KeyError,TypeError): return row
+    except (ValueError,KeyError,TypeError): return failure('malformed_product_data')
 
 def stamp(value):
     try:
@@ -89,7 +116,7 @@ def stamp(value):
         return result if result.tzinfo else None
     except (AttributeError,TypeError,ValueError): return None
 
-def verification_plan(rows, previous, peers, now, limit=80, priority_ids=frozenset()):
+def verification_plan(rows, previous, peers, now, limit=80, priority_ids=frozenset(), diagnostics=None):
     """Reuse recent identical evidence and rotate a bounded verification budget."""
     old={r['id']:r for r in previous if r.get('merchant_id')=='paco'}
     candidates=[]
@@ -109,6 +136,13 @@ def verification_plan(rows, previous, peers, now, limit=80, priority_ids=frozens
             row['quantity_verification_attempted_at']=attempted.isoformat()
         else: attempted=dt.datetime.min.replace(tzinfo=dt.timezone.utc)
         candidates.append((row.get('available') is not True,row['id'] not in priority_ids,row['feed_gtin'].lstrip('0') not in peers,attempted,row['id'],i))
+    if diagnostics is not None:
+        try:
+            diagnostics['skipped_limit'] = max(0, len(candidates) - limit)
+            diagnostics['reused_proof'] = len(rows) - len(candidates)
+        except Exception as error:
+            diagnostic_warning('plan_counts',error)
+            # Existing prioritization and the 80-item cap are authoritative.
     return [entry[-1] for entry in sorted(candidates)[:limit]]
 
 def collect():
@@ -126,22 +160,86 @@ def collect():
     peers={str(o.get('gtin','')).lstrip('0') for o in previous if o.get('weight_kg') and o.get('merchant_id')!='paco'}
     priority_path=catalog.parent/'priority-products.json'
     priority_ids=set(json.loads(priority_path.read_text()).get('priority_offer_ids',[])) if priority_path.exists() else set()
-    chosen=verification_plan(rows,previous,peers,now,priority_ids=priority_ids)
+    diagnostic_plan = {}
+    chosen=verification_plan(rows,previous,peers,now,priority_ids=priority_ids,diagnostics=diagnostic_plan)
+    failures = dict(ean_mismatch=0, price_mismatch=0, ambiguous_quantity=0,
+                    unparseable_weight=0, missing_product_data=0,
+                    malformed_product_data=0, fetch_error=0, robots_disallowed=0)
+    successful = 0
+    attempted_requests = 0
+    private_records = []  # Never included in offers, sources or public HTML.
     rp=urllib.robotparser.RobotFileParser()
     try:
         with urllib.request.urlopen(urllib.request.Request(ORIGIN+'/robots.txt',headers={'User-Agent':UA}),timeout=15) as response: rp.parse(response.read().decode().splitlines())
         def inspect(i):
             row=dict(rows[i],quantity_verification_attempted_at=now.isoformat())
-            if not rp.can_fetch(UA,row['url']): return i,row
+            if not rp.can_fetch(UA,row['url']): return i,row,'robots_disallowed',False,{}
             try:
                 with urllib.request.urlopen(urllib.request.Request(row['url'],headers={'User-Agent':UA}),timeout=12) as response: page=response.read(3000000).decode('utf-8')
-                return i,verify_quantity(row,page,now)
-            except Exception: return i,row
+                check = {}
+                verified = verify_quantity(row,page,now,diagnostics=check)
+                return i,verified,check.get('reason'),True,check
+            except Exception: return i,row,'fetch_error',True,{}
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-            for i,row in pool.map(inspect,chosen): rows[i]=row
-    except Exception: pass
-    return rows,dict(id='paco',name='Paco Pet Shop',status='ok',offers=len(rows),checked_at=now.isoformat(),
+            for i,row,reason,requested,context in pool.map(inspect,chosen):
+                # Capture only the already-fetched selected-variant response.
+                try:
+                    try:
+                        from .merchant_evidence import paco_record
+                    except ImportError:
+                        from merchant_evidence import paco_record
+                    if len(private_records)<80:
+                        record=paco_record(rows[i], reason, now, context,
+                                           verified=row if not reason else None)
+                        if record is not None:
+                            private_records.append(record)
+                except Exception as error:
+                    diagnostic_warning('private_record',error)
+                rows[i]=row
+                try:
+                    attempted_requests += int(requested)
+                    if reason:
+                        failures[reason] = failures.get(reason, 0) + 1
+                    elif row.get('quantity_verified'):
+                        successful += 1
+                except Exception as error:
+                    diagnostic_warning('request_counts',error)
+                    # Do not roll back a verified row due to diagnostics.
+    except Exception:
+        # Existing fail-closed policy remains unchanged; these are planned attempts.
+        try:
+            failures['fetch_error'] += max(0, attempted_requests-successful-sum(failures.values()))
+        except Exception as error:
+            diagnostic_warning('failure_aggregate',error)
+    try:
+        try:
+            from .merchant_evidence import save_section
+        except ImportError:
+            from merchant_evidence import save_section
+        save_section('paco', {'checked_at':now.isoformat(),
+                     'records':private_records[:80],
+                     'aggregate':{
+                         'scheduled':len(chosen),'attempted':attempted_requests,
+                         'succeeded':successful,
+                         'skipped_limit':diagnostic_plan.get('skipped_limit',0),
+                         'reused_proof':diagnostic_plan.get('reused_proof',0),
+                         'failures':dict(failures)}})
+    except Exception as error:
+        diagnostic_warning('private_write',error)
+    status=dict(id='paco',name='Paco Pet Shop',status='ok',offers=len(rows),checked_at=now.isoformat(),
         source='TradeTracker:1216771',method='Feed ufficiale TradeTracker · aggiornamento giornaliero',
         retrieved_at=now.isoformat(),upstream_last_modified=modified,
         verified_quantities=sum(r['quantity_verified'] for r in rows))
+    try:
+        status['quantity_verification_diagnostics']=dict(
+            scheduled=len(chosen),attempted=attempted_requests,succeeded=successful,
+            skipped_limit=diagnostic_plan.get('skipped_limit', 0),
+            reused_proof=diagnostic_plan.get('reused_proof', 0),failures=failures)
+    except Exception as error:
+        try:
+            import logging
+            logging.getLogger(__name__).warning('Paco verification diagnostics unavailable: %s', type(error).__name__)
+        except Exception:
+            pass
+    return rows,status
 

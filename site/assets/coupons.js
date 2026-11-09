@@ -4,7 +4,7 @@ const cards=[...document.querySelectorAll('.coupon')],filters=[...document.query
 let shop='all';
 function refresh(){
  let count=0;
- for(const card of cards){const until=Date.parse(card.dataset.validUntil);card.hidden=!Number.isFinite(until)||Date.now()>=until||(shop!=='all'&&shop!==card.dataset.shop);if(!card.hidden)count++}
+ for(const card of cards){const until=Date.parse(card.dataset.validUntil);const now=Date.now();card.hidden=!Number.isFinite(until)||now>=until||(shop!=='all'&&shop!==card.dataset.shop);const recheck=card.dataset.recheckAfter;if(recheck){const status=card.querySelector('.status');if(status){const due=Date.parse(recheck);status.textContent=Number.isFinite(due)&&now>=due?'Da riconfermare':'Codice concordato con il partner · confermato dal titolare';}}if(!card.hidden)count++}
  document.querySelector('.count').textContent=count+(count===1?' codice disponibile':' codici disponibili');
  document.querySelector('#coupon-empty').hidden=count>0;
 }

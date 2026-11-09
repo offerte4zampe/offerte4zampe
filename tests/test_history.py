@@ -33,3 +33,29 @@ class TrustTests(unittest.TestCase):
    write_shards(history,Path(directory));self.assertEqual(len(list(Path(directory).glob('*.gz'))),256)
    shard=json.loads(gzip.decompress((Path(directory)/(hashlib.sha256(b'a').hexdigest()[:2]+'.json.gz')).read_bytes()))
    self.assertEqual(shard['offers'],history['offers']);self.assertNotIn('identities',shard)
+
+ def test_amazon_observation_excluded_non_amazon_unchanged(self):
+  date='2026-11-08';stamp=date+'T08:00:00Z'
+  def offer(oid,merchant,price):
+   return {'id':oid,'merchant_id':merchant,'merchant':merchant,'title':'Test product','price':price,'available':True,'checked_at':stamp}
+  normal=offer('bauzaar:1','bauzaar',12)
+  amazon=offer('amazon:1','amazon',7)
+  catalog={'generated_at':stamp,'offers':[normal,amazon]}
+  actual=update({},catalog,date)
+  baseline=update({}, {'generated_at':stamp,'offers':[normal]},date)
+  self.assertEqual(actual,baseline)
+  self.assertNotIn('amazon:1',actual['offers'])
+ def test_amazon_does_not_change_existing_history(self):
+  date='2026-11-08';stamp=date+'T08:00:00Z'
+  old={'started_at':'2026-11-07','identities':{'amazon:1':'old','bauzaar:1':'other'},'offers':{
+    'amazon:1':[{'day':'2026-11-07','low':7,'high':7,'last':7,'available':True,'checked_at':'2026-11-07T08:00:00Z'}],
+    'bauzaar:1':[{'day':'2026-11-07','low':12,'high':12,'last':12,'available':True,'checked_at':'2026-11-07T08:00:00Z'}]}}
+  catalog={'generated_at':stamp,'offers':[{'id':'amazon:1','merchant_id':'amazon','price':6,'available':True,'checked_at':stamp}]}
+  actual=update(old,catalog,date)
+  self.assertEqual(actual['offers'],old['offers'])
+  self.assertEqual(actual['identities'],old['identities'])
+ def test_amazon_affiliate_link_does_not_hide_merchant_price(self):
+  stamp='2026-11-08T08:00:00Z'
+  offer={'id':'isola:1','merchant_id':'isola-dei-tesori','merchant':'Isola dei Tesori','affiliate_url':'https://amazon.it/example','price':13,'available':True,'checked_at':stamp}
+  result=update({}, {'generated_at':stamp,'offers':[offer]}, '2026-11-08')
+  self.assertIn('isola:1',result['offers'])

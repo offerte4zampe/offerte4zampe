@@ -1,7 +1,7 @@
 (function(root){'use strict';
 const money=new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'});
 function name(value){
- let text=String(value||'').replace(/\bgr\b/gi,'g').replace(/\s+/g,' ').trim();
+ let text=String(value||'').replace(/(\d)\s*gr\b/gi,'$1g').replace(/\bgr\b/gi,'g').replace(/\s+/g,' ').trim();
  const amount='\\d+(?:[.,]\\d+)?',unit='(?:kg|g|ml|l)';
  const repeated=new RegExp('('+amount+')\\s*('+unit+')\\b(?:\\s*[·|/]\\s*|\\s+)('+amount+')\\s*('+unit+')\\b','gi');
  for(let i=0;i<3;i++)text=text.replace(repeated,(all,a,u,b,v)=>Number(a.replace(',','.'))===Number(b.replace(',','.'))&&u.toLowerCase()===v.toLowerCase()?a+' '+u:all);
@@ -18,13 +18,13 @@ function withoutFormat(text,format){
  }).replace(/\s+/g,' ').replace(/[\s·|,:;—-]+$/,'').trim();
 }
 function title(value,brand='',format=''){
- let text=name(value),unit=String(format||'').trim();if(unit.length>20)unit='';
- text=withoutFormat(text,unit);
- if(unit){const escaped=unit.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s*');text=text.replace(new RegExp('(?:\\s*[·|]\\s*|\\s+)'+escaped+'$','i'),'').trim();}
+ let text=name(value),unit=name(format);
+ if(/^(?:Unità di vendita|Formato da verificare)$/i.test(unit))unit='';
  if(brand&&!text.toLocaleLowerCase('it').includes(String(brand).toLocaleLowerCase('it')))text=brand+' '+text;
- const suffix=(unit?' '+unit:'')+' | Prezzo e storico',budget=Math.max(8,60-suffix.length);
- if(text.length>budget){const cut=text.slice(0,budget),space=cut.lastIndexOf(' ');text=(space>budget*.6?cut.slice(0,space):cut).replace(/[\s·|,:;—-]+$/,'');}
- return text+suffix;
+ // Preserve source taste, texture and size rather than enforce a character budget.
+ const escaped=unit.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s*');
+ const hasFormat=unit&&new RegExp('(^|[^\\w.,])'+escaped+'(?![\\w])','i').test(text);
+ return text+(unit&&!hasFormat?' · '+unit:'')+' | Prezzi e offerte';
 }
 function description(offers,shops){
  const rows=(offers||[]).filter(o=>o.available&&Number.isFinite(o.price)&&o.price>0);if(!rows.length)return 'Offerte recenti non disponibili. Consulta lo storico dei prezzi osservati e verifica la disponibilità nel negozio.';
