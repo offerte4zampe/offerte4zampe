@@ -1,5 +1,12 @@
 name: Telegram photo safety regression
 on:
+  pull_request:
+    paths:
+      - 'worker/telegram.mjs'
+      - 'worker/telegram-amazon.mjs'
+      - 'tests/test_telegram.mjs'
+      - 'tests/test_telegram_amazon_price.mjs'
+      - '.github/workflows/telegram-regression.yml'
   push:
     branches: [main]
     paths:
