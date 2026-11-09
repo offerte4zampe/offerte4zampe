@@ -32,8 +32,21 @@ export default {
       if(request.method!=='GET')return new Response(null,{status:405});
       if(!env.TELEGRAM_PUBLISHER)return Response.json({integration:'telegram-v1',configured:false},{status:503});
       const stub=env.TELEGRAM_PUBLISHER.get(env.TELEGRAM_PUBLISHER.idFromName('sconti4zampe-v1'));
+      // Explicit operator recovery: normal status reads remain read-only.
+      // There is no caller-supplied recipient, message or product. The existing
+      // Durable Object enforces reviewed entries, one send/day and deduplication.
+      // This allows a safe catch-up when Cloudflare's scheduled trigger is delayed.
+      let recovery=null;
+      if(url.searchParams.get('recover')==='1'&&env.TELEGRAM_STATUS_RECOVERY==='true'){
+        try{
+          const attempted=await stub.fetch(new Request('https://internal/tick',{method:'POST'}));
+          recovery=attempted.ok?await attempted.json():{status:'unavailable'};
+        }catch{recovery={status:'unavailable'};}
+      }
       const result=await stub.fetch(new Request('https://internal/status'));
-      return new Response(result.body,{headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
+      if(recovery===null)return new Response(result.body,{headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
+      const state=await result.json();
+      return Response.json({...state,recovery_status:recovery?.status||'unknown'},{headers:{'Cache-Control':'no-store'}});
     }
     if(url.pathname.startsWith('/prodotto/'))return canonicalProduct(request,env);
     if (['/prodotto','/prodotto.html'].includes(url.pathname)){

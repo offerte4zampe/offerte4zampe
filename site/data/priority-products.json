@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-08T12:58:03.022641+00:00",
+  "generated_at": "2026-11-09T21:56:56.650652+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 14,
-  "with_third_store_lead": 24,
+  "at_target": 12,
+  "with_third_store_lead": 25,
   "categories": {
-    "umido": 116,
+    "umido": 115,
     "snack": 66,
-    "crocchette": 110,
+    "crocchette": 111,
     "lettiere": 8
   },
   "priority_offer_ids": [
@@ -30,6 +30,7 @@
     "animaliapet:46976544735575",
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
+    "animaliapet:46976549060951",
     "animaliapet:46976563413335",
     "animaliapet:46976566165847",
     "animaliapet:46976569213271",
@@ -68,6 +69,7 @@
     "animaliapet:46976683016535",
     "animaliapet:46976683409751",
     "animaliapet:46976684556631",
+    "animaliapet:46976685048151",
     "animaliapet:46976685244759",
     "animaliapet:46976687210839",
     "animaliapet:46976687407447",
@@ -118,6 +120,7 @@
     "bauzaar:56807970472261",
     "bauzaar:56811242783045",
     "bauzaar:56818660442437",
+    "bauzaar:56818662113605",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
     "bauzaar:56819869909317",
@@ -147,6 +150,7 @@
     "bauzaar:56820093124933",
     "bauzaar:56820094271813",
     "bauzaar:56820094533957",
+    "bauzaar:56820095615301",
     "bauzaar:56820104331589",
     "bauzaar:56820104429893",
     "bauzaar:56820104495429",
@@ -157,6 +161,7 @@
     "bauzaar:56820177502533",
     "bauzaar:56820205683013",
     "bauzaar:56820205912389",
+    "bauzaar:56820206240069",
     "bauzaar:56820207255877",
     "bauzaar:56820207288645",
     "bauzaar:56820207354181",
@@ -188,7 +193,6 @@
     "bauzaar:56820437320005",
     "bauzaar:56820439941445",
     "bauzaar:56820443087173",
-    "bauzaar:56820449968453",
     "bauzaar:56820451115333",
     "bauzaar:56820451803461",
     "bauzaar:56820452131141",
@@ -278,6 +282,7 @@
     "bauzaar:56962038137157",
     "bauzaar:56962042593605",
     "bauzaar:56962042986821",
+    "bauzaar:56962043838789",
     "bauzaar:56962044821829",
     "bauzaar:56962045804869",
     "bauzaar:56962081685829",
@@ -466,6 +471,7 @@
     "paco:3830",
     "paco:3847",
     "paco:3895",
+    "paco:3954",
     "paco:4051",
     "paco:4110",
     "paco:4111",
@@ -487,6 +493,7 @@
     "paco:4821",
     "paco:4902",
     "paco:4914",
+    "paco:4915",
     "paco:4983",
     "paco:5045",
     "paco:5046",
@@ -546,7 +553,6 @@
     "paco:820",
     "paco:882",
     "paco:955",
-    "webpet:52568949621076",
     "webpet:52568955552084",
     "webpet:52568971936084",
     "webpet:52569129189716",
@@ -555,6 +561,7 @@
     "webpet:52569129648468",
     "webpet:52569129681236",
     "webpet:52569129714004",
+    "webpet:52569137545556",
     "webpet:52569137676628"
   ],
   "products": [
@@ -833,6 +840,27 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-9625acb3355a30fbed8b",
+      "name": "Nature's Protection White Dogs Agnello 10kg Small & Mini Adult Crocchette Cani",
+      "brand": "Nature's Protection",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-white-dogs-agnello-10kg-small-mini-adult-crocchette-cani-04771317456649-fbed8b",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976685048151",
+        "bauzaar:56818662113605"
+      ],
+      "candidate_offer_ids": [
+        "paco:4915"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-444e75679cc39419a1a3",
       "name": "Prolife Smart Dog Mini 100 g Puppy pollo e riso - confezione da 10 pezzi",
       "brand": "Prolife",
@@ -1104,6 +1132,46 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-037ee48afd8f1af968d2",
+      "name": "Monge Natural Superpremium Crocchette per cani adulti con Maiale, riso e patate 12 kg",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-all-breeds-adult-monoprotein-con-maiale-riso-e-patate-per-cani-sacco-da-12-kg-tutte-le-taglie-08009470011112-f968d2",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "isola-dei-tesori:000124434",
+        "paco:3004",
+        "bauzaar:56820290978117"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-15300f54eb6acf57c2af",
+      "name": "Monge Monoprotein Coniglio 1.5Kg Crocchette Gatti",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-monoprotein-coniglio-1-5kg-crocchette-gatti-08009470011945-57c2af",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976544145751",
+        "paco:4587",
+        "isola-dei-tesori:000140486"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-185b52ed59af1fadc50d",
       "name": "Monge Supreme Kitten Tonno Piselli e Carote Bustine 80g Kitten",
       "brand": "Monge",
@@ -1131,12 +1199,13 @@
       "species": "gatto",
       "format": "1,5 kg",
       "url": "https://offerte4zampe.it/prodotto/monge-sterilized-monoprotein-trota-1-5kg-crocchette-gatti-08009470005494-590dc3",
-      "verified_shops": 3,
+      "verified_shops": 4,
       "target_shops": 3,
       "missing_shops": 0,
       "offer_ids": [
         "animaliapet:46976541262167",
         "paco:4241",
+        "isola-dei-tesori:000140606",
         "bauzaar:58411837882693"
       ],
       "candidate_offer_ids": [],
@@ -1178,86 +1247,6 @@
         "animaliapet:46976541950295",
         "isola-dei-tesori:000181425",
         "bauzaar:56961724383557"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-3ee7f25a7b409b603d9f",
-      "name": "Monge Maxi Adult Pollo 12Kg Crocchette Cani",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-maxi-adult-pollo-12kg-crocchette-cani-08009470004411-603d9f",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976541557079",
-        "paco:2995",
-        "bauzaar:56820456423749"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-4c2f52c6cbc92f4ccffe",
-      "name": "Monge All Breed Adult Coniglio, Riso e Patate 12Kg Crocchette",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-all-breed-adult-coniglio-riso-e-patate-12kg-crocchette-08009470011150-4ccffe",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976541393239",
-        "paco:3275",
-        "bauzaar:56820290781509"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-9625acb3355a30fbed8b",
-      "name": "Nature's Protection White Dogs Agnello 10kg Small & Mini Adult Crocchette Cani",
-      "brand": "Nature's Protection",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "10 kg",
-      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-white-dogs-agnello-10kg-small-mini-adult-crocchette-cani-04771317456649-fbed8b",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976685048151",
-        "bauzaar:56818662113605",
-        "paco:4915"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-628f01189e80be5b704e",
-      "name": "Prolife Lifestyle Gatto Kitten Salmone e Riso 1,5 kg",
-      "brand": "Prolife",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/prolife-kitten-salmone-e-riso-per-gattini-sacco-da-1-5-kg-08015579036055-5b704e",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "bauzaar:56962043838789",
-        "paco:4517",
-        "webpet:52569137545556"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -2137,6 +2126,25 @@
       "offer_ids": [
         "bauzaar:56820452131141",
         "paco:1342"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-77004fd8a94694fd4efd",
+      "name": "Farmina N&D Ocean Merluzzo Zucca Arancia 800g Crocchette Cani Adult Mini",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "800 g",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-ocean-canine-adult-mini-merluzzo-zucca-e-arancia-800-g-crocchette-monoproteiche-cane-0-8kg-08010276036513-fd4efd",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976549060951",
+        "bauzaar:56820095615301"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -4005,6 +4013,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-628f01189e80be5b704e",
+      "name": "Prolife Lifestyle Gatto Kitten Salmone e Riso 1,5 kg",
+      "brand": "Prolife",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/prolife-kitten-salmone-e-riso-per-gattini-sacco-da-1-5-kg-08015579036055-5b704e",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56962043838789",
+        "webpet:52569137545556"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-699e8cf637c1029f55e3",
       "name": "Prolife Lifestyle Cane Mature Mini Presce Bianco e Riso 2 kg",
       "brand": "Prolife",
@@ -4043,25 +4070,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-7ac60e41fb67b8c9a270",
-      "name": "Prolife Veterinary Formula Intestinal Sensitive Medium/Large 2 kg",
-      "brand": "Prolife",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "2 kg",
-      "url": "https://offerte4zampe.it/prodotto/prolife-intestinal-sensitive-medium-large-crocchette-dietetiche-per-cani-adulti-con-problemi-intestinali-2kg-08015579043411-c9a270",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820449968453",
-        "webpet:52568949621076"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-869fde4aeadb4e2ad9f7",
       "name": "Prolife Senior Manzo E Riso Cibo Umido Per Gatti · 12 bustine da 85 gr",
       "brand": "Prolife",
@@ -4094,6 +4102,25 @@
       "offer_ids": [
         "bauzaar:56819869909317",
         "webpet:52568971936084"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-bb3fb6468e6aa371c94b",
+      "name": "Prolife Sensitive Grain Free Mini Con Pesce E Patate Per Cani · Sacco da 7 kg",
+      "brand": "Prolife",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "7 kg",
+      "url": "https://offerte4zampe.it/prodotto/prolife-sensitive-grain-free-mini-con-pesce-e-patate-per-cani-sacco-da-7-kg-08015579035447-71c94b",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "paco:3954",
+        "bauzaar:56820206240069"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -5744,26 +5771,6 @@
       ],
       "candidate_offer_ids": [
         "paco:3847"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-a836c5069676bfc622de",
-      "name": "Farmina N&D Pumpkin Pollo Zucca Melograno 140g Lattina Cani Mini Adult",
-      "brand": "Farmina",
-      "category": "umido",
-      "species": "cane",
-      "format": "140 g",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-pumpkin-pollo-zucca-melograno-140g-lattina-cani-mini-adult-08606014102314-c622de",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "animaliapet:46976644677975"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56961280049477"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."

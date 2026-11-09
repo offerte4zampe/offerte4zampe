@@ -329,3 +329,33 @@ header{z-index:200}
 .merchant-promo-saving{color:var(--green);font-weight:750}.store-price-summary .merchant-promo{grid-column:1/-1;flex-basis:100%}
 .store-price-summary .merchant-promo span{white-space:normal}
 @media(prefers-color-scheme:dark){.merchant-promo-saving{color:#b8e4d3}}
+
+
+/* Accessibility: pair foreground and background colours on compact controls.
+   In particular, keep the mobile navigation and symbols legible in both themes. */
+@media(max-width:850px){
+ header .navlinks{background:#fffaf2;color:#263f43;border-color:#d5d9ce}
+ header .navlinks>a{color:#263f43}
+ header .navlinks>a:hover,header .navlinks>a[aria-current="page"]{color:#165b52}
+ header .mobilemenu{background:#fffdf7;color:#173b36;border:2px solid #9ab7a9;font-weight:800}
+ header .mobilemenu:hover,header .mobilemenu[aria-expanded="true"]{background:#e3f1ed;color:#173b36}
+ header .mobile-socials{border-color:#a8beb3}
+ header .mobile-socials .social-icon-link{color:#214f3d;background:#f3f8f1;border-color:#9ebdad}
+ .social-follow-link{color:#244b39;background:#fff;border-color:#a2bea9}
+ .daily-pick .spotlight-product .btn{color:#fff}
+ :is(a,button,input,select,textarea,summary):focus-visible{outline:3px solid #9b431c;outline-offset:3px}
+}
+@media screen and (max-width:850px) and (prefers-color-scheme:dark){
+ header .navlinks{background:#152d30;color:#e5f0ed;border-color:#597674}
+ header .navlinks>a{color:#e5f0ed}
+ header .navlinks>a:hover,header .navlinks>a[aria-current="page"]{color:#b8e4d3}
+ header .mobilemenu{background:#234543;color:#f0faf6;border-color:#8db5aa}
+ header .mobilemenu:hover,header .mobilemenu[aria-expanded="true"]{background:#305957;color:#fff}
+ header .mobile-socials{border-color:#597674}
+ .social-follow-link{background:#244744;color:#f0faf6;border-color:#7fa99b}
+ .social-icon-link{background:#244744;color:#e5f0ed;border-color:#7fa99b}
+ .social-follow-link:hover,.social-follow-link:focus-visible{background:#216d68;color:#fff}
+ .home-stats span:before{color:#b8e4d3}
+ .brandlogo{background-color:#216d68}
+ .daily-pick .spotlight-product .btn{background:#216d68;color:#fff;border-color:#8ed6c9}
+}
