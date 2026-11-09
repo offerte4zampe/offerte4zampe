@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'tests/smoke_public_seo_http.py'
+      - 'worker/canonical-product.mjs'
+      - 'site/assets/style.css'
       - '.github/workflows/public-seo-http-smoke.yml'
   workflow_dispatch:
 permissions:
