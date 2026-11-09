@@ -49,7 +49,8 @@ jobs:
                       print("feed_asins="+json.dumps(results[path]["asins"]))
               except (Exception,) as e:
                   print(f"::error::{path}: {type(e).__name__} {str(e)[:250]}")
-                  raise SystemExit(1)
+                  results[path]={"error":type(e).__name__,"detail":str(e)[:160]}
+                  continue
           pathlib.Path("automation/telegram-live-health-result.json").write_text(json.dumps(results,ensure_ascii=False,indent=2)+"\\n",encoding="utf8")
           PY
       - name: Save redacted health result to repository
