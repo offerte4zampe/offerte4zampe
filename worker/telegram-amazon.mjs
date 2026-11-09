@@ -69,5 +69,5 @@ export function amazonText(post, link, escape) {
     '\n\n🛒 Scoprilo su Amazon\n\n' + disclosure;
   if (Array.from(visible).length > (post.image ? 1024 : 4096)) throw new Error('message_too_long');
   if (post.image) return {method:'sendPhoto',body:{chat_id:'@sconti4zampe',photo:'https://offerte4zampe.it'+post.image,caption:text,parse_mode:'HTML'}};
-  return {method:'sendMessage',body:{chat_id:'@sconti4zampe',text,parse_mode:'HTML',link_preview_options:{is_disabled:true}}};
+  return {method:'sendMessage',body:{chat_id:'@sconti4zampe',text,parse_mode:'HTML',link_preview_options:{is_disabled:false,url:link,prefer_large_media:true,show_above_text:false}}};
 }
