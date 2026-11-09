@@ -36,11 +36,16 @@ export function amazonPick(entry, now = Date.now()) {
   };
 }
 export function amazonText(post, link, escape) {
-  const visible = '🐾 ' + post.title + '\n\n' + post.note + '\n\n🛒 Vedi il prodotto su Amazon\n\n#pubblicità · Link affiliato Amazon. In qualità di Affiliato Amazon ricevo un guadagno dagli acquisti idonei.';
+  // Keep the affiliation notice clear and adjacent to the link.
+  const disclosure = '#pubblicità · link affiliato';
+  const title = '✨ <b>' + escape(post.title) + '</b>';
+  const text = '🐾 <b>SCELTO PER TE</b>\n\n' + title +
+    '\n\n💡 ' + escape(post.note) +
+    '\n\n<a href="' + escape(link) + '">🛒 Scoprilo su Amazon</a>' +
+    '\n\n' + escape(disclosure);
+  const visible = '🐾 SCELTO PER TE\n\n✨ ' + post.title + '\n\n💡 ' + post.note +
+    '\n\n🛒 Scoprilo su Amazon\n\n' + disclosure;
   if (Array.from(visible).length > (post.image ? 1024 : 4096)) throw new Error('message_too_long');
-  const text = '🐾 <b>' + escape(post.title) + '</b>\n\n' + escape(post.note) +
-    '\n\n<a href="' + escape(link) + '">🛒 Vedi il prodotto su Amazon</a>' +
-    '\n\n' + escape('#pubblicità · Link affiliato Amazon. In qualità di Affiliato Amazon ricevo un guadagno dagli acquisti idonei.');
   if (post.image) return {method:'sendPhoto',body:{chat_id:'@sconti4zampe',photo:'https://offerte4zampe.it'+post.image,caption:text,parse_mode:'HTML'}};
   return {method:'sendMessage',body:{chat_id:'@sconti4zampe',text,parse_mode:'HTML',link_preview_options:{is_disabled:true}}};
 }
