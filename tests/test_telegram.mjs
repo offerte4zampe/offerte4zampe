@@ -165,3 +165,24 @@ test('Amazon editorial selection can send a text-only message without images or 
   assert.equal(count,1);
  }finally{global.fetch=original;}
 });
+
+test('explicit Telegram recovery triggers one internal tick without caller-selected content',async()=>{
+ let reads=0,postCalls=0;
+ const env={TELEGRAM_STATUS_RECOVERY:'true',TELEGRAM_PUBLISHER:{
+  idFromName:name=>name,
+  get:()=>({fetch:async request=>{
+   if(request.method==='POST'){postCalls++;return Response.json({status:'idle'});}
+   reads++;return Response.json({integration:'telegram-v1',last_sent_day:'2026-11-09'});
+  }})
+ }};
+ const ctx={waitUntil:()=>{}};
+ const regular=await worker.fetch(new Request('https://offerte4zampe.it/api/telegram/status'),env,ctx);
+ assert.equal((await regular.json()).last_sent_day,'2026-11-09');
+ assert.equal(postCalls,0);
+ const recovery=await worker.fetch(new Request('https://offerte4zampe.it/api/telegram/status?recover=1'),env,ctx);
+ const response=await recovery.json();
+ assert.equal(response.recovery_status,'idle');
+ assert.equal(postCalls,1);
+ assert.equal(reads,2);
+ assert.equal((await worker.fetch(new Request('https://offerte4zampe.it/api/telegram/status?recover=1',{method:'POST'}),env,ctx)).status,405);
+});
