@@ -2,7 +2,7 @@ import copy
 import datetime as dt
 import json
 import unittest
-from automation.build_coupon_page import ROOT, eligible, render_card
+from automation.build_coupon_page import visit_link, ROOT, eligible, render_card
 
 
 class CouponTests(unittest.TestCase):
@@ -109,6 +109,29 @@ class CouponTests(unittest.TestCase):
             changed = copy.deepcopy(row)
             changed['recheck_after'] = bad
             self.assertFalse(eligible(changed, confirmed))
+
+    def test_official_affiliate_link_is_preserved_and_disclosed(self):
+        row = copy.deepcopy(next(r for r in self.records if r['code'] == 'CIOTOLA30'))
+        url, rel = visit_link(row)
+        self.assertEqual(url, row['affiliate_url'])
+        self.assertEqual(rel, 'sponsored nofollow noopener noreferrer')
+        html = render_card(row)
+        self.assertIn('awinaffid=3126265', html)
+        self.assertIn('rel="sponsored nofollow noopener noreferrer"', html)
+        self.assertIn('CIOTOLA30', html)
+        self.assertEqual(visit_link(self.row), (self.row['destination_url'], 'noopener noreferrer'))
+
+    def test_affiliate_link_rejects_wrong_publisher_merchant_destination(self):
+        row = copy.deepcopy(next(r for r in self.records if r['code'] == 'CIOTOLA30'))
+        good = row['affiliate_url']
+        for bad in [good.replace('3126265', '3126256'), good.replace('121988', '999'),
+                    good.replace('www.awin1.com', 'www.awin1.com.evil.test'),
+                    good + '&awinaffid=3126256', good.replace('hyggepetfood.com', 'evil.test'),
+                    good.replace('https://', 'http://', 1), good + '#fragment', good + '\n']:
+            row['affiliate_url'] = bad
+            with self.assertRaises(ValueError, msg=bad):
+                render_card(row)
+
 
 if __name__ == '__main__':
     unittest.main()
