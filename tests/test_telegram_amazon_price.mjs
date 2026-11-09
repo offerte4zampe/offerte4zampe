@@ -40,3 +40,15 @@ test('foreign partner prices on the editorial entry are ignored',()=>{
  const p=amazonPick({...entry,partner_price_eur:99,price:{source:'bauzaar',amount_cents:9900,currency:'EUR',observed_at:official.observed_at}},now,env);
  assert.equal(p.price,null);
 });
+
+test('native Amazon product preview uses direct affiliate URL and does not fabricate a price',()=>{
+ const p=amazonPick({...entry,price:null},now,{});
+ const url='https://www.amazon.it/dp/B0002AR15U?tag=offerte4zam0c-21';
+ const message=amazonText(p,url,esc);
+ assert.equal(message.method,'sendMessage');
+ assert.deepEqual(message.body.link_preview_options,{
+  is_disabled:false,url,prefer_large_media:true,show_above_text:false
+ });
+ assert.doesNotMatch(message.body.text,/Prezzo Amazon:/);
+ assert.match(message.body.text,/#pubblicità/);
+});
