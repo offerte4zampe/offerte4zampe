@@ -155,7 +155,7 @@ test('Amazon editorial selection can send a text-only message without images or 
   count++;
   assert.equal(String(url).includes('sendMessage'),true);
   const payload=JSON.parse(init.body);
-  assert.match(payload.text,/B0002AR15U\\?tag=offerte4zam0c-21/);
+  assert.match(payload.text,/B0002AR15U\?tag=offerte4zam0c-21/);
   assert.doesNotMatch(payload.text,/€|minimo storico|sconto del/);
   return ok();
  };
