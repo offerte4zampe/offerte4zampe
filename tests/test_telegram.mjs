@@ -199,3 +199,21 @@ test('Amazon promo copy is inviting but clearly disclosed at the linked CTA',asy
  assert.doesNotMatch(payload.body.text,/ricevo un guadagno dagli acquisti idonei/i);
  assert.ok(payload.body.text.indexOf('#pubblicità')>payload.body.text.indexOf('amazon.it/dp/'));
 });
+
+
+test('Telegram posts use current verified prices only and cannot claim historical lows or price alerts',()=>{
+ const now=Date.parse('2026-11-07T09:00:00Z');
+ const sources=[{id:'isola-dei-tesori',status:'ok',checked_at:'2026-11-07T08:00:00Z'}];
+ const offer={id:'isola-dei-tesori:amazon-guard-test',merchant_id:'isola-dei-tesori',merchant:'Isola dei Tesori',
+   title:'Mangime cane 2 kg',variant:'2 kg',weight_kg:2,price:18,available:true,checked_at:sources[0].checked_at,
+   image:'https://www.isoladeitesori.it/images/test.jpg',
+   history:[{day:'2026-11-01',low:40,high:80}],verified_before_price:80,
+   verified_discount_pct:77.5,price_alert:true,target_cents:2000};
+ const post=offerPost(offer,sources,now);
+ assert(post);
+ const message=payload(post,'@sconti4zampe').body.caption;
+ assert.match(message,/18,00/);
+ assert.doesNotMatch(message,/storico|minimo|massimo|avvis|alert|soglia|ribasso|monitora|buon momento|prezzo precedente/i);
+ assert.doesNotMatch(message,/77,5|80,00/);
+ for(const item of POSTS)assert.doesNotMatch(payload(item,'@sconti4zampe').body.caption??payload(item,'@sconti4zampe').body.text,/storico|minimo storico|avvisi di prezzo|alert di prezzo|ribasso/i);
+});

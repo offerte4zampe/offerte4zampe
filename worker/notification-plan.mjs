@@ -1,10 +1,12 @@
 // Offline planning only. No fetch, email adapter, subscription endpoint or scheduler.
+import {priceHistoryAllowed} from './price-merchant-policy.mjs';
 export function offerIdentity(offer){
  return JSON.stringify(['id','title','variant','brand','gtin','weight_kg'].map(key=>offer?.[key]??null));
 }
 
 export function priceAlertDecision(subscription,offer,now=Date.now()){
  const no=reason=>({notify:false,reason});
+ if(!priceHistoryAllowed(offer?.merchant_id))return no('merchant_price_history_not_allowed');
  if(subscription?.purpose!=='price_alert'||subscription.status!=='active'||subscription.withdrawn_at)return no('unconfirmed_or_withdrawn');
  const confirmation=Date.parse(subscription.confirmed_at);
  if(!Number.isFinite(confirmation)||confirmation>now||!subscription.notice_version)return no('consent_evidence_missing');

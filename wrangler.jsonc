@@ -12,6 +12,16 @@
       "/confronta-cibo",
       "/*.html",
       "/api/metrics",
+      "/data/history/*",
+      "/data/price-history*",
+      "/data/price-observatory*",
+      "/api/price-history*",
+      "/api/price-alert*",
+      "/api/alert*",
+      "/api/watchlist*",
+      "/osservatorio-prezzi",
+      "/preferiti",
+      "/leggere-storico-prezzi",
       "/prodotto",
       "/prodotto.html",
       "/prodotto/*",
@@ -46,6 +56,8 @@
   "vars": {
     "SHIPPING_RULES_SOURCE": "json",
     "SHIPPING_SHADOW": "false",
+    "PRICE_TRACKING_ENABLED": "false",
+    "AMAZON_LINKS_ENABLED": "false",
     "TELEGRAM_CONTENT_MODE": "amazon_only",
     "TELEGRAM_AMAZON_OWNER_ENABLED": "true",
     "TELEGRAM_STATUS_RECOVERY": "true",
@@ -73,7 +85,7 @@
     ]
   },
   "build": {
-    "command": "python automation/fingerprint_assets.py --restore && python automation/check_d1_activation.py --prepare-build && node automation/normalize_catalog.cjs && python automation/build_product_catalog.py && python automation/build_home_data.py && python automation/build_catalog_preview.py && python automation/build_commercial_lines.py && python automation/build_brand_pages.py && python automation/build_sitemaps.py && python automation/apply_product_metadata.py && python automation/apply_compact_comparator.py && python automation/apply_navigation.py && python automation/apply_freshness.py && python automation/apply_brand_links.py && python automation/clean_urls.py && python automation/apply_micro_fixes.py && python automation/apply_images.py && python automation/apply_semantics.py && python automation/remove_unverified_ads.py && python automation/build_catalog_index.py && python automation/fingerprint_assets.py"
+    "command": "python automation/fingerprint_assets.py --restore && python automation/check_d1_activation.py --prepare-build && node automation/normalize_catalog.cjs && python automation/build_product_catalog.py && python automation/build_home_data.py && python automation/build_catalog_preview.py && python automation/build_commercial_lines.py && python automation/build_brand_pages.py && python automation/build_sitemaps.py && python automation/apply_product_metadata.py && python automation/apply_compact_comparator.py && python automation/apply_navigation.py && python automation/apply_freshness.py && python automation/apply_brand_links.py && python automation/clean_urls.py && python automation/apply_micro_fixes.py && python automation/apply_images.py && python automation/apply_semantics.py && python automation/remove_unverified_ads.py && python automation/build_catalog_index.py && O4Z_DISPOSABLE_BUILD=1 python automation/price_feature_gate.py && python automation/build_sitemaps.py && python automation/fingerprint_assets.py"
   },
   "analytics_engine_datasets": [
     {

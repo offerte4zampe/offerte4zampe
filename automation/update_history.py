@@ -1,6 +1,10 @@
 """Daily observed min/max prices; no backfill and no fabricated historical points."""
 import gzip,json,datetime,hashlib,math,copy,os
 from pathlib import Path
+try:
+ from .price_merchant_policy import price_history_allowed, history_offer_allowed
+except ImportError:
+ from price_merchant_policy import price_history_allowed, history_offer_allowed
 ROOT=Path(__file__).resolve().parents[1]
 def amazon_origin(offer):
  # Only origin fields: a non-Amazon offer may legitimately have an Amazon affiliate link.
@@ -8,8 +12,9 @@ def amazon_origin(offer):
 
 def update(history,catalog,today):
  cutoff=(datetime.date.fromisoformat(today)-datetime.timedelta(days=179)).isoformat()
- rows=copy.deepcopy(history.get('offers',{}))
- identities=dict(history.get('identities',{}))
+ # Storage preservation and publication permission are independent: keep every non-Amazon merchant.
+ rows={oid:copy.deepcopy(records) for oid,records in history.get('offers',{}).items() if not amazon_origin({'merchant_id':str(oid).split(':',1)[0]})}
+ identities={oid:fp for oid,fp in history.get('identities',{}).items() if not amazon_origin({'merchant_id':str(oid).split(':',1)[0]})}
  for oid in list(rows):
   rows[oid]=[r for r in rows[oid] if r['day']>=cutoff]
   if not rows[oid]:del rows[oid]
@@ -30,6 +35,7 @@ def write_shards(history,directory):
  directory.mkdir(parents=True,exist_ok=True)
  buckets={format(n,'02x'):{} for n in range(256)}
  for oid,rows in history['offers'].items():
+  if not history_offer_allowed(oid):continue
   buckets[hashlib.sha256(oid.encode()).hexdigest()[:2]][oid]=rows
  for prefix,offers in buckets.items():
   data={k:history[k] for k in ('started_at','updated_at','retention_days')}
@@ -37,6 +43,9 @@ def write_shards(history,directory):
   (directory/(prefix+'.json.gz')).write_bytes(gzip.compress(json.dumps(data,separators=(',',':')).encode(),mtime=0))
 
 def build():
+ if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() != 'true':
+  print('Price history disabled; existing repository data left unchanged')
+  return
  p=ROOT/'site/data/price-history.json.gz';old=json.loads(gzip.decompress(p.read_bytes())) if p.exists() else {}
  catalog=json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()));today=datetime.datetime.now(datetime.timezone.utc).date().isoformat()
  excluded=sum(amazon_origin(o) and o.get('checked_at','')[:10]==today and isinstance(o.get('price'),(int,float)) and not isinstance(o.get('price'),bool) and math.isfinite(o['price']) and o['price']>0 for o in catalog['offers'])

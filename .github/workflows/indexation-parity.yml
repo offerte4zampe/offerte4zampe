@@ -49,7 +49,9 @@ jobs:
               ' def utcnow(cls):\n'
               '  return cls.now(_d.timezone.utc).replace(tzinfo=None)\n'
               '_d.datetime=_Frozen\n')
-          env={**os.environ,
+          # Offline compatibility check only: exercise preserved non-Amazon history.
+          # Production defaults remain false; the separate safety job audits the disabled build.
+          env={**os.environ,'PRICE_TRACKING_ENABLED':'true',
                'SNAPSHOT_FIXED_NOW':datetime.datetime.now(datetime.timezone.utc).isoformat(),
                'PYTHONPATH':str(clock_dir)+os.pathsep+os.environ.get('PYTHONPATH','')}
           def file_map(root):
@@ -70,7 +72,10 @@ jobs:
           base_products=load(base,'site/data/product-catalog.json.gz')
           pr_products=load(pr,'site/data/product-catalog.json.gz')
           assert base_products['offers']==pr_products['offers'],'Merchant offers differ'
-          assert base_products['products']==pr_products['products'],'Canonical products/indexability changed on real snapshot'
+          # History attribution is intentionally isolated by merchant in this integration.
+          # Every identity, price and indexability field must still match exactly.
+          strip_history=lambda products:[{k:v for k,v in product.items() if k!='history'} for product in products]
+          assert strip_history(base_products['products'])==strip_history(pr_products['products']),'Canonical identity/price/indexability changed on real snapshot'
           assert file_map(base)==file_map(pr),'HTML or sitemap XML bytes differ after builds'
           xml_files=sorted(p for p in file_map(pr) if p.startswith('sitemap') and p.endswith('.xml'))
           summary=(f'## Indexability real-snapshot parity\n'

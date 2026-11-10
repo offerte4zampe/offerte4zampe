@@ -4,6 +4,7 @@ import hashlib
 import math
 import datetime
 import gzip
+import os
 import json
 import pathlib
 import re
@@ -16,6 +17,10 @@ except ImportError:
     from report_link import error_link
     from product_link import product_url
 
+try:
+    from .price_merchant_policy import price_history_allowed
+except ImportError:
+    from price_merchant_policy import price_history_allowed
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
@@ -61,14 +66,14 @@ def build(catalog, now=None, history=None):
         return True
     def rotate(o):
         return hashlib.sha256((today.isoformat() + ':' + o['id']).encode()).hexdigest()
-    history_rows = (history or {}).get('offers', {})
+    history_rows = (history or {}).get('offers', {}) if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() == 'true' else {}
     candidates = []
     for original in rows:
         if not valid(original):
             continue
         o = dict(original)
         past = []
-        for entry in history_rows.get(o['id'], []):
+        for entry in (history_rows.get(o['id'], []) if price_history_allowed(o.get('merchant_id')) else []):
             try:
                 day = datetime.date.fromisoformat(entry['day'])
                 value = entry['last']
@@ -261,6 +266,12 @@ def replace_region(html, element_id, content):
 
 
 def render_home(html, payload):
+    # Fail closed even when a stale pre-generated home payload is supplied.
+    if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() != 'true':
+        payload = {**payload, 'offers': [
+            {k:v for k,v in item.items() if k not in ('verified_before_price','verified_discount_pct')}
+            for item in payload.get('offers', [])
+        ]}
     from html import escape as h, unescape
     from urllib.parse import urlencode
     import re
@@ -308,7 +319,7 @@ def render_home(html, payload):
     parts = {
         'home-deals': ''.join(card(o) for o in deals) if deals else '<p class="home-no-proof">Oggi non risultano ribassi o risparmi tra negozi sufficientemente verificati. <a href="/confronta-cibo">Confronta comunque i prezzi aggiornati →</a></p>',
         'home-spotlight': '<h2 class="sr-only">Risparmio verificato in evidenza</h2>'+card(hero, True) if hero else '<p class="micro">Nessun risparmio verificato al momento. <a href="/confronta-cibo">Esplora i prezzi rilevati →</a></p>',
-        'home-deals-status': 'Catalogo aggiornato il '+h(payload['generated_at'][:16].replace('T',' '))+' UTC. '+str(sum('verified_discount_pct' in o for o in deals))+' ribassi storici verificati, '+str(sum('comparison_savings_pct' in o and 'verified_discount_pct' not in o for o in deals))+' risparmi tra negozi verificati nella selezione. In questa sezione non pubblichiamo prezzi senza prova di risparmio. Spedizione esclusa.',
+        'home-deals-status': 'Catalogo aggiornato il '+h(payload['generated_at'][:16].replace('T',' '))+' UTC. '+(str(sum('verified_discount_pct' in o for o in deals))+' ribassi storici verificati, ' if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() == 'true' else '')+str(sum('comparison_savings_pct' in o and 'verified_discount_pct' not in o for o in deals))+' risparmi tra negozi verificati nella selezione. In questa sezione non pubblichiamo prezzi senza prova di risparmio. Spedizione esclusa.',
         'home-stats': ''.join('<span>'+h(s)+'</span>' for s in [f"{payload['stats']['offers']:,}".replace(',', '.')+' offerte importate', str(payload['stats']['brands'])+' marche', str(sum(s.get('offers',0)>0 for s in payload['sources']))+' negozi', 'Verifiche programmate ogni '+str(payload['refresh_hours'])+' ore']),
         'home-brands': ''.join(link(brand, brand=brand) for brand in payload['top_brands']),
         'home-shops': ''.join(link(s['name']+' · '+str(s['offers'])+' offerte →', shop=s['name']) for s in payload['sources'] if s.get('offers',0)>0),

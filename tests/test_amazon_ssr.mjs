@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {resolveAmazonOffer,AMAZON_DISCLOSURE,AMAZON_PRICE_NOTICE} from '../worker/amazon-product.mjs';
+import {content} from '../worker/canonical-product.mjs';
+import fs from 'node:fs';
+const registry=JSON.parse(fs.readFileSync(new URL('../site/data/amazon-links.json',import.meta.url),'utf8'));
+const row=registry.links[0];
+const offer={id:row.offer_id,title:row.title,brand:row.brand,variant:row.variant,gtin:row.gtin};
+const product={slug:'test',name:row.title,brand:row.brand,format:'35 cm',offers:[offer],related:[]};
+const now=Date.parse('2026-11-07T12:00:00Z');
+const state={shops:0,rows:[],available:[],quotes:new Map(),quantity:1,territory:'standard',now};
+test('canonical links require exact manually recorded merchant offer and evidence',()=>{
+ const found=resolveAmazonOffer(product,registry,now);
+ assert.equal(found.url,'https://www.amazon.it/dp/'+row.asin+'?tag=offerte4zam0c-21');
+ assert.equal(resolveAmazonOffer({...product,offers:[{...offer,variant:'wrong'}]},registry,now),null);
+ assert.equal(resolveAmazonOffer({...product,offers:[{...offer,gtin:'other'}]},registry,now),null);
+ assert.equal(resolveAmazonOffer(product,registry,Date.parse('2027-01-01T12:00:00Z')),null);
+ assert.equal(resolveAmazonOffer(product,{...registry,tracking_id:''},now),null);
+});
+test('canonical Amazon section has exact disclosure and valid checkout notice, never fabricated price',()=>{
+ const found=resolveAmazonOffer(product,registry,now);
+ const html=content(product,state,false,found).body;
+ assert.match(html,/data-amazon-verified/);
+ assert.ok(html.includes(AMAZON_DISCLOSURE));
+ assert.ok(html.includes(AMAZON_PRICE_NOTICE));
+ assert.ok(html.includes('tag=offerte4zam0c-21'));
+ assert.doesNotMatch(html,/Prezzo Amazon:\s*\d|Disponibilità Amazon: disponibile|minimo storico|avvisi di prezzo/i);
+ const disabled=content(product,state,false,null).body;
+ assert.doesNotMatch(disabled,/data-amazon-verified|amazon\.it\/dp\//);
+});

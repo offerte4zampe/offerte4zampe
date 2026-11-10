@@ -5,6 +5,7 @@ stay isolated; similarity produces review candidates, never a false comparison.
 """
 import datetime as dt
 import gzip
+import os
 import hashlib
 import json
 import math
@@ -25,12 +26,17 @@ try:
     from .image_policy import local_image
 except ImportError:
     from image_policy import local_image
+try:
+    from .price_merchant_policy import price_history_allowed
+except ImportError:
+    from price_merchant_policy import price_history_allowed
 BRAND_ALIASES=json.loads((ROOT/'automation/brand_aliases.json').read_text())
 
 
 def observed_history(rows, history):
     daily=defaultdict(dict)
     for o in rows:
+        if not price_history_allowed(o.get('merchant_id')):continue
         for item in history.get('offers',{}).get(o['id'],[]):
             if not item.get('available') or not isinstance(item.get('last'),(int,float)):continue
             prior=daily[item['day']].get(o['merchant_id'])
@@ -283,7 +289,8 @@ def write(model,site):
     (site/'data/matching-candidates.json').write_text(json.dumps(model['matching_candidates'],ensure_ascii=False,indent=2)+'\n')
     # Separate relations remain available as a portable snapshot, without needing SQL.
     snapshot={k:v for k,v in model.items() if k not in ('registry','matching_candidates')}
-    snapshot['price_history_relation']={'foreign_key':'offer.id','shards':'/data/history/{sha256_offer_id_prefix}.json.gz','scope':'Observed per-offer history; daily summaries, no invented intermediate prices'}
+    if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() == 'true':
+        snapshot['price_history_relation']={'foreign_key':'offer.id','shards':'/data/history/{sha256_offer_id_prefix}.json.gz','scope':'Observed per-offer history; daily summaries, no invented intermediate prices'}
     (site/'data/product-catalog.json.gz').write_bytes(gzip.compress(json.dumps(snapshot,ensure_ascii=False,separators=(',',':')).encode(),mtime=0))
 
 
@@ -291,7 +298,7 @@ def main():
     catalog=json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()));state=ROOT/'automation/product-registry.json'
     previous=json.loads(state.read_text()) if state.exists() else {}
     history_path=ROOT/'site/data/price-history.json.gz'
-    history=json.loads(gzip.decompress(history_path.read_bytes())) if history_path.exists() else {}
+    history=json.loads(gzip.decompress(history_path.read_bytes())) if os.environ.get('PRICE_TRACKING_ENABLED','false').lower() == 'true' and history_path.exists() else {}
     model=build(catalog,previous,history);write(model,ROOT/'site');state.write_text(json.dumps(model['registry'],ensure_ascii=False,separators=(',',':'))+'\n')
     # Consumers keep merchant IDs; canonical identity is an explicit separate relation.
     catalog['offers']=model['offers'];(ROOT/'site/data/catalog.json.gz').write_bytes(gzip.compress(json.dumps(catalog,ensure_ascii=False,separators=(',',':')).encode(),mtime=0))

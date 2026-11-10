@@ -1,4 +1,6 @@
 import datetime
+import os
+from unittest.mock import patch
 import unittest
 from automation.build_home_data import build
 
@@ -29,8 +31,9 @@ class HomePrerenderTests(unittest.TestCase):
         template = '<head><meta name="description" content="Quattro negozi"><meta property="og:description" content="Quattro negozi"></head><main id="main">'+''.join('<div id="'+name+'"><div>Caricamento…</div></div>' for name in ['home-stats','home-spotlight','home-deals-status','home-deals','home-brands','home-shops'])+'</main>'
         offer = dict(url='https://example.com/exact-product', affiliate_url='https://example.com/tracked-product', id='a', title='<script>alert(1)</script>', brand='Brand', merchant='Shop', merchant_id='shop', product_slug='test-canonical', variant='2 kg', price=10, previous_price=20, verified_before_price=15, verified_discount_pct=33.3, weight_kg=2, checked_at='2026-10-19T20:00:00+00:00', image='https://example.com/image.jpg')
         payload = dict(generated_at=offer['checked_at'], refresh_hours=6, stats=dict(offers=100,brands=2), top_brands=['Brand'], sources=[dict(id='shop',name='Shop',offers=100)], offers=[offer])
-        rendered = render_home(template,payload)
-        self.assertEqual(rendered, render_home(rendered,payload))
+        with patch.dict(os.environ, {'PRICE_TRACKING_ENABLED':'true'}):
+            rendered = render_home(template,payload)
+            self.assertEqual(rendered, render_home(rendered,payload))
         self.assertNotIn('Caricamento',rendered)
         self.assertNotIn('<script>',rendered)
         self.assertIn('10,00 €',rendered)

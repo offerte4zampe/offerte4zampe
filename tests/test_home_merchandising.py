@@ -1,4 +1,6 @@
 import datetime
+import os
+from unittest.mock import patch
 import unittest
 
 from automation.build_home_data import build, pick, render_home
@@ -8,17 +10,23 @@ NOW = datetime.datetime(2026, 11, 4, 12, tzinfo=UTC)
 STAMP = NOW.isoformat()
 
 def offer(number, brand=None, price=20, checked_at=STAMP):
-    return dict(id='merchant:'+str(number), merchant_id='merchant', merchant='Pet Store',
+    return dict(id='merchant:'+str(number), merchant_id='bauzaar', merchant='Pet Store',
                 brand=brand or ('Brand '+str(number)), title='Dog food '+str(number)+' 2 kg',
                 category='Dog Food', variant='2 kg', price=price, weight_kg=2,
                 image='https://example.com/p.jpg', url='https://example.com/p', available=True,
                 checked_at=checked_at)
 
 def catalog(offers):
-    return dict(offers=offers, sources=[dict(id='merchant', status='ok', checked_at=STAMP, name='Pet Store')],
+    return dict(offers=offers, sources=[dict(id='bauzaar', status='ok', checked_at=STAMP, name='Pet Store')],
                 generated_at=STAMP, refresh_hours=6)
 
 class MerchandisingTests(unittest.TestCase):
+    def setUp(self):
+        # These legacy cases validate behavior only if Amazon explicitly permits history.
+        self._flag = patch.dict(os.environ, {'PRICE_TRACKING_ENABLED':'true'})
+        self._flag.start()
+        self.addCleanup(self._flag.stop)
+
     def test_observed_drop_is_prioritized_not_seller_previous_price(self):
         a,b,c = offer(1), offer(2), offer(3)
         b['previous_price'] = 1000  # unverified vendor reference cannot create a discount
@@ -103,7 +111,7 @@ class MerchandisingTests(unittest.TestCase):
         c['sources'].append(dict(id='other',status='ok',checked_at=STAMP,name='Other Shop'))
         self.assertFalse(any('comparison_savings_pct' in x for x in build(c,NOW)['offers']))
         a['product_identity_verified']=b['product_identity_verified']=True
-        b['merchant_id']='merchant'
+        b['merchant_id']='bauzaar'
         self.assertFalse(any('comparison_savings_pct' in x for x in build(catalog([a,b]),NOW)['offers']))
 
     def test_second_cheapest_reference_not_highest(self):
