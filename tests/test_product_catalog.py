@@ -1,6 +1,6 @@
 import datetime as dt
 import unittest
-from automation.build_product_catalog import build,clean_title,quantity
+from automation.build_product_catalog import build,clean_title,quantity,history_count
 
 class CanonicalProductTests(unittest.TestCase):
     def setUp(self):
@@ -17,6 +17,33 @@ class CanonicalProductTests(unittest.TestCase):
     def test_single_store_multiple_offers_is_not_a_multishop_comparison(self):
         m=self.model([self.a,dict(self.a,id='a:2')]);self.assertEqual(m['metrics']['multi_shop_products'],0)
         self.assertEqual(m['products'][0]['verified_shop_count'],1)
+    def test_indexation_requires_two_verified_active_merchants_even_after_30_days(self):
+        self.a={**self.a,'id':'bauzaar:1','merchant_id':'bauzaar'}
+        # 31 independently observed dates must not create an indexable single-store page.
+        days=[self.now.date()-dt.timedelta(days=i+1) for i in range(31)]
+        history={'offers':{'bauzaar:1':[{'day':day.isoformat(),'low':20,'high':20,
+                                    'last':20,'available':True} for day in days]}}
+        catalog={'offers':[self.a],'generated_at':self.now.isoformat()}
+        solo=build(catalog,history=history,now=self.now)['products'][0]
+        self.assertEqual(history_count(solo['history'],self.now),31)
+        self.assertEqual(solo['verified_shop_count'],1)
+        self.assertFalse(solo['indexable'])
+        second=dict(self.a,id='b:1',merchant_id='b',merchant='B',price=19)
+        multiple=build({'offers':[self.a,second],'generated_at':self.now.isoformat()},
+                       history=history,now=self.now)['products'][0]
+        self.assertEqual(multiple['verified_shop_count'],2)
+        self.assertTrue(multiple['indexable'])
+        inactive=dict(self.a,available=False)
+        inactive_result=build({'offers':[inactive],'generated_at':self.now.isoformat()},
+                              history=history,now=self.now)['products'][0]
+        self.assertEqual(inactive_result['active_shop_count'],0)
+        self.assertFalse(inactive_result['indexable'])
+        archived=build({'offers':[],'generated_at':self.now.isoformat()},
+                       old_registry=build(catalog,history=history,now=self.now)['registry'],
+                       history=history,now=self.now)['products'][0]
+        self.assertEqual(archived['active_shop_count'],0)
+        self.assertFalse(archived['indexable'])
+
     def test_missing_gtin_and_different_formats_are_never_fuzzy_merged(self):
         rows=[self.a,dict(self.a,id='b:1',merchant_id='b',gtin=''),dict(self.a,id='c:1',merchant_id='c',weight_kg=4)]
         self.assertEqual(len(self.model(rows)['products']),3)

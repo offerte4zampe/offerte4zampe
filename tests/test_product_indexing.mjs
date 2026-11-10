@@ -9,10 +9,10 @@ test('indexing requires distinct comparable shops or thirty actual observed date
  assert.equal(observedDays([...history,...history],now),30);assert.equal(observedDays([{...history[0],day:'2026-02-30'}],now),0);
 });
 test('Product schema only on indexable canonical views; prices match visible offers',async()=>{
- for(const [product,expected,enabled]of [[p,false,false],[{...p,history},false,false],[{...p,history},true,true]]){const response=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug),env(product,false,enabled),now),html=await response.text();assert.equal(html.includes('"@type":"Product"'),expected);assert.equal(response.headers.get('X-Robots-Tag'),expected?'index, follow':'noindex, follow');if(expected){assert(html.includes('"lowPrice":12'));assert(html.includes('12,00'));}}
- const response=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug+'?quantity=2'),env({...p,history}),now);assert(!(await response.text()).includes('"@type":"Product"'));
+ for(const [product,expected]of [[p,false],[{...p,history,indexable:true},true]]){const response=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug),env(product),now),html=await response.text();assert.equal(html.includes('"@type":"Product"'),expected);assert.equal(response.headers.get('X-Robots-Tag'),expected?'index, follow':'noindex, follow');if(expected){assert(html.includes('"lowPrice":12'));assert(html.includes('12,00'));}}
+ const response=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug+'?quantity=2'),env({...p,history,indexable:true}),now);assert(!(await response.text()).includes('"@type":"Product"'));
 });
 test('local og image is used only for a real local asset on an indexable page',async()=>{
- const product={...p,history,image_local:'/img/p/'+'a'.repeat(24)+'-400.webp'};
- for(const exists of [false,true]){const response=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug),env(product,exists,true),now);const html=await response.text();assert.equal(html.includes('content="https://offerte4zampe.it/img/p/'),exists);assert(html.includes('property="og:type" content="product"'));}
+ const product={...p,history,indexable:true,image_local:'/img/p/'+'a'.repeat(24)+'-400.webp'};
+ for(const exists of [false,true]){const response=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+p.slug),env(product,exists),now);const html=await response.text();assert.equal(html.includes('content="https://offerte4zampe.it/img/p/'),exists);assert(html.includes('property="og:type" content="product"'));}
 });

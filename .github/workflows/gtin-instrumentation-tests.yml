@@ -1,0 +1,43 @@
+name: GTIN instrumentation offline regression
+on:
+  pull_request:
+    paths:
+      - 'automation/gtin_diagnostics.py'
+      - 'automation/merchant_evidence.py'
+      - 'tests/test_merchant_evidence.py'
+      - 'tests/check_merchant_evidence_snapshot.py'
+      - '.gitignore'
+      - 'automation/paco_feed.py'
+      - 'automation/update_catalog.py'
+      - 'automation/isola_feed.py'
+      - 'tests/test_isola_feed.py'
+      - 'tests/test_gtin_diagnostics.py'
+      - 'tests/check_gtin_snapshot_invariance.py'
+      - '.github/workflows/gtin-instrumentation-tests.yml'
+permissions:
+  contents: read
+jobs:
+  offline-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install Pillow==12.3.0
+      - name: Full Python test suite (includes before-after fixtures)
+        run: python -m unittest discover -s tests
+      - name: Prepare denied-by-default local D1 metadata (no remote validation)
+        run: python automation/check_d1_activation.py --prepare-build
+      - name: Node test suite
+        run: node --test tests/test_*.mjs
+      - name: Offline main compressed snapshot and six generated HTML parity
+        run: python tests/check_gtin_snapshot_invariance.py
+      - name: Offline classified evidence on real main compressed snapshot
+        run: python tests/check_merchant_evidence_snapshot.py

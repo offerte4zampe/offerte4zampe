@@ -86,10 +86,12 @@ async function renderCanonicalProduct(request,env,now=Date.now()){
  const brands=await jsonAsset(env,url.origin,'/data/brand-pages.json');p.brand_url=brands?.[p.brand];
  const trackingEnabled=env.PRICE_TRACKING_ENABLED==='true';
  if(!trackingEnabled)delete p.history;
- const amazonRegistry=await jsonAsset(env,url.origin,'/data/amazon-links.json');
+ const amazonRegistry=env.AMAZON_LINKS_ENABLED==='true'?await jsonAsset(env,url.origin,'/data/amazon-links.json'):null;
  const amazon=env.AMAZON_LINKS_ENABLED==='true'?resolveAmazonOffer(p,amazonRegistry,now):null;
  const state=view(p,loaded.rules,now,quantity,territory),page=content(p,state,trackingEnabled,amazon);
- const indexable=(state.shops>=2||(trackingEnabled&&state.indexable))&&quantity===1&&territory==='standard';
+ // Sitemap and canonical response share the same catalog snapshot decision.
+ // Runtime freshness must not flip robots directives between catalog builds.
+ const indexable=p.indexable===true&&quantity===1&&territory==='standard';
  let localImage='';if(indexable&&/^\/img\/p\/[a-f0-9]{24}-400\.webp$/.test(p.image_local||'')){const asset=await env.ASSETS.fetch(new Request(new URL(p.image_local,url.origin),{method:'HEAD'}));if(asset.ok)localImage=new URL(p.image_local,url.origin).href;}
  if(localImage)page.schema.image=localImage;
  const template=await env.ASSETS.fetch(new Request(new URL('/prodotto',url.origin)));if(!template.ok)return template;

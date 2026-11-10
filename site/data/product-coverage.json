@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-11-07T12:57:05.746927+00:00",
+  "generated_at": "2026-11-10T07:16:52.761979+00:00",
   "name_matching": {
-    "evaluated_offers": 18218,
-    "insufficient_characteristics": 9529,
-    "eligible_offers": 8689,
-    "attached_without_gtin": 12
+    "evaluated_offers": 18191,
+    "eligible_offers": 8695,
+    "insufficient_characteristics": 9496,
+    "attached_without_gtin": 13
   },
-  "gtin_multi_shop_products": 515,
-  "characteristic_multi_shop_products": 12,
+  "gtin_multi_shop_products": 514,
+  "characteristic_multi_shop_products": 13,
   "store_coverage": {
     "animaliapet": {
       "offers": 3558,
-      "active_offers": 3490,
-      "missing_valid_gtin": 1830,
+      "active_offers": 3487,
+      "missing_valid_gtin": 1816,
       "unverified_quantity": 0,
       "sales_unit_only": 1448,
-      "offers_in_multishop_products": 269
+      "offers_in_multishop_products": 271
     },
     "bauzaar": {
-      "offers": 7107,
-      "active_offers": 7107,
-      "missing_valid_gtin": 438,
+      "offers": 7117,
+      "active_offers": 7117,
+      "missing_valid_gtin": 437,
       "unverified_quantity": 0,
-      "sales_unit_only": 2146,
-      "offers_in_multishop_products": 475
+      "sales_unit_only": 2157,
+      "offers_in_multishop_products": 476
     },
     "hygge": {
       "offers": 134,
@@ -34,37 +34,37 @@
       "offers_in_multishop_products": 0
     },
     "isola-dei-tesori": {
-      "offers": 4166,
-      "active_offers": 4166,
-      "missing_valid_gtin": 2805,
+      "offers": 4172,
+      "active_offers": 4172,
+      "missing_valid_gtin": 2807,
       "unverified_quantity": 0,
-      "sales_unit_only": 2622,
-      "offers_in_multishop_products": 207
+      "sales_unit_only": 2607,
+      "offers_in_multishop_products": 220
     },
     "paco": {
-      "offers": 1307,
-      "active_offers": 818,
-      "missing_valid_gtin": 1162,
-      "unverified_quantity": 1162,
-      "sales_unit_only": 1162,
-      "offers_in_multishop_products": 87
+      "offers": 1310,
+      "active_offers": 810,
+      "missing_valid_gtin": 1161,
+      "unverified_quantity": 1161,
+      "sales_unit_only": 1161,
+      "offers_in_multishop_products": 85
     },
     "webpet": {
-      "offers": 1946,
-      "active_offers": 1277,
-      "missing_valid_gtin": 1381,
+      "offers": 1900,
+      "active_offers": 1232,
+      "missing_valid_gtin": 1377,
       "unverified_quantity": 0,
-      "sales_unit_only": 1666,
-      "offers_in_multishop_products": 40
+      "sales_unit_only": 1634,
+      "offers_in_multishop_products": 32
     }
   },
-  "products": 20420,
-  "active_products": 16409,
-  "offers": 18218,
+  "products": 20607,
+  "active_products": 16363,
+  "offers": 18191,
   "multi_shop_products": 527,
-  "multi_shop_percent": 3.21,
+  "multi_shop_percent": 3.22,
   "denominator": "active canonical products, distinct merchants with verified quantities; GTIN and characteristic matching reported separately; duplicate offers in one shop do not count",
-  "unattached_offers": 7203,
-  "candidate_pairs": 115,
+  "unattached_offers": 7165,
+  "candidate_pairs": 144,
   "automatic_match_rules": "GTIN and quantity, or exact normalized name plus brand and verified selling quantity; conflicting GTINs excluded"
 }

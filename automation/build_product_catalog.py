@@ -203,7 +203,11 @@ def build(catalog,old_registry=None,history=None,now=None):
         p['lastmod']=lastmod
         # Preserve the real observed history relation by offer ID, never backfill.
         p['history']=observed_history(rows,history)
-        p['indexable']=len(verified_shops)>=2 or history_count(p['history'],now)>=30
+        # Historical-depth indexing is disabled: only two *active*, quantity-verified merchants qualify.
+        # To restore it after explicit approval, define a reviewed HISTORY_INDEX_DAYS threshold
+        # and add `or history_count(p['history'], now) >= HISTORY_INDEX_DAYS` here.
+        # Do not enable historical-only indexing for retired/inactive products below.
+        p['indexable']=len(verified_shops)>=2
         products.append(p);registry[pid]={'slug':slug,'content_hash':signature,'lastmod':lastmod,'product':{k:v for k,v in p.items() if k!='history'}}
         if q['kind']!='sales_unit':by_bucket[(normalized(p['brand']),attrs['species'],q['kind'],q['value'])].append(p)
         for o in rows:
@@ -240,7 +244,7 @@ def build(catalog,old_registry=None,history=None,now=None):
                 archived['redirect_slug']=next(iter(targets))[1]
             archived.pop('image_local',None);archived.pop('image_source_offer',None)
             archived['history']=observed_history([{'id':oid,'merchant_id':oid.split(':',1)[0]} for oid in old_ids],history)
-            archived['indexable']='redirect_slug' not in archived and history_count(archived['history'],now)>=30
+            archived['indexable']=False  # No active merchants: never index solely on historical observations.
             products.append(archived);registry[pid]=entry
     families=defaultdict(list)
     for p in products:
