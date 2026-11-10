@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T22:51:18.699717+00:00",
+  "generated_at": "2026-11-10T01:10:24.726367+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,9 +7,9 @@
   "at_target": 13,
   "with_third_store_lead": 24,
   "categories": {
-    "umido": 115,
+    "umido": 116,
     "snack": 66,
-    "crocchette": 111,
+    "crocchette": 110,
     "lettiere": 8
   },
   "priority_offer_ids": [
@@ -193,7 +193,6 @@
     "bauzaar:56820443087173",
     "bauzaar:56820451115333",
     "bauzaar:56820451803461",
-    "bauzaar:56820452131141",
     "bauzaar:56820452196677",
     "bauzaar:56820452819269",
     "bauzaar:56820456849733",
@@ -446,7 +445,6 @@
     "paco:1118",
     "paco:1130",
     "paco:1245",
-    "paco:1342",
     "paco:1343",
     "paco:1350",
     "paco:1353",
@@ -2103,25 +2101,6 @@
       "offer_ids": [
         "bauzaar:56820214694213",
         "paco:3830"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-563fe8a54af96d4a1239",
-      "name": "Farmina Vet Life Feline Gastro Intestinal 2 kg",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "2 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-vet-life-feline-gastro-intestinal-2-kg-08010276025340-4a1239",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820452131141",
-        "paco:1342"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -5767,6 +5746,26 @@
       ],
       "candidate_offer_ids": [
         "paco:3847"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-a836c5069676bfc622de",
+      "name": "Farmina N&D Pumpkin Pollo Zucca Melograno 140g Lattina Cani Mini Adult",
+      "brand": "Farmina",
+      "category": "umido",
+      "species": "cane",
+      "format": "140 g",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-pumpkin-pollo-zucca-melograno-140g-lattina-cani-mini-adult-08606014102314-c622de",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "animaliapet:46976644677975"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56961280049477"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
