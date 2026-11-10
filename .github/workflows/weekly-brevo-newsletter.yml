@@ -15,6 +15,9 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          # A rerun must use the current catalog, never the original scheduled snapshot.
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
