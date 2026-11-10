@@ -38,3 +38,9 @@ jobs:
           CLOUDFLARE_MCP_TOKEN: ${{ secrets.CLOUDFLARE_MCP_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
         run: node automation/agent/cloudflare-worker-audit.mjs
+
+      - name: Read failed build status and sanitized logs (GET only)
+        env:
+          CLOUDFLARE_MCP_TOKEN: ${{ secrets.CLOUDFLARE_MCP_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: python3 automation/agent/read_fixed_build.py
