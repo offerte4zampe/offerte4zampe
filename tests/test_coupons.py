@@ -10,6 +10,10 @@ class CouponTests(unittest.TestCase):
         records = json.loads((ROOT/'automation/coupons.json').read_text())['coupons']
         self.records = records
         self.row = copy.deepcopy(next(r for r in records if r['code'] == 'MP20'))
+        # Fixed historical fixture, independent of daily coupon renewals.
+        self.row.update(verified_at='2026-11-06T00:00:00Z',
+                        recheck_after='2026-11-08T00:00:00Z')
+        self.row['cart_test'].update(before_cents=600, after_cents=480)
         self.now = dt.datetime(2026, 11, 6, 12, tzinfo=dt.timezone.utc)
 
     def test_requires_real_test_permission_and_discount(self):
