@@ -28,6 +28,14 @@ class AmazonHistoryIsolationTests(unittest.TestCase):
         self.assertNotIn('amazon:ASIN',output['identities'])
         self.assertIn('bauzaar:1',output['offers'])
 
+    def test_unapproved_non_amazon_source_history_is_preserved_without_publication(self):
+        stamp='2026-11-08T07:00:00Z'
+        old={'offers':{'hygge:1':[{'day':'2026-11-07','low':10,'high':10,'last':10,'available':True}]},'identities':{'hygge:1':'legacy'}}
+        out=update(old,{'generated_at':stamp,'offers':[]},'2026-11-08')
+        self.assertEqual(out['offers'],old['offers'])
+        self.assertEqual(out['identities'],old['identities'])
+        self.assertFalse(history_offer_allowed('hygge:1'))
+
     def test_history_shards_cannot_publish_amazon_even_with_legacy_input(self):
         import tempfile, gzip, hashlib, json
         history={'started_at':'2026-11-08','updated_at':'2026-11-08T07:00:00Z','retention_days':180,

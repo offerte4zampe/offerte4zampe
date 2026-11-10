@@ -61,7 +61,9 @@ jobs:
               ' def utcnow(cls):\n'
               '  return cls.now(_d.timezone.utc).replace(tzinfo=None)\n'
               '_d.datetime=_Frozen\n')
-          env={**os.environ,'SNAPSHOT_FIXED_NOW':fixed_now,
+          # Offline compatibility check only: exercise preserved non-Amazon history.
+          # Production defaults remain false; the separate safety job audits the disabled build.
+          env={**os.environ,'PRICE_TRACKING_ENABLED':'true','SNAPSHOT_FIXED_NOW':fixed_now,
                'PYTHONPATH':str(clock_dir)+os.pathsep+os.environ.get('PYTHONPATH','')}
           for root in [base,pr]:
               for cmd in [

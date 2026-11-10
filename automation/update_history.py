@@ -12,13 +12,14 @@ def amazon_origin(offer):
 
 def update(history,catalog,today):
  cutoff=(datetime.date.fromisoformat(today)-datetime.timedelta(days=179)).isoformat()
- rows={oid:copy.deepcopy(records) for oid,records in history.get('offers',{}).items() if history_offer_allowed(oid)}
- identities={oid:fp for oid,fp in history.get('identities',{}).items() if history_offer_allowed(oid)}
+ # Storage preservation and publication permission are independent: keep every non-Amazon merchant.
+ rows={oid:copy.deepcopy(records) for oid,records in history.get('offers',{}).items() if not amazon_origin({'merchant_id':str(oid).split(':',1)[0]})}
+ identities={oid:fp for oid,fp in history.get('identities',{}).items() if not amazon_origin({'merchant_id':str(oid).split(':',1)[0]})}
  for oid in list(rows):
   rows[oid]=[r for r in rows[oid] if r['day']>=cutoff]
   if not rows[oid]:del rows[oid]
  for o in catalog['offers']:
-  if amazon_origin(o) or not price_history_allowed(o.get('merchant_id')):continue
+  if amazon_origin(o):continue
   # Failed imports retain old data: never invent an observation for the current day.
   if o['checked_at'][:10]!=today or not isinstance(o.get('price'),(int,float)) or not math.isfinite(o['price']) or o['price']<=0:continue
   fingerprint=hashlib.sha256(json.dumps([o.get(k) for k in ('merchant_id','title','variant','brand','gtin','weight_kg')],ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
