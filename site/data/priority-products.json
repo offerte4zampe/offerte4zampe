@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-10T01:10:24.726367+00:00",
+  "generated_at": "2026-11-10T07:16:52.761979+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,10 +7,10 @@
   "at_target": 13,
   "with_third_store_lead": 24,
   "categories": {
-    "umido": 116,
-    "snack": 66,
-    "crocchette": 110,
-    "lettiere": 8
+    "umido": 118,
+    "snack": 64,
+    "crocchette": 109,
+    "lettiere": 9
   },
   "priority_offer_ids": [
     "animaliapet:46976533594455",
@@ -121,6 +121,7 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
+    "bauzaar:56819033702725",
     "bauzaar:56819869909317",
     "bauzaar:56819871285573",
     "bauzaar:56819879543109",
@@ -130,11 +131,11 @@
     "bauzaar:56820022542661",
     "bauzaar:56820022575429",
     "bauzaar:56820030079301",
+    "bauzaar:56820031390021",
     "bauzaar:56820043776325",
     "bauzaar:56820043874629",
     "bauzaar:56820044824901",
     "bauzaar:56820046987589",
-    "bauzaar:56820052656453",
     "bauzaar:56820056097093",
     "bauzaar:56820056162629",
     "bauzaar:56820056424773",
@@ -166,7 +167,6 @@
     "bauzaar:56820207452485",
     "bauzaar:56820207911237",
     "bauzaar:56820208042309",
-    "bauzaar:56820208075077",
     "bauzaar:56820214694213",
     "bauzaar:56820215316805",
     "bauzaar:56820220920133",
@@ -253,6 +253,7 @@
     "bauzaar:56961736835397",
     "bauzaar:56961740472645",
     "bauzaar:56961759183173",
+    "bauzaar:56961770094917",
     "bauzaar:56961800503621",
     "bauzaar:56961821180229",
     "bauzaar:56961825374533",
@@ -337,7 +338,6 @@
     "bauzaar:58411839914309",
     "bauzaar:58411840700741",
     "bauzaar:58411845747013",
-    "bauzaar:58411845779781",
     "bauzaar:58411847844165",
     "bauzaar:58411848270149",
     "bauzaar:58411848499525",
@@ -375,7 +375,6 @@
     "isola-dei-tesori:000134149",
     "isola-dei-tesori:000134150",
     "isola-dei-tesori:000136205",
-    "isola-dei-tesori:000136206",
     "isola-dei-tesori:000136207",
     "isola-dei-tesori:000138020",
     "isola-dei-tesori:000138021",
@@ -383,7 +382,6 @@
     "isola-dei-tesori:000138153",
     "isola-dei-tesori:000138213",
     "isola-dei-tesori:000138273",
-    "isola-dei-tesori:000138274",
     "isola-dei-tesori:000138288",
     "isola-dei-tesori:000138318",
     "isola-dei-tesori:000138458",
@@ -428,6 +426,7 @@
     "isola-dei-tesori:000150283",
     "isola-dei-tesori:000181083",
     "isola-dei-tesori:000181362",
+    "isola-dei-tesori:000181482",
     "isola-dei-tesori:000464002",
     "isola-dei-tesori:000503046",
     "isola-dei-tesori:000503051",
@@ -485,7 +484,6 @@
     "paco:4744",
     "paco:4809",
     "paco:4820",
-    "paco:4821",
     "paco:4902",
     "paco:4914",
     "paco:4983",
@@ -514,6 +512,7 @@
     "paco:5603",
     "paco:5621",
     "paco:5674",
+    "paco:5689",
     "paco:5690",
     "paco:5801",
     "paco:5802",
@@ -535,6 +534,7 @@
     "paco:6066",
     "paco:6071",
     "paco:6076",
+    "paco:6077",
     "paco:6140",
     "paco:6142",
     "paco:6144",
@@ -4159,25 +4159,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-588d8ff98afbb2a01447",
-      "name": "Terra Canis secco Canireo Grain Free al Manzo 2,5 kg",
-      "brand": "Terra Canis",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "2,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/terra-canis-secco-canireo-grain-free-al-manzo-2-5-kg-2-5kg-04260109622275-a01447",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820052656453",
-        "paco:4821"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-741fc9a358a9d5ede07c",
       "name": "Trixie Mini Schoko Cioccolato Snack per Cani 30g",
       "brand": "Trixie",
@@ -5090,26 +5071,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-3d46f98cddd6cc0ae80b",
-      "name": "Dentalife Snack Dog Medium 115 g 5 pz",
-      "brand": "Dentalife",
-      "category": "snack",
-      "species": "cane",
-      "format": "5 pezzi",
-      "url": "https://offerte4zampe.it/prodotto/dentalife-snack-dog-medium-115-g-5-pz-07613035378681-0ae80b",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "isola-dei-tesori:000138274"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:58411845779781"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-8cfc23069c73d3035333",
       "name": "Dentalife Snack Dog Large 4 pz 142 g",
       "brand": "Dentalife",
@@ -5125,26 +5086,6 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411845747013"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-d80cdb848bacde7d3c8a",
-      "name": "Dentalife Snack Dog Medium 15 pz 345 g",
-      "brand": "Dentalife",
-      "category": "snack",
-      "species": "cane",
-      "format": "15 pezzi",
-      "url": "https://offerte4zampe.it/prodotto/dentalife-snack-dog-medium-15-pz-345-g-07613035379916-7d3c8a",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "isola-dei-tesori:000136206"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56820208075077"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -6429,6 +6370,66 @@
       ],
       "candidate_offer_ids": [
         "paco:5185"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-eddf67b7c2584817e3de",
+      "name": "Life Cat Natural Sterilised Bustine 70 g Tonnetto con pesce bianco - confezione da 30 pezzi",
+      "brand": "Life Cat",
+      "category": "umido",
+      "species": "gatto",
+      "format": "2,1 kg",
+      "url": "https://offerte4zampe.it/prodotto/life-cat-natural-sterilised-bustine-70-g-tonnetto-con-pesce-bianco-confezione-da-30-pezzi-08034105425095-17e3de",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56819033702725"
+      ],
+      "candidate_offer_ids": [
+        "paco:6077"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-bc04c38eb9c619308122",
+      "name": "Life Dog Umido Mixer Crocc Grain Free 150 g Tonno - confezione da 6 pezzi",
+      "brand": "Life Dog",
+      "category": "umido",
+      "species": "cane",
+      "format": "900 g",
+      "url": "https://offerte4zampe.it/prodotto/life-dog-umido-mixer-crocc-grain-free-150-g-tonno-confezione-da-6-pezzi-08034105424067-308122",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56820031390021"
+      ],
+      "candidate_offer_ids": [
+        "paco:5689"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-acae48c9dde919d0ca0a",
+      "name": "Lindocat Advanced Multi-Cat lettiera agglomerante in bentonite bianca con bicarbonato 12 lt (10,2 kg)",
+      "brand": "Lindocat",
+      "category": "lettiere",
+      "species": "gatto",
+      "format": "10,2 kg",
+      "url": "https://offerte4zampe.it/prodotto/lindocat-advanced-multi-cat-lettiera-agglomerante-in-bentonite-bianca-con-bicarbonato-12-lt-10-2-kg-08006455001151-d0ca0a",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56961770094917"
+      ],
+      "candidate_offer_ids": [
+        "isola-dei-tesori:000181482"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
