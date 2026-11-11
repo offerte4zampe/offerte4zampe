@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T01:11:42.950494+00:00",
+  "generated_at": "2026-11-11T07:22:22.402074+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,10 +7,10 @@
   "at_target": 13,
   "with_third_store_lead": 24,
   "categories": {
-    "umido": 118,
-    "snack": 64,
-    "crocchette": 109,
-    "lettiere": 9
+    "umido": 121,
+    "snack": 62,
+    "crocchette": 110,
+    "lettiere": 7
   },
   "priority_offer_ids": [
     "animaliapet:46976533594455",
@@ -20,6 +20,7 @@
     "animaliapet:46976533791063",
     "animaliapet:46976534020439",
     "animaliapet:46976534249815",
+    "animaliapet:46976536019287",
     "animaliapet:46976536969559",
     "animaliapet:46976539132247",
     "animaliapet:46976541589847",
@@ -84,6 +85,7 @@
     "animaliapet:46976696779095",
     "animaliapet:46976700875095",
     "animaliapet:46976702284119",
+    "animaliapet:46976703594839",
     "animaliapet:46976705462615",
     "animaliapet:46976711491927",
     "animaliapet:46976714670423",
@@ -91,6 +93,7 @@
     "animaliapet:47343969141079",
     "animaliapet:47343990604119",
     "animaliapet:47344005284183",
+    "animaliapet:47392275661143",
     "animaliapet:47555389129047",
     "animaliapet:47739940831575",
     "animaliapet:48188453060951",
@@ -107,7 +110,6 @@
     "animaliapet:50442302816599",
     "animaliapet:50442319462743",
     "animaliapet:51262524653911",
-    "animaliapet:51865136136535",
     "animaliapet:51865187385687",
     "animaliapet:52116099727703",
     "animaliapet:52116150026583",
@@ -121,6 +123,7 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
+    "bauzaar:56819013976389",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
     "bauzaar:56819871285573",
@@ -135,7 +138,7 @@
     "bauzaar:56820043776325",
     "bauzaar:56820043874629",
     "bauzaar:56820044824901",
-    "bauzaar:56820046987589",
+    "bauzaar:56820052656453",
     "bauzaar:56820056097093",
     "bauzaar:56820056162629",
     "bauzaar:56820056424773",
@@ -166,10 +169,10 @@
     "bauzaar:56820207354181",
     "bauzaar:56820207452485",
     "bauzaar:56820207911237",
-    "bauzaar:56820208042309",
     "bauzaar:56820214694213",
     "bauzaar:56820215316805",
     "bauzaar:56820220920133",
+    "bauzaar:56820221411653",
     "bauzaar:56820245233989",
     "bauzaar:56820255097157",
     "bauzaar:56820266139973",
@@ -217,7 +220,6 @@
     "bauzaar:56961120796997",
     "bauzaar:56961120862533",
     "bauzaar:56961120993605",
-    "bauzaar:56961143537989",
     "bauzaar:56961151074629",
     "bauzaar:56961155760453",
     "bauzaar:56961218478405",
@@ -329,6 +331,7 @@
     "bauzaar:58411832213829",
     "bauzaar:58411832246597",
     "bauzaar:58411832312133",
+    "bauzaar:58411833819461",
     "bauzaar:58411834179909",
     "bauzaar:58411836670277",
     "bauzaar:58411838308677",
@@ -375,7 +378,6 @@
     "isola-dei-tesori:000134149",
     "isola-dei-tesori:000134150",
     "isola-dei-tesori:000136205",
-    "isola-dei-tesori:000136207",
     "isola-dei-tesori:000138020",
     "isola-dei-tesori:000138021",
     "isola-dei-tesori:000138023",
@@ -425,7 +427,6 @@
     "isola-dei-tesori:000150282",
     "isola-dei-tesori:000150283",
     "isola-dei-tesori:000181083",
-    "isola-dei-tesori:000181362",
     "isola-dei-tesori:000181482",
     "isola-dei-tesori:000464002",
     "isola-dei-tesori:000503046",
@@ -465,7 +466,6 @@
     "paco:3828",
     "paco:3830",
     "paco:3847",
-    "paco:3895",
     "paco:4051",
     "paco:4110",
     "paco:4111",
@@ -484,6 +484,7 @@
     "paco:4744",
     "paco:4809",
     "paco:4820",
+    "paco:4821",
     "paco:4902",
     "paco:4914",
     "paco:4983",
@@ -542,7 +543,6 @@
     "paco:6182",
     "paco:6208",
     "paco:6221",
-    "paco:6230",
     "paco:6231",
     "paco:6249",
     "paco:820",
@@ -1441,25 +1441,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-0b5350fe472782af7f48",
-      "name": "Almo Nature HFC Our Best Sterilised Pollo Fresco 1,2Kg Crocchette Gatti Adulti",
-      "brand": "Almo Nature",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,2 kg",
-      "url": "https://offerte4zampe.it/prodotto/almo-nature-hfc-our-best-sterilised-pollo-fresco-1-2kg-crocchette-gatti-adulti-08001154000344-af7f48",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:51865136136535",
-        "paco:6230"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-0c4902cfb6b05913571e",
       "name": "Almo Nature Daily Tacchino 400g Lattina Gatti Adulti",
       "brand": "Almo Nature",
@@ -1688,6 +1669,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-ed59c0e34c6ab8f46ef5",
+      "name": "Almo Nature Life Maintenance Medium Adult con Salmone 12 kg",
+      "brand": "Almo Nature",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/almo-nature-life-maintenance-medium-adult-con-salmone-12-kg-12kg-08001154122176-f46ef5",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820221411653",
+        "animaliapet:46976536019287"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-11d905ce810242faa5ee",
       "name": "Amico Veg Dog Premietti con Mela 300 g",
       "brand": "Amico Veg",
@@ -1797,25 +1797,6 @@
       "offer_ids": [
         "isola-dei-tesori:000134093",
         "bauzaar:56961151074629"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-7cb7e59a5c53231c2a66",
-      "name": "Camon Dental Snack Vegetali 100 g Snack straccetti di patata dolce - Light",
-      "brand": "Camon",
-      "category": "snack",
-      "species": "cane",
-      "format": "100 g",
-      "url": "https://offerte4zampe.it/prodotto/camon-dental-snack-vegetali-100-g-snack-straccetti-di-patata-dolce-light-08019808166094-1c2a66",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820046987589",
-        "paco:3895"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -4159,6 +4140,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-588d8ff98afbb2a01447",
+      "name": "Terra Canis secco Canireo Grain Free al Manzo 2,5 kg",
+      "brand": "Terra Canis",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "2,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/terra-canis-secco-canireo-grain-free-al-manzo-2-5-kg-2-5kg-04260109622275-a01447",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820052656453",
+        "paco:4821"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-741fc9a358a9d5ede07c",
       "name": "Trixie Mini Schoko Cioccolato Snack per Cani 30g",
       "brand": "Trixie",
@@ -4971,46 +4971,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-1f484de4508e801ab962",
-      "name": "Biokat's EcoLight - Lettiera 5 lt (2,9 kg)",
-      "brand": "Biokat's",
-      "category": "lettiere",
-      "species": "gatto",
-      "format": "2,9 kg",
-      "url": "https://offerte4zampe.it/prodotto/biokat-s-ecolight-lettiera-5-lt-2-9-kg-04002064613505-1ab962",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:56961143537989"
-      ],
-      "candidate_offer_ids": [
-        "isola-dei-tesori:000181362"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-9e90de75c6d7cf855786",
-      "name": "Biokat's Eco Light lettiera 5 lt",
-      "brand": "Biokat's",
-      "category": "lettiere",
-      "species": "gatto",
-      "format": "5 l",
-      "url": "https://offerte4zampe.it/prodotto/biokat-s-eco-light-lettiera-5-lt-04002064613505-855786",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "isola-dei-tesori:000181362"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56961143537989"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-a545a78ad5b1fa521060",
       "name": "Lettiera agglomerante con carbone attivo Catsan Active Fresh 8 lt (7,7 kg)",
       "brand": "Catsan",
@@ -5086,26 +5046,6 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411845747013"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-daf7bdadd40a3245a66d",
-      "name": "Dentalife Snack Dog Large 12 pz 426 g",
-      "brand": "Dentalife",
-      "category": "snack",
-      "species": "cane",
-      "format": "12 pezzi",
-      "url": "https://offerte4zampe.it/prodotto/dentalife-snack-dog-large-12-pz-426-g-07613035379756-45a66d",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "isola-dei-tesori:000136207"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56820208042309"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -6430,6 +6370,66 @@
       ],
       "candidate_offer_ids": [
         "isola-dei-tesori:000181482"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-7ae851ed475dcab5f514",
+      "name": "Marpet Aequilibriavet Gatto Anatra 85 g",
+      "brand": "Marpet",
+      "category": "umido",
+      "species": "gatto",
+      "format": "85 g",
+      "url": "https://offerte4zampe.it/prodotto/marpet-aequilibriavet-gatto-anatra-85-g-08031701202013-b5f514",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "isola-dei-tesori:000142079"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56820266139973"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-06150d9c60ab9e5514ac",
+      "name": "Natua Country Dog Adult Patè Grain Free 100 g Prosciutto - confezione da 6 pezzi",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "cane",
+      "format": "600 g",
+      "url": "https://offerte4zampe.it/prodotto/natua-country-dog-adult-pate-grain-free-100-g-prosciutto-confezione-da-6-pezzi-08057507370800-5514ac",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:58411833819461"
+      ],
+      "candidate_offer_ids": [
+        "animaliapet:46976703594839"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-06a3f83e64c61e7329e3",
+      "name": "Natua Natural Pollo in Jelly Lattina 150g Gatti",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "cane e gatto",
+      "format": "150 g",
+      "url": "https://offerte4zampe.it/prodotto/natua-natural-pollo-in-jelly-lattina-150g-gatti-08057507371036-7329e3",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "animaliapet:47392275661143"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56819013976389"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
