@@ -73,9 +73,9 @@ class ShippingMonitorTests(unittest.TestCase):
     def test_repository_data_reports_conflict_and_missing_rule(self):
         path = monitor.ROOT / 'site/data/shipping-rules.json'
         before = path.read_bytes()
-        rows = {r['merchant']: r for r in monitor.report(json.loads(before), self.now)['merchants']}
-        self.assertEqual(rows['hygge']['status'], 'missing')
-        self.assertEqual(rows['animaliapet']['quote_status'], 'conflict')
+        rows = {r['merchant']: r for r in monitor.report(json.loads(before), monitor.parse(json.loads(before)["merchants"]["hygge"]["checked_at"]))['merchants']}
+        self.assertEqual(rows['hygge']['status'], 'current')
+        self.assertEqual(rows['animaliapet']['quote_status'], 'requires_offer_check')
         self.assertEqual(path.read_bytes(), before)
 
 

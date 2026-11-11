@@ -25,11 +25,12 @@
     },
     "animaliapet": {
       "name": "Animaliapet",
-      "conflict": true,
       "source": "https://www.animaliapet.eu/policies/shipping-policy",
-      "note": "Da verificare: il sito pubblicizza gratuità oltre 69 €, mentre l’informativa indica 5,99 € per tutti gli importi, maggiorazioni oltre 30 kg e tariffe diverse per alcune località. Non calcoliamo un totale automatico.",
-      "checked_at": "2026-10-28",
-      "verified_until": "2026-11-04T00:00:00.000Z"
+      "note": "Tariffa Express della policy: 5,99 € per tutti gli importi, come confermato dal proprietario. La gratuità del banner oltre 69 € non viene applicata. Peso mancante o oltre 30 kg, isole, CAP disagiati, Livigno, Campione e servizi particolari: totale ignoto.",
+      "checked_at": "2026-11-11T07:02:41.348329+00:00",
+      "verified_until": "2026-12-11T07:02:41.348329+00:00",
+      "fee": 5.99,
+      "max_shipping_weight_kg": 30
     },
     "isola-dei-tesori": {
       "name": "Isola dei Tesori",
@@ -50,6 +51,16 @@
       "source": "https://www.pacopetshop.it/it/cms/7/spedizione-consegna-paco",
       "note": "Consegna standard a domicilio con Poste: 5,90 € fino alla soglia; gratuita oltre 79 €. A 79 € esatti la formulazione è ambigua: verifica il checkout. Esclusi altri corrieri, località disagiate, isole minori, codici sconto, carnet e servizi opzionali. Fonte: pagina Spedizione e Consegna collegata dal footer corrente e FAQ italiane, non la vecchia pagina /it/1.",
       "verified_until": "2026-12-05T10:31:55.515Z"
+    },
+    "hygge": {
+      "name": "Hygge",
+      "fee": 7.9,
+      "free_above": 40,
+      "boundary_unknown": 40,
+      "source": "https://hyggepetfood.com/policies/shipping-policy",
+      "note": "7,90 € sotto 40 €, gratis oltre 40 €. A 40 € esatti il totale resta ignoto: la policy include la soglia, FAQ e banner indicano sopra 40 €. Fonte aggiuntiva: https://hyggepetfood.com/pages/faq . Escluse destinazioni e servizi particolari.",
+      "checked_at": "2026-11-11T07:02:41.348329+00:00",
+      "verified_until": "2026-12-11T07:02:41.348329+00:00"
     }
   },
   "verification_max_age_days": 30
