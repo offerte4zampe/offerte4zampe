@@ -1,7 +1,7 @@
 import trade from '../../site/assets/trade.js';
 import {readShippingRows} from '../shipping-source.mjs';
 export function matrix(source){
- const cases=[],now=Date.parse(source.checked_at)+12*3600000;
+ const cases=[],now=Math.max(...Object.values(source.merchants).map(r=>Date.parse(r.checked_at||source.checked_at)))+12*3600000;
  for(const [id,r] of Object.entries(source.merchants)){
   const threshold=r.free_from??r.free_above??69;
   for(const price of [threshold-.01,threshold,threshold+.01,1,100])for(const weight of [undefined,1,35,35.001])for(const quantity of [1,2,3])for(const territory of ['standard','special'])cases.push({id,price,weight,quantity,territory,now});

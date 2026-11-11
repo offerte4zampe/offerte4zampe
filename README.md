@@ -20,11 +20,11 @@ GitHub Actions `.github/workflows/daily-news.yml` cerca collegamenti RSS una vol
 
 ## Monetizzazione
 
-Nessun programma di affiliazione o pubblicitario è attivo. Nessuna commissione è stata acquisita. I link non vengono presentati come affiliati fino ad approvazione. Il catalogo importa prezzi reali dei negozi; il calcolatore giornaliero usa la razione inserita dall’utente. I prezzi possono variare dopo il rilevamento. Il simulatore delle polizze non è un confronto commerciale personalizzato e non svolge distribuzione assicurativa.
+Bauzaar e Isola dei Tesori risultano approvate da email ufficiali TradeTracker del 19 e 20 ottobre 2026. I link affiliati sono dichiarati. Nessuna commissione è certificata senza un report del network; assenza di prova non significa zero vendite. AdSense resta disabilitato. Il catalogo importa prezzi reali dei negozi; il calcolatore giornaliero usa la razione inserita dall’utente. I prezzi possono variare dopo il rilevamento. Il simulatore delle polizze non è un confronto commerciale personalizzato e non svolge distribuzione assicurativa.
 
 ## Privacy
 
-Il sito non dispone di backend o database applicativo. L'informativa privacy è una bozza tecnica e deve essere completata con l'identità del titolare effettivo e le condizioni dell'hosting prima del lancio commerciale.
+Il sito usa un Worker Cloudflare e statistiche facoltative. L'informativa pubblica identifica Mirco Drighetto come titolare e capobranco@offerte4zampe.it come contatto. GA4 563119175 restituisce eventi; i clic non provano vendite. La verifica completa di consenso, conservazione e condizioni dei fornitori resta distinta dalla verifica tecnica.
 
 Contatto: offerte4zampe@gmail.com.
 
@@ -36,7 +36,7 @@ Questo repository è indipendente da ExtraVoce e Smart Coaching Engine.
 
 `automation/update_catalog.py` importa i cataloghi JSON pubblici di Bauzaar, WebPet e Animaliapet con controllo robots.txt, paginazione e validazione dei prezzi. Il workflow `catalog.yml` aggiorna il catalogo ogni 6 ore. In caso di errore conserva i dati precedenti per quel negozio, segnala la fonte non aggiornata e non inventa prezzi. Le offerte includono variante, disponibilità e data di rilevamento. Il prezzo/kg usa esclusivamente pesi espliciti nei formati, non il peso di spedizione. Spedizione esclusa.
 
-Il confronto non raggruppa per somiglianza del nome: equivalenza automatica solo con GTIN e formato identici. Se il catalogo pubblico non fornisce un GTIN, l'utente può confrontare le offerte selezionate ma deve verificarne l'equivalenza. Nessun link affiliato è attivo. Il feed zooplus è ancora in attesa di accesso Awin.
+Il confronto non raggruppa per somiglianza del nome: equivalenza automatica solo con GTIN e formato identici. Se il catalogo pubblico non fornisce un GTIN, l'utente può confrontare le offerte selezionate ma deve verificarne l'equivalenza. Gli stati dei singoli programmi e le commissioni vanno verificati nei rispettivi pannelli.
 
 Verifica: `python -m unittest discover -s tests`, `node --check site/assets/catalog.js`.
 

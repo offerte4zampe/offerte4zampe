@@ -3,7 +3,7 @@ import {verifyMatrix} from './staging/shipping-matrix.mjs';
 import {RULE_QUERY,readShippingRows} from './shipping-source.mjs';
 function usage(results){return results.reduce((n,r)=>({rows_read:n.rows_read+(r.meta?.rows_read||0),rows_written:n.rows_written+(r.meta?.rows_written||0)}),{rows_read:0,rows_written:0});}
 export async function seed(db,data){
- if(data.shops?.length!==5||data.rules?.length!==5||data.shops.some(s=>!Object.hasOwn(source.merchants,s.id)))throw Error('Unexpected seed');
+ if(data.shops?.length!==6||data.rules?.length!==6||data.shops.some(s=>!Object.hasOwn(source.merchants,s.id)))throw Error('Unexpected seed');
  const statements=[];
  for(const s of data.shops)statements.push(db.prepare('INSERT INTO shop(id,name) VALUES(?1,?2) ON CONFLICT(id) DO UPDATE SET name=excluded.name').bind(s.id,s.name));
  const keys=['shop_id','zone','std_cents','free_from_cents','threshold_mode','max_weight_g','over_weight_note','status','source_url','notes','verified_at','verified_until','valid_from','valid_to'];
@@ -42,10 +42,10 @@ export default {async fetch(request,env){
   if(path==='/seed'){
    const text=await request.text();if(text.length>65536)return new Response(null,{status:413});result=await seed(db,JSON.parse(text));
   }else if(path==='/verify'){
-   const matrix=await verifyMatrix(db,source),now=Date.parse(source.checked_at)+12*3600000;
+   const matrix=await verifyMatrix(db,source),now=Math.max(...Object.values(source.merchants).map(r=>Date.parse(r.checked_at||source.checked_at)))+12*3600000;
    const productRead=await readShippingRows(db,Object.keys(source.merchants),now);
    const plans=await db.batch(Object.keys(source.merchants).map(id=>db.prepare('EXPLAIN QUERY PLAN '+RULE_QUERY).bind(id,'IT',new Date(now).toISOString())));
-   result={matrix,product_request:{shops:5,meta:productRead.meta},plans:plans.flatMap(r=>r.results),capabilities:await capabilities(db)};
+   result={matrix,product_request:{shops:6,meta:productRead.meta},plans:plans.flatMap(r=>r.results),capabilities:await capabilities(db)};
   }else return new Response(null,{status:404});
   return Response.json({runtime:env.STAGING_LOCATION||'local',...result},{headers:{'Cache-Control':'no-store'}});
  }catch(error){return Response.json({error:String(error.message).slice(0,300)},{status:500,headers:{'Cache-Control':'no-store'}});}

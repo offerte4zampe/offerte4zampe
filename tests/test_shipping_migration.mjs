@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {execFileSync} from 'node:child_process';import trade from '../site/assets/trade.js';
 const source=JSON.parse(fs.readFileSync(new URL('../site/data/shipping-rules.json',import.meta.url))),data=JSON.parse(execFileSync('python',['automation/build_shipping_seed.py','--json'],{encoding:'utf8'}));
-const now=Date.parse(source.checked_at)+3600000;
+const now=Math.max(...Object.values(source.merchants).map(r=>Date.parse(r.checked_at||source.checked_at)))+3600000;
 const original=structuredClone(source);// Preserve explicit per-rule expiry, including the still-expired conflicting merchant.
 const outcome=q=>({fee:q.fee,total:q.total,subtotal:q.subtotal,reason:q.reason});
 function offer(id,price,weight=1,time=now){return {merchant_id:id,price,shipping_weight_kg:weight,available:true,checked_at:new Date(time).toISOString()};}
@@ -16,7 +16,7 @@ test('all shops preserve legacy totals over threshold, weight, quantity, expiry 
    const o=offer(id,20,1,time);assert.deepEqual(outcome(trade.shipping(o,trade.shippingRulesFromRows(data.rules,time),1,'standard',time)),outcome(trade.shipping(o,original,1,'standard',time)));cases++;
   }
  }
- assert.equal(cases,610);
+ assert.equal(cases,732);
 });
 test('future and ended rules are never selected, and latest valid version wins',()=>{
  const base=data.rules.find(r=>r.shop_id==='webpet');

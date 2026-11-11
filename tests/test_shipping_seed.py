@@ -9,8 +9,8 @@ class ShippingSeedTests(unittest.TestCase):
  def test_seed_executes_idempotently_and_preserves_unknowns(self):
   with self.database() as c:
    for _ in range(2):c.executescript(sql_seed(self.data))
-   self.assertEqual(c.execute('select count(*) from shipping_rule').fetchone()[0],5)
-   self.assertEqual(c.execute("select std_cents,free_from_cents,status from shipping_rule where shop_id='animaliapet'").fetchone(),(None,None,'uncertain'))
+   self.assertEqual(c.execute('select count(*) from shipping_rule').fetchone()[0],6)
+   self.assertEqual(c.execute("select std_cents,free_from_cents,status from shipping_rule where shop_id='animaliapet'").fetchone(),(599,None,'verified'))
    self.assertEqual(c.execute("select threshold_mode,max_weight_g,verified_until from shipping_rule where shop_id='bauzaar'").fetchone(),('unknown',35000,self.source['merchants']['bauzaar']['verified_until']))
  def test_unmapped_fields_and_unrepresentable_units_are_rejected(self):
   for field,value in [('custom_exception',True),('fee',5.901),('boundary_unknown',58)]:
