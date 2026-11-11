@@ -3,7 +3,7 @@ import {verifyMatrix} from './staging/shipping-matrix.mjs';
 import {RULE_QUERY,readShippingRows} from './shipping-source.mjs';
 function usage(results){return results.reduce((n,r)=>({rows_read:n.rows_read+(r.meta?.rows_read||0),rows_written:n.rows_written+(r.meta?.rows_written||0)}),{rows_read:0,rows_written:0});}
 export async function seed(db,data){
- if(data.shops?.length!==5||data.rules?.length!==5||data.shops.some(s=>!Object.hasOwn(source.merchants,s.id)))throw Error('Unexpected seed');
+ if(data.shops?.length!==6||data.rules?.length!==6||data.shops.some(s=>!Object.hasOwn(source.merchants,s.id)))throw Error('Unexpected seed');
  const statements=[];
  for(const s of data.shops)statements.push(db.prepare('INSERT INTO shop(id,name) VALUES(?1,?2) ON CONFLICT(id) DO UPDATE SET name=excluded.name').bind(s.id,s.name));
  const keys=['shop_id','zone','std_cents','free_from_cents','threshold_mode','max_weight_g','over_weight_note','status','source_url','notes','verified_at','verified_until','valid_from','valid_to'];

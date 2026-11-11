@@ -89,8 +89,8 @@ def main():
         result=call(url,token,'/verify')
         report={'execution':'remote-d1' if a.remote else 'local-workerd','wrangler':'4.154.0','database':NAME,'seed':seed_result,'verification':result}
         path=reports/(('remote' if a.remote else 'local')+'-shipping-report.json');path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-        if seed_result['counts']!={'shops':5,'rules':5}:raise RuntimeError('Seed row counts differ from SQLite fixture')
-        if result['matrix']['cases']!=610 or result['matrix']['differences']:raise RuntimeError('Shipping parity failed')
+        if seed_result['counts']!={'shops':6,'rules':6}:raise RuntimeError('Seed row counts differ from SQLite fixture')
+        if result['matrix']['cases']!=732 or result['matrix']['differences']:raise RuntimeError('Shipping parity failed')
         if not all(result['capabilities'][k] for k in ['check_constraints','triggers','generated_columns_and_index']):raise RuntimeError('Required SQL capabilities failed')
         details=[row.get('detail','') for row in result['plans']]
         if not any(re.search(r'SEARCH r USING (?:COVERING )?INDEX',d) for d in details) or any(re.search(r'SCAN r(?:$| )',d) for d in details):raise RuntimeError('Shipping query scans rules instead of using an index')
