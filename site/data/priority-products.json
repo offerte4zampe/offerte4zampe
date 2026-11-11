@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-11T13:17:17.236691+00:00",
+  "generated_at": "2026-11-11T19:03:47.063959+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 12,
-  "with_third_store_lead": 25,
+  "at_target": 13,
+  "with_third_store_lead": 24,
   "categories": {
     "umido": 121,
     "snack": 62,
@@ -47,7 +47,6 @@
     "animaliapet:46976587727191",
     "animaliapet:46976591200599",
     "animaliapet:46976591233367",
-    "animaliapet:46976592642391",
     "animaliapet:46976605061463",
     "animaliapet:46976606044503",
     "animaliapet:46976607355223",
@@ -70,7 +69,6 @@
     "animaliapet:46976683016535",
     "animaliapet:46976683409751",
     "animaliapet:46976684556631",
-    "animaliapet:46976685048151",
     "animaliapet:46976685244759",
     "animaliapet:46976687210839",
     "animaliapet:46976687407447",
@@ -122,7 +120,6 @@
     "bauzaar:56807970472261",
     "bauzaar:56811242783045",
     "bauzaar:56818660442437",
-    "bauzaar:56818662113605",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
     "bauzaar:56819013976389",
@@ -489,7 +486,6 @@
     "paco:4821",
     "paco:4902",
     "paco:4914",
-    "paco:4915",
     "paco:4983",
     "paco:5045",
     "paco:5046",
@@ -833,27 +829,6 @@
       ],
       "candidate_offer_ids": [
         "paco:4914"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-9625acb3355a30fbed8b",
-      "name": "Nature's Protection White Dogs Agnello 10kg Small & Mini Adult Crocchette Cani",
-      "brand": "Nature's Protection",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "10 kg",
-      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-white-dogs-agnello-10kg-small-mini-adult-crocchette-cani-04771317456649-fbed8b",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976685048151",
-        "bauzaar:56818662113605"
-      ],
-      "candidate_offer_ids": [
-        "paco:4915"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1245,6 +1220,26 @@
         "animaliapet:46976541950295",
         "isola-dei-tesori:000181425",
         "bauzaar:56961724383557"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-9625acb3355a30fbed8b",
+      "name": "Nature's Protection White Dogs Agnello 10kg Small & Mini Adult Crocchette Cani",
+      "brand": "Nature's Protection",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-white-dogs-agnello-10kg-small-mini-adult-crocchette-cani-04771317456649-fbed8b",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976685048151",
+        "bauzaar:56818662113605",
+        "paco:4915"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -1780,8 +1775,7 @@
       "missing_shops": 1,
       "offer_ids": [
         "isola-dei-tesori:000181083",
-        "bauzaar:57066997449029",
-        "animaliapet:46976592642391"
+        "bauzaar:57066997449029"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
