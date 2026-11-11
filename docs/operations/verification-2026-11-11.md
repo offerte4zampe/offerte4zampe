@@ -34,6 +34,5 @@ acquisti qualificati, abilitazione API o registrazione dominio senza pannello
 Associates. Flag Amazon e storico prezzi restano false.
 
 Issue #1: catalogo reale, simulazioni esplicite e identità del titolare esistono;
-il README storico era errato e viene corretto. Restano da verificare schede
-assicurative da documenti ufficiali, conservazione/consenso e prima commissione.
+il README storico era errato e viene corretto. Aggiunta scheda neutrale Assur O’Poil da condizioni ufficiali versione 07/2026, con massimale individuale non inventato, trattenute, carenza ed esclusioni. Restano conservazione/consenso e prima commissione.
 Non chiudere l’issue come completata senza queste evidenze.
