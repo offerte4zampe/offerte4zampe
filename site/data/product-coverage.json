@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-11-11T19:03:47.063959+00:00",
+  "generated_at": "2026-11-12T01:21:45.253972+00:00",
   "name_matching": {
     "evaluated_offers": 18138,
-    "eligible_offers": 8692,
-    "insufficient_characteristics": 9446,
+    "eligible_offers": 8693,
+    "insufficient_characteristics": 9445,
     "attached_without_gtin": 13
   },
-  "gtin_multi_shop_products": 512,
+  "gtin_multi_shop_products": 522,
   "characteristic_multi_shop_products": 13,
   "store_coverage": {
     "animaliapet": {
       "offers": 3576,
       "active_offers": 3549,
-      "missing_valid_gtin": 1842,
+      "missing_valid_gtin": 1832,
       "unverified_quantity": 0,
       "sales_unit_only": 1441,
-      "offers_in_multishop_products": 273
+      "offers_in_multishop_products": 283
     },
     "bauzaar": {
       "offers": 7104,
@@ -23,7 +23,7 @@
       "missing_valid_gtin": 433,
       "unverified_quantity": 0,
       "sales_unit_only": 2151,
-      "offers_in_multishop_products": 475
+      "offers_in_multishop_products": 485
     },
     "hygge": {
       "offers": 134,
@@ -44,27 +44,27 @@
     "paco": {
       "offers": 1279,
       "active_offers": 803,
-      "missing_valid_gtin": 1135,
-      "unverified_quantity": 1135,
-      "sales_unit_only": 1135,
+      "missing_valid_gtin": 1134,
+      "unverified_quantity": 1134,
+      "sales_unit_only": 1134,
       "offers_in_multishop_products": 83
     },
     "webpet": {
       "offers": 1900,
-      "active_offers": 1228,
-      "missing_valid_gtin": 1376,
+      "active_offers": 1227,
+      "missing_valid_gtin": 1366,
       "unverified_quantity": 0,
       "sales_unit_only": 1634,
       "offers_in_multishop_products": 31
     }
   },
-  "products": 20696,
-  "active_products": 16377,
+  "products": 20714,
+  "active_products": 16366,
   "offers": 18138,
-  "multi_shop_products": 525,
-  "multi_shop_percent": 3.21,
+  "multi_shop_products": 535,
+  "multi_shop_percent": 3.27,
   "denominator": "active canonical products, distinct merchants with verified quantities; GTIN and characteristic matching reported separately; duplicate offers in one shop do not count",
-  "unattached_offers": 7180,
-  "candidate_pairs": 138,
+  "unattached_offers": 7164,
+  "candidate_pairs": 136,
   "automatic_match_rules": "GTIN and quantity, or exact normalized name plus brand and verified selling quantity; conflicting GTINs excluded"
 }
