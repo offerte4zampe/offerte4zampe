@@ -1,0 +1,61 @@
+name: Read-only Cloudflare build diagnosis via MCP
+on:
+  push:
+    branches: [ops/seo-build-readonly-diagnostic]
+    paths: [.github/workflows/seo-build-mcp-diagnostic.yml]
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Read known release build results through existing Cloudflare connection
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_MCP_TOKEN }}
+        run: |
+          node --input-type=module <<'JS'
+          const token=process.env.CF_TOKEN;
+          if(!token)throw Error('missing_existing_token');
+          let sid;
+          const endpoint='https://mcp.cloudflare.com/mcp';
+          async function rpc(body,notification=false){
+            const res=await fetch(endpoint,{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json',Accept:'application/json, text/event-stream','MCP-Protocol-Version':'2025-06-18',...(sid?{'Mcp-Session-Id':sid}:{})},body:JSON.stringify(body),signal:AbortSignal.timeout(45000)});
+            if(!res.ok)throw Error('MCP HTTP '+res.status);
+            if(res.headers.get('mcp-session-id'))sid=res.headers.get('mcp-session-id');
+            if(notification){await res.body?.cancel();return;}
+            const raw=await res.text();
+            if(res.headers.get('content-type')?.includes('application/json'))return JSON.parse(raw);
+            for(const part of raw.split(/\r?\n\r?\n/)){
+              const value=part.split(/\r?\n/).filter(x=>x.startsWith('data:')).map(x=>x.slice(5).trim()).join('\n');
+              if(value&&value!=='[DONE]'){const data=JSON.parse(value);if(data.id)return data;}
+            }
+            throw Error('unrecognized_MCP_response');
+          }
+          function embedded(v){
+            if(v?.structuredContent)return v.structuredContent;
+            const text=v?.content?.find(x=>x.type==='text')?.text;
+            try{return JSON.parse(text);}catch{return {status:'unreadable_response'};}
+          }
+          await rpc({jsonrpc:'2.0',id:1,method:'initialize',params:{protocolVersion:'2025-06-18',capabilities:{},clientInfo:{name:'o4z-release-build-readonly',version:'1.0'}}});
+          await rpc({jsonrpc:'2.0',method:'notifications/initialized'},true);
+          const code=String.raw`async () => {
+            const ids=["c600020f-a73a-43e2-9cbe-62a554a0a559","74448b69-dba6-4cab-b94e-fbdaa65979cf","9e768455-fa14-46cf-87dc-c34fd352d158"];
+            const builds=[];
+            for(const id of ids){
+              const r=await cloudflare.request({method:"GET",path:"/accounts/"+accountId+"/builds/builds/"+id});
+              const l=await cloudflare.request({method:"GET",path:"/accounts/"+accountId+"/builds/builds/"+id+"/logs"});
+              const b=r?.result||{};
+              const lines=(l?.result?.lines||[]).filter(Array.isArray).map(x=>String(x[x.length-1]));
+              const errors=lines.filter(x=>/error|failed|not found|limit exceeded/i.test(x)&&!/token|secret|password|authorization/i.test(x)).slice(-12).map(x=>x.replace(/https?:\\/\\/\\S+/g,"<url>").replace(/[A-Za-z0-9_-]{32,}/g,"<identifier>").slice(0,300));
+              builds.push({id,readable:r?.success===true,status:b.status,outcome:b.build_outcome,source:b.build_trigger_metadata?.branch,errors,log_count:lines.length});
+            }
+            const d=await cloudflare.request({method:"GET",path:"/accounts/"+accountId+"/workers/scripts/zampachiara/deployments?per_page=1"});
+            return {builds,latest_deploy_at:d?.result?.deployments?.[0]?.created_on};
+          }`;
+          const reply=await rpc({jsonrpc:'2.0',id:2,method:'tools/call',params:{name:'execute',arguments:{code,account_id:'a1f3484deccc82aa8aedb784816b0173'}}});
+          console.log('BUILD_MCP_DIAG '+JSON.stringify(embedded(reply.result)));
+          JS
