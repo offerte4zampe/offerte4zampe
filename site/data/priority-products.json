@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T19:02:10.781021+00:00",
+  "generated_at": "2026-11-12T21:11:08.174328+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,9 +7,9 @@
   "at_target": 14,
   "with_third_store_lead": 24,
   "categories": {
-    "umido": 114,
+    "umido": 115,
     "snack": 61,
-    "crocchette": 118,
+    "crocchette": 117,
     "lettiere": 7
   },
   "priority_offer_ids": [
@@ -31,11 +31,10 @@
     "animaliapet:46976544735575",
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
-    "animaliapet:46976548208983",
     "animaliapet:46976548438359",
     "animaliapet:46976549028183",
-    "animaliapet:46976549060951",
-    "animaliapet:46976551485783",
+    "animaliapet:46976549847383",
+    "animaliapet:46976551944535",
     "animaliapet:46976552108375",
     "animaliapet:46976563413335",
     "animaliapet:46976566165847",
@@ -58,7 +57,6 @@
     "animaliapet:46976631013719",
     "animaliapet:46976631308631",
     "animaliapet:46976635208023",
-    "animaliapet:46976642679127",
     "animaliapet:46976645136727",
     "animaliapet:46976649724247",
     "animaliapet:46976656310615",
@@ -95,9 +93,12 @@
     "animaliapet:46976714670423",
     "animaliapet:46976728727895",
     "animaliapet:46976729710935",
+    "animaliapet:47231296176471",
     "animaliapet:47343969141079",
     "animaliapet:47343990604119",
     "animaliapet:47344005284183",
+    "animaliapet:47359220220247",
+    "animaliapet:47392275661143",
     "animaliapet:47403696030039",
     "animaliapet:47555389129047",
     "animaliapet:47739940831575",
@@ -127,6 +128,7 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
+    "bauzaar:56819013976389",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
     "bauzaar:56819879543109",
@@ -156,7 +158,6 @@
     "bauzaar:56820094271813",
     "bauzaar:56820094533957",
     "bauzaar:56820095582533",
-    "bauzaar:56820095615301",
     "bauzaar:56820104331589",
     "bauzaar:56820104429893",
     "bauzaar:56820104495429",
@@ -178,9 +179,9 @@
     "bauzaar:56820255097157",
     "bauzaar:56820266139973",
     "bauzaar:56820266664261",
-    "bauzaar:56820267581765",
-    "bauzaar:56820267745605",
+    "bauzaar:56820268302661",
     "bauzaar:56820268400965",
+    "bauzaar:56820269351237",
     "bauzaar:56820277117253",
     "bauzaar:56820296057157",
     "bauzaar:56820299530565",
@@ -237,8 +238,9 @@
     "bauzaar:56961249706309",
     "bauzaar:56961263993157",
     "bauzaar:56961266712901",
-    "bauzaar:56961268908357",
     "bauzaar:56961300988229",
+    "bauzaar:56961301905733",
+    "bauzaar:56961302659397",
     "bauzaar:56961307279685",
     "bauzaar:56961307509061",
     "bauzaar:56961398669637",
@@ -281,7 +283,6 @@
     "bauzaar:56961947337029",
     "bauzaar:56961978466629",
     "bauzaar:56961978532165",
-    "bauzaar:56961978597701",
     "bauzaar:56961999143237",
     "bauzaar:56961999372613",
     "bauzaar:56962038104389",
@@ -519,7 +520,6 @@
     "paco:5885",
     "paco:5935",
     "paco:5953",
-    "paco:5954",
     "paco:5955",
     "paco:5974",
     "paco:5975",
@@ -2086,6 +2086,44 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-022c2a550c97c3d894cc",
+      "name": "Farmina N&D Tropical Maiale 10kg Crocchette Cani Medium Maxi Adult",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-tropical-dog-adult-medium-maxi-low-grain-maiale-e-frutta-tropicale-10-kg-08010276042309-d894cc",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:47359220220247",
+        "bauzaar:56961302659397"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-0a5a32cdbc1f05776a45",
+      "name": "Farmina N&D Grain Free Pumpkin Puppy Mini Agnello e Mirtillo 2,5 kg",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "2,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-grain-free-pumpkin-puppy-mini-agnello-e-mirtillo-2-5-kg-08010276033239-776a45",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820269351237",
+        "animaliapet:46976549847383"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-0d0144ad86cef595a35e",
       "name": "Farmina Vet Life Feline Obesity 2 kg",
       "brand": "Farmina",
@@ -2137,6 +2175,25 @@
       "offer_ids": [
         "bauzaar:56961266712901",
         "animaliapet:46976549028183"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-22a82eb3c70ea5285fe9",
+      "name": "Farmina N&D Pumpkin Agnello e Mirtillo 800g Crocchette Cani Mini Adult",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "800 g",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-grain-free-pumpkin-adult-mini-agnello-e-mirtillo-800-g-0-8kg-08010276033208-285fe9",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976551944535",
+        "bauzaar:56820268302661"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -2219,6 +2276,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-431e7b03932f5d195623",
+      "name": "Farmina N&D Tropical Agnello 10kg Crocchette Cani Medium Maxi Adult",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-tropical-dog-adult-medium-maxi-low-grain-agnello-e-frutta-tropicale-10-kg-08010276042347-195623",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:47231296176471",
+        "bauzaar:56961301905733"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-4b2eec49d1e3120284e0",
       "name": "Farmina N&D White Grain Free Puppy Mini Branzino, spirulina e finocchio 1,5 kg",
       "brand": "Farmina",
@@ -2232,82 +2308,6 @@
       "offer_ids": [
         "bauzaar:56961307509061",
         "animaliapet:49973548122455"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-63a257a37fc43947d3e2",
-      "name": "Farmina N&D Ocean Salmone Merluzzo Melone 2,5kg Crocchette Cani Mini Adult",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "2,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-ocean-canine-adult-mini-salmone-merluzzo-e-melone-cantalupo-2-5-kg-08010276039309-47d3e2",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976642679127",
-        "bauzaar:56961268908357"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-63af26eb26c0c3292edc",
-      "name": "Farmina N&D Grain Free Pumpkin Adult Medium/Maxi Pollo e Melograno 12 kg",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-grain-free-pumpkin-adult-medium-maxi-pollo-e-melograno-12-kg-08010276033352-292edc",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820267745605",
-        "animaliapet:46976551485783"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-68a7f7689cf8600defb1",
-      "name": "Farmina N&D Ocean Canine Adult Medium/Maxi Merluzzo Zucca e Arancia 2,5 kg",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "2,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-ocean-canine-adult-medium-maxi-merluzzo-zucca-e-arancia-2-5-kg-08010276036551-0defb1",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820267581765",
-        "animaliapet:46976548208983"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-77004fd8a94694fd4efd",
-      "name": "Farmina N&D Ocean Merluzzo Zucca Arancia 800g Crocchette Cani Adult Mini",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "800 g",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-ocean-canine-adult-mini-merluzzo-zucca-e-arancia-800-g-crocchette-monoproteiche-cane-0-8kg-08010276036513-fd4efd",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976549060951",
-        "bauzaar:56820095615301"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -2973,25 +2973,6 @@
       "offer_ids": [
         "bauzaar:57356131991877",
         "paco:6140"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-e2edde9d886a81162bdc",
-      "name": "Leonardo Cat food Adult Fish ricco di Salmone 7,5 kg",
-      "brand": "Leonardo",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "7,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/leonardo-adult-classic-pesce-cibo-secco-per-gatti-sacco-da-7-5-kg-04002633758422-162bdc",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:57356132122949",
-        "paco:6144"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -3847,25 +3828,6 @@
       "offer_ids": [
         "paco:5953",
         "bauzaar:56961978466629"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-addc70602c0971354a6d",
-      "name": "Ownat Classic Monoproteic Salmone Per Cani · Sacco da 12 kg",
-      "brand": "Ownat",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/ownat-classic-monoproteic-salmone-per-cani-sacco-da-12-kg-08429037001804-354a6d",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "paco:5954",
-        "bauzaar:56961978597701"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -6224,6 +6186,26 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-e2edde9d886a81162bdc",
+      "name": "Leonardo Cat food Adult Fish ricco di Salmone 7,5 kg",
+      "brand": "Leonardo",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "7,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/leonardo-adult-classic-pesce-cibo-secco-per-gatti-sacco-da-7-5-kg-04002633758422-162bdc",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:57356132122949"
+      ],
+      "candidate_offer_ids": [
+        "paco:6144"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-ac38875b0d9f130b6e0e",
       "name": "Lev Cat Adult Serilised Salmone 1,5 kg",
       "brand": "Lev",
@@ -6419,6 +6401,26 @@
       ],
       "candidate_offer_ids": [
         "animaliapet:46976703594839"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-06a3f83e64c61e7329e3",
+      "name": "Natua Natural Pollo in Jelly Lattina 150g Gatti",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "cane e gatto",
+      "format": "150 g",
+      "url": "https://offerte4zampe.it/prodotto/natua-natural-pollo-in-jelly-lattina-150g-gatti-08057507371036-7329e3",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "animaliapet:47392275661143"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56819013976389"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
