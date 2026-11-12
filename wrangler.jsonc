@@ -92,5 +92,21 @@
       "binding": "OUTBOUND_CLICKS",
       "dataset": "offerte4zampe_outbound"
     }
-  ]
+  ],
+  "previews": {
+    "vars": {
+      "SHIPPING_RULES_SOURCE": "json",
+      "SHIPPING_SHADOW": "false",
+      "PRICE_TRACKING_ENABLED": "false",
+      "AMAZON_LINKS_ENABLED": "true",
+      "TELEGRAM_CONTENT_MODE": "amazon_only",
+      "TELEGRAM_AMAZON_OWNER_ENABLED": "false",
+      "TELEGRAM_STATUS_RECOVERY": "false",
+      "AMAZON_ASSOCIATE_TAG": "offerte4zam0c-21"
+    },
+    "analytics_engine_datasets": [],
+    "durable_objects": {
+      "bindings": []
+    }
+  }
 }
