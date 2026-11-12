@@ -24,6 +24,10 @@ test('canonical Amazon section has exact disclosure and valid checkout notice, n
  assert.ok(html.includes(AMAZON_DISCLOSURE));
  assert.ok(html.includes(AMAZON_PRICE_NOTICE));
  assert.ok(html.includes('tag=offerte4zam0c-21'));
+ assert.match(html, /Acquista anche su Amazon/);
+ assert.match(html, /Verifica prezzo su Amazon/);
+ assert.ok(html.indexOf('data-amazon-verified') > html.indexOf('Offerte e prezzi nei negozi'));
+ assert.ok(html.indexOf('data-amazon-verified') < html.indexOf('Metodo e fonti'));
  assert.doesNotMatch(html,/Prezzo Amazon:\s*\d|Disponibilità Amazon: disponibile|minimo storico|avvisi di prezzo/i);
  const disabled=content(product,state,false,null).body;
  assert.doesNotMatch(disabled,/data-amazon-verified|amazon\.it\/dp\//);

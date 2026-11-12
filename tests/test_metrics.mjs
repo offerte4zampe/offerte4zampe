@@ -27,7 +27,7 @@ test('Amazon product clicks are minimised, consent gated and honour privacy sign
   const callbacks={},events=[];
   const context={URL,window:{O4ZTrade:trade},location:{pathname:'/prodotto'},navigator:privacy,localStorage:{getItem:()=>consent},document:{head:{appendChild(){}},createElement:()=>({}),querySelector:s=>s==='[data-product-page], [data-canonical-product]'?{}:null,addEventListener:(name,cb)=>{callbacks[name]=cb}},fetch:(url,options)=>{events.push(JSON.parse(options.body));return Promise.resolve({})},clearTimeout(){},setTimeout(){}};
   vm.runInNewContext(fs.readFileSync(new URL('../site/assets/metrics.js',import.meta.url),'utf8'),context);
-  callbacks.click({target:{closest:tag=>tag==='a'?{href:'https://www.amazon.it/dp/B0722X975H?tag=offerte4zam02-21'}:null}});
+  callbacks.click({target:{closest:tag=>tag==='a'?{href:'https://link.amazon/B0cNP6c1L',dataset:{amazonAffiliate:'verified'}}:null}});
   const clicks=events.filter(e=>e.event==='merchant_click');
   assert.equal(clicks.length,expected);
   if(expected){

@@ -1,5 +1,10 @@
 (function(root){'use strict';
 const metadata=typeof module!=='undefined'&&module.exports?require('./catalog-metadata.js'):root.O4ZMetadata;
+function curatedURL(row,tag){
+ if(!Object.hasOwn(row,'sitestripe_url'))return 'https://www.amazon.it/dp/'+row.asin+'?tag='+encodeURIComponent(tag);
+ if(row.owner_variant_confirmed!==true||row.resolved_tracking_id!==tag||row.resolved_asin!==row.asin)return null;
+ try{const u=new URL(row.sitestripe_url);if(u.protocol!=='https:'||u.hostname!=='link.amazon'||u.port||u.username||u.password||u.search||u.hash||!/^\/[A-Za-z0-9]{9}$/.test(u.pathname))return null;return row.sitestripe_url;}catch{return null}
+}
 // Editorial product links only: never add these to priced catalog offers or rankings.
 function productLink(offer,config,now=Date.now()){
  if(!offer||!/^[a-z0-9-]+-21$/.test(config?.tracking_id||''))return null;
@@ -10,8 +15,8 @@ function productLink(offer,config,now=Date.now()){
  if((metadata?metadata.brand(row.brand):String(row.brand??''))!==(metadata?metadata.brand(offer.brand):String(offer.brand??'')))return null;
  for(const key of ['title','variant','gtin'])if(String(row[key]??'')!==String(offer[key]??''))return null;
  try{const evidence=new URL(row.evidence_url);if(evidence.protocol!=='https:'||evidence.hostname!=='www.amazon.it'||evidence.username||evidence.password||!evidence.pathname.endsWith('/dp/'+row.asin))return null}catch{return null}
- const url=new URL('https://www.amazon.it/dp/'+row.asin);url.searchParams.set('tag',config.tracking_id);
- return {url:url.href,checked_at:row.checked_at};
+ const url=curatedURL(row,config.tracking_id);if(!url)return null;
+ return {url,checked_at:row.checked_at};
 }
 function comparisonLink(seed,offers,config,now=Date.now()){
  const direct=productLink(seed,config,now);if(direct)return direct;
