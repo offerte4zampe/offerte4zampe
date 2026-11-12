@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {createRequire} from 'node:module';const require=createRequire(import.meta.url),amazonModel=require('../site/assets/amazon-links.js'),metadata=require('../site/assets/catalog-metadata.js');
+import {createRequire} from 'node:module';const require=createRequire(import.meta.url),amazonModel=require('../site/assets/amazon-links.js'),metadata=require('../site/assets/catalog-metadata.js'),productMetadata=require('../site/assets/product-metadata.js');
 export async function checkSuggestions(page,origin,catalog){
  const now=Date.parse(catalog.generated_at),o=catalog.offers.find(o=>o.available&&typeof o.title==='string'&&o.title.length>4&&Number.isFinite(Date.parse(o.checked_at))&&now-Date.parse(o.checked_at)<=36*3600000&&Date.parse(o.checked_at)<=now+300000);
  assert(o,'Fresh catalog fixture required');const query=o.title.slice(0,Math.min(8,o.title.length));
@@ -29,7 +29,7 @@ export async function checkSuggestions(page,origin,catalog){
  assert(zooplus.text.includes('Disponibilità: non verificata'));assert(zooplus.text.includes('Catalogo zooplus non ancora collegato'));assert.equal(zooplus.links,0);
  const bitiba=await page.$eval('[data-product-shop="bitiba"]',e=>({text:e.textContent,links:e.querySelectorAll('a').length}));
  assert(bitiba.text.includes('Disponibilità: non verificata'));assert(bitiba.text.includes('Catalogo bitiba non ancora collegato'));assert.equal(bitiba.links,0);
- const seed=catalog.offers.find(o=>o.id===expected);assert(seed);assert.equal(await page.$eval('#product-title',e=>e.textContent),seed.canonical_title||seed.title);
+ const seed=catalog.offers.find(o=>o.id===expected);assert(seed);assert.equal(await page.$eval('#product-title',e=>e.textContent),productMetadata.name(seed.canonical_title||seed.title));
  const shareURL=await page.$eval('#product-share-url',e=>e.value);
  assert.equal(new URL(shareURL).origin,'https://offerte4zampe.it');assert.equal(new URL(shareURL).pathname,'/prodotto');assert.equal(new URL(shareURL).searchParams.get('id'),expected);assert.deepEqual([...new URL(shareURL).searchParams.keys()],['id']);
  await page.evaluate(()=>Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{throw Error('denied')}}}));
@@ -80,8 +80,8 @@ export async function checkSuggestions(page,origin,catalog){
   await page.waitForSelector('#product-amazon a',{visible:true,timeout:30000});
   assert.equal(await page.$eval('#product-title',e=>e.textContent),seed.canonical_title||seed.title);
   const href=await page.$eval('#product-amazon a',e=>e.href);
-  assert.equal(new URL(href).pathname,'/dp/'+entry.asin);
-  assert.equal(new URL(href).searchParams.get('tag'),links.tracking_id);
+  if(entry.sitestripe_url)assert.equal(href,entry.sitestripe_url);
+  else{assert.equal(new URL(href).pathname,'/dp/'+entry.asin);assert.equal(new URL(href).searchParams.get('tag'),links.tracking_id);}
   assert(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth<=1));
  }
 
