@@ -12,6 +12,43 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def render_directory(html, products):
+    """Give every indexable product an ordinary HTML link from the product hub.
+
+    Editorial selections and the comparator preview are deliberately limited;
+    neither is a complete discovery path for the canonical sitemap.
+    """
+    brands = {}
+    seen = set()
+    for product in products:
+        slug = product.get('slug', '')
+        if product.get('indexable') is not True or not re.fullmatch(r'[a-z0-9-]{1,200}', slug) or slug in seen:
+            continue
+        seen.add(slug)
+        brand = str(product.get('brand') or 'Altre marche')
+        brands.setdefault(brand, []).append(product)
+    sections = []
+    for brand, rows in sorted(brands.items(), key=lambda item: item[0].casefold()):
+        links = []
+        for product in sorted(rows, key=lambda p: (str(p.get('name', '')).casefold(), p['slug'])):
+            name = str(product.get('name') or product['slug'].replace('-', ' '))
+            links.append('<li><a href="/prodotto/'+product['slug']+'">'+h(name)+'</a></li>')
+        sections.append('<details class="panel"><summary>'+h(brand)+' · '+str(len(rows))+
+                        ' prodotti</summary><ul>'+''.join(links)+'</ul></details>')
+    content = '<section class="section" aria-labelledby="product-directory-title"><div class="wrap">'
+    content += '<h2 id="product-directory-title">Tutti i prodotti confrontabili, per marca</h2>'
+    content += '<p>Apri una marca e scegli il prodotto e il formato. Le schede elencate hanno offerte verificate in almeno due negozi; prezzi e spedizioni sono riportati nella scheda.</p>'
+    content += ''.join(sections) if sections else '<p>Nessun confronto disponibile nell’ultimo catalogo.</p>'
+    content += '</div></section>'
+    start, end = '<!-- product-directory:start -->', '<!-- product-directory:end -->'
+    region = start+content+end
+    if start in html and end in html:
+        return re.sub(re.escape(start)+r'.*?'+re.escape(end), lambda _: region, html, flags=re.S)
+    if '</main>' not in html:
+        raise ValueError('Product hub has no main landmark')
+    return html.replace('</main>', region+'</main>', 1)
+
+
 def render_preview(html, catalog, now=None):
     import datetime as dt
     try:
@@ -50,6 +87,9 @@ def main():
     catalog = json.loads(gzip.decompress((ROOT/'site/data/catalog.json.gz').read_bytes()))
     path = ROOT/'site/confronta-cibo.html'
     path.write_text(render_preview(path.read_text(), catalog))
+    model = json.loads(gzip.decompress((ROOT/'site/data/product-catalog.json.gz').read_bytes()))
+    hub = ROOT/'site/prodotti.html'
+    hub.write_text(render_directory(hub.read_text(), model['products']))
 
 
 if __name__ == '__main__':
