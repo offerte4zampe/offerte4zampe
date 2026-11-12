@@ -1,0 +1,45 @@
+name: Amazon97 Cloudflare build read-only diagnosis
+on:
+  push:
+    branches: ['diagnostics/amazon97-build-readonly']
+permissions:
+  contents: read
+jobs:
+  diagnosis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Read failed build metadata and error classifications only
+        env:
+          CLOUDFLARE_MCP_TOKEN: ${{ secrets.CLOUDFLARE_MCP_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          node --input-type=module <<'JS'
+          const token=process.env.CLOUDFLARE_MCP_TOKEN;
+          if(!token){console.log('BUILD_DIAG '+JSON.stringify({status:'missing_mcp_token'}));process.exit(1)}
+          const endpoint='https://mcp.cloudflare.com/mcp';
+          let session;let id=0;
+          async function rpc(method,params,notification=false){
+            const h={Authorization:'Bearer '+token,'Content-Type':'application/json',Accept:'application/json, text/event-stream','MCP-Protocol-Version':'2025-06-18'};
+            if(session)h['Mcp-Session-Id']=session;
+            const r=await fetch(endpoint,{method:'POST',headers:h,body:JSON.stringify({jsonrpc:'2.0',...(notification?{}:{id:++id}),method,...(params?{params}:{})}),signal:AbortSignal.timeout(25000)});
+            session=r.headers.get('mcp-session-id')||session;
+            if(!r.ok)throw Error('MCP HTTP '+r.status);
+            if(notification){await r.body?.cancel();return}
+            const body=await r.text();if(body.trim().startsWith('{'))return JSON.parse(body);
+            for(const part of body.split(/\r?\n\r?\n/)){const data=part.split(/\r?\n/).filter(s=>s.startsWith('data:')).map(s=>s.slice(5).trim()).join('\n');if(data&&data!=='[DONE]'){const d=JSON.parse(data);if(d.id)return d}}
+            throw Error('Missing RPC response');
+          }
+          function embedded(v){if(v?.structuredContent)return v.structuredContent;const t=v?.content?.find(c=>c.type==='text')?.text;try{return JSON.parse(t)}catch{return null}}
+          await rpc('initialize',{protocolVersion:'2025-06-18',capabilities:{},clientInfo:{name:'amazon97-build-readonly',version:'1'}});
+          await rpc('notifications/initialized',null,true);
+          const who=embedded((await rpc('tools/call',{name:'whoami',arguments:{}})).result);
+          const identity=who?.id||who?.result?.id;const account=identity?.startsWith('account:')?identity.slice(8):process.env.CLOUDFLARE_ACCOUNT_ID;
+          if(!/^[a-f0-9]{32}$/i.test(account||''))throw Error('Account unavailable');
+          const code='async () => { const b=await cloudflare.request({method:"GET",path:"/accounts/"+accountId+"/builds/builds/b4accf48-b668-4863-8e15-e1616d16178b"}); const l=await cloudflare.request({method:"GET",path:"/accounts/"+accountId+"/builds/builds/b4accf48-b668-4863-8e15-e1616d16178b/logs"}); const lines=(l?.result?.lines||[]).flat().filter(v=>typeof v==="string"); return {build_readable:b?.success===true,logs_readable:l?.success===true,outcome:b?.result?.build_outcome,commit:b?.result?.build_trigger_metadata?.commit_hash,branch:b?.result?.build_trigger_metadata?.branch,classification:{authentication:lines.some(s=>/authentication|unauthorized|10000|invalid.*token/i.test(s)),missing_token:lines.some(s=>/CLOUDFLARE_API_TOKEN.*(not|missing|must)|API token.*not/i.test(s)),missing_preview_command:lines.some(s=>/preview.*command|Missing.*command/i.test(s)),missing_package:lines.some(s=>/No module named|ModuleNotFoundError|command not found|ENOENT/i.test(s)),build_failed:lines.some(s=>/build.*failed|Failed.*build/i.test(s))},tail:lines.slice(-12).map(s=>s.replace(/https?:\\/\\/\\S+/g,"[URL]").replace(/[A-Za-z0-9_-]{32,}/g,"[REDACTED]").slice(0,260))}; }';
+          const reply=await rpc('tools/call',{name:'execute',arguments:{code,account_id:account}});
+          const result=embedded(reply.result);console.log('BUILD_DIAG '+JSON.stringify(result));
+          JS
