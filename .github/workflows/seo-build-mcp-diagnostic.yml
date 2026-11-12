@@ -38,7 +38,7 @@ jobs:
           function embedded(v){
             if(v?.structuredContent)return v.structuredContent;
             const text=v?.content?.find(x=>x.type==='text')?.text;
-            try{return JSON.parse(text);}catch{return {status:'unreadable_response'};}
+            try{return JSON.parse(text);}catch{return {status:'unreadable_response',hint: /token|secret|password|authorization/i.test(text||'')?'restricted_error':String(text||'').slice(0,500)};}
           }
           await rpc({jsonrpc:'2.0',id:1,method:'initialize',params:{protocolVersion:'2025-06-18',capabilities:{},clientInfo:{name:'o4z-release-build-readonly',version:'1.0'}}});
           await rpc({jsonrpc:'2.0',method:'notifications/initialized'},true);
@@ -50,7 +50,7 @@ jobs:
               const l=await cloudflare.request({method:"GET",path:"/accounts/"+accountId+"/builds/builds/"+id+"/logs"});
               const b=r?.result||{};
               const lines=(l?.result?.lines||[]).filter(Array.isArray).map(x=>String(x[x.length-1]));
-              const errors=lines.filter(x=>/error|failed|not found|limit exceeded/i.test(x)&&!/token|secret|password|authorization/i.test(x)).slice(-12).map(x=>x.replace(/https?:\\/\\/\\S+/g,"<url>").replace(/[A-Za-z0-9_-]{32,}/g,"<identifier>").slice(0,300));
+              const errors=lines.filter(x=>/error|failed|not found|limit exceeded/i.test(x)&&!/token|secret|password|authorization/i.test(x)).slice(-12).map(x=>x.replace(new RegExp("https?"+":/"+"/[^ ]+","g"),"<url>").replace(/[A-Za-z0-9_-]{32,}/g,"<identifier>").slice(0,300));
               builds.push({id,readable:r?.success===true,status:b.status,outcome:b.build_outcome,source:b.build_trigger_metadata?.branch,errors,log_count:lines.length});
             }
             const d=await cloudflare.request({method:"GET",path:"/accounts/"+accountId+"/workers/scripts/zampachiara/deployments?per_page=1"});
