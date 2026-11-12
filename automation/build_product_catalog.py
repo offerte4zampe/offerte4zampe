@@ -221,17 +221,12 @@ def build(catalog,old_registry=None,history=None,now=None):
             offer['canonical_format']=p['format'];offer['product_identity_verified']=p['matching_method']=='gtin_quantity'
             offer['unit_prices']={unit:round(o['price']/value,6) for unit,value in [('kg',(q_by_id[o['id']]['weight_g'] or 0)/1000),('l',(q_by_id[o['id']]['volume_ml'] or 0)/1000),('pz',q_by_id[o['id']]['pieces'] or 0)] if value and q_by_id[o['id']]['verified']}
             offers.append(offer)
-    # Candidates are deliberately separate from identity, pending exact evidence.
-    candidates=[]
-    for p in products:
-        if p['matching_method']!='unattached' or not p['brand'] or p['quantity']['kind']=='sales_unit':continue
-        bucket=(normalized(p['brand']),p['species'],p['quantity']['kind'],p['quantity']['value'])
-        words=set(normalized(p['name']).split())
-        for peer in by_bucket[bucket]:
-            if peer['id']==p['id'] or peer['matching_method']=='unattached':continue
-            other=set(normalized(peer['name']).split());score=len(words&other)/max(1,len(words|other))
-            if p['recipe'] and peer['recipe'] and p['recipe']!=peer['recipe']:continue
-            if score>=.7:candidates.append(dict(product_id=p['id'],candidate_product_id=peer['id'],confidence=round(min(.96,score),3),status='needs_evidence',reason='brand_quantity_species_and_title_similarity; missing shared GTIN'))
+    # Evidence supports a separate review queue; it cannot merge identities.
+    try:
+        from .matching_candidates import build as review_candidates
+    except ImportError:
+        from matching_candidates import build as review_candidates
+    candidates=review_candidates(offers,q_by_id,now,normalized,canonical_brand,canonical_gtin,ROOT/'site',IMAGE_RULES)
     offer_targets={o['id']:(o['product_id'],o['product_slug']) for o in offers}
     for pid,entry in old_registry.items():
         if pid not in registry and entry.get('product'):
@@ -255,7 +250,7 @@ def build(catalog,old_registry=None,history=None,now=None):
         family=re.sub(r'\d+(?:[.,]\d+)?\s*(?:kg|gr|g|ml|litri|lt|l)\b','',p['name'],flags=re.I)
         family=re.sub(r'confezione da \d+ pezzi','',family,flags=re.I)
         p['related']=[{k:o[k] for k in ('id','slug','name','format','low_price')} for o in families[(normalized(p['brand']),normalized(family))] if o['id']!=p['id'] and o['active_offer_count']][:4]
-    candidates=sorted(candidates,key=lambda x:(-x['confidence'],x['product_id'],x['candidate_product_id']))
+    # Queue ordering already reflects independent support, not a probability.
     active_products=[p for p in products if p['active_offer_count']]
     multi=[p for p in active_products if p['verified_shop_count']>=2]
     store_coverage={}
@@ -269,7 +264,7 @@ def build(catalog,old_registry=None,history=None,now=None):
             'sales_unit_only':sum(o['quantity']['kind']=='sales_unit' for o in rows),
             'offers_in_multishop_products':sum(fresh(o,now) and o['canonical_shop_count']>=2 for o in rows),
         }
-    metric=dict(name_matching=name_report,gtin_multi_shop_products=sum(p['matching_method']=='gtin_quantity' for p in multi),characteristic_multi_shop_products=sum(p['matching_method'] in ('gtin_with_name','name_characteristics') for p in multi),store_coverage=store_coverage,products=len(products),active_products=len(active_products),offers=len(offers),multi_shop_products=len(multi),multi_shop_percent=round(100*len(multi)/max(1,len(active_products)),2),denominator='active canonical products, distinct merchants with verified quantities; GTIN and characteristic matching reported separately; duplicate offers in one shop do not count',unattached_offers=sum(p['active_offer_count'] for p in products if p['matching_method']=='unattached'),candidate_pairs=len(candidates),automatic_match_rules='GTIN and quantity, or exact normalized name plus brand and verified selling quantity; conflicting GTINs excluded')
+    metric=dict(name_matching=name_report,gtin_multi_shop_products=sum(p['matching_method']=='gtin_quantity' for p in multi),characteristic_multi_shop_products=sum(p['matching_method'] in ('gtin_with_name','name_characteristics') for p in multi),store_coverage=store_coverage,products=len(products),active_products=len(active_products),offers=len(offers),multi_shop_products=len(multi),multi_shop_percent=round(100*len(multi)/max(1,len(active_products)),2),denominator='active canonical products, distinct merchants with verified quantities; GTIN and characteristic matching reported separately; duplicate offers in one shop do not count',unattached_offers=sum(p['active_offer_count'] for p in products if p['matching_method']=='unattached'),candidate_pairs=len(candidates),automatic_match_rules='GTIN and quantity, or exact characteristic tokens after merchandising-only normalization; brand, recipe, life stage, selected variant and verified selling quantity preserved; images/descriptions are review support only')
     return dict(schema_version=1,generated_at=catalog['generated_at'],products=products,offers=offers,metrics=metric,matching_candidates=candidates,registry=registry)
 
 

@@ -1,4 +1,9 @@
 """TradeTracker's approved Bauzaar feed. Retain exact variant and net-weight evidence."""
+try:
+    from .matching_evidence import attach_description
+except ImportError:
+    from matching_evidence import attach_description
+
 import datetime as dt
 import json
 import re
@@ -73,6 +78,7 @@ def normalize(payload, now=None):
             affiliate_url=link, image=images[0] if images else '', sku='', gtin=value(props, 'GTIN'), feed_gtin=value(props, 'GTIN'),
             weight_kg=kg, weight_source='official_feed:unit_pricing_measure' if kg else '', shipping_weight_kg=None,
             checked_at=now.isoformat(), source_type='official_feed', image_source=feed_image(images[0] if images else '',16143,600171)))
+        attach_description(rows[-1],p.get('description',''))
         if current<regular:rows[-1]=with_reference(rows[-1],regular,'feed_regular_price',end.isoformat())
     if not rows: raise ValueError('Empty feed')
     return rows

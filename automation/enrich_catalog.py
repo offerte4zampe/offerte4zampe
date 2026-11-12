@@ -5,6 +5,10 @@ try:
  from .update_catalog import get,UA,weight
 except ImportError:
  from update_catalog import get,UA,weight
+try:
+ from .matching_evidence import description_evidence
+except ImportError:
+ from matching_evidence import description_evidence
 ROOT=Path(__file__).resolve().parents[1]
 def limited_get(url):
  with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':UA}),timeout=8) as r:return r.read()
@@ -77,9 +81,12 @@ def build():
     rp=urllib.robotparser.RobotFileParser();rp.parse(limited_get(origin+'/robots.txt').decode().splitlines());robots[origin]=rp
    if not robots[origin].can_fetch(UA,url):continue
    product=json.loads(limited_get(url))
+   description=description_evidence(product.get('description',product.get('body_html','')),url,now.isoformat())
    mid=next(o['merchant_id'] for o in d['offers'] if o['url'].split('?')[0]+'.js'==url)
    for v in product.get('variants',[]):
     code=gtin(v.get('barcode'));cache[f'{mid}:{v["id"]}']={'gtin':code,'shipping_weight_kg':(v.get('weight') or 0)/1000 or None,'source':url,'checked_at':now.isoformat()}
+   if description:
+    for v in product.get('variants',[]):cache[f'{mid}:{v["id"]}']['description_evidence']=description
    cachepath.write_text(json.dumps(cache,separators=(',',':')))
    print('Identificativi letti:',mid,len(product.get('variants',[])),flush=True)
    time.sleep(.25)
@@ -88,6 +95,7 @@ def build():
   o['gtin']=gtin(o.get('gtin'));o['gtin_source']=o.get('gtin_source') or ('catalog' if o['gtin'] else '')
   e=cache.get(o['id'])
   if o.get('source_type')!='official_feed' and e and (now-datetime.datetime.fromisoformat(e['checked_at'])).days<30:
+   if e.get('description_evidence'):o['description_evidence']={**e['description_evidence'],'retrieved_from':e['description_evidence']['source'],'source':o['url']}
    if e['gtin']:o.update(gtin=e['gtin'],gtin_source=e['source'],gtin_checked_at=e['checked_at'])
    if e.get('shipping_weight_kg'):o['shipping_weight_kg']=e['shipping_weight_kg']
  cachepath.write_text(json.dumps(cache,separators=(',',':')))
