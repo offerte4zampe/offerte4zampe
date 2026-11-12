@@ -1,0 +1,29 @@
+# Separate service: never attaches to or changes Smart Coach.
+services:
+  - type: cron
+    name: offerte4zampe-newsletter
+    runtime: python
+    repo: https://github.com/offerte4zampe/offerte4zampe
+    branch: main
+    region: frankfurt
+    plan: starter
+    schedule: "15 8 * * 1"
+    autoDeployTrigger: commit
+    buildCommand: python3 -m unittest discover -s tests -p 'test_*newsletter*.py' -v
+    startCommand: python3 -m automation.run_render_newsletter
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.12
+      - key: BREVO_SEND_RUNTIME
+        value: render
+      # Provision disabled. Enable only after the documented cutover checklist.
+      - key: BREVO_SEND_ENABLED
+        value: "false"
+      - key: BREVO_LIST_ID
+        value: "3"
+      - key: BREVO_SENDER
+        value: capobranco@offerte4zampe.it
+      - key: NEWSLETTER_PAYLOAD
+        value: newsletter-approved.json
+      - key: BREVO_API_KEY
+        sync: false

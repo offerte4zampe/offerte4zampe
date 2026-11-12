@@ -1,0 +1,28 @@
+name: Brevo runtime safety (no send)
+on:
+  pull_request:
+    paths:
+      - 'automation/*newsletter*.py'
+      - 'automation/weekly_offer_validation.py'
+      - 'tests/test_*newsletter*.py'
+      - 'render.brevo.yaml'
+      - '.github/workflows/*brevo*.yml'
+  push:
+    paths:
+      - 'automation/*newsletter*.py'
+      - 'automation/weekly_offer_validation.py'
+      - 'tests/test_*newsletter*.py'
+      - 'render.brevo.yaml'
+      - '.github/workflows/*brevo*.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -m unittest discover -s tests -p 'test_*newsletter*.py' -v
