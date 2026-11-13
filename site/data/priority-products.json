@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T21:11:08.174328+00:00",
+  "generated_at": "2026-11-13T01:17:51.536783+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,9 +7,9 @@
   "at_target": 14,
   "with_third_store_lead": 24,
   "categories": {
-    "umido": 115,
+    "umido": 114,
     "snack": 61,
-    "crocchette": 117,
+    "crocchette": 118,
     "lettiere": 7
   },
   "priority_offer_ids": [
@@ -98,7 +98,6 @@
     "animaliapet:47343990604119",
     "animaliapet:47344005284183",
     "animaliapet:47359220220247",
-    "animaliapet:47392275661143",
     "animaliapet:47403696030039",
     "animaliapet:47555389129047",
     "animaliapet:47739940831575",
@@ -128,7 +127,6 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
-    "bauzaar:56819013976389",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
     "bauzaar:56819879543109",
@@ -283,6 +281,7 @@
     "bauzaar:56961947337029",
     "bauzaar:56961978466629",
     "bauzaar:56961978532165",
+    "bauzaar:56961978597701",
     "bauzaar:56961999143237",
     "bauzaar:56961999372613",
     "bauzaar:56962038104389",
@@ -520,6 +519,7 @@
     "paco:5885",
     "paco:5935",
     "paco:5953",
+    "paco:5954",
     "paco:5955",
     "paco:5974",
     "paco:5975",
@@ -2979,6 +2979,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-e2edde9d886a81162bdc",
+      "name": "Leonardo Cat food Adult Fish ricco di Salmone 7,5 kg",
+      "brand": "Leonardo",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "7,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/leonardo-adult-classic-pesce-cibo-secco-per-gatti-sacco-da-7-5-kg-04002633758422-162bdc",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:57356132122949",
+        "paco:6144"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-e840f5e455e74d740399",
       "name": "Leonardo Cat food Adult Duck ricco di Anatra 7,5 kg",
       "brand": "Leonardo",
@@ -3828,6 +3847,25 @@
       "offer_ids": [
         "paco:5953",
         "bauzaar:56961978466629"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-addc70602c0971354a6d",
+      "name": "Ownat Classic Monoproteic Salmone Per Cani · Sacco da 12 kg",
+      "brand": "Ownat",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/ownat-classic-monoproteic-salmone-per-cani-sacco-da-12-kg-08429037001804-354a6d",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "paco:5954",
+        "bauzaar:56961978597701"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -6186,26 +6224,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-e2edde9d886a81162bdc",
-      "name": "Leonardo Cat food Adult Fish ricco di Salmone 7,5 kg",
-      "brand": "Leonardo",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "7,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/leonardo-adult-classic-pesce-cibo-secco-per-gatti-sacco-da-7-5-kg-04002633758422-162bdc",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:57356132122949"
-      ],
-      "candidate_offer_ids": [
-        "paco:6144"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-ac38875b0d9f130b6e0e",
       "name": "Lev Cat Adult Serilised Salmone 1,5 kg",
       "brand": "Lev",
@@ -6401,26 +6419,6 @@
       ],
       "candidate_offer_ids": [
         "animaliapet:46976703594839"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-06a3f83e64c61e7329e3",
-      "name": "Natua Natural Pollo in Jelly Lattina 150g Gatti",
-      "brand": "Natua",
-      "category": "umido",
-      "species": "cane e gatto",
-      "format": "150 g",
-      "url": "https://offerte4zampe.it/prodotto/natua-natural-pollo-in-jelly-lattina-150g-gatti-08057507371036-7329e3",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "animaliapet:47392275661143"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56819013976389"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
