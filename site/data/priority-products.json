@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T13:15:43.125949+00:00",
+  "generated_at": "2026-11-13T19:00:15.799084+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,9 +7,9 @@
   "at_target": 14,
   "with_third_store_lead": 23,
   "categories": {
-    "umido": 114,
-    "snack": 62,
-    "crocchette": 117,
+    "umido": 116,
+    "snack": 61,
+    "crocchette": 116,
     "lettiere": 7
   },
   "priority_offer_ids": [
@@ -24,7 +24,6 @@
     "animaliapet:46976539132247",
     "animaliapet:46976541589847",
     "animaliapet:46976541622615",
-    "animaliapet:46976541720919",
     "animaliapet:46976542245207",
     "animaliapet:46976542441815",
     "animaliapet:46976544735575",
@@ -33,6 +32,7 @@
     "animaliapet:46976548438359",
     "animaliapet:46976549028183",
     "animaliapet:46976549847383",
+    "animaliapet:46976551485783",
     "animaliapet:46976551944535",
     "animaliapet:46976552108375",
     "animaliapet:46976563413335",
@@ -56,6 +56,7 @@
     "animaliapet:46976631013719",
     "animaliapet:46976631308631",
     "animaliapet:46976635208023",
+    "animaliapet:46976642679127",
     "animaliapet:46976645136727",
     "animaliapet:46976649724247",
     "animaliapet:46976656310615",
@@ -70,13 +71,12 @@
     "animaliapet:46976682852695",
     "animaliapet:46976683016535",
     "animaliapet:46976683409751",
-    "animaliapet:46976684556631",
-    "animaliapet:46976685244759",
     "animaliapet:46976687210839",
     "animaliapet:46976687407447",
     "animaliapet:46976687571287",
     "animaliapet:46976689078615",
     "animaliapet:46976689242455",
+    "animaliapet:46976690815319",
     "animaliapet:46976692027735",
     "animaliapet:46976693371223",
     "animaliapet:46976693961047",
@@ -92,11 +92,9 @@
     "animaliapet:46976714670423",
     "animaliapet:46976728727895",
     "animaliapet:46976729710935",
-    "animaliapet:47231296176471",
     "animaliapet:47343969141079",
     "animaliapet:47343990604119",
     "animaliapet:47344005284183",
-    "animaliapet:47359220220247",
     "animaliapet:47392275661143",
     "animaliapet:47403696030039",
     "animaliapet:47555389129047",
@@ -115,6 +113,7 @@
     "animaliapet:50442257236311",
     "animaliapet:50442302816599",
     "animaliapet:50442319462743",
+    "animaliapet:51708841918807",
     "animaliapet:51865187385687",
     "animaliapet:52116099727703",
     "animaliapet:52116150026583",
@@ -170,7 +169,6 @@
     "bauzaar:56820205683013",
     "bauzaar:56820205912389",
     "bauzaar:56820207255877",
-    "bauzaar:56820207288645",
     "bauzaar:56820207354181",
     "bauzaar:56820207452485",
     "bauzaar:56820207911237",
@@ -180,6 +178,7 @@
     "bauzaar:56820255097157",
     "bauzaar:56820266139973",
     "bauzaar:56820266664261",
+    "bauzaar:56820267745605",
     "bauzaar:56820268302661",
     "bauzaar:56820268400965",
     "bauzaar:56820269351237",
@@ -211,7 +210,6 @@
     "bauzaar:56835014459717",
     "bauzaar:56835014492485",
     "bauzaar:56835073802565",
-    "bauzaar:56835073999173",
     "bauzaar:56835075375429",
     "bauzaar:56961097728325",
     "bauzaar:56961097761093",
@@ -237,16 +235,15 @@
     "bauzaar:56961249706309",
     "bauzaar:56961263993157",
     "bauzaar:56961266712901",
+    "bauzaar:56961268908357",
     "bauzaar:56961300988229",
-    "bauzaar:56961301905733",
-    "bauzaar:56961302659397",
     "bauzaar:56961307279685",
     "bauzaar:56961307509061",
     "bauzaar:56961398669637",
     "bauzaar:56961408303429",
     "bauzaar:56961409548613",
     "bauzaar:56961450836293",
-    "bauzaar:56961455522117",
+    "bauzaar:56961451098437",
     "bauzaar:56961455718725",
     "bauzaar:56961456013637",
     "bauzaar:56961459257669",
@@ -339,6 +336,7 @@
     "bauzaar:58411832312133",
     "bauzaar:58411833819461",
     "bauzaar:58411834179909",
+    "bauzaar:58411835818309",
     "bauzaar:58411836670277",
     "bauzaar:58411838308677",
     "bauzaar:58411838603589",
@@ -2028,25 +2026,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-022c2a550c97c3d894cc",
-      "name": "Farmina N&D Tropical Maiale 10kg Crocchette Cani Medium Maxi Adult",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "10 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-tropical-dog-adult-medium-maxi-low-grain-maiale-e-frutta-tropicale-10-kg-08010276042309-d894cc",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:47359220220247",
-        "bauzaar:56961302659397"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-0a5a32cdbc1f05776a45",
       "name": "Farmina N&D Grain Free Pumpkin Puppy Mini Agnello e Mirtillo 2,5 kg",
       "brand": "Farmina",
@@ -2218,25 +2197,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-431e7b03932f5d195623",
-      "name": "Farmina N&D Tropical Agnello 10kg Crocchette Cani Medium Maxi Adult",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "10 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-tropical-dog-adult-medium-maxi-low-grain-agnello-e-frutta-tropicale-10-kg-08010276042347-195623",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:47231296176471",
-        "bauzaar:56961301905733"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-4b2eec49d1e3120284e0",
       "name": "Farmina N&D White Grain Free Puppy Mini Branzino, spirulina e finocchio 1,5 kg",
       "brand": "Farmina",
@@ -2250,6 +2210,44 @@
       "offer_ids": [
         "bauzaar:56961307509061",
         "animaliapet:49973548122455"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-63a257a37fc43947d3e2",
+      "name": "Farmina N&D Ocean Salmone Merluzzo Melone 2,5kg Crocchette Cani Mini Adult",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "2,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-ocean-canine-adult-mini-salmone-merluzzo-e-melone-cantalupo-2-5-kg-08010276039309-47d3e2",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976642679127",
+        "bauzaar:56961268908357"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-63af26eb26c0c3292edc",
+      "name": "Farmina N&D Grain Free Pumpkin Adult Medium/Maxi Pollo e Melograno 12 kg",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-grain-free-pumpkin-adult-medium-maxi-pollo-e-melograno-12-kg-08010276033352-292edc",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820267745605",
+        "animaliapet:46976551485783"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -2389,25 +2387,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-52e7b96002b72fa1d56b",
-      "name": "Monge Gemon All Breeds Adult con Agnello e Riso 3 kg",
-      "brand": "Gemon",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "3 kg",
-      "url": "https://offerte4zampe.it/prodotto/gemon-all-breeds-adult-con-agnello-e-riso-3kg-crocchette-cani-08009470386111-a1d56b",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820207288645",
-        "animaliapet:46976541720919"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-635b0aeae4aa0bb23c21",
       "name": "Monge Gemon Maxi Adult con Pollo e Riso 15 kg",
       "brand": "Gemon",
@@ -2541,6 +2520,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-b686b39f1fc23ba0d017",
+      "name": "Gemon All Breeds Adult con Salmone e Riso 15 kg",
+      "brand": "Gemon",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "15 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-gemon-salmone-e-riso-15kg-crocchette-cani-all-breeds-adult-08009470386333-a0d017",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56961451098437",
+        "animaliapet:51708841918807"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-1fb5f035b9d35d7126a2",
       "name": "Gimborn GimCat Crunchy Salmone e Spinaci Gatta 50g Snack per Gatti",
       "brand": "GimCat",
@@ -2554,25 +2552,6 @@
       "offer_ids": [
         "animaliapet:55556613865815",
         "bauzaar:56961455718725"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-8e34c2397df887604172",
-      "name": "GimCat Cheezies 50 g",
-      "brand": "GimCat",
-      "category": "snack",
-      "species": "gatto",
-      "format": "50 g",
-      "url": "https://offerte4zampe.it/prodotto/gimcat-cheezies-50-g-04002064409436-604172",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56961455522117",
-        "animaliapet:46976684556631"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -3504,25 +3483,6 @@
       "offer_ids": [
         "animaliapet:46976692027735",
         "paco:5342"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-4ebcd480eedd035514b2",
-      "name": "Nature's Protection Red Coat Salmone 1,5kg Crocchette Cani Small Adult",
-      "brand": "Nature's Protection",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-red-coat-salmone-1-5kg-crocchette-cani-small-adult-04771317472304-5514b2",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976685244759",
-        "bauzaar:56835073999173"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -6420,6 +6380,46 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:56819013976389"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-0d879ff8e79ffc89359c",
+      "name": "Natua Natural Cat Adult in Jelly cottura al vapore 150 g Pollo - confezione da 24 pezzi",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "gatto",
+      "format": "3,6 kg",
+      "url": "https://offerte4zampe.it/prodotto/natua-natural-cat-adult-in-jelly-cottura-al-vapore-150-g-pollo-confezione-da-24-pezzi-08057507371036-89359c",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56819013976389"
+      ],
+      "candidate_offer_ids": [
+        "animaliapet:47392275661143"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-0eb865275a90370ee1ae",
+      "name": "Natua Natural Cat Adult in Jelly cottura al vapore 70 g Tonnetto e pesce azzurro - confezione da 24 pezzi",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "gatto",
+      "format": "1,68 kg",
+      "url": "https://offerte4zampe.it/prodotto/natua-natural-cat-adult-in-jelly-cottura-al-vapore-70-g-tonnetto-e-pesce-azzurro-confezione-da-24-pezzi-08057507370664-0ee1ae",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:58411835818309"
+      ],
+      "candidate_offer_ids": [
+        "animaliapet:46976690815319"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
