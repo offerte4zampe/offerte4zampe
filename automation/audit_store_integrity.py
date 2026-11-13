@@ -165,6 +165,46 @@ def apply_evidence(offers,cache,now):
     return repaired
 
 
+
+def suppress_commercial_conflicts(catalog, cache, now):
+    """Withhold exact, recent contradictory rows; never rewrite feed fields.
+
+    As with merchant-link suppression, the next import reconstructs all rows.
+    Expired/changed/inconclusive evidence cannot withhold a different observation.
+    The report retains each original row and proof for review and rollback.
+    """
+    withheld=[];kept=[]
+    for o in catalog['offers']:
+        entry=cache.get(o['id'],{});proof=entry.get('evidence',{})
+        exact_key='exact_variant' if o.get('merchant_id') in ('bauzaar','webpet','animaliapet') else 'exact_product'
+        exact=str(proof.get(exact_key,''))==o['id'].split(':',1)[1]
+        code=canonical_gtin(o.get('gtin') or o.get('feed_gtin'))
+        proof_code=canonical_gtin(proof.get('gtin'))
+        expected_source=page_url(o)
+        trusted=(o.get('merchant_id') in STORES and usable(entry,o,now,24)
+                 and bool(expected_source) and entry.get('status')=='verified' and entry.get('source')==expected_source
+                 and exact and not (code and proof_code and code!=proof_code))
+        reasons=[]
+        if trusted:
+            price=proof.get('price');stock=proof.get('available')
+            if ('price' in entry.get('compared',[]) and 'price' in entry.get('discrepancies',[])
+                and isinstance(price,(int,float)) and not isinstance(price,bool)
+                and math.isfinite(price) and price>0 and abs(price-o['price'])>.005):reasons.append('price')
+            if ('available' in entry.get('compared',[]) and 'available' in entry.get('discrepancies',[])
+                and isinstance(stock,bool) and stock!=o.get('available')):reasons.append('available')
+        if reasons:
+            withheld.append({'id':o['id'],'reasons':reasons,'offer':dict(o),
+                             'source':entry['source'],'checked_at':entry['checked_at'],
+                             'fingerprint':entry['fingerprint'],'evidence':dict(proof)})
+        else:kept.append(o)
+    output={**catalog,'offers':kept}
+    suppression={'checked_at':now.isoformat(),'evidence_max_age_hours':24,
+                 'input_offers':len(catalog['offers']),'published_offers':len(kept),
+                 'withheld':withheld,
+                 'method':'Only exact-identity price/stock contradictions with matching source and row fingerprint, verified within 24 hours. Raw fields are retained here without rewriting. No Amazon evidence is collected or applied. Expiry or a changed row requires a new check; missing/inconclusive evidence is not a contradiction.'}
+    return output,suppression
+
+
 def report(catalog,cache,now,repairs=()):
     rows=catalog['offers'];stores=[];duplicates=Counter(o['id'] for o in rows)
     for sid in STORES:
@@ -233,9 +273,13 @@ def build(offline=False):
     cache={k:v for k,v in cache.items() if k in live_ids}
     repairs=apply_evidence(catalog['offers'],cache,now)
     cachepath.write_text(json.dumps(cache,ensure_ascii=False,separators=(',',':'))+'\n')
-    path.write_bytes(gzip.compress(json.dumps(catalog,ensure_ascii=False,separators=(',',':')).encode(),mtime=0))
-    refresh_coverage(catalog,now)
     output=report(catalog,cache,now,repairs)
+    published,suppression=suppress_commercial_conflicts(catalog,cache,now)
+    output['commercial_suppression']=suppression
+    path.write_bytes(gzip.compress(json.dumps(published,ensure_ascii=False,separators=(',',':')).encode(),mtime=0))
+    refresh_coverage(published,now)
+    if suppression['withheld']:
+        print('::warning::Withheld '+str(len(suppression['withheld']))+' offers with exact recent price/stock contradictions; original rows and evidence in site/data/store-audit.json')
     (ROOT/'site/data/store-audit.json').write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n')
     for s in output['stores']:
         print(s['id'],s['offers'],'field issues',s['field_issues'],'pages verified',s['sample_verified'],'inconclusive',s['sample_inconclusive'],'discrepancies',s['sample_discrepancies'])
