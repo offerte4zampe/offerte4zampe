@@ -12,8 +12,8 @@ test('editorial registry has unique offer IDs and size-specific KONG destination
  for(const [id,asin] of Object.entries(expected))assert.equal(config.links.find(r=>r.offer_id===id)?.asin,asin);
  for(const entry of config.links){
   assert(!Object.keys(entry).some(k=>/price|availability|available|image|rating|review/i.test(k)));
-  const resolved=productLink({id:entry.offer_id,...entry},config,now);
-  assert(resolved);assert.equal(new URL(resolved.url).pathname,'/dp/'+entry.asin);
+  const resolved=productLink({id:entry.offer_id,...entry},config,Date.parse(entry.checked_at+'T12:00:00Z'));
+  assert(resolved);if(entry.sitestripe_url)assert.equal(resolved.url,entry.sitestripe_url);else assert.equal(new URL(resolved.url).pathname,'/dp/'+entry.asin);
  }
 });
 
@@ -29,5 +29,37 @@ test('verified Amazon link can follow exact cross-store identity but never guess
 
 
 test('brand typography normalization preserves previously verified Amazon links',()=>{
- for(const entry of config.links){const seed={id:entry.offer_id,...entry,brand:require('../site/assets/catalog-metadata.js').brand(entry.brand)};assert(productLink(seed,config,now));assert.equal(productLink({...seed,brand:seed.brand+' Veterinary'},config,now),null);}
+ for(const entry of config.links){const seed={id:entry.offer_id,...entry,brand:require('../site/assets/catalog-metadata.js').brand(entry.brand)};assert(productLink(seed,config,Date.parse(entry.checked_at+'T12:00:00Z')));assert.equal(productLink({...seed,brand:seed.brand+' Veterinary'},config,now),null);}
+});
+
+test('five owner-confirmed variants preserve original SiteStripe URLs in client and SSR',async()=>{
+ const {resolveAmazonOffer}=await import('../worker/amazon-product.mjs');
+ const entries=config.links.filter(r=>r.sitestripe_url);
+ assert.equal(new Set(entries.map(r=>r.asin)).size,5);
+ for(const entry of entries){
+  const o={id:entry.offer_id,...entry},p={offers:[o]},time=Date.parse(entry.checked_at+'T12:00:00Z');
+  assert.equal(productLink(o,config,time).url,entry.sitestripe_url);
+  assert.equal(resolveAmazonOffer(p,config,time).url,entry.sitestripe_url);
+  for(const patch of [
+   {sitestripe_url:'https://link.amazon.evil.test/B0cNP6c1L'},
+   {sitestripe_url:'javascript:alert(1)'},
+   {sitestripe_url:'https://link.amazon/B0cNP6c1L?tag=other'},
+   {sitestripe_url:null},
+   {owner_variant_confirmed:false},
+   {resolved_tracking_id:'other-21'},
+   {resolved_asin:'B000000000'},
+   {checked_at:'2026-01-01'}
+  ]){
+   const altered={...config,links:[{...entry,...patch}]};
+   assert.equal(productLink(o,altered,time),null);
+   assert.equal(resolveAmazonOffer(p,altered,time),null);
+  }
+  assert.equal(resolveAmazonOffer({offers:[{...o,variant:'wrong pack'}]},config,time),null);
+ }
+});
+test('mismatched packs and lines are not activated',()=>{
+ const selection=JSON.parse(fs.readFileSync(new URL('../automation/amazon-sitestripe-selection.json',import.meta.url),'utf8'));
+ assert.deepEqual(selection.products.filter(p=>p.publication_ready).map(p=>p.selection_number),[4,6,9,10,11]);
+ const activeIds=new Set(config.links.map(r=>r.offer_id));
+ for(const p of selection.products.filter(p=>!p.publication_ready))for(const id of p.offer_ids)assert(!activeIds.has(id));
 });

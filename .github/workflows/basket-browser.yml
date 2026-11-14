@@ -196,6 +196,11 @@ jobs:
           python automation/build_catalog_index.py
           python automation/fingerprint_assets.py
           node tests/check_basket_browser.mjs
+      - name: Verify exact SiteStripe product pages on mobile and desktop
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+          PUPPETEER_ROOT: ${{ runner.temp }}/basket-browser
+        run: node tests/check_sitestripe_local.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
