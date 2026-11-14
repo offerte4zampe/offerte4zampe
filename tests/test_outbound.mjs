@@ -16,8 +16,13 @@ test('missing, throwing or rejected analytics never break redirect',async()=>{fo
 test('inactive, stale, unsafe or invalidated offers return to product; unknown goes to search',async()=>{for(const o of [{...offer,available:false},{...offer,checked_at:'2026-10-01'},{...offer,affiliate_url:'javascript:alert(1)'},{...offer,identity_review:true,identity_expires_at:'2026-10-28'}]){const f=fixture(o);assert.equal((await outbound(req(),f.env,f.ctx,now)).headers.get('Location'),'/prodotto/'+slug)}const f=fixture();assert.equal((await outbound(req({},'missing'),f.env,f.ctx,now)).headers.get('Location'),'/confronta-cibo');assert.equal((await outbound(req({},'https://evil.test'),f.env,f.ctx,now)).headers.get('Location'),'/confronta-cibo')});
 test('all snapshot offers retain the old direct target byte-for-byte through real shard resolution',async()=>{
  const root=new URL('../site/',import.meta.url),snapshot=JSON.parse(gunzipSync(fs.readFileSync(new URL('data/catalog.json.gz',root))));
- const withheldIds=new Set(['bauzaar:56961166115141','isola-dei-tesori:000138596']);
- const withheld=snapshot.offers.filter(o=>withheldIds.has(o.id)).map(o=>({id:o.id,offer:o}));assert.equal(withheld.length,2);
+ // Catalog imports can remove historical example IDs. Exercise both affiliate
+ // programs using current eligible rows rather than requiring stale products.
+ const withheld=['bauzaar','isola-dei-tesori'].map(merchant=>{
+  const o=snapshot.offers.find(o=>o.merchant_id===merchant&&o.available&&trade.merchantUrl(o)&&(!o.identity_review||Date.parse(o.identity_expires_at)>=Date.parse(o.checked_at)));
+  assert(o,'snapshot must contain an eligible '+merchant+' redirect');return {id:o.id,offer:o};
+ });
+ const withheldIds=new Set(withheld.map(r=>r.id));assert.equal(withheldIds.size,2);
  const cache=new Map(),env={ASSETS:{fetch:async r=>{const pathname=new URL(r.url).pathname;
   if(pathname==='/data/store-audit.json')return Response.json({commercial_suppression:{withheld}});
   if(!cache.has(pathname)){
