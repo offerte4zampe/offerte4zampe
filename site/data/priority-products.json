@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-14T01:09:41.874761+00:00",
+  "generated_at": "2026-11-14T07:08:46.390771+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 14,
-  "with_third_store_lead": 23,
+  "at_target": 13,
+  "with_third_store_lead": 24,
   "categories": {
-    "umido": 116,
-    "snack": 61,
-    "crocchette": 116,
+    "umido": 115,
+    "snack": 60,
+    "crocchette": 118,
     "lettiere": 7
   },
   "priority_offer_ids": [
@@ -30,9 +30,9 @@
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
     "animaliapet:46976548438359",
+    "animaliapet:46976548995415",
     "animaliapet:46976549028183",
     "animaliapet:46976549847383",
-    "animaliapet:46976551485783",
     "animaliapet:46976551944535",
     "animaliapet:46976552108375",
     "animaliapet:46976563413335",
@@ -43,11 +43,12 @@
     "animaliapet:46976574325079",
     "animaliapet:46976574882135",
     "animaliapet:46976577077591",
-    "animaliapet:46976577143127",
     "animaliapet:46976578158935",
+    "animaliapet:46976582713687",
     "animaliapet:46976584155479",
     "animaliapet:46976586023255",
     "animaliapet:46976587727191",
+    "animaliapet:46976591200599",
     "animaliapet:46976591233367",
     "animaliapet:46976605061463",
     "animaliapet:46976606044503",
@@ -90,6 +91,7 @@
     "animaliapet:46976705462615",
     "animaliapet:46976711491927",
     "animaliapet:46976714670423",
+    "animaliapet:46976718405975",
     "animaliapet:46976728727895",
     "animaliapet:46976729710935",
     "animaliapet:47343969141079",
@@ -128,6 +130,7 @@
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
     "bauzaar:56819013976389",
+    "bauzaar:56819015516485",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
     "bauzaar:56819879543109",
@@ -172,18 +175,16 @@
     "bauzaar:56820207354181",
     "bauzaar:56820207452485",
     "bauzaar:56820207911237",
+    "bauzaar:56820214694213",
     "bauzaar:56820220920133",
     "bauzaar:56820221411653",
     "bauzaar:56820245233989",
     "bauzaar:56820255097157",
     "bauzaar:56820266139973",
-    "bauzaar:56820266664261",
-    "bauzaar:56820267745605",
     "bauzaar:56820268302661",
     "bauzaar:56820268400965",
     "bauzaar:56820269351237",
     "bauzaar:56820277117253",
-    "bauzaar:56820296057157",
     "bauzaar:56820299530565",
     "bauzaar:56820410843461",
     "bauzaar:56820411007301",
@@ -217,6 +218,7 @@
     "bauzaar:56961102545221",
     "bauzaar:56961103757637",
     "bauzaar:56961103790405",
+    "bauzaar:56961117323589",
     "bauzaar:56961120698693",
     "bauzaar:56961120796997",
     "bauzaar:56961120862533",
@@ -236,10 +238,10 @@
     "bauzaar:56961263993157",
     "bauzaar:56961266712901",
     "bauzaar:56961268908357",
+    "bauzaar:56961288536389",
     "bauzaar:56961300988229",
     "bauzaar:56961307279685",
     "bauzaar:56961307509061",
-    "bauzaar:56961398669637",
     "bauzaar:56961408303429",
     "bauzaar:56961409548613",
     "bauzaar:56961450836293",
@@ -355,6 +357,7 @@
     "bauzaar:58411852333381",
     "bauzaar:58411852464453",
     "bauzaar:58411852529989",
+    "bauzaar:58411852595525",
     "bauzaar:58411853152581",
     "bauzaar:58411853185349",
     "bauzaar:58411853939013",
@@ -405,7 +408,6 @@
     "isola-dei-tesori:000138590",
     "isola-dei-tesori:000138591",
     "isola-dei-tesori:000138592",
-    "isola-dei-tesori:000138596",
     "isola-dei-tesori:000138943",
     "isola-dei-tesori:000142009",
     "isola-dei-tesori:000142010",
@@ -417,7 +419,6 @@
     "isola-dei-tesori:000142031",
     "isola-dei-tesori:000142033",
     "isola-dei-tesori:000142079",
-    "isola-dei-tesori:000144181",
     "isola-dei-tesori:000144422",
     "isola-dei-tesori:000146125",
     "isola-dei-tesori:000150008",
@@ -458,13 +459,15 @@
     "paco:2027",
     "paco:2028",
     "paco:2038",
-    "paco:2119",
     "paco:2664",
+    "paco:288",
     "paco:3065",
     "paco:3068",
     "paco:3070",
     "paco:3711",
     "paco:3770",
+    "paco:3830",
+    "paco:3847",
     "paco:4051",
     "paco:4110",
     "paco:4111",
@@ -617,6 +620,48 @@
       ],
       "candidate_offer_ids": [
         "isola-dei-tesori:000138458"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-50ba42788741a2b0401f",
+      "name": "Farmina N&D Quinoa Feline Urinary Anatra e mirtilli rossi 1,5 kg",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-quinoa-feline-urinary-anatra-e-mirtilli-rossi-1-5-kg-08010276035820-b0401f",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820214694213",
+        "animaliapet:46976548995415"
+      ],
+      "candidate_offer_ids": [
+        "paco:3830"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-9ae54ff19d73e6a30eda",
+      "name": "Farmina N&D Pumpkin Neutered Quaglia e Melograno 5Kg Crocchette Gatti Adulti",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "5 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-pumpkin-neutered-quaglia-e-melograno-5kg-crocchette-gatti-adulti-08010276036803-a30eda",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976591200599",
+        "bauzaar:56961288536389"
+      ],
+      "candidate_offer_ids": [
+        "paco:3847"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1021,27 +1066,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-e5992e3c053e1428ef0e",
-      "name": "Royal Canin Veterinary Diet Cat Renal con pollo 12x85 g",
-      "brand": "Royal Canin",
-      "category": "umido",
-      "species": "gatto",
-      "format": "1,02 kg",
-      "url": "https://offerte4zampe.it/prodotto/royal-canin-veterinary-diet-cat-renal-con-pollo-12x85-g-09003579000458-28ef0e",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "isola-dei-tesori:000144181",
-        "bauzaar:56820296057157"
-      ],
-      "candidate_offer_ids": [
-        "animaliapet:46976577143127"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-c7caf1ecd719958530b0",
       "name": "Cat's Best Original lettiera 7lt / 3Kg",
       "brand": "Cat's Best",
@@ -1056,26 +1080,6 @@
         "isola-dei-tesori:000181339",
         "animaliapet:51332556292439",
         "bauzaar:56961723334981"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-50ba42788741a2b0401f",
-      "name": "Farmina N&D Quinoa Feline Urinary Anatra e mirtilli rossi 1,5 kg",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-quinoa-feline-urinary-anatra-e-mirtilli-rossi-1-5-kg-08010276035820-b0401f",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "bauzaar:56820214694213",
-        "animaliapet:46976548995415",
-        "paco:3830"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -2229,44 +2233,6 @@
       "offer_ids": [
         "animaliapet:46976642679127",
         "bauzaar:56961268908357"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-63af26eb26c0c3292edc",
-      "name": "Farmina N&D Grain Free Pumpkin Adult Medium/Maxi Pollo e Melograno 12 kg",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-grain-free-pumpkin-adult-medium-maxi-pollo-e-melograno-12-kg-08010276033352-292edc",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820267745605",
-        "animaliapet:46976551485783"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-ac1a7c221fd6d40ac9a5",
-      "name": "Fish4Dogs Sea Wraps (merluzzo e patate) 100 g",
-      "brand": "Fish4Dogs",
-      "category": "snack",
-      "species": "cane",
-      "format": "100 g",
-      "url": "https://offerte4zampe.it/prodotto/fish4dogs-sea-wraps-merluzzo-e-patate-100-g-05056008824259-0ac9a5",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56961398669637",
-        "isola-dei-tesori:000138596"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -4211,6 +4177,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-03b036923a6f5a4c6596",
+      "name": "Royal Canin Mini Adult 8+ 2 kg",
+      "brand": "Royal Canin",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "2 kg",
+      "url": "https://offerte4zampe.it/prodotto/royal-canin-mini-adult-8-2-kg-2kg-03182550831383-4c6596",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:58411852595525",
+        "animaliapet:46976582713687"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-588d8ff98afbb2a01447",
       "name": "Terra Canis secco Canireo Grain Free al Manzo 2,5 kg",
       "brand": "Terra Canis",
@@ -4641,26 +4626,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-71d432677e06ad67dd34",
-      "name": "Marpet Aequilibria Vet dietetico umido cane 400 g Cavallo - confezione da 6 pezzi",
-      "brand": "Aequilibria Vet",
-      "category": "umido",
-      "species": "cane",
-      "format": "2,4 kg",
-      "url": "https://offerte4zampe.it/prodotto/marpet-aequilibria-vet-dietetico-umido-cane-400-g-cavallo-confezione-da-6-pezzi-08031701212128-67dd34",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:56820266664261"
-      ],
-      "candidate_offer_ids": [
-        "paco:2119"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-810ae28dfe87fe207887",
       "name": "Marpet Aequilibria Vet dietetico umido gatto 85 g Anatra - confezione da 24 pezzi",
       "brand": "Aequilibria Vet",
@@ -4916,6 +4881,26 @@
       ],
       "candidate_offer_ids": [
         "paco:5046"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-69ec1c8289b8744283fe",
+      "name": "Amì alimento vegetale Dog Medium/Large Breeds 3 kg (scadenza: 30/10/2026)",
+      "brand": "Amì",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "3 kg",
+      "url": "https://offerte4zampe.it/prodotto/ami-alimento-vegetale-dog-medium-large-breeds-3-kg-scadenza-30-10-2026-3kg-08032573040604-4283fe",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56961117323589"
+      ],
+      "candidate_offer_ids": [
+        "paco:288"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -6420,6 +6405,26 @@
       ],
       "candidate_offer_ids": [
         "animaliapet:46976690815319"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-105268ce7bdc52fc0064",
+      "name": "Natua Natural Tonnetto e Polpo in Jelly Lattina 85g Gatti",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "gatto",
+      "format": "85 g",
+      "url": "https://offerte4zampe.it/prodotto/natua-natural-tonnetto-e-polpo-in-jelly-lattina-85g-gatti-08057507370176-fc0064",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "animaliapet:46976718405975"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56819015516485"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
