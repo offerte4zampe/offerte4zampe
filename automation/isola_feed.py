@@ -1,4 +1,9 @@
 """Approved Isola dei Tesori TradeTracker feed; exact product destinations only."""
+try:
+    from .matching_evidence import attach_description
+except ImportError:
+    from matching_evidence import attach_description
+
 import datetime as dt
 import html
 import json
@@ -61,6 +66,7 @@ def normalize(payload, now=None, stats=None):
             affiliate_url=link, image=images[0] if images else '', sku='', gtin=value(props, 'GTIN'), feed_gtin=value(props, 'GTIN'),
             weight_kg=kg, weight_source='official_feed:title' if kg else '', shipping_weight_kg=None,
             checked_at=now.isoformat(), source_type='official_feed', image_source=feed_image(images[0] if images else '',31221,1618255)))
+        attach_description(rows[-1],p.get('description',''))
     if not rows: raise ValueError('Empty feed')
     return rows
 
