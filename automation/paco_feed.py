@@ -1,4 +1,9 @@
 """Approved Paco TradeTracker catalog. Never infer selling quantity from a unit GTIN."""
+try:
+    from .matching_evidence import attach_description
+except ImportError:
+    from matching_evidence import attach_description
+
 import concurrent.futures
 import datetime as dt
 import html
@@ -64,6 +69,7 @@ def normalize(payload, now=None):
             url=dest,affiliate_url=link,image=(p.get('images') or [''])[0],sku=value(props,'MPN'),
             gtin='',feed_gtin=value(props,'GTIN'),weight_kg=None,shipping_weight_kg=None,
             checked_at=now.isoformat(),source_type='official_feed',quantity_verified=False))
+        attach_description(rows[-1],p.get('description',''))
         if current<regular:rows[-1]=with_reference(rows[-1],regular,'feed_regular_price')
     if not rows: raise ValueError('Empty feed')
     return rows
