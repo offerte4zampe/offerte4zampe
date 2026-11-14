@@ -31,3 +31,15 @@ Rollback: eliminare/revertire questo documento nel branch, senza effetti sul sit
 
 ## Proposta e prossimo passo
 Mirco: ripristinare accesso API del registro (401 con token corrente). Poi leggere stato/schema, importare questo checkpoint senza duplicare taskId e riprendere controlli P0. Verificare HTTP da client autorizzato e attestazione Cloudflare sull'esatto SHA, GSC attuale, anomalie merchant e campione indipendente di almeno 100 matching. Nessuna modifica di produzione finché registro non disponibile, secondo istruzioni.
+
+## Ripresa manuale del programma — 14 novembre
+
+Le evidenze precedenti restano storiche del ciclo mattutino. Nuova lettura GitHub: PR100 head d17ba8271794d6d517c180a57a6378946519e217 ha Basket browser smoke 43508373324 SUCCESS (test Python/JavaScript, generatori, mobile e desktop) e Cloudflare Workers Builds SUCCESS del ramo. Phase2 preview SKIPPED è coerente con il workflow riservato al solo ramo di anteprima spedizioni; non è una deroga a un controllo generale. Nessun merge o deploy di produzione.
+
+Main corrente 75e97818daafde9af7da6aa324360565fb0c6c8a: Cloudflare SUCCESS, build 022ffc87-db0f-4e3e-b4ac-7c3011820dd0, versione del build abd520ef-9021-41d3-860b-51c2c6cdfda5. Smoke indipendente 14 novembre: quattro URL commerciali prioritarie HTTP200, canonical self, noindex assente; 557/557 schede collegate. Catalogo aggiornato 07:08 UTC, 18.040 offerte, sei fonti OK. Non attestato tramite confronto diretto l'ID della versione attiva.
+
+Riallineamento locale PR100 al main corrente: un test usava un ID storico non più presente; fixture in correzione con campionamento deterministico del catalogo corrente, mantenendo le garanzie complete dei redirect. Nuovo SHA e CI da documentare dopo pubblicazione del ramo.
+
+PR99 non aggiornata né integrata: contratto di matching in ricostruzione dal checkpoint persistito. Le letture merchant del ciclo serale precedente non sono presenti nel checkpoint salvato e non vengono dichiarate disponibili; nuova raccolta delle prove per i 15 join candidati (13 iniziali e due nuove offerte) in corso. Nessun ampliamento automatico della allowlist e nessun tasso di precisione certificato.
+
+API registro: in questa ripresa GET riuscita inizialmente; successivi tentativi di scrittura hanno incontrato errori di tunnel/rete 403/000, distinti dal401 del ciclo mattutino. Non dichiarato accesso in scrittura ripristinato; nessuna credenziale o configurazione cambiata. Checkpoint su questo ramo come fallback autorizzato. Il blocco del registro non autorizza a sospendere lavoro indipendente su branch e PR.
