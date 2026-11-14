@@ -44,6 +44,23 @@ class SupplementaryMatchingTests(unittest.TestCase):
     def test_protected_dimensions_and_recipe(self):
         self.assertTrue(incompatible({'sogno','pollo'},{'sogno','trota'}))
         self.assertTrue(incompatible({'60x60'},{'60x90'}))
+    def test_recipe_and_variant_after_marketing_suffix_cannot_disappear(self):
+        for left,right in [
+            ('Cibo secco con pollo','Cibo umido con pollo'),
+            ('Cibo secco con pollo','Cibo secco con trota'),
+            ('Lettiera agglomerante talco','Lettiera agglomerante lavanda'),
+            ('Dieta veterinaria Renal Care','Dieta veterinaria Struvite Care'),
+        ]:
+            with self.subTest(left=left,right=right):
+                a=self.row('a','Bunny Sogno Young 1 kg - '+left,gtin='4006381333931')
+                b=self.row('b','Bunny Sogno Young 1 kg - '+right,gtin='')
+                result=self.model(a,b)
+                self.assertEqual(result['metrics']['multi_shop_products'],0)
+                self.assertNotEqual(result['offers'][0]['product_id'],result['offers'][1]['product_id'])
+    def test_equivalent_suffix_words_keep_the_same_explicit_recipe(self):
+        a=self.row('a','Bunny Sogno Young 1 kg - Cibo secco con pollo',gtin='4006381333931')
+        b=self.row('b','Bunny Mangime Sogno Young 1 kg Alimento secco al pollo',gtin='')
+        self.assertEqual(self.model(a,b)['metrics']['multi_shop_products'],1)
     def test_photo_uses_original_url_cache_and_requires_permission(self):
         import tempfile,hashlib
         from pathlib import Path

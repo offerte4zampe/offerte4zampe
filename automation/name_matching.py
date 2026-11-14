@@ -27,7 +27,9 @@ def signature(o,q,normalize,brand):
     text=str(o.get('title',''))+' '+str(o.get('variant',''))
     # Do not turn target animal weight into a package size.
     if re.search(r'[<>≤≥]\s*\d|\bpeso\s+(?:del\s+cane|corporeo)|\bcani\s+da\s+\d',text,re.I):return None
-    text=re.sub(r'\s+-\s+(?:cibo|croccantini|integratori|dieta veterinaria|lettiera)\b.*$','',text,flags=re.I)
+    # Marketing nouns are removed token by token below. A suffix can still
+    # declare the recipe, wet/dry form, fragrance or veterinary indication;
+    # deleting the whole suffix would erase these identity constraints.
     text=re.sub(r'\bdefault title\b|\b1ct\b',' ',text,flags=re.I)
     text=re.sub(r'(?<!\w)\d+(?:[.,]\d+)?\s*(?:kg|gr|g|ml|litri|litro|lt|l)\b',' ',text,flags=re.I)
     text=re.sub(r'\bconfezione\s+da\s+\d+\s*(?:pezzi|pz)\b',' ',text,flags=re.I)

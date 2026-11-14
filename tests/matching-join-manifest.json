@@ -1,20 +1,1153 @@
 {
-  "schema_version": 1,
-  "purpose": "Explicit PR99 identity transitions; not a statement of merchant approval",
-  "merchant_review": {"status": "pending", "reviewer": null, "evidence": []},
+  "schema_version": 2,
+  "purpose": "Independently reviewed exact commercial identities and selling packs; source description discrepancies retained explicitly",
+  "merchant_review": {
+    "status": "verified",
+    "reviewer": "Assistant documentary review, independent first7 and last8 passes; not certification of physical stock or formulation batches",
+    "evidence": [
+      {
+        "join": [
+          "animaliapet:46976586318167",
+          "bauzaar:56820423098693"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "reviewer": "Independent merchant identity review; first7 PR99 joins",
+        "sources": [
+          {
+            "url": "https://www.animaliapet.eu/products/royal-canin-sensible-33-400g-crocchette-gatti.js",
+            "product_url": "https://www.animaliapet.eu/products/royal-canin-sensible-33-400g-crocchette-gatti?variant=46976586318167",
+            "checked_at": "2026-11-14T15:05:04.791065+00:00",
+            "source_sha256": "da80f83235ab1e66c818c8dfeff4b67e9eb7a39f74c617a17138d00ebe055d86",
+            "http_status": "200",
+            "selected": {
+              "id": 46976586318167,
+              "sku": "2696",
+              "title": "Default Title",
+              "name": "Royal Canin Sensible 33 400g Crocchette Gatti",
+              "barcode": "3182550702263",
+              "options": [
+                "Default Title"
+              ],
+              "quantity_rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            "brand": "Royal Canin",
+            "line": "Sensible33",
+            "variant": "adultcat,digestive sensitivity; no named flavour variant",
+            "selling_quantity": "400 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [
+              {
+                "code": "published_composition_version_differs",
+                "severity": "description_quality_issue",
+                "details": "Both exact400g variants publishGTIN3182550702263 and same RoyalCaninSensible33 adultcat digestive identity. Published ingredient sequences differ beyond order(Animaliapet includesmaize; Bauzaar wheat/cereal description). No named flavour incompatibility established; formulation/lot version not certified."
+              }
+            ],
+            "offer_id": "animaliapet:46976586318167",
+            "identity_observation_sha256": "075c5e123717c61976d10ca030d9e24905d450462ebc77fde8d944a7b85cc9f1",
+            "selected_id": "46976586318167"
+          },
+          {
+            "url": "https://www.bauzaar.it/products/royal-canin-sensible-33-cat-food.js",
+            "product_url": "https://www.bauzaar.it/products/royal-canin-sensible-33-cat-food?variant=56820423098693",
+            "checked_at": "2026-11-14T15:05:04.613638+00:00",
+            "source_sha256": "3addaa332dbd70a670aef4f04ee0fa6aee64a6698b197ada2b5b89cc3eb15843",
+            "http_status": "200",
+            "selected": {
+              "id": 56820423098693,
+              "sku": "9010532",
+              "title": "400 gr",
+              "name": "Royal Canin Sensible 33 Cat Food - 400 gr",
+              "barcode": "3182550702263",
+              "options": [
+                "400 gr"
+              ],
+              "quantity_rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            "brand": "Royal Canin",
+            "line": "Sensible33",
+            "variant": "adultcat,digestive sensitivity; no named flavour variant",
+            "selling_quantity": "400 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [
+              {
+                "code": "published_composition_version_differs",
+                "severity": "description_quality_issue",
+                "details": "Both exact400g variants publishGTIN3182550702263 and same RoyalCaninSensible33 adultcat digestive identity. Published ingredient sequences differ beyond order(Animaliapet includesmaize; Bauzaar wheat/cereal description). No named flavour incompatibility established; formulation/lot version not certified."
+              }
+            ],
+            "supplementary_html_source": {
+              "url": "https://www.bauzaar.it/products/royal-canin-sensible-33-cat-food?variant=56820423098693",
+              "checked_at": "2026-11-14T15:05:44.679259+00:00",
+              "source_sha256": "8eef77896e87f5460e6fa45082f9c87bb3966a9bab9f3f0019fa195b86eddd45",
+              "http_status": "200",
+              "exact_variant_records": [
+                {
+                  "id": 56820423098693,
+                  "title": "400 gr",
+                  "sku": "9010532",
+                  "barcode": "3182550702263",
+                  "option1": "400 gr",
+                  "option2": null,
+                  "option3": null
+                }
+              ]
+            },
+            "offer_id": "bauzaar:56820423098693",
+            "identity_observation_sha256": "d04083dd27113e4ad0923bf98af5e0eef71769751e1b9ab478158b0195d4376e",
+            "selected_id": "56820423098693"
+          }
+        ],
+        "commercial_identity_verdict": "verified_against_current_primary_merchant_sources",
+        "full_ingredient_sequence_matches": false,
+        "description_quality_flags": [
+          {
+            "code": "published_composition_version_differs",
+            "severity": "description_quality_issue",
+            "details": "Both exact400g variants publishGTIN3182550702263 and same RoyalCaninSensible33 adultcat digestive identity. Published ingredient sequences differ beyond order(Animaliapet includesmaize; Bauzaar wheat/cereal description). No named flavour incompatibility established; formulation/lot version not certified."
+          }
+        ],
+        "missing_identity_fields": [],
+        "scope_limit": "Commercial product and published selling pack reviewed; no physical inspection,batch/formulation certification,price/stock freshness claim or program approval. GTIN absence is not automatic failure; no match approved on title or photo similarity alone."
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000120129",
+          "bauzaar:56820258996549"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "reviewer": "Independent merchant identity review; first7 PR99 joins",
+        "sources": [
+          {
+            "url": "https://www.isoladeitesori.it/prodotto/bunny-sogno-per-conigli-young-600gr/000120129.html",
+            "product_url": "https://www.isoladeitesori.it/prodotto/bunny-sogno-per-conigli-young-600gr/000120129.html",
+            "checked_at": "2026-11-14T15:05:03.514955+00:00",
+            "source_sha256": "fe26404ac7ea7b3f16fb70d8c3c5b0a1a5c22f63eed6959ecdd69c15e9b03627",
+            "http_status": "200",
+            "selected": {
+              "sku": "000120129",
+              "mpn": "000120129",
+              "name": "Bunny Sogno per conigli Young 600gr"
+            },
+            "brand": "Bunny",
+            "line": "Sogno per Conigli Young",
+            "variant": "Young rabbit formula",
+            "selling_quantity": "600 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "offer_id": "isola-dei-tesori:000120129",
+            "identity_observation_sha256": "98277dd99403aba0ebfe3375239ed36477f55545e93431d30cebe17c433c019d"
+          },
+          {
+            "url": "https://www.bauzaar.it/products/bunny-sogno-per-conigli-young.js",
+            "product_url": "https://www.bauzaar.it/products/bunny-sogno-per-conigli-young?variant=56820258996549",
+            "checked_at": "2026-11-14T15:05:10.068975+00:00",
+            "source_sha256": "e1c12a8edb3ee18459bd94e8bda5bb151e30399bcf17268d97d19bd7aa919337",
+            "http_status": "200",
+            "selected": {
+              "id": 56820258996549,
+              "sku": "9897180",
+              "title": "600 gr",
+              "name": "Bunny Sogno per Conigli Young - 600 gr",
+              "barcode": "4018761200023",
+              "options": [
+                "600 gr"
+              ],
+              "quantity_rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            "brand": "Bunny",
+            "line": "Sogno per Conigli Young",
+            "variant": "Young rabbit formula",
+            "selling_quantity": "600 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "supplementary_html_source": {
+              "url": "https://www.bauzaar.it/products/bunny-sogno-per-conigli-young?variant=56820258996549",
+              "checked_at": "2026-11-14T15:05:52.135204+00:00",
+              "source_sha256": "945327194e1978ecfe976bbb9f9b4f8fe6972209205adaeb3dc93b57a465afb7",
+              "http_status": "200",
+              "exact_variant_records": [
+                {
+                  "id": 56820258996549,
+                  "title": "600 gr",
+                  "sku": "9897180",
+                  "barcode": "4018761200023",
+                  "option1": "600 gr",
+                  "option2": null,
+                  "option3": null
+                }
+              ]
+            },
+            "offer_id": "bauzaar:56820258996549",
+            "identity_observation_sha256": "bf8eeb0f6a79384ef50910ff883981d2fa32f8b05464759b6916c4d65a77f41c",
+            "selected_id": "56820258996549"
+          }
+        ],
+        "commercial_identity_verdict": "verified_against_current_primary_merchant_sources",
+        "full_ingredient_sequence_matches": true,
+        "description_quality_flags": [],
+        "missing_identity_fields": [],
+        "scope_limit": "Commercial product and published selling pack reviewed; no physical inspection,batch/formulation certification,price/stock freshness claim or program approval. GTIN absence is not automatic failure; no match approved on title or photo similarity alone."
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000120196",
+          "bauzaar:56820258865477"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "reviewer": "Independent merchant identity review; first7 PR99 joins",
+        "sources": [
+          {
+            "url": "https://www.isoladeitesori.it/prodotto/bunny-sogno-per-conigli-basic-600-gr/000120196.html",
+            "product_url": "https://www.isoladeitesori.it/prodotto/bunny-sogno-per-conigli-basic-600-gr/000120196.html",
+            "checked_at": "2026-11-14T15:05:09.437021+00:00",
+            "source_sha256": "3f18c44c6f587be33f5595ffbcbf63e3f57b6931ac3ea57905e9e0711a54c4e7",
+            "http_status": "200",
+            "selected": {
+              "sku": "000120196",
+              "mpn": "000120196",
+              "name": "Bunny Sogno per Conigli Basic 600 gr"
+            },
+            "brand": "Bunny",
+            "line": "Sogno per Conigli Basic",
+            "variant": "Basic adult rabbit formula",
+            "selling_quantity": "600 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "offer_id": "isola-dei-tesori:000120196",
+            "identity_observation_sha256": "7d417f8e3b77fde474382df8e1fa0b5ecbe7cd272d0af10d9867f3aaf2483ab6"
+          },
+          {
+            "url": "https://www.bauzaar.it/products/bunny-sogno-per-conigli-basic.js",
+            "product_url": "https://www.bauzaar.it/products/bunny-sogno-per-conigli-basic?variant=56820258865477",
+            "checked_at": "2026-11-14T15:05:15.758008+00:00",
+            "source_sha256": "ffb8fa379e7723b5b8719a04e1ce8731d4cf3a279a22b59dc2b58d41c5ac5a77",
+            "http_status": "200",
+            "selected": {
+              "id": 56820258865477,
+              "sku": "9897156",
+              "title": "600 gr",
+              "name": "Bunny Sogno per Conigli Basic - 600 gr",
+              "barcode": "4018761200221",
+              "options": [
+                "600 gr"
+              ],
+              "quantity_rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            "brand": "Bunny",
+            "line": "Sogno per Conigli Basic",
+            "variant": "Basic adult rabbit formula",
+            "selling_quantity": "600 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "supplementary_html_source": {
+              "url": "https://www.bauzaar.it/products/bunny-sogno-per-conigli-basic?variant=56820258865477",
+              "checked_at": "2026-11-14T15:05:58.577519+00:00",
+              "source_sha256": "cc436d3a77b27eba0d706e79e8d27c99b35500863d3a0e01539d0a23cc497eaf",
+              "http_status": "200",
+              "exact_variant_records": [
+                {
+                  "id": 56820258865477,
+                  "title": "600 gr",
+                  "sku": "9897156",
+                  "barcode": "4018761200221",
+                  "option1": "600 gr",
+                  "option2": null,
+                  "option3": null
+                }
+              ]
+            },
+            "offer_id": "bauzaar:56820258865477",
+            "identity_observation_sha256": "9d10b3d7883033a75734ebf550cdccf5f98ddaf3b9ab71484bff4888702313e0",
+            "selected_id": "56820258865477"
+          }
+        ],
+        "commercial_identity_verdict": "verified_against_current_primary_merchant_sources",
+        "full_ingredient_sequence_matches": true,
+        "description_quality_flags": [],
+        "missing_identity_fields": [],
+        "scope_limit": "Commercial product and published selling pack reviewed; no physical inspection,batch/formulation certification,price/stock freshness claim or program approval. GTIN absence is not automatic failure; no match approved on title or photo similarity alone."
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000120130",
+          "bauzaar:56820220756293"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "reviewer": "Independent merchant identity review; first7 PR99 joins",
+        "sources": [
+          {
+            "url": "https://www.isoladeitesori.it/prodotto/bunny-sogno-per-conigli-herbs-600gr/000120130.html",
+            "product_url": "https://www.isoladeitesori.it/prodotto/bunny-sogno-per-conigli-herbs-600gr/000120130.html",
+            "checked_at": "2026-11-14T15:05:15.305505+00:00",
+            "source_sha256": "30f0412850f1f0a743112b46ee4309d5218aa160ff1965ca57ea2543db0216e8",
+            "http_status": "200",
+            "selected": {
+              "sku": "000120130",
+              "mpn": "000120130",
+              "name": "Bunny Sogno per conigli Herbs 600gr"
+            },
+            "brand": "Bunny",
+            "line": "Sogno per Conigli Herbs",
+            "variant": "Herbs adult rabbit formula",
+            "selling_quantity": "600 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "offer_id": "isola-dei-tesori:000120130",
+            "identity_observation_sha256": "9dfaefbbd33a88aa95654e0e8a80764bfd9d280a6753dffac981d0d64b4ebcf4"
+          },
+          {
+            "url": "https://www.bauzaar.it/products/bunny-sogno-per-conigli-herbs.js",
+            "product_url": "https://www.bauzaar.it/products/bunny-sogno-per-conigli-herbs?variant=56820220756293",
+            "checked_at": "2026-11-14T15:05:20.091209+00:00",
+            "source_sha256": "c46671eea8373b1545b494ff60463bcd8eb63dbe8c10eb0a4ec8e791a8b33790",
+            "http_status": "200",
+            "selected": {
+              "id": 56820220756293,
+              "sku": "9897181",
+              "title": "600 gr",
+              "name": "Bunny Sogno per Conigli Herbs - 600 gr",
+              "barcode": "4018761200627",
+              "options": [
+                "600 gr"
+              ],
+              "quantity_rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            "brand": "Bunny",
+            "line": "Sogno per Conigli Herbs",
+            "variant": "Herbs adult rabbit formula",
+            "selling_quantity": "600 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "supplementary_html_source": {
+              "url": "https://www.bauzaar.it/products/bunny-sogno-per-conigli-herbs?variant=56820220756293",
+              "checked_at": "2026-11-14T15:06:06.586665+00:00",
+              "source_sha256": "dce19bcc93202776ae6ec21581c54565e0339ec077e978a2a4e20ba1fae491a3",
+              "http_status": "200",
+              "exact_variant_records": [
+                {
+                  "id": 56820220756293,
+                  "title": "600 gr",
+                  "sku": "9897181",
+                  "barcode": "4018761200627",
+                  "option1": "600 gr",
+                  "option2": null,
+                  "option3": null
+                }
+              ]
+            },
+            "offer_id": "bauzaar:56820220756293",
+            "identity_observation_sha256": "b625506c191537affa5851289eb91cc539e1e4751e2df85d3426afb46505d1f4",
+            "selected_id": "56820220756293"
+          }
+        ],
+        "commercial_identity_verdict": "verified_against_current_primary_merchant_sources",
+        "full_ingredient_sequence_matches": true,
+        "description_quality_flags": [],
+        "missing_identity_fields": [],
+        "scope_limit": "Commercial product and published selling pack reviewed; no physical inspection,batch/formulation certification,price/stock freshness claim or program approval. GTIN absence is not automatic failure; no match approved on title or photo similarity alone."
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000122041",
+          "bauzaar:56962031321413"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "reviewer": "Independent merchant identity review; first7 PR99 joins",
+        "sources": [
+          {
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-canarini-gran-mix-800gr/000122041.html",
+            "product_url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-canarini-gran-mix-800gr/000122041.html",
+            "checked_at": "2026-11-14T15:05:21.197304+00:00",
+            "source_sha256": "3f00378f6c0cfc27d0212f37f2490d9d9b695747b425db151296ffc560686552",
+            "http_status": "200",
+            "selected": {
+              "sku": "000122041",
+              "mpn": "000122041",
+              "name": "Piccoli Amici Canarini Gran Mix 800gr"
+            },
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Canarini",
+            "variant": "canary seed mix; canary-specific formula",
+            "selling_quantity": "800 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [
+              {
+                "code": "full_composition_not_published_bauzaar",
+                "severity": "description_completeness_limit",
+                "details": "Exact selected800g GranMixCanarini variant and exactIsolaSKU identify same commercial line,species and pack. Both descriptions specify canary seed mix with Canadian canaryseed and oyster-shellgrit; complete recipe comparison unavailable on Bauzaar."
+              }
+            ],
+            "offer_id": "isola-dei-tesori:000122041",
+            "identity_observation_sha256": "462f6cb8f40b75761b58b1da78d3f8fa85692048231c311425c94e94317094cd"
+          },
+          {
+            "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-canarini.js",
+            "product_url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-canarini?variant=56962031321413",
+            "checked_at": "2026-11-14T15:05:26.370278+00:00",
+            "source_sha256": "6e31471f8c90961a5c40282e9edfe81f865e70cd4972e84963ae251116cf933a",
+            "http_status": "200",
+            "selected": {
+              "id": 56962031321413,
+              "sku": "9898306",
+              "title": "800 gr",
+              "name": "Piccoli Amici Gran Mix mangime per canarini - 800 gr",
+              "barcode": "8053636455432",
+              "options": [
+                "800 gr"
+              ],
+              "quantity_rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Canarini",
+            "variant": "canary seed mix; canary-specific formula",
+            "selling_quantity": "800 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [
+              {
+                "code": "full_composition_not_published_bauzaar",
+                "severity": "description_completeness_limit",
+                "details": "Exact selected800g GranMixCanarini variant and exactIsolaSKU identify same commercial line,species and pack. Both descriptions specify canary seed mix with Canadian canaryseed and oyster-shellgrit; complete recipe comparison unavailable on Bauzaar."
+              }
+            ],
+            "supplementary_html_source": {
+              "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-canarini?variant=56962031321413",
+              "checked_at": "2026-11-14T15:06:13.601900+00:00",
+              "source_sha256": "c5b40b8204a01eee7b3e453be608042295059c79649fe166b40fdcf09853d2d6",
+              "http_status": "200",
+              "exact_variant_records": [
+                {
+                  "id": 56962031321413,
+                  "title": "800 gr",
+                  "sku": "9898306",
+                  "barcode": "8053636455432",
+                  "option1": "800 gr",
+                  "option2": null,
+                  "option3": null
+                }
+              ]
+            },
+            "offer_id": "bauzaar:56962031321413",
+            "identity_observation_sha256": "f47bb35caf340645a184bc6e3be2f295bf9e016bf64bb017f2963c1106569f82",
+            "selected_id": "56962031321413"
+          }
+        ],
+        "commercial_identity_verdict": "verified_against_current_primary_merchant_sources",
+        "full_ingredient_sequence_matches": false,
+        "description_quality_flags": [
+          {
+            "code": "full_composition_not_published_bauzaar",
+            "severity": "description_completeness_limit",
+            "details": "Exact selected800g GranMixCanarini variant and exactIsolaSKU identify same commercial line,species and pack. Both descriptions specify canary seed mix with Canadian canaryseed and oyster-shellgrit; complete recipe comparison unavailable on Bauzaar."
+          }
+        ],
+        "missing_identity_fields": [],
+        "scope_limit": "Commercial product and published selling pack reviewed; no physical inspection,batch/formulation certification,price/stock freshness claim or program approval. GTIN absence is not automatic failure; no match approved on title or photo similarity alone."
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000122043",
+          "bauzaar:56962031386949"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "reviewer": "Independent merchant identity review; first7 PR99 joins",
+        "sources": [
+          {
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-cocorite-gran-mix-1kg/000122043.html",
+            "product_url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-cocorite-gran-mix-1kg/000122043.html",
+            "checked_at": "2026-11-14T15:05:27.091222+00:00",
+            "source_sha256": "011d40c5347af6e026e8937d51cca784080bb784beabe00203e6b0fd4eeb1904",
+            "http_status": "200",
+            "selected": {
+              "sku": "000122043",
+              "mpn": "000122043",
+              "name": "Piccoli Amici Cocorite Gran Mix 1Kg"
+            },
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Cocorite",
+            "variant": "budgerigar seed mix",
+            "selling_quantity": "1 kg per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "offer_id": "isola-dei-tesori:000122043",
+            "identity_observation_sha256": "a3f65d05aecddd980d5478af0c8294e926770de925916677e6852e30d5ca86e4"
+          },
+          {
+            "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-cocorite.js",
+            "product_url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-cocorite?variant=56962031386949",
+            "checked_at": "2026-11-14T15:05:31.846404+00:00",
+            "source_sha256": "4ab3b295b612f5afd6645281bacbc7fa19c889c13b0ed690736365c2d08b404a",
+            "http_status": "200",
+            "selected": {
+              "id": 56962031386949,
+              "sku": "9898307",
+              "title": "1 kg",
+              "name": "Piccoli Amici Gran Mix mangime per cocorite - 1 kg",
+              "barcode": "8053636455463",
+              "options": [
+                "1 kg"
+              ],
+              "quantity_rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Cocorite",
+            "variant": "budgerigar seed mix",
+            "selling_quantity": "1 kg per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "supplementary_html_source": {
+              "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-cocorite?variant=56962031386949",
+              "checked_at": "2026-11-14T15:06:20.644104+00:00",
+              "source_sha256": "e495c6cb434ddfdfce4d7ae4b3b09bc9ad298e01220b720f216fc7847039da9d",
+              "http_status": "200",
+              "exact_variant_records": [
+                {
+                  "id": 56962031386949,
+                  "title": "1 kg",
+                  "sku": "9898307",
+                  "barcode": "8053636455463",
+                  "option1": "1 kg",
+                  "option2": null,
+                  "option3": null
+                }
+              ]
+            },
+            "offer_id": "bauzaar:56962031386949",
+            "identity_observation_sha256": "d4cb979016933c7477df516a25f970292a537521410433813327fd5c8d7258ab",
+            "selected_id": "56962031386949"
+          }
+        ],
+        "commercial_identity_verdict": "verified_against_current_primary_merchant_sources",
+        "full_ingredient_sequence_matches": true,
+        "description_quality_flags": [],
+        "missing_identity_fields": [],
+        "scope_limit": "Commercial product and published selling pack reviewed; no physical inspection,batch/formulation certification,price/stock freshness claim or program approval. GTIN absence is not automatic failure; no match approved on title or photo similarity alone."
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000122031",
+          "bauzaar:56962031550789"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "reviewer": "Independent merchant identity review; first7 PR99 joins",
+        "sources": [
+          {
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-parrocchietti-gran-mix-800-g/000122031.html",
+            "product_url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-parrocchietti-gran-mix-800-g/000122031.html",
+            "checked_at": "2026-11-14T15:05:32.413604+00:00",
+            "source_sha256": "4a3481b2cf47046ef59a163fc3765f40ddf190fd955e90c25c009784c833d2a2",
+            "http_status": "200",
+            "selected": {
+              "sku": "000122031",
+              "mpn": "000122031",
+              "name": "Piccoli Amici Parrocchietti Gran Mix 800 g"
+            },
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Parrocchietti",
+            "variant": "parakeet seed mix",
+            "selling_quantity": "800 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "offer_id": "isola-dei-tesori:000122031",
+            "identity_observation_sha256": "be9bc2cd93d47739ec10f8ad1ffca48df4875388742fccdae47aa8003909159e"
+          },
+          {
+            "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-parrocchietti.js",
+            "product_url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-parrocchietti?variant=56962031550789",
+            "checked_at": "2026-11-14T15:05:37.320558+00:00",
+            "source_sha256": "481fe95d5384a09334c089b8f62a820a294fa6a7e0d840c0a929478ccf269327",
+            "http_status": "200",
+            "selected": {
+              "id": 56962031550789,
+              "sku": "9898305",
+              "title": "800 gr",
+              "name": "Piccoli Amici Gran Mix mangime per parrocchietti - 800 gr",
+              "barcode": "8053636455470",
+              "options": [
+                "800 gr"
+              ],
+              "quantity_rule": {
+                "min": 1,
+                "max": null,
+                "increment": 1
+              }
+            },
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Parrocchietti",
+            "variant": "parakeet seed mix",
+            "selling_quantity": "800 g per published selling unit; no multipack declared in selected product/variant label",
+            "evidence_excerpt": "Exact selected variantID or merchantSKU binds published brand,line,species/age and selling size; recipe reviewed separately.",
+            "package_review": {
+              "basis": "Selected variant title/name/options plus exact productSKU title and product description, not shipping weight or cart promotions",
+              "multipack_marker_in_selected_name": false,
+              "shipping_weight_ignored": true
+            },
+            "description_flags": [],
+            "supplementary_html_source": {
+              "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-parrocchietti?variant=56962031550789",
+              "checked_at": "2026-11-14T15:06:27.701256+00:00",
+              "source_sha256": "929331610c539ba3f212a78988a1cf8f3d323271ef0d5bb6ff4fb20adb6905be",
+              "http_status": "200",
+              "exact_variant_records": [
+                {
+                  "id": 56962031550789,
+                  "title": "800 gr",
+                  "sku": "9898305",
+                  "barcode": "8053636455470",
+                  "option1": "800 gr",
+                  "option2": null,
+                  "option3": null
+                }
+              ]
+            },
+            "offer_id": "bauzaar:56962031550789",
+            "identity_observation_sha256": "125b1fec34d262e36e4e660304e42c56cc5b10f00c92ed3aa04aed652d568836",
+            "selected_id": "56962031550789"
+          }
+        ],
+        "commercial_identity_verdict": "verified_against_current_primary_merchant_sources",
+        "full_ingredient_sequence_matches": true,
+        "description_quality_flags": [],
+        "missing_identity_fields": [],
+        "scope_limit": "Commercial product and published selling pack reviewed; no physical inspection,batch/formulation certification,price/stock freshness claim or program approval. GTIN absence is not automatic failure; no match approved on title or photo similarity alone."
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000122044",
+          "bauzaar:56962031616325"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000122044",
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-uccelli-da-giardino-gran-mix-1kg/000122044.html",
+            "checked_at": "2026-11-14T15:05:17.394299+00:00",
+            "http_status": 200,
+            "source_sha256": "2822f08c7bcd17a302f4bc77a01bf5c1378d69225895ad22636ba823fac63bc9",
+            "selected_id": "000122044",
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Uccelli da Giardino",
+            "variant": "uccelli ornamentali da giardino; non differenziata; semi e cereali con grit di guscio di ostrica; semi di zucca, lino, girasole e granaverde di riso",
+            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: scheda tecnica peso1kg e identitàSKU000122044; Bauzaar: variante56962031616325, misura netta1.0kg, descrizione confezione1kg; Descrizioni concordi sui componenti caratterizzanti; nessun multipack distinto dichiarato",
+            "identity_observation_sha256": "f48f41c1ba9d85bca17d946ee9e8cb0fc7e89ecf58cc5e97b384d25564c7ac64"
+          },
+          {
+            "offer_id": "bauzaar:56962031616325",
+            "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-uccelli-da-giardino.js",
+            "checked_at": "2026-11-14T15:05:28.255761+00:00",
+            "http_status": 200,
+            "source_sha256": "753bd995c94346f4839bfe417f6b7d5b315a24edd9ebcd247f5160988f32ee5e",
+            "selected_id": "56962031616325",
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Uccelli da Giardino",
+            "variant": "uccelli ornamentali da giardino; non differenziata; semi e cereali con grit di guscio di ostrica; semi di zucca, lino, girasole e granaverde di riso",
+            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: scheda tecnica peso1kg e identitàSKU000122044; Bauzaar: variante56962031616325, misura netta1.0kg, descrizione confezione1kg; Descrizioni concordi sui componenti caratterizzanti; nessun multipack distinto dichiarato",
+            "identity_observation_sha256": "f4b8477e59e0276cb6ee1d8b8578919eb813e3e66d2d7e200e624c84b20168ec"
+          }
+        ],
+        "source_quality_flags": [
+          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
+          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
+        ],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000120167",
+          "bauzaar:56962031780165"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000120167",
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-gran-mix-conigli-nani-adulti-25-kg/000120167.html",
+            "checked_at": "2026-11-14T15:05:39.411797+00:00",
+            "http_status": 200,
+            "source_sha256": "fe0cb24cc357ba83b4889cd1e066e47153fb0b58edfa5200b6651a7f4c674037",
+            "selected_id": "000120167",
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix standard",
+            "variant": "conigli nani; adulti; Gran Mix standard, distinto dal Gourmet; componenti vegetali, semi e fiocchi",
+            "selling_quantity": "2500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120167, formato vendita2,5kg; Bauzaar: variante56962031780165 e misura netta2.5kg; Entrambe descrivono alimento completo standard per conigli nani adulti; nessun multipack dichiarato",
+            "identity_observation_sha256": "88299d1d9e5236daa016b1ea48454c2111e48a2a43c056fe68b213e1ef5d5ab8"
+          },
+          {
+            "offer_id": "bauzaar:56962031780165",
+            "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-per-conigli-nani-adulti.js",
+            "checked_at": "2026-11-14T15:05:45.319737+00:00",
+            "http_status": 200,
+            "source_sha256": "fdc2d0f19b0781e97f3bc0c5865f2210ed248dc904cb8f2a8dbc1eea04e5128e",
+            "selected_id": "56962031780165",
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix standard",
+            "variant": "conigli nani; adulti; Gran Mix standard, distinto dal Gourmet; componenti vegetali, semi e fiocchi",
+            "selling_quantity": "2500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120167, formato vendita2,5kg; Bauzaar: variante56962031780165 e misura netta2.5kg; Entrambe descrivono alimento completo standard per conigli nani adulti; nessun multipack dichiarato",
+            "identity_observation_sha256": "bea0d50000ae890986c442360fc50426ecd38e35282ba0058140afa0304e49e7"
+          }
+        ],
+        "source_quality_flags": [
+          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
+          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
+        ],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000120169",
+          "bauzaar:56962031124805"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000120169",
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-conigli-nani-adulti-gran-mix-gourmet-500g/000120169.html",
+            "checked_at": "2026-11-14T15:05:50.083590+00:00",
+            "http_status": 200,
+            "source_sha256": "9f4f51068dffd4538111ab2a7b4b4e0b694292214b282237487006841d228f02",
+            "selected_id": "000120169",
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Gourmet",
+            "variant": "conigli nani; adulti; Gourmet con uvetta, bacche di rosa canina e ortaggi",
+            "selling_quantity": "500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120169, formato500g; Bauzaar: variante56962031124805 e misura netta0.5kg; Descrizioni concordi sugli ingredienti caratterizzanti Gourmet e sul target; nessun multipack dichiarato",
+            "identity_observation_sha256": "90f8f85f779f6e4ed291764386aa5bb452559586c00d70c6f3a54d40cec51e61"
+          },
+          {
+            "offer_id": "bauzaar:56962031124805",
+            "url": "https://www.bauzaar.it/products/piccolo-amici-gran-mix-gourmet-per-conigli-nani-adulti.js",
+            "checked_at": "2026-11-14T15:05:55.718441+00:00",
+            "http_status": 200,
+            "source_sha256": "8f9370c0811133c3dace6aaba3008264fe852f5090b49a49e2f6b2aaa4fe31e6",
+            "selected_id": "56962031124805",
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Gourmet",
+            "variant": "conigli nani; adulti; Gourmet con uvetta, bacche di rosa canina e ortaggi",
+            "selling_quantity": "500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120169, formato500g; Bauzaar: variante56962031124805 e misura netta0.5kg; Descrizioni concordi sugli ingredienti caratterizzanti Gourmet e sul target; nessun multipack dichiarato",
+            "identity_observation_sha256": "1f0f99a3a7c5c60ffbabf9478fa5e2f4c376e11431f2cb218ae7888a21e12ca2"
+          }
+        ],
+        "source_quality_flags": [
+          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
+          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
+        ],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000120161",
+          "bauzaar:56962030698821"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000120161",
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-conigli-e-piccoli-roditori-fieno-italiano-semi-pressato-1-kg/000120161.html",
+            "checked_at": "2026-11-14T15:06:00.753517+00:00",
+            "http_status": 200,
+            "source_sha256": "2690d5980e704a4c445c1de8fe6db3487a3728259770422eb7c4143ad506aa85",
+            "selected_id": "000120161",
+            "brand": "Piccoli Amici",
+            "line": "Fieno Italiano Semi Pressato",
+            "variant": "conigli e piccoli roditori; non differenziata; fieno naturale italiano semi pressato",
+            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120161, scheda tecnica1kg; alimento semplice con fieno di prato; Bauzaar: variante56962030698821 e misura netta1.0kg; descrizione fieno naturale; Stesso prodotto commerciale/forma e target; nessun multipack dichiarato",
+            "identity_observation_sha256": "2e3d5dffa5b1dec68ddbb051b9c89fb8250bfd89ce1388e36815792e4315c3d1"
+          },
+          {
+            "offer_id": "bauzaar:56962030698821",
+            "url": "https://www.bauzaar.it/products/piccoli-amici-fieno-italiano-semi-pressato-per-conigli-e-piccoli-roditori.js",
+            "checked_at": "2026-11-14T15:06:06.454751+00:00",
+            "http_status": 200,
+            "source_sha256": "97dd0c00a7e455436c97ea56277bf037bfa1442bcd2b7b8d8ba7cb95be76bfc4",
+            "selected_id": "56962030698821",
+            "brand": "Piccoli Amici",
+            "line": "Fieno Italiano Semi Pressato",
+            "variant": "conigli e piccoli roditori; non differenziata; fieno naturale italiano semi pressato",
+            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120161, scheda tecnica1kg; alimento semplice con fieno di prato; Bauzaar: variante56962030698821 e misura netta1.0kg; descrizione fieno naturale; Stesso prodotto commerciale/forma e target; nessun multipack dichiarato",
+            "identity_observation_sha256": "e756f8005de20a9d7942ad1e73507469e8ebb2735eea5708cd10470c176e627f"
+          }
+        ],
+        "source_quality_flags": [
+          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
+          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
+        ],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000140881",
+          "animaliapet:46976575734103"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000140881",
+            "url": "https://www.isoladeitesori.it/prodotto/natural-trainer-cat-adult-sterilised-tacchino-15-kg/000140881.html",
+            "checked_at": "2026-11-14T15:06:11.232866+00:00",
+            "http_status": 200,
+            "source_sha256": "4f307571d9746a823e8a9c08d873c5a1b430f712c96b09d67cc5368689d68540",
+            "selected_id": "000140881",
+            "brand": "Natural Trainer",
+            "line": "Sterilised Adult",
+            "variant": "gatto; adulto sterilizzato da1anno; tacchino",
+            "selling_quantity": "1500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000140881 e scheda tecnica1,5kg; Animaliapet: variante46976575734103, SKUFE1225FL, barcode8059149428468; prodotto e descrizione1,5kg; Composizioni concordi: tacchino16%, piselli4%, barbabietola2,9%, fibra pisello2,6%; analitici35%proteine12%grassi; nessun multipack dichiarato",
+            "identity_observation_sha256": "c0a68a239afd98aae4f7d9814e9881b3f5343048b1fe6bbd9194574bd63d96dc"
+          },
+          {
+            "offer_id": "animaliapet:46976575734103",
+            "url": "https://www.animaliapet.eu/products/trainer-natural-sterilised-tacchino-1-5kg-crocchette-gatti-adulti.js",
+            "checked_at": "2026-11-14T15:06:16.766365+00:00",
+            "http_status": 200,
+            "source_sha256": "c35937c68b7d49728171abd56befe638667fc7f6ff815b4c4be6dbc938212c05",
+            "selected_id": "46976575734103",
+            "brand": "Natural Trainer",
+            "line": "Sterilised Adult",
+            "variant": "gatto; adulto sterilizzato da1anno; tacchino",
+            "selling_quantity": "1500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000140881 e scheda tecnica1,5kg; Animaliapet: variante46976575734103, SKUFE1225FL, barcode8059149428468; prodotto e descrizione1,5kg; Composizioni concordi: tacchino16%, piselli4%, barbabietola2,9%, fibra pisello2,6%; analitici35%proteine12%grassi; nessun multipack dichiarato",
+            "identity_observation_sha256": "b6cc007de5d1a7494f555a4a3aac2ac4ee43bebbc233411bd100fd56cccdf407"
+          }
+        ],
+        "source_quality_flags": [],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000120162",
+          "bauzaar:56962032435525"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000120162",
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-pellet-per-conigli-nani-adulti-25-kg/000120162.html",
+            "checked_at": "2026-11-14T15:06:39.888416+00:00",
+            "http_status": 200,
+            "source_sha256": "3f734912472b9285b1cbf9f15f5623e95ee9497b10fd0d44c1f1a19016899965",
+            "selected_id": "000120162",
+            "brand": "Piccoli Amici",
+            "line": "Pellet standard, non Gourmet",
+            "variant": "conigli nani; adulti; pellet standard con integrazione vitamine/minerali",
+            "selling_quantity": "2500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120162, scheda tecnica2,5kg; farina erba medica20%; Bauzaar: variante56962032435525 e misura netta2.5kg; descrizione alimento in pellet per adulti; Identità commerciale standard confermata, distinta daSKU000120164 Gourmet800g; nessun multipack dichiarato",
+            "identity_observation_sha256": "87790243f927b9aea23e7be854687d4e8beba8d15fe169941682271edb904a46"
+          },
+          {
+            "offer_id": "bauzaar:56962032435525",
+            "url": "https://www.bauzaar.it/products/piccoli-amici-pellet-per-conigli-nani-adulti.js",
+            "checked_at": "2026-11-14T15:06:45.605239+00:00",
+            "http_status": 200,
+            "source_sha256": "f3b3f6a9f2e6ef0a2d16aca77b57e4124111b2aafce8407156a826647a95b86d",
+            "selected_id": "56962032435525",
+            "brand": "Piccoli Amici",
+            "line": "Pellet standard, non Gourmet",
+            "variant": "conigli nani; adulti; pellet standard con integrazione vitamine/minerali",
+            "selling_quantity": "2500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120162, scheda tecnica2,5kg; farina erba medica20%; Bauzaar: variante56962032435525 e misura netta2.5kg; descrizione alimento in pellet per adulti; Identità commerciale standard confermata, distinta daSKU000120164 Gourmet800g; nessun multipack dichiarato",
+            "identity_observation_sha256": "59f667674ec9656c1b0dbf7755234f7ef290f3ed791669cf4aa7b738174b25e3"
+          }
+        ],
+        "source_quality_flags": [
+          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
+          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
+        ],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000120164",
+          "bauzaar:56962032140613"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000120164",
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-conigli-nani-adulti-pellet-gourmet-800-g/000120164.html",
+            "checked_at": "2026-11-14T15:06:50.525404+00:00",
+            "http_status": 200,
+            "source_sha256": "b5da933ae7a86c6a6d5031aba36d357a5870a923c8f40bc2698429cd590a83fc",
+            "selected_id": "000120164",
+            "brand": "Piccoli Amici",
+            "line": "Pellet Gourmet",
+            "variant": "conigli nani; adulti; Gourmet con farina di erba medica28%",
+            "selling_quantity": "800 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120164, scheda tecnica800g, erba medica28%; Bauzaar: variante56962032140613, misura netta0.8kg, descrizione Gourmet800g e erba medica28%; Concordano linea specifica, ingrediente caratterizzante e dosi50–105g/giorno; nessun multipack dichiarato",
+            "identity_observation_sha256": "9d414e855a6d4de59cb2445f7e6a94e2f3f93b15b7a32d3553bd355072248f6a"
+          },
+          {
+            "offer_id": "bauzaar:56962032140613",
+            "url": "https://www.bauzaar.it/products/piccoli-amici-conigli-nani-adulti-pellet-gourmet.js",
+            "checked_at": "2026-11-14T15:07:00.495717+00:00",
+            "http_status": 200,
+            "source_sha256": "a28c8dcf6571ca07c01047ce5f91ba1bcea255a88bc0cc8ecc1bd65238cc9504",
+            "selected_id": "56962032140613",
+            "brand": "Piccoli Amici",
+            "line": "Pellet Gourmet",
+            "variant": "conigli nani; adulti; Gourmet con farina di erba medica28%",
+            "selling_quantity": "800 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120164, scheda tecnica800g, erba medica28%; Bauzaar: variante56962032140613, misura netta0.8kg, descrizione Gourmet800g e erba medica28%; Concordano linea specifica, ingrediente caratterizzante e dosi50–105g/giorno; nessun multipack dichiarato",
+            "identity_observation_sha256": "ebf7c2f1f9c802c6e8e2e8066b69f49a8d051ffba133bdea6cd204a26552cc7b"
+          }
+        ],
+        "source_quality_flags": [
+          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
+          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
+        ],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000141050",
+          "animaliapet:47739940831575"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000141050",
+            "url": "https://www.isoladeitesori.it/prodotto/natural-trainer-cat-adult-sterilised-anatra-15-kg/000141050.html",
+            "checked_at": "2026-11-14T15:06:29.684302+00:00",
+            "brand": "Natural Trainer",
+            "line": "Sterilised Adult",
+            "variant": "SKU000141050; Anatra; Adult Sterilised Cat; secco; 1,5kg",
+            "selling_quantity": "1,5 kg totali per unità di vendita; nessun multipack distinto dichiarato",
+            "evidence_excerpt": "Ricetta anatra e formato1,5kg dichiarati per SKU esatto; composizione della pagina con anatra18% e anatra disidratata9,5%.",
+            "source_sha256": "67303311612055c3cf3dd264bc24db8054fc1d2226004a62ec22c63ee84b0355",
+            "identity_observation_sha256": "6d3b2375b65f3c4e7857bccb282616e15525bfb7ee2de4f61aa6dfe7cd6984e0"
+          },
+          {
+            "offer_id": "animaliapet:47739940831575",
+            "url": "https://www.animaliapet.eu/products/trainer-natural-sterilised-anatra-1-5kg-crocchette-gatti-adulti.js",
+            "checked_at": "2026-11-14T15:06:34.913129+00:00",
+            "brand": "Natural Trainer",
+            "line": "Sterilised Adult",
+            "variant": "Shopify variant47739940831575; SKUFE1295FL; barcode8059149430225; Anatra; Adult Sterilised Cat; secco; 1,5kg",
+            "selling_quantity": "1,5 kg totali per unità di vendita; nessun multipack distinto dichiarato",
+            "evidence_excerpt": "Variante esatta con barcode8059149430225; mapping produttore conferma Anatra1,5kg. Testo ingredienti Trotaerrato mantenuto come flagqualità.",
+            "source_sha256": "87445b8acba16205b8bd85b46ba5f1867833e9dd5133e16cd30687ee7001d45c",
+            "identity_observation_sha256": "1dd38bc6663c0d594f972e3270e446c33bb30d4dd29de50e6c60d2717d04dc75",
+            "selected_id": "47739940831575"
+          }
+        ],
+        "manufacturer_corroboration": {
+          "url": "https://www.naturaltrainer.com/it/it/variant?dwvar_1000062_weightVariation=1.500%20Kg&pid=1000062&quantity=1",
+          "checked_at": "2026-11-14T15:17:02.885117+00:00",
+          "http_status": 200,
+          "robots_allowed": true,
+          "source_sha256": "63c5a348c7d0764dc2ad105976781b7b9a2f809253370837f9211743af48d631",
+          "selected_product_id": "1000062-3000116-965694",
+          "selected_ean": "8059149430225",
+          "flavour": "Duck",
+          "life_stage": "Adult",
+          "sterilised": true,
+          "species": "Cat",
+          "food_form": "Dry",
+          "selling_quantity": "1.500 Kg",
+          "selected_variation": {
+            "sku": "1000062-3000116-965694",
+            "weight": "1.500 Kg",
+            "ean": "8059149430225",
+            "selected": true,
+            "value": "1.500 Kg"
+          },
+          "mapping_basis": "CampiEAN e peso del prodotto e della variante selected=true, stessoSKU1000062-3000116-965694, restituiti dal selettore ufficiale1,5kg delmaster1000062. Non dedotti dal nome."
+        },
+        "source_quality_flags": [
+          "description_recipe_contradiction",
+          "Animaliapet variant47739940831575 mantiene descrizioneTrota20%+9% incompatibile con identitàAnatra provata dalproduttore: nonpropagare testo/ingredienti.",
+          "Non affermata composizione identica tra negozi/produttore; possibili versioni/formulazioni o testi errati.",
+          "Approvazione solo identitàcommerciale eformatovendita, nonlottofisico né conformitànutrizionale."
+        ]
+      }
+    ]
+  },
   "joins": [
-    ["animaliapet:46976586318167", "bauzaar:56820423098693"],
-    ["isola-dei-tesori:000120129", "bauzaar:56820258996549"],
-    ["isola-dei-tesori:000120196", "bauzaar:56820258865477"],
-    ["isola-dei-tesori:000120130", "bauzaar:56820220756293"],
-    ["isola-dei-tesori:000122041", "bauzaar:56962031321413"],
-    ["isola-dei-tesori:000122043", "bauzaar:56962031386949"],
-    ["isola-dei-tesori:000122031", "bauzaar:56962031550789"],
-    ["isola-dei-tesori:000122044", "bauzaar:56962031616325"],
-    ["isola-dei-tesori:000120167", "bauzaar:56962031780165"],
-    ["isola-dei-tesori:000120169", "bauzaar:56962031124805"],
-    ["isola-dei-tesori:000120161", "bauzaar:56962030698821"],
-    ["isola-dei-tesori:000140881", "animaliapet:46976575734103"],
-    ["isola-dei-tesori:000141050", "animaliapet:47739940831575"]
-  ]
+    [
+      "animaliapet:46976586318167",
+      "bauzaar:56820423098693"
+    ],
+    [
+      "isola-dei-tesori:000120129",
+      "bauzaar:56820258996549"
+    ],
+    [
+      "isola-dei-tesori:000120196",
+      "bauzaar:56820258865477"
+    ],
+    [
+      "isola-dei-tesori:000120130",
+      "bauzaar:56820220756293"
+    ],
+    [
+      "isola-dei-tesori:000122041",
+      "bauzaar:56962031321413"
+    ],
+    [
+      "isola-dei-tesori:000122043",
+      "bauzaar:56962031386949"
+    ],
+    [
+      "isola-dei-tesori:000122031",
+      "bauzaar:56962031550789"
+    ],
+    [
+      "isola-dei-tesori:000122044",
+      "bauzaar:56962031616325"
+    ],
+    [
+      "isola-dei-tesori:000120167",
+      "bauzaar:56962031780165"
+    ],
+    [
+      "isola-dei-tesori:000120169",
+      "bauzaar:56962031124805"
+    ],
+    [
+      "isola-dei-tesori:000120161",
+      "bauzaar:56962030698821"
+    ],
+    [
+      "isola-dei-tesori:000140881",
+      "animaliapet:46976575734103"
+    ],
+    [
+      "isola-dei-tesori:000120162",
+      "bauzaar:56962032435525"
+    ],
+    [
+      "isola-dei-tesori:000120164",
+      "bauzaar:56962032140613"
+    ],
+    [
+      "isola-dei-tesori:000141050",
+      "animaliapet:47739940831575"
+    ]
+  ],
+  "pending_joins": []
 }
