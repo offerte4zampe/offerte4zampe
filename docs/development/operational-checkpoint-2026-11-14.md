@@ -43,3 +43,7 @@ Riallineamento locale PR100 al main corrente: un test usava un ID storico non pi
 PR99 non aggiornata né integrata: contratto di matching in ricostruzione dal checkpoint persistito. Le letture merchant del ciclo serale precedente non sono presenti nel checkpoint salvato e non vengono dichiarate disponibili; nuova raccolta delle prove per i 15 join candidati (13 iniziali e due nuove offerte) in corso. Nessun ampliamento automatico della allowlist e nessun tasso di precisione certificato.
 
 API registro: in questa ripresa GET riuscita inizialmente; successivi tentativi di scrittura hanno incontrato errori di tunnel/rete 403/000, distinti dal401 del ciclo mattutino. Non dichiarato accesso in scrittura ripristinato; nessuna credenziale o configurazione cambiata. Checkpoint su questo ramo come fallback autorizzato. Il blocco del registro non autorizza a sospendere lavoro indipendente su branch e PR.
+
+### Registro nuovamente accessibile nella verifica indipendente
+
+Nuovo tentativo ordinario con service access appena acquisito: GET, POST e readback tutti HTTP200. Registrato record56, taskId pr100-verification-2026-11-14, stato In attesa. Evidenze CI/main/557collegamenti conservate nel centro. Il blocco precedente non si è riprodotto in questo tentativo; causa non dimostrata, nessuna credenziale/configurazione cambiata. Non è quindi richiesta al proprietario una modifica di accesso sulla sola base del primo errore.
