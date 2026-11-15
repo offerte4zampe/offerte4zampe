@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-11-15T13:55:53.724271+00:00",
-  "catalog_generated_at": "2026-11-15T13:55:10.054373+00:00",
+  "checked_at": "2026-11-15T19:38:38.231472+00:00",
+  "catalog_generated_at": "2026-11-15T19:37:50.684024+00:00",
   "method_version": 1,
   "method": "Controlli su tutte le offerte dei cinque negozi; verifica indipendente a campione e a rotazione tramite variante JSON esatta o schema prodotto vincolato a SKU/GTIN. HTTP200, feed riuscito e nome simile non certificano identità, prezzo o stock. Campione non rappresentativo statisticamente; risposte inconcludenti non sono successi. Prezzi e date originali non modificati.",
   "stores": [
@@ -14,101 +14,6 @@
       "quantity_unverified": 0,
       "field_issues": {},
       "page_verifications": [
-        {
-          "id": "bauzaar:56962169798981",
-          "source": "https://www.bauzaar.it/products/yora-superfood-crocchette-a-base-di-insetti-cat-adult.js",
-          "checked_at": "2026-11-14T12:58:59.393225+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 48.69,
-            "unit_price": 48.69,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "05060604230086",
-            "net_weight_kg": 3.75,
-            "variant_label": "3,75 kg",
-            "exact_variant": "56962169798981"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56820099055941",
-          "source": "https://www.bauzaar.it/products/regal-ocean-recipe-salmone.js",
-          "checked_at": "2026-11-15T01:15:39.814452+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 55.89,
-            "unit_price": 55.89,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "00850015801068",
-            "net_weight_kg": 5.9,
-            "variant_label": "5,9 kg",
-            "exact_variant": "56820099055941"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56961986855237",
-          "source": "https://www.bauzaar.it/products/oxbow-hay-blends.js",
-          "checked_at": "2026-11-14T09:16:20.374188+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 14.79,
-            "unit_price": 14.79,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "00744845810065",
-            "net_weight_kg": 1.13,
-            "variant_label": "1,13 kg",
-            "exact_variant": "56961986855237"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56961527021893",
-          "source": "https://www.bauzaar.it/products/hari-tropimix-cockatiels-and-lovebirds.js",
-          "checked_at": "2026-11-15T01:15:39.814452+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 9.99,
-            "unit_price": 9.99,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "",
-            "net_weight_kg": 0.908,
-            "variant_label": "908 gr",
-            "exact_variant": "56961527021893"
-          },
-          "detected_discrepancies": []
-        },
         {
           "id": "bauzaar:56820098892101",
           "source": "https://www.bauzaar.it/products/regal-lean-dog-recipe-tacchino-e-riso.js",
@@ -134,9 +39,9 @@
           "detected_discrepancies": []
         },
         {
-          "id": "bauzaar:56961772650821",
-          "source": "https://www.bauzaar.it/products/lindocat-natural-white.js",
-          "checked_at": "2026-11-14T18:17:54.146720+00:00",
+          "id": "bauzaar:56820098695493",
+          "source": "https://www.bauzaar.it/products/regal-sensi-bites-recipe-tacchino-e-riso.js",
+          "checked_at": "2026-11-15T01:15:39.814452+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -146,14 +51,62 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 11.94,
-            "unit_price": 11.94,
+            "price": 54.14,
+            "unit_price": 54.14,
             "pack_count": 1,
             "available": true,
-            "gtin": "08006455001038",
-            "net_weight_kg": 14.0,
-            "variant_label": "15 lt (14 kg)",
-            "exact_variant": "56961772650821"
+            "gtin": "00850015801365",
+            "net_weight_kg": 5.9,
+            "variant_label": "5,9 kg",
+            "exact_variant": "56820098695493"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56820265517381",
+          "source": "https://www.bauzaar.it/products/oxbow-western-timothy.js",
+          "checked_at": "2026-11-14T18:52:13.698727+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 5.5,
+            "unit_price": 5.5,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "00744845401119",
+            "net_weight_kg": 0.425,
+            "variant_label": "425 gr",
+            "exact_variant": "56820265517381"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56961387299141",
+          "source": "https://www.bauzaar.it/products/croci-fieno-ortica-e-calendula.js",
+          "checked_at": "2026-11-15T13:55:53.724271+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 3.69,
+            "unit_price": 3.69,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08023222130487",
+            "net_weight_kg": 0.5,
+            "variant_label": "500 gr",
+            "exact_variant": "56961387299141"
           },
           "detected_discrepancies": []
         },
@@ -206,78 +159,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "bauzaar:56961250951493",
-          "source": "https://www.bauzaar.it/products/ever-clean-multiple-cat.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 16.82,
-            "unit_price": 16.82,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "05060255492253",
-            "net_weight_kg": 8.3,
-            "variant_label": "10 lt (8,3 kg) Mulitiple",
-            "exact_variant": "56961250951493"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56961387299141",
-          "source": "https://www.bauzaar.it/products/croci-fieno-ortica-e-calendula.js",
-          "checked_at": "2026-11-15T13:55:53.724271+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 3.69,
-            "unit_price": 3.69,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08023222130487",
-            "net_weight_kg": 0.5,
-            "variant_label": "500 gr",
-            "exact_variant": "56961387299141"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56820265517381",
-          "source": "https://www.bauzaar.it/products/oxbow-western-timothy.js",
-          "checked_at": "2026-11-14T18:52:13.698727+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 5.5,
-            "unit_price": 5.5,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "00744845401119",
-            "net_weight_kg": 0.425,
-            "variant_label": "425 gr",
-            "exact_variant": "56820265517381"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "bauzaar:56961387430213",
           "source": "https://www.bauzaar.it/products/croci-fieno-tarassacco-e-camomilla.js",
           "checked_at": "2026-11-15T13:55:53.724271+00:00",
@@ -302,56 +183,8 @@
           "detected_discrepancies": []
         },
         {
-          "id": "bauzaar:56820098695493",
-          "source": "https://www.bauzaar.it/products/regal-sensi-bites-recipe-tacchino-e-riso.js",
-          "checked_at": "2026-11-15T01:15:39.814452+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 54.14,
-            "unit_price": 54.14,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "00850015801365",
-            "net_weight_kg": 5.9,
-            "variant_label": "5,9 kg",
-            "exact_variant": "56820098695493"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56961250853189",
-          "source": "https://www.bauzaar.it/products/ever-clean-unscented-extra-strong-clumping.js",
-          "checked_at": "2026-11-15T13:55:53.724271+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 17.65,
-            "unit_price": 17.65,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "05060255492130",
-            "net_weight_kg": 8.3,
-            "variant_label": "10 lt (8,3 kg) Unscented",
-            "exact_variant": "56961250853189"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:58411842502981",
-          "source": "https://www.bauzaar.it/products/lindocat-crystal.js",
+          "id": "bauzaar:56961772650821",
+          "source": "https://www.bauzaar.it/products/lindocat-natural-white.js",
           "checked_at": "2026-11-14T18:17:54.146720+00:00",
           "status": "verified",
           "compared": [
@@ -362,110 +195,37 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 24.15,
-            "unit_price": 24.15,
+            "price": 11.94,
+            "unit_price": 11.94,
             "pack_count": 1,
             "available": true,
-            "gtin": "08006455005067",
-            "net_weight_kg": 6.5,
-            "variant_label": "16 lt (6,5 kg) Lavanda",
-            "exact_variant": "58411842502981"
+            "gtin": "08006455001038",
+            "net_weight_kg": 14.0,
+            "variant_label": "15 lt (14 kg)",
+            "exact_variant": "56961772650821"
           },
           "detected_discrepancies": []
         },
         {
-          "id": "bauzaar:56961715962181",
-          "source": "https://www.bauzaar.it/products/lettiera-eco-clean.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
+          "id": "bauzaar:56961527021893",
+          "source": "https://www.bauzaar.it/products/hari-tropimix-cockatiels-and-lovebirds.js",
+          "checked_at": "2026-11-15T01:15:39.814452+00:00",
           "status": "verified",
           "compared": [
             "price",
-            "available",
-            "gtin"
+            "available"
           ],
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 11.98,
-            "unit_price": 11.98,
+            "price": 9.99,
+            "unit_price": 9.99,
             "pack_count": 1,
             "available": true,
-            "gtin": "08023222146952",
-            "net_weight_kg": 4.3,
-            "variant_label": "10 lt (4,3 kg)",
-            "exact_variant": "56961715962181"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56820172882245",
-          "source": "https://www.bauzaar.it/products/natural-code-lettiera-bentonite.js",
-          "checked_at": "2026-11-14T18:52:13.698727+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 4.68,
-            "unit_price": 4.68,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08033837555131",
-            "net_weight_kg": 4.0,
-            "variant_label": "5 lt (4 kg) Talco",
-            "exact_variant": "56820172882245"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56961713111365",
-          "source": "https://www.bauzaar.it/products/lettiera-easy-clean.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 9.98,
-            "unit_price": 9.98,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08023222197770",
-            "net_weight_kg": 3.2,
-            "variant_label": "7,5 lt (3,2 kg)",
-            "exact_variant": "56961713111365"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:58411843322181",
-          "source": "https://www.bauzaar.it/products/natural-code-lettiera-bentonite.js",
-          "checked_at": "2026-11-14T18:52:13.698727+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 4.68,
-            "unit_price": 4.68,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08033837555148",
-            "net_weight_kg": 4.0,
-            "variant_label": "5 lt (4 kg) Lavanda",
-            "exact_variant": "58411843322181"
+            "gtin": "",
+            "net_weight_kg": 0.908,
+            "variant_label": "908 gr",
+            "exact_variant": "56961527021893"
           },
           "detected_discrepancies": []
         },
@@ -494,6 +254,306 @@
           "detected_discrepancies": []
         },
         {
+          "id": "bauzaar:56961250853189",
+          "source": "https://www.bauzaar.it/products/ever-clean-unscented-extra-strong-clumping.js",
+          "checked_at": "2026-11-15T13:55:53.724271+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 17.65,
+            "unit_price": 17.65,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "05060255492130",
+            "net_weight_kg": 8.3,
+            "variant_label": "10 lt (8,3 kg) Unscented",
+            "exact_variant": "56961250853189"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56820172882245",
+          "source": "https://www.bauzaar.it/products/natural-code-lettiera-bentonite.js",
+          "checked_at": "2026-11-14T18:52:13.698727+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 4.68,
+            "unit_price": 4.68,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08033837555131",
+            "net_weight_kg": 4.0,
+            "variant_label": "5 lt (4 kg) Talco",
+            "exact_variant": "56820172882245"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:58411842502981",
+          "source": "https://www.bauzaar.it/products/lindocat-crystal.js",
+          "checked_at": "2026-11-14T18:17:54.146720+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 24.15,
+            "unit_price": 24.15,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08006455005067",
+            "net_weight_kg": 6.5,
+            "variant_label": "16 lt (6,5 kg) Lavanda",
+            "exact_variant": "58411842502981"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56961250722117",
+          "source": "https://www.bauzaar.it/products/ever-clean-scented-extra-strong-clumping.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 16.66,
+            "unit_price": 16.66,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "05060255492161",
+            "net_weight_kg": 8.3,
+            "variant_label": "10 lt (8,3 kg) Scented",
+            "exact_variant": "56961250722117"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56962169798981",
+          "source": "https://www.bauzaar.it/products/yora-superfood-crocchette-a-base-di-insetti-cat-adult.js",
+          "checked_at": "2026-11-14T12:58:59.393225+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 48.69,
+            "unit_price": 48.69,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "05060604230086",
+            "net_weight_kg": 3.75,
+            "variant_label": "3,75 kg",
+            "exact_variant": "56962169798981"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56961772552517",
+          "source": "https://www.bauzaar.it/products/lindocat-double-action.js",
+          "checked_at": "2026-11-14T12:58:59.393225+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 8.44,
+            "unit_price": 8.44,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08006455001205",
+            "net_weight_kg": 8.5,
+            "variant_label": "10 lt (8,5 kg)",
+            "exact_variant": "56961772552517"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56820099055941",
+          "source": "https://www.bauzaar.it/products/regal-ocean-recipe-salmone.js",
+          "checked_at": "2026-11-15T01:15:39.814452+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 55.89,
+            "unit_price": 55.89,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "00850015801068",
+            "net_weight_kg": 5.9,
+            "variant_label": "5,9 kg",
+            "exact_variant": "56820099055941"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56961986855237",
+          "source": "https://www.bauzaar.it/products/oxbow-hay-blends.js",
+          "checked_at": "2026-11-14T09:16:20.374188+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 14.79,
+            "unit_price": 14.79,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "00744845810065",
+            "net_weight_kg": 1.13,
+            "variant_label": "1,13 kg",
+            "exact_variant": "56961986855237"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56961508409669",
+          "source": "https://www.bauzaar.it/products/guinzaglio-da-addestramento-in-nylon-petup.js",
+          "checked_at": "2026-11-15T18:12:10.202290+00:00",
+          "status": "verified_missing_variant",
+          "compared": [
+            "variant_exists"
+          ],
+          "discrepancies": [
+            "variant_exists"
+          ],
+          "reason": "complete_api_absence_and_main_product_fallback",
+          "evidence": {
+            "exact_variant": "56961508409669",
+            "variant_exists": false,
+            "product_id": "15622234014021",
+            "html_product_id": "15622234014021",
+            "handle": "guinzaglio-da-addestramento-in-nylon-petup",
+            "remaining_variant_ids": [
+              "56961508507973"
+            ],
+            "html_selected_variant_ids": [
+              "56961508507973",
+              "56961508507973"
+            ],
+            "api_url": "https://www.bauzaar.it/products/guinzaglio-da-addestramento-in-nylon-petup.js",
+            "document_url": "https://www.bauzaar.it/products/guinzaglio-da-addestramento-in-nylon-petup?variant=56961508409669",
+            "api_http_status": 200,
+            "document_http_status": 200,
+            "api_sha256": "13d77c258c97727345585560801ce637ef0109bf8c69f68ec129a56f77f89105",
+            "document_sha256": "9d71739e2959b4178ca1fcd86c30e32f5dc6673b845059b2d49ec8206603f1d1"
+          },
+          "detected_discrepancies": [
+            "variant_exists"
+          ]
+        },
+        {
+          "id": "bauzaar:56961985544517",
+          "source": "https://www.bauzaar.it/products/oxbow-alfalfa-hay.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 6.61,
+            "unit_price": 6.61,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "00744845401072",
+            "net_weight_kg": 0.425,
+            "variant_label": "425 gr",
+            "exact_variant": "56961985544517"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:58411843322181",
+          "source": "https://www.bauzaar.it/products/natural-code-lettiera-bentonite.js",
+          "checked_at": "2026-11-14T18:52:13.698727+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 4.68,
+            "unit_price": 4.68,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08033837555148",
+            "net_weight_kg": 4.0,
+            "variant_label": "5 lt (4 kg) Lavanda",
+            "exact_variant": "58411843322181"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56961719664965",
+          "source": "https://www.bauzaar.it/products/lettiera-naturale-natural-derma-pet.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 7.49,
+            "unit_price": 7.49,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08388765850415",
+            "net_weight_kg": 2.8,
+            "variant_label": "6 lt (2,8 kg) Antiodore",
+            "exact_variant": "56961719664965"
+          },
+          "detected_discrepancies": []
+        },
+        {
           "id": "bauzaar:56961719697733",
           "source": "https://www.bauzaar.it/products/lettiera-naturale-natural-derma-pet.js",
           "checked_at": "2026-11-14T18:52:13.698727+00:00",
@@ -518,9 +578,9 @@
           "detected_discrepancies": []
         },
         {
-          "id": "bauzaar:56820174455109",
-          "source": "https://www.bauzaar.it/products/purina-veterinary-diets-ha-cat.js",
-          "checked_at": "2026-11-14T18:17:54.146720+00:00",
+          "id": "bauzaar:56961717829957",
+          "source": "https://www.bauzaar.it/products/lettiera-igienica-bianca-gattiera-petup.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -530,86 +590,14 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 7.41,
-            "unit_price": 7.41,
+            "price": 7.99,
+            "unit_price": 7.99,
             "pack_count": 1,
             "available": true,
-            "gtin": "07613287597526",
-            "net_weight_kg": 0.325,
-            "variant_label": "325 gr",
-            "exact_variant": "56820174455109"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56961770094917",
-          "source": "https://www.bauzaar.it/products/lindocat-advanced-lettiera-multicat.js",
-          "checked_at": "2026-11-14T12:58:59.393225+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 11.98,
-            "unit_price": 11.98,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08006455001151",
-            "net_weight_kg": 10.2,
-            "variant_label": "12 lt (10,2 kg)",
-            "exact_variant": "56961770094917"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56961143636293",
-          "source": "https://www.bauzaar.it/products/biokat-s-ecolight-extra-lettiera.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 9.98,
-            "unit_price": 9.98,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "04002064613734",
-            "net_weight_kg": 2.9,
-            "variant_label": "5 lt (2,9 kg)",
-            "exact_variant": "56961143636293"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "bauzaar:56820048396613",
-          "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js",
-          "checked_at": "2026-11-14T09:16:20.374188+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 7.88,
-            "unit_price": 7.88,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08011391147801",
-            "net_weight_kg": 2.5,
-            "variant_label": "5,5 lt (2,5 kg) Classic",
-            "exact_variant": "56820048396613"
+            "gtin": "03539370128498",
+            "net_weight_kg": 7.0,
+            "variant_label": "8 lt (7 kg)",
+            "exact_variant": "56961717829957"
           },
           "detected_discrepancies": []
         },
@@ -662,8 +650,56 @@
           "detected_discrepancies": []
         },
         {
-          "id": "bauzaar:56961772552517",
-          "source": "https://www.bauzaar.it/products/lindocat-double-action.js",
+          "id": "bauzaar:56820048396613",
+          "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js",
+          "checked_at": "2026-11-14T09:16:20.374188+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 7.88,
+            "unit_price": 7.88,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08011391147801",
+            "net_weight_kg": 2.5,
+            "variant_label": "5,5 lt (2,5 kg) Classic",
+            "exact_variant": "56820048396613"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56820174455109",
+          "source": "https://www.bauzaar.it/products/purina-veterinary-diets-ha-cat.js",
+          "checked_at": "2026-11-14T18:17:54.146720+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 7.41,
+            "unit_price": 7.41,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "07613287597526",
+            "net_weight_kg": 0.325,
+            "variant_label": "325 gr",
+            "exact_variant": "56820174455109"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "bauzaar:56961770094917",
+          "source": "https://www.bauzaar.it/products/lindocat-advanced-lettiera-multicat.js",
           "checked_at": "2026-11-14T12:58:59.393225+00:00",
           "status": "verified",
           "compared": [
@@ -674,28 +710,28 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 8.44,
-            "unit_price": 8.44,
+            "price": 11.98,
+            "unit_price": 11.98,
             "pack_count": 1,
             "available": true,
-            "gtin": "08006455001205",
-            "net_weight_kg": 8.5,
-            "variant_label": "10 lt (8,5 kg)",
-            "exact_variant": "56961772552517"
+            "gtin": "08006455001151",
+            "net_weight_kg": 10.2,
+            "variant_label": "12 lt (10,2 kg)",
+            "exact_variant": "56961770094917"
           },
           "detected_discrepancies": []
         }
       ],
-      "sample_verified": 28,
+      "sample_verified": 29,
       "sample_inconclusive": 0,
-      "sample_discrepancies": 0
+      "sample_discrepancies": 1
     },
     {
       "id": "webpet",
       "source_status": "ok",
       "offers": 1811,
       "available": 1214,
-      "with_valid_gtin": 487,
+      "with_valid_gtin": 471,
       "with_net_weight": 116,
       "quantity_unverified": 0,
       "field_issues": {},
@@ -795,31 +831,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "webpet:52569394839892",
-          "source": "https://www.webpet.it/products/jbl-propond-vario-m-miscela-di-mangime-per-tutti-i-pesci-da-laghetto.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin",
-            "weight_kg"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 12.53,
-            "unit_price": 12.53,
-            "pack_count": 1,
-            "available": false,
-            "gtin": "04014162412744",
-            "net_weight_kg": 0.72,
-            "variant_label": "720 gr",
-            "exact_variant": "52569394839892"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "webpet:52569391300948",
           "source": "https://www.webpet.it/products/flur-nymphea-fioriera-da-giardino-con-pannello-grigliato-in-legno-large-160x40x40-cm.js",
           "checked_at": "2026-11-15T01:15:39.814452+00:00",
@@ -843,9 +854,9 @@
           "detected_discrepancies": []
         },
         {
-          "id": "webpet:52569334743380",
-          "source": "https://www.webpet.it/products/aura-led-plafoniera-rgb-pighevole-ultrasottile-per-piccoli-acquari-dolci-e-marini-6w.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
+          "id": "webpet:52569364103508",
+          "source": "https://www.webpet.it/products/aqpet-filter-line-phosphate-remover-materiale-filtrante-per-acquari.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -854,14 +865,14 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 24.9,
-            "unit_price": 24.9,
+            "price": 13.9,
+            "unit_price": 13.9,
             "pack_count": 1,
-            "available": true,
-            "gtin": "08050327300149",
+            "available": false,
+            "gtin": "08050327302440",
             "net_weight_kg": null,
-            "variant_label": "Default Title",
-            "exact_variant": "52569334743380"
+            "variant_label": "500 ml",
+            "exact_variant": "52569364103508"
           },
           "detected_discrepancies": []
         },
@@ -913,29 +924,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "webpet:52569311379796",
-          "source": "https://www.webpet.it/products/aqpet-ricambi-spugne-filtro-interno-bio-box-2-pz-per-acquari-simply.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 6.99,
-            "unit_price": 6.99,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08050327307896",
-            "net_weight_kg": null,
-            "variant_label": "Default Title",
-            "exact_variant": "52569311379796"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "webpet:52569257017684",
           "source": "https://www.webpet.it/products/aqpet-decorart-decorazioni-per-acquari-mod-indian-divine.js",
           "checked_at": "2026-11-14T18:17:54.146720+00:00",
@@ -955,6 +943,30 @@
             "net_weight_kg": null,
             "variant_label": "Default Title",
             "exact_variant": "52569257017684"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "webpet:52569215009108",
+          "source": "https://www.webpet.it/products/tetra-nitrateminus-per-la-riduzione-dei-nitrati.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 6.23,
+            "unit_price": 6.23,
+            "pack_count": 1,
+            "available": false,
+            "gtin": "04004218147737",
+            "net_weight_kg": null,
+            "variant_label": "250 ml",
+            "exact_variant": "52569215009108"
           },
           "detected_discrepancies": []
         },
@@ -1076,6 +1088,30 @@
           "detected_discrepancies": []
         },
         {
+          "id": "webpet:52569121227092",
+          "source": "https://www.webpet.it/products/leopet-elastici-ricambio-brandina-pieghevole-per-cani.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 6.09,
+            "unit_price": 6.09,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08056734745221",
+            "net_weight_kg": null,
+            "variant_label": "75x115 cm",
+            "exact_variant": "52569121227092"
+          },
+          "detected_discrepancies": []
+        },
+        {
           "id": "webpet:52569120833876",
           "source": "https://www.webpet.it/products/leopet-telo-ricambio-brandina-pieghevole-per-cani-cationic-grigio.js",
           "checked_at": "2026-11-15T01:15:39.814452+00:00",
@@ -1170,29 +1206,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "webpet:52569049825620",
-          "source": "https://www.webpet.it/products/dashi-snooze-guinzaglio-per-cani.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 10.2,
-            "unit_price": 10.2,
-            "pack_count": 1,
-            "available": false,
-            "gtin": "05600969102545",
-            "net_weight_kg": null,
-            "variant_label": "Small",
-            "exact_variant": "52569049825620"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "webpet:52569045270868",
           "source": "https://www.webpet.it/products/dashi-donut-guinzaglio-per-cani.js",
           "checked_at": "2026-11-15T01:15:39.814452+00:00",
@@ -1260,6 +1273,29 @@
             "net_weight_kg": null,
             "variant_label": "Default Title",
             "exact_variant": "52569028952404"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "webpet:52569022366036",
+          "source": "https://www.webpet.it/products/aqpetfriends-cleanup-sacchetti-igienici-per-cani.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 4.9,
+            "unit_price": 4.9,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08050327305946",
+            "net_weight_kg": null,
+            "variant_label": "200 sacchetti",
+            "exact_variant": "52569022366036"
           },
           "detected_discrepancies": []
         },
@@ -1365,8 +1401,8 @@
       "id": "animaliapet",
       "source_status": "ok",
       "offers": 3528,
-      "available": 3515,
-      "with_valid_gtin": 1754,
+      "available": 3514,
+      "with_valid_gtin": 1741,
       "with_net_weight": 1800,
       "quantity_unverified": 0,
       "field_issues": {},
@@ -1519,6 +1555,31 @@
           "detected_discrepancies": []
         },
         {
+          "id": "animaliapet:46976698843479",
+          "source": "https://www.animaliapet.eu/products/monge-gift-sticks-sterilised-anatra-e-melissa-15g-snack-gatti.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin",
+            "weight_kg"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 1.3,
+            "unit_price": 1.3,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08009470085281",
+            "net_weight_kg": 0.015,
+            "variant_label": "Default Title",
+            "exact_variant": "46976698843479"
+          },
+          "detected_discrepancies": []
+        },
+        {
           "id": "animaliapet:46976569180503",
           "source": "https://www.animaliapet.eu/products/trainer-ideal-weight-tacchino-7kg-crocchette-cani-small-e-toy-adult.js",
           "checked_at": "2026-11-14T18:17:54.146720+00:00",
@@ -1591,6 +1652,31 @@
           "detected_discrepancies": []
         },
         {
+          "id": "animaliapet:51732399325527",
+          "source": "https://www.animaliapet.eu/products/camon-deodorante-per-lettiere-profumo-di-rosa.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin",
+            "weight_kg"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 5.5,
+            "unit_price": 5.5,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08019808135137",
+            "net_weight_kg": 0.4,
+            "variant_label": "Default Title",
+            "exact_variant": "51732399325527"
+          },
+          "detected_discrepancies": []
+        },
+        {
           "id": "animaliapet:51569432035671",
           "source": "https://www.animaliapet.eu/products/nobleza-pannolini-riutilizzabili-per-cani-femmine-xs-1pz-colori-assortiti.js",
           "checked_at": "2026-11-14T18:52:13.698727+00:00",
@@ -1610,54 +1696,6 @@
             "net_weight_kg": null,
             "variant_label": "Default Title",
             "exact_variant": "51569432035671"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "animaliapet:50972618555735",
-          "source": "https://www.animaliapet.eu/products/olympus-attacco-per-inglese-5pz-accessori-pesca.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 1.5,
-            "unit_price": 1.5,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "",
-            "net_weight_kg": null,
-            "variant_label": "L",
-            "exact_variant": "50972618555735"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "animaliapet:50899497386327",
-          "source": "https://www.animaliapet.eu/products/trixie-premio-sushi-twisters-60g-snacks-per-cani.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin",
-            "weight_kg"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 2.9,
-            "unit_price": 2.9,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "04011905315720",
-            "net_weight_kg": 0.06,
-            "variant_label": "Default Title",
-            "exact_variant": "50899497386327"
           },
           "detected_discrepancies": []
         },
@@ -1707,30 +1745,6 @@
             "net_weight_kg": 0.4,
             "variant_label": "Default Title",
             "exact_variant": "50716485812567"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "animaliapet:50227885474135",
-          "source": "https://www.animaliapet.eu/products/cantilly-e-biscotto-snack-per-cani-70g.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "weight_kg"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 4.9,
-            "unit_price": 4.9,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08012605003951",
-            "net_weight_kg": 0.07,
-            "variant_label": "Default Title",
-            "exact_variant": "50227885474135"
           },
           "detected_discrepancies": []
         },
@@ -1926,30 +1940,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "animaliapet:47498425401687",
-          "source": "https://www.animaliapet.eu/products/ferplast-jet-20-trasportino-per-gatti-e-cani-piccola-taglia.js",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 19.9,
-            "unit_price": 19.9,
-            "pack_count": 1,
-            "available": true,
-            "gtin": "08010690184142",
-            "net_weight_kg": null,
-            "variant_label": "Default Title",
-            "exact_variant": "47498425401687"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "animaliapet:46976644219223",
           "source": "https://www.animaliapet.eu/products/trixie-premio-omega-stripes-di-pollo-snack-per-cani-100g.js",
           "checked_at": "2026-11-14T09:16:20.374188+00:00",
@@ -2046,6 +2036,54 @@
             "exact_variant": "46976579469655"
           },
           "detected_discrepancies": []
+        },
+        {
+          "id": "animaliapet:46976563347799",
+          "source": "https://www.animaliapet.eu/products/trixie-premium-guinzaglio-blu-m-l-1m-20mm.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 14.9,
+            "unit_price": 14.9,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "04011905200224",
+            "net_weight_kg": null,
+            "variant_label": "Default Title",
+            "exact_variant": "46976563347799"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "animaliapet:46976542703959",
+          "source": "https://www.animaliapet.eu/products/monge-dog-natural-pollo-con-verdure-lattina-95g-cani-adulti.js",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin",
+            "weight_kg"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 1.2,
+            "unit_price": 1.2,
+            "pack_count": 1,
+            "available": true,
+            "gtin": "08009470006965",
+            "net_weight_kg": 0.095,
+            "variant_label": "Default Title",
+            "exact_variant": "46976542703959"
+          },
+          "detected_discrepancies": []
         }
       ],
       "sample_verified": 28,
@@ -2063,28 +2101,9 @@
       "field_issues": {},
       "page_verifications": [
         {
-          "id": "isola-dei-tesori:000110766",
-          "source": "https://www.isoladeitesori.it/prodotto/camon-gioco-pesce-colorato-per-cani-16-cm/000110766.html",
-          "checked_at": "2026-11-15T13:55:53.724271+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 4.03,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000110766"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "isola-dei-tesori:000127282",
           "source": "https://www.isoladeitesori.it/prodotto/monopro-bocconcini-in-salsa-per-cani-adulti-manzo-415-gr/000127282.html",
-          "checked_at": "2026-11-14T18:52:13.698727+00:00",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -2103,6 +2122,67 @@
           "detected_discrepancies": [
             "available"
           ]
+        },
+        {
+          "id": "isola-dei-tesori:000503126",
+          "source": "https://www.isoladeitesori.it/prodotto/gourmet-gold-tortini-cat-adult-con-tacchino-e-spinaci-85-gr/000503126.html",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [
+            "price"
+          ],
+          "reason": null,
+          "evidence": {
+            "price": 0.66,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000503126"
+          },
+          "detected_discrepancies": [
+            "price"
+          ]
+        },
+        {
+          "id": "isola-dei-tesori:000152985",
+          "source": "https://www.isoladeitesori.it/prodotto/petup-pettorina-flash-taglia-3-marrone/000152985.html",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 10.64,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000152985"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000155545",
+          "source": "https://www.isoladeitesori.it/prodotto/julius-k9-pettorina-per-cani-idc-powerharness-tg.-0-arancione-fluo/000155545.html",
+          "checked_at": "2026-11-14T18:17:54.146720+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 43.19,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000155545"
+          },
+          "detected_discrepancies": []
         },
         {
           "id": "isola-dei-tesori:000151084",
@@ -2124,32 +2204,9 @@
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000503126",
-          "source": "https://www.isoladeitesori.it/prodotto/gourmet-gold-tortini-cat-adult-con-tacchino-e-spinaci-85-gr/000503126.html",
-          "checked_at": "2026-11-14T18:52:13.698727+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [
-            "price"
-          ],
-          "reason": null,
-          "evidence": {
-            "price": 0.66,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000503126"
-          },
-          "detected_discrepancies": [
-            "price"
-          ]
-        },
-        {
-          "id": "isola-dei-tesori:000185352",
-          "source": "https://www.isoladeitesori.it/prodotto/sera-xs-feeder/000185352.html",
-          "checked_at": "2026-11-14T09:16:20.374188+00:00",
+          "id": "isola-dei-tesori:000110766",
+          "source": "https://www.isoladeitesori.it/prodotto/camon-gioco-pesce-colorato-per-cani-16-cm/000110766.html",
+          "checked_at": "2026-11-15T13:55:53.724271+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -2158,10 +2215,10 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 48.99,
+            "price": 4.03,
             "available": true,
             "gtin": "",
-            "exact_product": "000185352"
+            "exact_product": "000110766"
           },
           "detected_discrepancies": []
         },
@@ -2208,9 +2265,9 @@
           ]
         },
         {
-          "id": "isola-dei-tesori:000155545",
-          "source": "https://www.isoladeitesori.it/prodotto/julius-k9-pettorina-per-cani-idc-powerharness-tg.-0-arancione-fluo/000155545.html",
-          "checked_at": "2026-11-14T18:17:54.146720+00:00",
+          "id": "isola-dei-tesori:000148010",
+          "source": "https://www.isoladeitesori.it/prodotto/candioli-bolo-via-pasta-50-gr/000148010.html",
+          "checked_at": "2026-11-14T09:16:20.374188+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -2219,10 +2276,48 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 43.19,
+            "price": 14.49,
             "available": true,
             "gtin": "",
-            "exact_product": "000155545"
+            "exact_product": "000148010"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000112333",
+          "source": "https://www.isoladeitesori.it/prodotto/sera-koi-color-medium-1-lt/000112333.html",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 9.99,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000112333"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000162469",
+          "source": "https://www.isoladeitesori.it/prodotto/petup-brandina-telo-blu-60x100-cm/000162469.html",
+          "checked_at": "2026-11-14T12:58:59.393225+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 56.4,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000162469"
           },
           "detected_discrepancies": []
         },
@@ -2265,44 +2360,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000134255",
-          "source": "https://www.isoladeitesori.it/prodotto/doggyebag-i-morbidosi-con-salmone-snack-cane-90-gr/000134255.html",
-          "checked_at": "2026-11-14T12:58:59.393225+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 2.9,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000134255"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000180010",
-          "source": "https://www.isoladeitesori.it/prodotto/camillo-tosatrice-profy-clipper-35w/000180010.html",
-          "checked_at": "2026-11-14T09:16:20.374188+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 129.9,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000180010"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "isola-dei-tesori:000115594",
           "source": "https://www.isoladeitesori.it/prodotto/trixie-ciotola-in-ceramica-tonda-per-piccoli-roditori/000115594.html",
           "checked_at": "2026-11-15T01:15:39.814452+00:00",
@@ -2322,65 +2379,8 @@
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000169238",
-          "source": "https://www.isoladeitesori.it/prodotto/juwel-multilux-led-14w-700-mm-2-pz/000169238.html",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 152.9,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000169238"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000181686",
-          "source": "https://www.isoladeitesori.it/prodotto/biokat%27s-micro-bianco-fresh-6lt-lettiera-per-gatti-/000181686.html",
-          "checked_at": "2026-11-14T18:52:13.698727+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 11.29,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000181686"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000175001",
-          "source": "https://www.isoladeitesori.it/prodotto/camon-orme-naturali-shampoo-all%27argilla-verde-200-ml/000175001.html",
-          "checked_at": "2026-11-14T18:17:54.146720+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 12.19,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000175001"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000148010",
-          "source": "https://www.isoladeitesori.it/prodotto/candioli-bolo-via-pasta-50-gr/000148010.html",
+          "id": "isola-dei-tesori:000115618",
+          "source": "https://www.isoladeitesori.it/prodotto/camon-gioco-palla-da-baseball-in-tpr-con-squeacker-per-cani--8cm/000115618.html",
           "checked_at": "2026-11-14T09:16:20.374188+00:00",
           "status": "verified",
           "compared": [
@@ -2390,17 +2390,17 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 14.49,
+            "price": 5.89,
             "available": true,
             "gtin": "",
-            "exact_product": "000148010"
+            "exact_product": "000115618"
           },
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000162469",
-          "source": "https://www.isoladeitesori.it/prodotto/petup-brandina-telo-blu-60x100-cm/000162469.html",
-          "checked_at": "2026-11-14T12:58:59.393225+00:00",
+          "id": "isola-dei-tesori:000155485",
+          "source": "https://www.isoladeitesori.it/prodotto/trixie-pettorina-active-color-petrolio-tg-m/000155485.html",
+          "checked_at": "2026-11-15T13:55:53.724271+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -2409,10 +2409,10 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 56.4,
+            "price": 45.49,
             "available": true,
             "gtin": "",
-            "exact_product": "000162469"
+            "exact_product": "000155485"
           },
           "detected_discrepancies": []
         },
@@ -2455,8 +2455,27 @@
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000115618",
-          "source": "https://www.isoladeitesori.it/prodotto/camon-gioco-palla-da-baseball-in-tpr-con-squeacker-per-cani--8cm/000115618.html",
+          "id": "isola-dei-tesori:000175001",
+          "source": "https://www.isoladeitesori.it/prodotto/camon-orme-naturali-shampoo-all%27argilla-verde-200-ml/000175001.html",
+          "checked_at": "2026-11-14T18:17:54.146720+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 12.19,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000175001"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000180010",
+          "source": "https://www.isoladeitesori.it/prodotto/camillo-tosatrice-profy-clipper-35w/000180010.html",
           "checked_at": "2026-11-14T09:16:20.374188+00:00",
           "status": "verified",
           "compared": [
@@ -2466,67 +2485,10 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 5.89,
+            "price": 129.9,
             "available": true,
             "gtin": "",
-            "exact_product": "000115618"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000155492",
-          "source": "https://www.isoladeitesori.it/prodotto/trixie-pettorina-active-color-vinaccia-tg-l/000155492.html",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 58.5,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000155492"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000155485",
-          "source": "https://www.isoladeitesori.it/prodotto/trixie-pettorina-active-color-petrolio-tg-m/000155485.html",
-          "checked_at": "2026-11-15T13:55:53.724271+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 45.49,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000155485"
-          },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "isola-dei-tesori:000152364",
-          "source": "https://www.isoladeitesori.it/prodotto/trixie-pettorina-per-conigli-nani/000152364.html",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 12.59,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000152364"
+            "exact_product": "000180010"
           },
           "detected_discrepancies": []
         },
@@ -2550,25 +2512,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000138546",
-          "source": "https://www.isoladeitesori.it/prodotto/whimzees-ricebone-6%2B3-pz/000138546.html",
-          "checked_at": "2026-11-15T13:55:53.724271+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 16.99,
-            "available": true,
-            "gtin": "",
-            "exact_product": "000138546"
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "isola-dei-tesori:000112310",
           "source": "https://www.isoladeitesori.it/prodotto/sera-pond-flakes-10-lt/000112310.html",
           "checked_at": "2026-11-15T01:15:39.814452+00:00",
@@ -2588,9 +2531,9 @@
           "detected_discrepancies": []
         },
         {
-          "id": "isola-dei-tesori:000138869",
-          "source": "https://www.isoladeitesori.it/prodotto/gimdog-charlies-meaty-mix-snack-per-cani-pollo-e-agnello-70-gr/000138869.html",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
+          "id": "isola-dei-tesori:000134255",
+          "source": "https://www.isoladeitesori.it/prodotto/doggyebag-i-morbidosi-con-salmone-snack-cane-90-gr/000134255.html",
+          "checked_at": "2026-11-14T12:58:59.393225+00:00",
           "status": "verified",
           "compared": [
             "price",
@@ -2599,15 +2542,72 @@
           "discrepancies": [],
           "reason": null,
           "evidence": {
-            "price": 4.59,
+            "price": 2.9,
             "available": true,
             "gtin": "",
-            "exact_product": "000138869"
+            "exact_product": "000134255"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000138546",
+          "source": "https://www.isoladeitesori.it/prodotto/whimzees-ricebone-6%2B3-pz/000138546.html",
+          "checked_at": "2026-11-15T13:55:53.724271+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 16.99,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000138546"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000185352",
+          "source": "https://www.isoladeitesori.it/prodotto/sera-xs-feeder/000185352.html",
+          "checked_at": "2026-11-14T09:16:20.374188+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 48.99,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000185352"
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "isola-dei-tesori:000181686",
+          "source": "https://www.isoladeitesori.it/prodotto/biokat%27s-micro-bianco-fresh-6lt-lettiera-per-gatti-/000181686.html",
+          "checked_at": "2026-11-14T18:52:13.698727+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 11.29,
+            "available": true,
+            "gtin": "",
+            "exact_product": "000181686"
           },
           "detected_discrepancies": []
         }
       ],
-      "sample_verified": 28,
+      "sample_verified": 26,
       "sample_inconclusive": 0,
       "sample_discrepancies": 3
     },
@@ -2616,9 +2616,9 @@
       "source_status": "ok",
       "offers": 1277,
       "available": 798,
-      "with_valid_gtin": 147,
-      "with_net_weight": 147,
-      "quantity_unverified": 1130,
+      "with_valid_gtin": 136,
+      "with_net_weight": 136,
+      "quantity_unverified": 1141,
       "field_issues": {},
       "page_verifications": [
         {
@@ -2642,28 +2642,6 @@
             "variant_label": "Sacco da 12 kg",
             "quantity_verified": true
           },
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:2866",
-          "source": "https://www.pacopetshop.it/it/flexi/2866-flexi-new-classic-guinzaglio-avvolgibile-in-fettuccia.htm",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
-          "id": "paco:2034",
-          "source": "https://www.pacopetshop.it/it/fish4dogs/2034-superior-adult.htm",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
           "detected_discrepancies": []
         },
         {
@@ -2710,6 +2688,29 @@
           "discrepancies": [],
           "reason": "selected_pack_not_bound_to_feed_barcode",
           "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:87",
+          "source": "https://www.pacopetshop.it/it/royal-canin-v-diet/87-royal-canin-veterinary-diet-renal-crocchette-gatto.htm",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 61.24,
+            "available": false,
+            "gtin": "03182550711012",
+            "exact_product": "87",
+            "net_weight_kg": 4.0,
+            "variant_label": "Sacco da 4 kg",
+            "quantity_verified": true
+          },
           "detected_discrepancies": []
         },
         {
@@ -2780,6 +2781,17 @@
           "detected_discrepancies": []
         },
         {
+          "id": "paco:3129",
+          "source": "https://www.pacopetshop.it/it/farmina-vet-life/3129-farmina-vet-life-gastrointestinal-cibo-umido-per-cani.htm",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
           "id": "paco:3134",
           "source": "https://www.pacopetshop.it/it/farmina-vet-life/3134-farmina-vet-life-gastrointestinal-cibo-umido-per-gatti.htm",
           "checked_at": "2026-11-14T12:58:59.393225+00:00",
@@ -2836,6 +2848,17 @@
           "detected_discrepancies": []
         },
         {
+          "id": "paco:5167",
+          "source": "https://www.pacopetshop.it/it/leonardo/5167-leonardo-drink-bustine-per-gatti.htm",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "inconclusive",
+          "compared": [],
+          "discrepancies": [],
+          "reason": "selected_pack_not_bound_to_feed_barcode",
+          "evidence": {},
+          "detected_discrepancies": []
+        },
+        {
           "id": "paco:5923",
           "source": "https://www.pacopetshop.it/it/beaphar/5923-beaphar-lactol-latte-per-gattini.htm",
           "checked_at": "2026-11-15T13:55:53.724271+00:00",
@@ -2854,6 +2877,29 @@
             "exact_product": "5923",
             "net_weight_kg": 0.25,
             "variant_label": "Barattolo da 250 gr",
+            "quantity_verified": true
+          },
+          "detected_discrepancies": []
+        },
+        {
+          "id": "paco:5924",
+          "source": "https://www.pacopetshop.it/it/beaphar/5924-beaphar-lactol-puppy-milk-latte-per-cuccioli.htm",
+          "checked_at": "2026-11-15T19:38:38.231472+00:00",
+          "status": "verified",
+          "compared": [
+            "price",
+            "available",
+            "gtin"
+          ],
+          "discrepancies": [],
+          "reason": null,
+          "evidence": {
+            "price": 18.39,
+            "available": false,
+            "gtin": "08711231151875",
+            "exact_product": "5924",
+            "net_weight_kg": 0.5,
+            "variant_label": "Confezione da 500 gr",
             "quantity_verified": true
           },
           "detected_discrepancies": []
@@ -2927,29 +2973,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "paco:5056",
-          "source": "https://www.pacopetshop.it/it/primordial/5056-primordial-crocchette-grain-free-pollo-e-pesce-per-cani-cuccioli.htm",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "verified",
-          "compared": [
-            "price",
-            "available",
-            "gtin"
-          ],
-          "discrepancies": [],
-          "reason": null,
-          "evidence": {
-            "price": 61.9,
-            "available": false,
-            "gtin": "08020997011041",
-            "exact_product": "5056",
-            "net_weight_kg": 12.0,
-            "variant_label": "Sacco da 12 kg",
-            "quantity_verified": true
-          },
-          "detected_discrepancies": []
-        },
-        {
           "id": "paco:5289",
           "source": "https://www.pacopetshop.it/it/the-red-oak/5289-the-red-oak-light-trota-e-salmone-grain-free-per-cani.htm",
           "checked_at": "2026-11-15T13:55:53.724271+00:00",
@@ -2999,17 +3022,6 @@
           "detected_discrepancies": []
         },
         {
-          "id": "paco:6264",
-          "source": "https://www.pacopetshop.it/it/best-friend/6264-best-friend-pistop-tappetini-assorbenti-per-cani.htm",
-          "checked_at": "2026-11-14T07:09:32.766257+00:00",
-          "status": "inconclusive",
-          "compared": [],
-          "discrepancies": [],
-          "reason": "selected_pack_not_bound_to_feed_barcode",
-          "evidence": {},
-          "detected_discrepancies": []
-        },
-        {
           "id": "paco:6277",
           "source": "https://www.pacopetshop.it/it/best-friend/6277-best-friend-lettiera-per-gatti-al-mais-agglometante.htm",
           "checked_at": "2026-11-14T18:52:13.698727+00:00",
@@ -3030,12 +3042,201 @@
           "detected_discrepancies": []
         }
       ],
-      "sample_verified": 10,
-      "sample_inconclusive": 16,
+      "sample_verified": 11,
+      "sample_inconclusive": 15,
       "sample_discrepancies": 1
     }
   ],
   "repairs": [
+    {
+      "id": "bauzaar:56835245867333",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/edgard-cooper-cat-adult-grain-free-salmone.js"
+    },
+    {
+      "id": "bauzaar:56820098892101",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/regal-lean-dog-recipe-tacchino-e-riso.js"
+    },
+    {
+      "id": "bauzaar:56820098695493",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/regal-sensi-bites-recipe-tacchino-e-riso.js"
+    },
+    {
+      "id": "bauzaar:56820265517381",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/oxbow-western-timothy.js"
+    },
+    {
+      "id": "bauzaar:56835245965637",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/edgard-cooper-cat-kitten-grain-free-anatra-e-pollo.js"
+    },
+    {
+      "id": "bauzaar:56961387299141",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/croci-fieno-ortica-e-calendula.js"
+    },
+    {
+      "id": "bauzaar:56961454833989",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/gimbi-trucioli-di-legno.js"
+    },
+    {
+      "id": "bauzaar:56961454866757",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/gimbi-trucioli-di-legno.js"
+    },
+    {
+      "id": "bauzaar:56820265550149",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/oxbow-western-timothy.js"
+    },
+    {
+      "id": "bauzaar:56961387364677",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/croci-fieno-rosa-canina-e-menta.js"
+    },
+    {
+      "id": "bauzaar:56961387430213",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/croci-fieno-tarassacco-e-camomilla.js"
+    },
+    {
+      "id": "bauzaar:56961772650821",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lindocat-natural-white.js"
+    },
+    {
+      "id": "bauzaar:56961527021893",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/hari-tropimix-cockatiels-and-lovebirds.js"
+    },
+    {
+      "id": "bauzaar:56961166115141",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/cat-e-rina-lettiera-cat-igienica.js"
+    },
+    {
+      "id": "bauzaar:58411840405829",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/versele-laga-morbidovo-pastoncino-morbido-giallo.js"
+    },
+    {
+      "id": "bauzaar:56820096368965",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/versele-laga-morbidovo-pastoncino-morbido-giallo.js"
+    },
+    {
+      "id": "bauzaar:56820265681221",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/oxbow-orchard-grass-hay.js"
+    },
+    {
+      "id": "bauzaar:56962148008261",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/versele-laga-cubetto.js"
+    },
+    {
+      "id": "bauzaar:56961250853189",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/ever-clean-unscented-extra-strong-clumping.js"
+    },
+    {
+      "id": "bauzaar:56819870269765",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/mangime-per-tartarughe-d-acqua-dolce-tarta-gammarus-aqualovers.js"
+    },
+    {
+      "id": "bauzaar:56820172882245",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/natural-code-lettiera-bentonite.js"
+    },
+    {
+      "id": "bauzaar:58411842502981",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lindocat-crystal.js"
+    },
+    {
+      "id": "bauzaar:56961772486981",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lindocat-crystal.js"
+    },
+    {
+      "id": "bauzaar:56961250722117",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/ever-clean-scented-extra-strong-clumping.js"
+    },
+    {
+      "id": "bauzaar:56819869548869",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/mangime-per-tartarughe-d-acqua-dolce-tarta-shrimps-big-aqualovers.js"
+    },
+    {
+      "id": "bauzaar:56961711800645",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lettiera-catsan.js"
+    },
+    {
+      "id": "bauzaar:56961769963845",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lindocat-advanced-green.js"
+    },
     {
       "id": "bauzaar:56961774223685",
       "fields": [
@@ -3051,18 +3252,11 @@
       "source": "https://www.bauzaar.it/products/biokat-s-ecolight-lettiera.js"
     },
     {
-      "id": "bauzaar:56961717272901",
+      "id": "bauzaar:56962169798981",
       "fields": [
         "weight_kg"
       ],
-      "source": "https://www.bauzaar.it/products/lettiera-igienica-agglomerante-profumata-bluefresh-petup.js"
-    },
-    {
-      "id": "bauzaar:56961770225989",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lindocat-advanced-super-premium-multi-cat-lettiera-agglomerante.js"
+      "source": "https://www.bauzaar.it/products/yora-superfood-crocchette-a-base-di-insetti-cat-adult.js"
     },
     {
       "id": "bauzaar:56961706066245",
@@ -3072,32 +3266,11 @@
       "source": "https://www.bauzaar.it/products/lettiera-agglomerante-con-carbone-attivo-catsan-active-fresh.js"
     },
     {
-      "id": "bauzaar:56961769963845",
+      "id": "bauzaar:56961770225989",
       "fields": [
         "weight_kg"
       ],
-      "source": "https://www.bauzaar.it/products/lindocat-advanced-green.js"
-    },
-    {
-      "id": "bauzaar:56962169798981",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/yora-superfood-crocchette-a-base-di-insetti-cat-adult.js"
-    },
-    {
-      "id": "bauzaar:56820099055941",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/regal-ocean-recipe-salmone.js"
-    },
-    {
-      "id": "bauzaar:56961711800645",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lettiera-catsan.js"
+      "source": "https://www.bauzaar.it/products/lindocat-advanced-super-premium-multi-cat-lettiera-agglomerante.js"
     },
     {
       "id": "bauzaar:56961985708357",
@@ -3107,6 +3280,48 @@
       "source": "https://www.bauzaar.it/products/oxbow-critical-care-herbivore-1-bustina-36-gr.js"
     },
     {
+      "id": "bauzaar:56961772749125",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lindocat-prestige.js"
+    },
+    {
+      "id": "bauzaar:56961772552517",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lindocat-double-action.js"
+    },
+    {
+      "id": "bauzaar:56961143636293",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/biokat-s-ecolight-extra-lettiera.js"
+    },
+    {
+      "id": "bauzaar:56820048429381",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js"
+    },
+    {
+      "id": "bauzaar:56961717272901",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lettiera-igienica-agglomerante-profumata-bluefresh-petup.js"
+    },
+    {
+      "id": "bauzaar:56820099055941",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/regal-ocean-recipe-salmone.js"
+    },
+    {
       "id": "bauzaar:56961986855237",
       "fields": [
         "weight_kg"
@@ -3114,207 +3329,11 @@
       "source": "https://www.bauzaar.it/products/oxbow-hay-blends.js"
     },
     {
-      "id": "bauzaar:58411840405829",
+      "id": "bauzaar:56961985544517",
       "fields": [
         "weight_kg"
       ],
-      "source": "https://www.bauzaar.it/products/versele-laga-morbidovo-pastoncino-morbido-giallo.js"
-    },
-    {
-      "id": "bauzaar:56961527021893",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/hari-tropimix-cockatiels-and-lovebirds.js"
-    },
-    {
-      "id": "bauzaar:56961454833989",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/gimbi-trucioli-di-legno.js"
-    },
-    {
-      "id": "bauzaar:56820098892101",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/regal-lean-dog-recipe-tacchino-e-riso.js"
-    },
-    {
-      "id": "bauzaar:56820265550149",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/oxbow-western-timothy.js"
-    },
-    {
-      "id": "bauzaar:56820096368965",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/versele-laga-morbidovo-pastoncino-morbido-giallo.js"
-    },
-    {
-      "id": "bauzaar:56961772650821",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lindocat-natural-white.js"
-    },
-    {
-      "id": "bauzaar:56961454866757",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/gimbi-trucioli-di-legno.js"
-    },
-    {
-      "id": "bauzaar:56961387364677",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/croci-fieno-rosa-canina-e-menta.js"
-    },
-    {
-      "id": "bauzaar:56820265681221",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/oxbow-orchard-grass-hay.js"
-    },
-    {
-      "id": "bauzaar:56961772486981",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lindocat-crystal.js"
-    },
-    {
-      "id": "bauzaar:56961250951493",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/ever-clean-multiple-cat.js"
-    },
-    {
-      "id": "bauzaar:56961387299141",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/croci-fieno-ortica-e-calendula.js"
-    },
-    {
-      "id": "bauzaar:56820265517381",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/oxbow-western-timothy.js"
-    },
-    {
-      "id": "bauzaar:56961387430213",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/croci-fieno-tarassacco-e-camomilla.js"
-    },
-    {
-      "id": "bauzaar:56835245867333",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/edgard-cooper-cat-adult-grain-free-salmone.js"
-    },
-    {
-      "id": "bauzaar:56835245965637",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/edgard-cooper-cat-kitten-grain-free-anatra-e-pollo.js"
-    },
-    {
-      "id": "bauzaar:56820098695493",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/regal-sensi-bites-recipe-tacchino-e-riso.js"
-    },
-    {
-      "id": "bauzaar:56820259127621",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/oxbow-organic-maedow-hay.js"
-    },
-    {
-      "id": "bauzaar:56961250853189",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/ever-clean-unscented-extra-strong-clumping.js"
-    },
-    {
-      "id": "bauzaar:58411842502981",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lindocat-crystal.js"
-    },
-    {
-      "id": "bauzaar:56961719664965",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lettiera-naturale-natural-derma-pet.js"
-    },
-    {
-      "id": "bauzaar:56961715962181",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lettiera-eco-clean.js"
-    },
-    {
-      "id": "bauzaar:56820172882245",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/natural-code-lettiera-bentonite.js"
-    },
-    {
-      "id": "bauzaar:56962031976773",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/piccoli-amici-pate-per-uccelli-insettivori.js"
-    },
-    {
-      "id": "bauzaar:56962148008261",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/versele-laga-cubetto.js"
-    },
-    {
-      "id": "bauzaar:56819869548869",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/mangime-per-tartarughe-d-acqua-dolce-tarta-shrimps-big-aqualovers.js"
-    },
-    {
-      "id": "bauzaar:56819870269765",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/mangime-per-tartarughe-d-acqua-dolce-tarta-gammarus-aqualovers.js"
-    },
-    {
-      "id": "bauzaar:56961713111365",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lettiera-easy-clean.js"
+      "source": "https://www.bauzaar.it/products/oxbow-alfalfa-hay.js"
     },
     {
       "id": "bauzaar:58411843322181",
@@ -3324,11 +3343,32 @@
       "source": "https://www.bauzaar.it/products/natural-code-lettiera-bentonite.js"
     },
     {
-      "id": "bauzaar:56961166115141",
+      "id": "bauzaar:56961250951493",
       "fields": [
         "weight_kg"
       ],
-      "source": "https://www.bauzaar.it/products/cat-e-rina-lettiera-cat-igienica.js"
+      "source": "https://www.bauzaar.it/products/ever-clean-multiple-cat.js"
+    },
+    {
+      "id": "bauzaar:56961715962181",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lettiera-eco-clean.js"
+    },
+    {
+      "id": "bauzaar:56961719664965",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lettiera-naturale-natural-derma-pet.js"
+    },
+    {
+      "id": "bauzaar:56962031976773",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/piccoli-amici-pate-per-uccelli-insettivori.js"
     },
     {
       "id": "bauzaar:58411845845317",
@@ -3345,11 +3385,53 @@
       "source": "https://www.bauzaar.it/products/lettiera-naturale-natural-derma-pet.js"
     },
     {
-      "id": "bauzaar:56961250722117",
+      "id": "bauzaar:56820259127621",
       "fields": [
         "weight_kg"
       ],
-      "source": "https://www.bauzaar.it/products/ever-clean-scented-extra-strong-clumping.js"
+      "source": "https://www.bauzaar.it/products/oxbow-organic-maedow-hay.js"
+    },
+    {
+      "id": "bauzaar:56820099252549",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/regal-pastureland-recipe-agnello.js"
+    },
+    {
+      "id": "bauzaar:56961717829957",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lettiera-igienica-bianca-gattiera-petup.js"
+    },
+    {
+      "id": "bauzaar:56961716060485",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/lettiera-ecologica-gattiera-petup.js"
+    },
+    {
+      "id": "bauzaar:56961165132101",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js"
+    },
+    {
+      "id": "bauzaar:56961165066565",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js"
+    },
+    {
+      "id": "bauzaar:56820048396613",
+      "fields": [
+        "weight_kg"
+      ],
+      "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js"
     },
     {
       "id": "bauzaar:56820174455109",
@@ -3359,28 +3441,14 @@
       "source": "https://www.bauzaar.it/products/purina-veterinary-diets-ha-cat.js"
     },
     {
-      "id": "bauzaar:56961985544517",
+      "id": "bauzaar:56961713111365",
       "fields": [
         "weight_kg"
       ],
-      "source": "https://www.bauzaar.it/products/oxbow-alfalfa-hay.js"
-    },
-    {
-      "id": "bauzaar:58411840471365",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lindocat-advanced-clumping-plus-10-l.js"
+      "source": "https://www.bauzaar.it/products/lettiera-easy-clean.js"
     },
     {
       "id": "bauzaar:56961717797189",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lettiera-igienica-bianca-gattiera-petup.js"
-    },
-    {
-      "id": "bauzaar:56961717829957",
       "fields": [
         "weight_kg"
       ],
@@ -3394,81 +3462,11 @@
       "source": "https://www.bauzaar.it/products/lindocat-advanced-lettiera-multicat.js"
     },
     {
-      "id": "bauzaar:56820099252549",
+      "id": "bauzaar:58411840471365",
       "fields": [
         "weight_kg"
       ],
-      "source": "https://www.bauzaar.it/products/regal-pastureland-recipe-agnello.js"
-    },
-    {
-      "id": "bauzaar:56961143636293",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/biokat-s-ecolight-extra-lettiera.js"
-    },
-    {
-      "id": "bauzaar:56820048396613",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js"
-    },
-    {
-      "id": "bauzaar:56961165132101",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js"
-    },
-    {
-      "id": "bauzaar:56961772749125",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lindocat-prestige.js"
-    },
-    {
-      "id": "bauzaar:56961716060485",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lettiera-ecologica-gattiera-petup.js"
-    },
-    {
-      "id": "bauzaar:56961165066565",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js"
-    },
-    {
-      "id": "bauzaar:56961772552517",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/lindocat-double-action.js"
-    },
-    {
-      "id": "bauzaar:56820048429381",
-      "fields": [
-        "weight_kg"
-      ],
-      "source": "https://www.bauzaar.it/products/cat-rina-lettiera-al-tofu-con-carboni-attivi.js"
-    },
-    {
-      "id": "webpet:52569035374932",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpetfriends-nappy-slips-pannolini-assorbenti-a-fascia-per-cani-maschi-conf-da-12-pz.js"
-    },
-    {
-      "id": "webpet:53397813985620",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpetfriends-sofy-cuccia-in-tessuto-extramorbida.js"
+      "source": "https://www.bauzaar.it/products/lindocat-advanced-clumping-plus-10-l.js"
     },
     {
       "id": "webpet:53980748120404",
@@ -3490,13 +3488,6 @@
         "gtin"
       ],
       "source": "https://www.webpet.it/products/aqpetfriends-catty-pure-lettiera-in-silicio-per-gatti-profumazione-talco-5-l.js"
-    },
-    {
-      "id": "webpet:53351212712276",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/flamingo-cappotto-per-cane-sergio-nero-in-cuoio-sintetico-stile-chiodo.js"
     },
     {
       "id": "webpet:52809529753940",
@@ -3534,13 +3525,6 @@
       "source": "https://www.webpet.it/products/flamingo-collare-protettivo-per-cani-con-chiusura-a-strappo.js"
     },
     {
-      "id": "webpet:52569494454612",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpet-tortuga-40-tartarughiera-in-vetro-con-coperchio-e-isola-per-tartarughe-dacqua-16l.js"
-    },
-    {
       "id": "webpet:52569391300948",
       "fields": [
         "gtin"
@@ -3562,18 +3546,11 @@
       "source": "https://www.webpet.it/products/aquamedic-uvc-max-lampade-di-ricambio-per-sterilizzatrici-helix-max-2-0.js"
     },
     {
-      "id": "webpet:52569359122772",
+      "id": "webpet:52569364103508",
       "fields": [
         "gtin"
       ],
-      "source": "https://www.webpet.it/products/aqpet-filter-line-3d-mat-alta-porosit.js"
-    },
-    {
-      "id": "webpet:52569354207572",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpet-ricambio-cartuccia-apribile-impianto-osmosi-a-bicchiere.js"
+      "source": "https://www.webpet.it/products/aqpet-filter-line-phosphate-remover-materiale-filtrante-per-acquari.js"
     },
     {
       "id": "webpet:52569346441556",
@@ -3581,13 +3558,6 @@
         "gtin"
       ],
       "source": "https://www.webpet.it/products/aqpet-osmosy4-pro-impianto-osmosi-4-stadi-a-bicchiere.js"
-    },
-    {
-      "id": "webpet:52569339887956",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpet-zen-system-co2-impianto-completo-per-acquari-dacqua-dolce.js"
     },
     {
       "id": "webpet:52569334743380",
@@ -3625,25 +3595,11 @@
       "source": "https://www.webpet.it/products/aqpet-ricambi-spugne-filtro-interno-bio-box-2-pz-per-acquari-simply.js"
     },
     {
-      "id": "webpet:52569295225172",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpet-ricambio-girante-angel-pro-500.js"
-    },
-    {
       "id": "webpet:52569275367764",
       "fields": [
         "gtin"
       ],
       "source": "https://www.webpet.it/products/aqpet-zen-bonsai-octopus-legno-naturale-per-arredo-in-acquario.js"
-    },
-    {
-      "id": "webpet:52569272910164",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpet-zen-stone-stalagmite-roccia-naturale-per-arredo-in-acquario.js"
     },
     {
       "id": "webpet:52569272222036",
@@ -3667,13 +3623,6 @@
       "source": "https://www.webpet.it/products/aqpet-zen-stone-black-forest-roccia-naturale-per-arredo-in-acquario.js"
     },
     {
-      "id": "webpet:52569269141844",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpet-zen-wood-azalea-dragon-legno-naturale-per-arredo-in-acquario.js"
-    },
-    {
       "id": "webpet:52569259671892",
       "fields": [
         "gtin"
@@ -3695,32 +3644,11 @@
       "source": "https://www.webpet.it/products/aqpet-decorart-decorazioni-per-acquari-mod-indian-divine.js"
     },
     {
-      "id": "webpet:52569255838036",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpet-decorart-decorazioni-per-acquari-mod-black-roots.js"
-    },
-    {
       "id": "webpet:52569202753876",
       "fields": [
         "gtin"
       ],
       "source": "https://www.webpet.it/products/aqpet-ricambio-alimentatore-aqclean.js"
-    },
-    {
-      "id": "webpet:52569182634324",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aquamedic-frag-board-piastra-di-sostegno-per-coralli.js"
-    },
-    {
-      "id": "webpet:52569177424212",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpet-tubo-nero-in-silicone-anti-alghe.js"
     },
     {
       "id": "webpet:52569177260372",
@@ -3791,13 +3719,6 @@
         "gtin"
       ],
       "source": "https://www.webpet.it/products/aqpetfriends-chalet-medium-cuccia-in-plastica-smontabile-per-cani-di-taglia-media.js"
-    },
-    {
-      "id": "webpet:52569104187732",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpetfriends-billy-tappetino-auto-riscaldante-bianco.js"
     },
     {
       "id": "webpet:52569084985684",
@@ -3912,13 +3833,6 @@
       "source": "https://www.webpet.it/products/dashi-donut-pettorina-frontale-per-cani.js"
     },
     {
-      "id": "webpet:52569050087764",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/dashi-dogtanian-lovebirds-guinzaglio-per-cani.js"
-    },
-    {
       "id": "webpet:52569049825620",
       "fields": [
         "gtin"
@@ -3989,13 +3903,6 @@
       "source": "https://www.webpet.it/products/aqpetfriends-nappy-panties-pannolini-assorbenti-a-mutandina-per-cani-conf-da-10-pz.js"
     },
     {
-      "id": "webpet:52569035047252",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpetfriends-nappy-panties-pannolini-assorbenti-a-mutandina-per-cani-conf-da-10-pz.js"
-    },
-    {
       "id": "webpet:52569031147860",
       "fields": [
         "gtin"
@@ -4008,6 +3915,13 @@
         "gtin"
       ],
       "source": "https://www.webpet.it/products/aqpetfriends-cleanup-case-dispenser-per-sacchetti-igienici-in-silicone.js"
+    },
+    {
+      "id": "webpet:52569022366036",
+      "fields": [
+        "gtin"
+      ],
+      "source": "https://www.webpet.it/products/aqpetfriends-cleanup-sacchetti-igienici-per-cani.js"
     },
     {
       "id": "webpet:52569004900692",
@@ -4052,13 +3966,6 @@
       "source": "https://www.webpet.it/products/aqpetfriends-giochi-per-cani-latex-animali-di-gomma-a-palla-con-effetto-sonoro.js"
     },
     {
-      "id": "webpet:52568986714452",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpetfriends-giochi-per-cani-smarty-ring-in-corda-con-pallina.js"
-    },
-    {
       "id": "webpet:52568986190164",
       "fields": [
         "gtin"
@@ -4085,13 +3992,6 @@
         "gtin"
       ],
       "source": "https://www.webpet.it/products/8in1-delights-pro-dental-bones-osso-dentali-da-masticare-al-pollo-per-cani.js"
-    },
-    {
-      "id": "webpet:52568907153748",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.webpet.it/products/aqpetfriends-mexico-tiragraffi-in-sisal-per-gatti-75cm-beige-verde.js"
     },
     {
       "id": "webpet:52568898961748",
@@ -4157,13 +4057,6 @@
       "source": "https://www.animaliapet.eu/products/gimborn-gimdog-sport-stick-the-mono-manzo-12g-snack-per-cani.js"
     },
     {
-      "id": "animaliapet:50323557744983",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/miamor-vital-drink-kitten-pollo-135ml-lattina-gattini.js"
-    },
-    {
       "id": "animaliapet:46976639730007",
       "fields": [
         "gtin"
@@ -4211,13 +4104,6 @@
         "gtin"
       ],
       "source": "https://www.animaliapet.eu/products/farmina-n-d-quinoa-skin-coat-cervo-2-5kg-crocchette-cani-mini-adult.js"
-    },
-    {
-      "id": "animaliapet:52675815899479",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/silpet-best-price-tappetini-assorbenti-60x60cm-10pz-tappetini-igienici-per-cani.js"
     },
     {
       "id": "animaliapet:51962676576599",
@@ -4283,25 +4169,11 @@
       "source": "https://www.animaliapet.eu/products/trixie-pettorina-morbida-con-guinzaglio-per-cuccioli-rossa-33-47cm-per-cani.js"
     },
     {
-      "id": "animaliapet:50640899834199",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/ferribiella-tutina-impermeabile-fuss-in-the-rain-color-fucsia-mis-30cm-per-cani.js"
-    },
-    {
       "id": "animaliapet:50442568696151",
       "fields": [
         "gtin"
       ],
       "source": "https://www.animaliapet.eu/products/airyvest-piumino-revers-arancio-lime-l65-cm-per-cani.js"
-    },
-    {
-      "id": "animaliapet:50322428723543",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/kattovit-sensitive-pate-pollo-85g-bustina-gatti.js"
     },
     {
       "id": "animaliapet:50227885474135",
@@ -4367,13 +4239,6 @@
       "source": "https://www.animaliapet.eu/products/trixie-premium-guinzaglio-vinaccia-xs-s-1-2m-15mm.js"
     },
     {
-      "id": "animaliapet:48748912771415",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/beviqui-beverino-da-viaggio-per-cani-e-gatti.js"
-    },
-    {
       "id": "animaliapet:48706830041431",
       "fields": [
         "gtin"
@@ -4409,13 +4274,6 @@
       "source": "https://www.animaliapet.eu/products/fofos-sos-cappottino-fleece-cm-60-per-cani.js"
     },
     {
-      "id": "animaliapet:46976636551511",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/trixie-pupazzo-di-neve-17cm-peluche-per-cani.js"
-    },
-    {
       "id": "animaliapet:46976723288407",
       "fields": [
         "gtin"
@@ -4437,39 +4295,11 @@
       "source": "https://www.animaliapet.eu/products/mordo-choco-bones-vaniglia-120g-snack-cani.js"
     },
     {
-      "id": "animaliapet:47635746750807",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/colley-ciotola-in-acciaio-bianca-con-zampa-grigia-400ml-per-cani-e-gatti.js"
-    },
-    {
-      "id": "animaliapet:47465003417943",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/trixie-pettorina-stay-tg-m-l-50-75cm-20mm-pettorina-per-cani-antipanico.js"
-    },
-    {
       "id": "animaliapet:47464971698519",
       "fields": [
         "gtin"
       ],
       "source": "https://www.animaliapet.eu/products/trixie-pettorina-stay-tg-xs-s-30-40cm-10mm-pettorina-per-cani-antipanico.js"
-    },
-    {
-      "id": "animaliapet:46976597885271",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/gimborn-natural-solution-shampoo-pelo-bianco-250ml-cani.js"
-    },
-    {
-      "id": "animaliapet:47258952106327",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/trixie-city-style-rombo-in-tpr-con-corda-elastica-18-38cm-gioco-per-cani.js"
     },
     {
       "id": "animaliapet:47234510946647",
@@ -4507,13 +4337,6 @@
       "source": "https://www.animaliapet.eu/products/trixie-sciarpa-di-natale-taglia-l-lunghezza-90cm-cani-e-gatti.js"
     },
     {
-      "id": "animaliapet:46976680624471",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/airyvest-uni-piumino-elastic-revers-blu-nero-s33-cm-per-cani.js"
-    },
-    {
       "id": "animaliapet:46976679346519",
       "fields": [
         "gtin"
@@ -4521,18 +4344,11 @@
       "source": "https://www.animaliapet.eu/products/airyvest-lumi-piumino-revers-verde-blu-s30-cm-per-cani.js"
     },
     {
-      "id": "animaliapet:46976637731159",
+      "id": "animaliapet:46976563347799",
       "fields": [
         "gtin"
       ],
-      "source": "https://www.animaliapet.eu/products/gimborn-gimcat-palline-al-formaggio-10g-snack-per-gatti.js"
-    },
-    {
-      "id": "animaliapet:46976621904215",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/trixie-premium-collare-grigio-xxs-xs-15-25cm-10mm.js"
+      "source": "https://www.animaliapet.eu/products/trixie-premium-guinzaglio-blu-m-l-1m-20mm.js"
     },
     {
       "id": "animaliapet:46976557285719",
@@ -4540,13 +4356,6 @@
         "gtin"
       ],
       "source": "https://www.animaliapet.eu/products/trixie-premium-collare-nero-xs-s-22-35cm-10mm.js"
-    },
-    {
-      "id": "animaliapet:46976555680087",
-      "fields": [
-        "gtin"
-      ],
-      "source": "https://www.animaliapet.eu/products/trixie-premium-pettorina-ad-h-bordeaux-xxs-xs-20-32cm-10mm.js"
     },
     {
       "id": "paco:6426",
@@ -4573,14 +4382,6 @@
       "source": "https://www.pacopetshop.it/it/camon/4434-liscaveg-snack-vegetale-per-cani-.htm"
     },
     {
-      "id": "paco:6427",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/royal-canin/6427-royal-canin-breed-health-nutrition-barboncino-pate-cane.htm"
-    },
-    {
       "id": "paco:5202",
       "fields": [
         "gtin",
@@ -4605,6 +4406,14 @@
       "source": "https://www.pacopetshop.it/it/biokat-s/6138-biokat-s-organic-white-extra-lettiera-naturale-biodegradabile-per-gatti.htm"
     },
     {
+      "id": "paco:87",
+      "fields": [
+        "gtin",
+        "weight_kg"
+      ],
+      "source": "https://www.pacopetshop.it/it/royal-canin-v-diet/87-royal-canin-veterinary-diet-renal-crocchette-gatto.htm"
+    },
+    {
       "id": "paco:1194",
       "fields": [
         "gtin",
@@ -4621,28 +4430,12 @@
       "source": "https://www.pacopetshop.it/it/royal-canin-v-diet/1197-royal-canin-veterinary-diet-renal-umido-cani.htm"
     },
     {
-      "id": "paco:6134",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/schesir/6134-schesir-veterinary-solution-weight-control-umido-per-gatti.htm"
-    },
-    {
       "id": "paco:1034",
       "fields": [
         "gtin",
         "weight_kg"
       ],
       "source": "https://www.pacopetshop.it/it/golden-eagle/1034-golden-eagle-puppy-con-pollo-per-cuccioli.htm"
-    },
-    {
-      "id": "paco:3983",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/camon/3983-bauveg-mini-dentini-snack-vegetali-per-cani.htm"
     },
     {
       "id": "paco:5204",
@@ -4677,30 +4470,6 @@
       "source": "https://www.pacopetshop.it/it/royal-canin-v-diet/6360-royal-canin-veterinary-diet-satiety-weight-management-umido-cani.htm"
     },
     {
-      "id": "paco:2039",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/natural-code/2039-senior-cat-cibo-umido-per-gatti-anziani.htm"
-    },
-    {
-      "id": "paco:6004",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/naturina/6004-naturina-easy-con-pesce-e-riso-cibo-secco-per-cani.htm"
-    },
-    {
-      "id": "paco:231",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/royal-canin/231-royal-canin-breed-health-nutrition-pastore-tedesco-puppy-crocchette-cane.htm"
-    },
-    {
       "id": "paco:4053",
       "fields": [
         "gtin",
@@ -4715,14 +4484,6 @@
         "weight_kg"
       ],
       "source": "https://www.pacopetshop.it/it/prolife/4524-prolife-sterilised-sensitive-maiale-e-riso-per-gatti.htm"
-    },
-    {
-      "id": "paco:6352",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/stuzzy/6352-stuzzy-crocchette-croccanti-con-tonno-per-cani.htm"
     },
     {
       "id": "paco:5061",
@@ -4757,20 +4518,12 @@
       "source": "https://www.pacopetshop.it/it/ownat/5685-ownat-author-grain-free-sterilized-con-pollo-fresco-per-gatti-sterilizzati.htm"
     },
     {
-      "id": "paco:5923",
+      "id": "paco:5924",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/beaphar/5923-beaphar-lactol-latte-per-gattini.htm"
-    },
-    {
-      "id": "paco:5066",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/primordial/5066-primordial-crocchette-grain-free-adult-anatra-e-tacchino-per-gatti.htm"
+      "source": "https://www.pacopetshop.it/it/beaphar/5924-beaphar-lactol-puppy-milk-latte-per-cuccioli.htm"
     },
     {
       "id": "paco:6069",
@@ -4789,20 +4542,12 @@
       "source": "https://www.pacopetshop.it/it/best-friend/6292-best-friend-ener-g-per-cani-snack-naturale-monoproteico.htm"
     },
     {
-      "id": "paco:4629",
+      "id": "paco:5056",
       "fields": [
         "gtin",
         "weight_kg"
       ],
-      "source": "https://www.pacopetshop.it/it/ownat/4629-ownat-just-grain-free-adult-con-salmone-per-cani.htm"
-    },
-    {
-      "id": "paco:5920",
-      "fields": [
-        "gtin",
-        "weight_kg"
-      ],
-      "source": "https://www.pacopetshop.it/it/brit-veterinary-diets/5920-brit-veterinary-diet-sterilised-cibo-umido-per-gatti.htm"
+      "source": "https://www.pacopetshop.it/it/primordial/5056-primordial-crocchette-grain-free-pollo-e-pesce-per-cani-cuccioli.htm"
     },
     {
       "id": "paco:6281",
@@ -4830,11 +4575,79 @@
     }
   ],
   "commercial_suppression": {
-    "checked_at": "2026-11-15T13:55:53.724271+00:00",
+    "checked_at": "2026-11-15T19:38:38.231472+00:00",
     "evidence_max_age_hours": 24,
     "input_offers": 18218,
-    "published_offers": 18214,
+    "published_offers": 18213,
     "withheld": [
+      {
+        "id": "bauzaar:56961508409669",
+        "reasons": [
+          "variant_missing"
+        ],
+        "offer": {
+          "id": "bauzaar:56961508409669",
+          "merchant": "Bauzaar",
+          "merchant_id": "bauzaar",
+          "title": "Guinzaglio Doppio da addestramento in nylon PetUp Nero Lunghezza 2 m Fettuccia 1,8 cm",
+          "variant": "1ct",
+          "feed_unit_pricing_measure": "1ct",
+          "brand": "Petup",
+          "category": "cani > guinzaglieria > guinzagli > addestramento e sport",
+          "price": 14.18,
+          "previous_price": null,
+          "available": true,
+          "url": "https://www.bauzaar.it/products/guinzaglio-da-addestramento-in-nylon-petup?variant=56961508409669",
+          "affiliate_url": "https://tc.tradetracker.net/?c=16143&m=600171&a=518044&r=&u=https%3A%2F%2Fwww.bauzaar.it%2Fproducts%2Fguinzaglio-da-addestramento-in-nylon-petup%3Fvariant%3D56961508409669",
+          "image": "https://cdn.shopify.com/s/files/1/0961/7313/0053/files/Guinzaglio_Doppio_da_addestramento_in_nylon_PetUp_Nero_-_lunghezza_massima_2_metri_x_fettuccia_18_cm_bauzaarit.myshopify.com.webp?v=1775835234",
+          "sku": "",
+          "gtin": "08032611677953",
+          "feed_gtin": "8032611677953",
+          "weight_kg": null,
+          "weight_source": "",
+          "shipping_weight_kg": null,
+          "checked_at": "2026-11-15T19:37:21.551861+00:00",
+          "source_type": "official_feed",
+          "image_source": {
+            "type": "official_feed",
+            "network": "TradeTracker",
+            "campaign_id": 16143,
+            "feed_id": 600171,
+            "url": "https://cdn.shopify.com/s/files/1/0961/7313/0053/files/Guinzaglio_Doppio_da_addestramento_in_nylon_PetUp_Nero_-_lunghezza_massima_2_metri_x_fettuccia_18_cm_bauzaarit.myshopify.com.webp?v=1775835234"
+          },
+          "description_evidence": {
+            "sha256": "120905c89993506838976a03496d1dc08fda6133006892669824c6e56bc13caf",
+            "characters": 3609,
+            "source": "https://www.bauzaar.it/products/guinzaglio-da-addestramento-in-nylon-petup?variant=56961508409669",
+            "checked_at": "2026-11-15T19:37:21.551861+00:00",
+            "scope": "product_description_not_selected_variant"
+          },
+          "gtin_source": "catalog"
+        },
+        "source": "https://www.bauzaar.it/products/guinzaglio-da-addestramento-in-nylon-petup.js",
+        "checked_at": "2026-11-15T18:12:10.202290+00:00",
+        "fingerprint": "a5586ca9f7eaccc97990779b43d5dbcdf72ebf0e2f172d515e9f8e4c8a35c0e3",
+        "evidence": {
+          "exact_variant": "56961508409669",
+          "variant_exists": false,
+          "product_id": "15622234014021",
+          "html_product_id": "15622234014021",
+          "handle": "guinzaglio-da-addestramento-in-nylon-petup",
+          "remaining_variant_ids": [
+            "56961508507973"
+          ],
+          "html_selected_variant_ids": [
+            "56961508507973",
+            "56961508507973"
+          ],
+          "api_url": "https://www.bauzaar.it/products/guinzaglio-da-addestramento-in-nylon-petup.js",
+          "document_url": "https://www.bauzaar.it/products/guinzaglio-da-addestramento-in-nylon-petup?variant=56961508409669",
+          "api_http_status": 200,
+          "document_http_status": 200,
+          "api_sha256": "13d77c258c97727345585560801ce637ef0109bf8c69f68ec129a56f77f89105",
+          "document_sha256": "9d71739e2959b4178ca1fcd86c30e32f5dc6673b845059b2d49ec8206603f1d1"
+        }
+      },
       {
         "id": "isola-dei-tesori:000127282",
         "reasons": [
@@ -4860,7 +4673,7 @@
           "weight_kg": 0.415,
           "weight_source": "explicit_package_label",
           "shipping_weight_kg": null,
-          "checked_at": "2026-11-15T13:54:46.566827+00:00",
+          "checked_at": "2026-11-15T19:37:27.958836+00:00",
           "source_type": "official_feed",
           "image_source": {
             "type": "official_feed",
@@ -4873,13 +4686,13 @@
             "sha256": "c2b8767eb2669e45380a93e42b394f9b9be04fa31483b5e14f6445734e846cb5",
             "characters": 337,
             "source": "https://www.isoladeitesori.it/prodotto/monopro-bocconcini-in-salsa-per-cani-adulti-manzo-415-gr/000127282.html",
-            "checked_at": "2026-11-15T13:54:46.566827+00:00",
+            "checked_at": "2026-11-15T19:37:27.958836+00:00",
             "scope": "product_description_not_selected_variant"
           },
           "gtin_source": ""
         },
         "source": "https://www.isoladeitesori.it/prodotto/monopro-bocconcini-in-salsa-per-cani-adulti-manzo-415-gr/000127282.html",
-        "checked_at": "2026-11-14T18:52:13.698727+00:00",
+        "checked_at": "2026-11-15T19:38:38.231472+00:00",
         "fingerprint": "344b7dd0cf6cd1b383517d941f9dc5f4bf456ff07901b0a42e34cf3ba20dce84",
         "evidence": {
           "price": 3.23,
@@ -4913,7 +4726,7 @@
           "weight_kg": 0.085,
           "weight_source": "explicit_package_label",
           "shipping_weight_kg": null,
-          "checked_at": "2026-11-15T13:54:46.566827+00:00",
+          "checked_at": "2026-11-15T19:37:27.958836+00:00",
           "source_type": "official_feed",
           "image_source": {
             "type": "official_feed",
@@ -4926,13 +4739,13 @@
             "sha256": "918aaaca1160ccfc012de5a836dd30aa27e6ddcd579f9017481cd6d031dfe9ba",
             "characters": 199,
             "source": "https://www.isoladeitesori.it/prodotto/gourmet-gold-tortini-cat-adult-con-tacchino-e-spinaci-85-gr/000503126.html",
-            "checked_at": "2026-11-15T13:54:46.566827+00:00",
+            "checked_at": "2026-11-15T19:37:27.958836+00:00",
             "scope": "product_description_not_selected_variant"
           },
           "gtin_source": "catalog"
         },
         "source": "https://www.isoladeitesori.it/prodotto/gourmet-gold-tortini-cat-adult-con-tacchino-e-spinaci-85-gr/000503126.html",
-        "checked_at": "2026-11-14T18:52:13.698727+00:00",
+        "checked_at": "2026-11-15T19:38:38.231472+00:00",
         "fingerprint": "e855baaeedfa036aa8a86efd3e2a613c269fe5604d0ff5a234ca70402c6b59f1",
         "evidence": {
           "price": 0.66,
@@ -4966,7 +4779,7 @@
           "weight_kg": null,
           "weight_source": "",
           "shipping_weight_kg": null,
-          "checked_at": "2026-11-15T13:54:46.566827+00:00",
+          "checked_at": "2026-11-15T19:37:27.958836+00:00",
           "source_type": "official_feed",
           "image_source": {
             "type": "official_feed",
@@ -5011,14 +4824,14 @@
           "feed_gtin": "0641094146900",
           "weight_kg": null,
           "shipping_weight_kg": null,
-          "checked_at": "2026-11-15T13:54:48.266776+00:00",
+          "checked_at": "2026-11-15T19:37:28.395293+00:00",
           "source_type": "official_feed",
           "quantity_verified": false,
           "description_evidence": {
             "sha256": "6e17992e861f2ce0fb37ad8553ab548c79b8e17a842bd785ef5e181c925ec746",
             "characters": 1470,
             "source": "https://www.pacopetshop.it/it/the-red-oak/5289-the-red-oak-light-trota-e-salmone-grain-free-per-cani.htm",
-            "checked_at": "2026-11-15T13:54:48.266776+00:00",
+            "checked_at": "2026-11-15T19:37:28.395293+00:00",
             "scope": "product_description_not_selected_variant"
           },
           "merchant_promotion": {
@@ -5027,7 +4840,7 @@
             "price_cents": 7990,
             "reference_cents": 8590,
             "source_url": "https://www.pacopetshop.it/it/the-red-oak/5289-the-red-oak-light-trota-e-salmone-grain-free-per-cani.htm",
-            "observed_at": "2026-11-15T13:54:48.266776+00:00",
+            "observed_at": "2026-11-15T19:37:28.395293+00:00",
             "valid_until": null
           },
           "gtin_source": ""
@@ -5046,6 +4859,6 @@
         }
       }
     ],
-    "method": "Only exact-identity price/stock contradictions with matching source and row fingerprint, verified within 24 hours. Raw fields are retained here without rewriting. No Amazon evidence is collected or applied. Expiry or a changed row requires a new check; missing/inconclusive evidence is not a contradiction."
+    "method": "Only exact-identity price/stock contradictions, or API-confirmed missing variants corroborated by the exact main product HTML, with matching source and row fingerprint, verified within 24 hours. Raw fields are retained here without rewriting. No Amazon evidence is collected or applied. Expiry or a changed row requires a new check; uncorroborated absence and inconclusive evidence are not contradictions."
   }
 }

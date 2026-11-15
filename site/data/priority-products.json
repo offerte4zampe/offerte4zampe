@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-15T13:55:10.054373+00:00",
+  "generated_at": "2026-11-15T19:37:50.684024+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 15,
-  "with_third_store_lead": 23,
+  "at_target": 14,
+  "with_third_store_lead": 24,
   "categories": {
     "umido": 113,
     "snack": 60,
@@ -31,6 +31,7 @@
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
     "animaliapet:46976548438359",
+    "animaliapet:46976548995415",
     "animaliapet:46976549028183",
     "animaliapet:46976549847383",
     "animaliapet:46976551944535",
@@ -171,6 +172,7 @@
     "bauzaar:56820207354181",
     "bauzaar:56820207452485",
     "bauzaar:56820207911237",
+    "bauzaar:56820214694213",
     "bauzaar:56820220920133",
     "bauzaar:56820221411653",
     "bauzaar:56820245233989",
@@ -459,6 +461,7 @@
     "paco:3070",
     "paco:3711",
     "paco:3770",
+    "paco:3830",
     "paco:3847",
     "paco:4051",
     "paco:4110",
@@ -613,6 +616,27 @@
       ],
       "candidate_offer_ids": [
         "isola-dei-tesori:000138458"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-50ba42788741a2b0401f",
+      "name": "Farmina N&D Quinoa Feline Urinary Anatra e mirtilli rossi 1,5 kg",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-quinoa-feline-urinary-anatra-e-mirtilli-rossi-1-5-kg-08010276035820-b0401f",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820214694213",
+        "animaliapet:46976548995415"
+      ],
+      "candidate_offer_ids": [
+        "paco:3830"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1052,26 +1076,6 @@
         "isola-dei-tesori:000181339",
         "animaliapet:51332556292439",
         "bauzaar:56961723334981"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-50ba42788741a2b0401f",
-      "name": "Farmina N&D Quinoa Feline Urinary Anatra e mirtilli rossi 1,5 kg",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-quinoa-feline-urinary-anatra-e-mirtilli-rossi-1-5-kg-08010276035820-b0401f",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "bauzaar:56820214694213",
-        "animaliapet:46976548995415",
-        "paco:3830"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -1960,6 +1964,25 @@
       "offer_ids": [
         "paco:5802",
         "bauzaar:56820043776325"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-75dae1b33e8176c90690",
+      "name": "Exclusion Diet Metabolic & Mobility Medium/Large Breed Maiale e Fibre 12 kg",
+      "brand": "Exclusion Diet",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/exclusion-diet-metabolic-mobility-medium-large-breed-maiale-e-fibre-12-kg-12kg-08011259002730-c90690",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820107510085",
+        "paco:5213"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -2929,25 +2952,6 @@
       "offer_ids": [
         "bauzaar:57356132122949",
         "paco:6144"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-e840f5e455e74d740399",
-      "name": "Leonardo Cat food Adult Duck ricco di Anatra 7,5 kg",
-      "brand": "Leonardo",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "7,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/leonardo-adult-classic-anatra-cibo-secco-per-gatti-sacco-da-7-5-kg-04002633758323-740399",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:57356130746693",
-        "paco:6142"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -5599,26 +5603,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-75dae1b33e8176c90690",
-      "name": "Exclusion Diet Metabolic & Mobility Medium/Large Breed Maiale e Fibre 12 kg",
-      "brand": "Exclusion Diet",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/exclusion-diet-metabolic-mobility-medium-large-breed-maiale-e-fibre-12-kg-12kg-08011259002730-c90690",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:56820107510085"
-      ],
-      "candidate_offer_ids": [
-        "paco:5213"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-c20792af8d30899a5eda",
       "name": "Exclusion Diet Hepatic Monoprotein All Breeds 400 g Maiale - confezione da 24 pezzi - Umido monoproteico cane",
       "brand": "Exclusion Diet",
@@ -6177,6 +6161,26 @@
       ],
       "candidate_offer_ids": [
         "paco:5167"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-e840f5e455e74d740399",
+      "name": "Leonardo Cat food Adult Duck ricco di Anatra 7,5 kg",
+      "brand": "Leonardo",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "7,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/leonardo-adult-classic-anatra-cibo-secco-per-gatti-sacco-da-7-5-kg-04002633758323-740399",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:57356130746693"
+      ],
+      "candidate_offer_ids": [
+        "paco:6142"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
