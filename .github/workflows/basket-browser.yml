@@ -105,6 +105,8 @@ on:
       - 'tests/test_canonical_product.mjs'
       - 'tests/test_product_catalog.py'
       - 'automation/audit_store_integrity.py'
+      - 'automation/variant_integrity.py'
+      - 'tests/test_missing_variant_integrity.py'
       - 'automation/package_integrity.py'
       - 'tests/test_store_integrity.py'
       - 'automation/improve_discovery.py'

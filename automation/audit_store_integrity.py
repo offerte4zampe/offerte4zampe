@@ -19,10 +19,12 @@ try:
     from .check_merchant_links import Checker, safe_product, UA
     from .package_integrity import pack_count
     from .update_catalog import weight
+    from .variant_integrity import missing_candidate, verify_missing_variant, valid_missing_proof
 except ImportError:
     from check_merchant_links import Checker, safe_product, UA
     from package_integrity import pack_count
     from update_catalog import weight
+    from variant_integrity import missing_candidate, verify_missing_variant, valid_missing_proof
 
 ROOT=Path(__file__).resolve().parents[1]
 STORES=('bauzaar','webpet','animaliapet','isola-dei-tesori','paco')
@@ -185,6 +187,13 @@ def suppress_commercial_conflicts(catalog, cache, now):
                  and bool(expected_source) and entry.get('status')=='verified' and entry.get('source')==expected_source
                  and exact and not (code and proof_code and code!=proof_code))
         reasons=[]
+        missing_trusted=(o.get('merchant_id') in STORES and usable(entry,o,now,24)
+                         and bool(expected_source) and entry.get('source')==expected_source
+                         and entry.get('status')=='verified_missing_variant'
+                         and 'variant_exists' in entry.get('compared',[])
+                         and 'variant_exists' in entry.get('discrepancies',[])
+                         and valid_missing_proof(o,proof))
+        if missing_trusted:reasons.append('variant_missing')
         if trusted:
             price=proof.get('price');stock=proof.get('available')
             if ('price' in entry.get('compared',[]) and 'price' in entry.get('discrepancies',[])
@@ -201,7 +210,7 @@ def suppress_commercial_conflicts(catalog, cache, now):
     suppression={'checked_at':now.isoformat(),'evidence_max_age_hours':24,
                  'input_offers':len(catalog['offers']),'published_offers':len(kept),
                  'withheld':withheld,
-                 'method':'Only exact-identity price/stock contradictions with matching source and row fingerprint, verified within 24 hours. Raw fields are retained here without rewriting. No Amazon evidence is collected or applied. Expiry or a changed row requires a new check; missing/inconclusive evidence is not a contradiction.'}
+                 'method':'Only exact-identity price/stock contradictions, or API-confirmed missing variants corroborated by the exact main product HTML, with matching source and row fingerprint, verified within 24 hours. Raw fields are retained here without rewriting. No Amazon evidence is collected or applied. Expiry or a changed row requires a new check; uncorroborated absence and inconclusive evidence are not contradictions.'}
     return output,suppression
 
 
@@ -230,7 +239,7 @@ def report(catalog,cache,now,repairs=()):
             if o.get('weight_conflict'):structural['conflicting_weight']+=1
         source=next((s for s in catalog.get('sources',[]) if s['id']==sid),{})
         if not offers:structural['store_without_published_offers']+=1
-        stores.append({'id':sid,'source_status':source.get('status','unknown'),'offers':len(offers),'available':sum(o['available'] for o in offers),'with_valid_gtin':sum(bool(canonical_gtin(o.get('gtin'))) for o in offers),'with_net_weight':sum(bool(o.get('weight_kg')) for o in offers),'quantity_unverified':sum(o.get('quantity_verified') is False for o in offers),'field_issues':dict(structural),'page_verifications':checked,'sample_verified':sum(x['status']=='verified' for x in checked),'sample_inconclusive':sum(x['status']!='verified' for x in checked),'sample_discrepancies':sum(bool(x['discrepancies']) for x in checked)})
+        stores.append({'id':sid,'source_status':source.get('status','unknown'),'offers':len(offers),'available':sum(o['available'] for o in offers),'with_valid_gtin':sum(bool(canonical_gtin(o.get('gtin'))) for o in offers),'with_net_weight':sum(bool(o.get('weight_kg')) for o in offers),'quantity_unverified':sum(o.get('quantity_verified') is False for o in offers),'field_issues':dict(structural),'page_verifications':checked,'sample_verified':sum(x['status'] in ('verified','verified_missing_variant') for x in checked),'sample_inconclusive':sum(x['status'] not in ('verified','verified_missing_variant') for x in checked),'sample_discrepancies':sum(bool(x['discrepancies']) for x in checked)})
     return {'checked_at':now.isoformat(),'catalog_generated_at':catalog['generated_at'],'method_version':1,'method':'Controlli su tutte le offerte dei cinque negozi; verifica indipendente a campione e a rotazione tramite variante JSON esatta o schema prodotto vincolato a SKU/GTIN. HTTP200, feed riuscito e nome simile non certificano identità, prezzo o stock. Campione non rappresentativo statisticamente; risposte inconcludenti non sono successi. Prezzi e date originali non modificati.','stores':stores,'repairs':list(repairs)}
 
 
@@ -247,6 +256,34 @@ def refresh_coverage(catalog,now):
     quality['independent_audit_at']=now.isoformat()
     quality_path.write_text(json.dumps(quality,ensure_ascii=False)+'\n')
 
+def observe_offer(o,checker,now):
+    """Read at most one API and one corroborating document; never follow redirects."""
+    import urllib.request
+    url=page_url(o);record={'checked_at':now.isoformat(),'fingerprint':fingerprint(o),'source':url}
+    if not url:return dict(record,status='inconclusive',reason='unsafe_product_url',compared=[],discrepancies=[])
+    if not checker.allowed(url):record.update(status='inconclusive',reason='robots_unverified_or_disallowed',compared=[],discrepancies=[])
+    else:
+        try:
+            request=urllib.request.Request(url,headers={'User-Agent':UA})
+            with checker.opener.open(request,timeout=8) as response:
+                body=response.read(3000001);api_status=response.getcode()
+            if len(body)>3000000:raise ValueError('page too large')
+            text=body.decode('utf-8');record.update(verify_page(o,text))
+            # A .js response alone can be capped or inconclusive. Only an
+            # exact main-product fallback can corroborate a missing variant.
+            if (api_status==200 and record.get('reason')=='exact_variant_not_in_page'
+                    and missing_candidate(o,text) is not None and checker.allowed(o['url'])):
+                request=urllib.request.Request(o['url'],headers={'User-Agent':UA})
+                with checker.opener.open(request,timeout=8) as response:
+                    document=response.read(3000001);document_status=response.getcode()
+                if len(document)>3000000:raise ValueError('page too large')
+                confirmed=verify_missing_variant(o,text,document.decode('utf-8'),
+                                                 api_status=api_status,document_status=document_status)
+                if confirmed:record.update(confirmed)
+        except Exception:record.update(status='inconclusive',reason='network_or_http_error',compared=[],discrepancies=[])
+    return record
+
+
 def build(offline=False):
     import urllib.request
     path=ROOT/'site/data/catalog.json.gz';catalog=json.loads(gzip.decompress(path.read_bytes()));cachepath=ROOT/'automation/store-verification-cache.json'
@@ -254,16 +291,7 @@ def build(offline=False):
     def inspect_store(sid):
         checker=Checker();results=[]
         for o in chosen[sid]:
-            url=page_url(o);record={'checked_at':now.isoformat(),'fingerprint':fingerprint(o),'source':url}
-            if not checker.allowed(url):record.update(status='inconclusive',reason='robots_unverified_or_disallowed',compared=[],discrepancies=[])
-            else:
-                try:
-                    request=urllib.request.Request(url,headers={'User-Agent':UA})
-                    with checker.opener.open(request,timeout=8) as response:
-                        body=response.read(3000001)
-                    if len(body)>3000000:raise ValueError('page too large')
-                    record.update(verify_page(o,body.decode('utf-8')))
-                except Exception:record.update(status='inconclusive',reason='network_or_http_error',compared=[],discrepancies=[])
+            record=observe_offer(o,checker,now)
             results.append((o['id'],record));time.sleep(.25)
         return results
     if not offline:
@@ -279,7 +307,7 @@ def build(offline=False):
     path.write_bytes(gzip.compress(json.dumps(published,ensure_ascii=False,separators=(',',':')).encode(),mtime=0))
     refresh_coverage(published,now)
     if suppression['withheld']:
-        print('::warning::Withheld '+str(len(suppression['withheld']))+' offers with exact recent price/stock contradictions; original rows and evidence in site/data/store-audit.json')
+        print('::warning::Withheld '+str(len(suppression['withheld']))+' offers with exact recent commercial contradictions; original rows and evidence in site/data/store-audit.json')
     (ROOT/'site/data/store-audit.json').write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n')
     for s in output['stores']:
         print(s['id'],s['offers'],'field issues',s['field_issues'],'pages verified',s['sample_verified'],'inconclusive',s['sample_inconclusive'],'discrepancies',s['sample_discrepancies'])

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {createRequire} from 'node:module';const require=createRequire(import.meta.url),amazonModel=require('../site/assets/amazon-links.js'),metadata=require('../site/assets/catalog-metadata.js'),productMetadata=require('../site/assets/product-metadata.js');
+import {createRequire} from 'node:module';const require=createRequire(import.meta.url),amazonModel=require('../site/assets/amazon-links.js'),metadata=require('../site/assets/catalog-metadata.js'),productMetadata=require('../site/assets/product-metadata.js'),trade=require('../site/assets/trade.js');
 export async function checkSuggestions(page,origin,catalog){
  const now=Date.parse(catalog.generated_at),o=catalog.offers.find(o=>o.available&&typeof o.title==='string'&&o.title.length>4&&Number.isFinite(Date.parse(o.checked_at))&&now-Date.parse(o.checked_at)<=36*3600000&&Date.parse(o.checked_at)<=now+300000);
  assert(o,'Fresh catalog fixture required');const query=o.title.slice(0,Math.min(8,o.title.length));
@@ -60,7 +60,7 @@ export async function checkSuggestions(page,origin,catalog){
  assert.equal(new URL(page.url()).pathname,'/prodotto/'+catalog.offers.find(o=>o.id===selected).product_slug);
 
  const links=await page.evaluate(async()=>{const r=await fetch('/data/amazon-links.json');return r.json()});
- const mapping=links.links.find(row=>catalog.offers.some(o=>o.id===row.offer_id));assert(mapping,'At least one verified mapping must exist in catalog');
+ const mapping=links.links.find(row=>{const seed=catalog.offers.find(o=>o.id===row.offer_id);return seed&&amazonModel.productLink(seed,links,now)});assert(mapping,'At least one directly verified mapping must remain valid in the current catalog');
  await page.goto(origin+'/prodotto.html?id='+encodeURIComponent(mapping.offer_id),{waitUntil:'domcontentloaded'});
  await page.waitForSelector('#product-amazon a',{visible:true,timeout:30000});
  const amazon=await page.$eval('#product-amazon a',e=>({href:e.href,rel:e.rel,text:e.textContent}));
@@ -72,16 +72,46 @@ export async function checkSuggestions(page,origin,catalog){
  await page.goto(origin+'/prodotto.html?id='+encodeURIComponent(unmapped.id),{waitUntil:'domcontentloaded'});
  await page.waitForSelector('#product-shops [data-product-shop]',{timeout:30000});assert.equal(await page.$eval('#product-amazon',e=>e.hidden),false);assert.equal(await page.$eval('#product-amazon',e=>e.querySelectorAll('a').length),0);assert((await page.$eval('#product-amazon',e=>e.textContent)).includes('Disponibilità: non verificata'));
 
- // Validate active editorial mappings; retired feed IDs must not produce destinations.
+ // Independently compare editorial identity with the current feed. A changed
+ // observation must fail closed, not be treated as an immutable test fixture.
+ const identityValue=(row,key)=>key==='brand'?metadata.brand(row[key]):String(row[key]??'');
+ const identityKeys=['title','brand','variant','gtin'];
  for(const entry of links.links){
   const seed=catalog.offers.find(o=>o.id===entry.offer_id);if(!seed){assert.equal(amazonModel.comparisonLink({id:entry.offer_id},catalog.offers,links,now),null,'Retired offer must not generate an affiliate destination');continue;}
-  for(const key of ['title','brand','variant','gtin'])assert.equal(key==='brand'?metadata.brand(seed[key]):String(seed[key]??''),key==='brand'?metadata.brand(entry[key]):String(entry[key]??''),'Mapped identity changed: '+entry.offer_id+' '+key);
+  const drift=identityKeys.some(key=>identityValue(seed,key)!==identityValue(entry,key));
+  const direct=amazonModel.productLink(seed,links,now);
+  if(drift)assert.equal(direct,null,'Changed editorial identity must not produce a direct Amazon link: '+entry.offer_id);
+  else{
+   for(const key of identityKeys)assert.equal(identityValue(seed,key),identityValue(entry,key),'Exact mapped identity required: '+entry.offer_id+' '+key);
+   assert(direct,'Unchanged editorial mapping must remain valid: '+entry.offer_id);
+  }
+  const expectedAmazon=amazonModel.comparisonLink(seed,catalog.offers,links,now);
+  if(drift&&expectedAmazon){
+   const key=trade.matchKey(seed,now);assert(key,'A fallback requires a verified current comparison identity');
+   const peers=catalog.offers.filter(peer=>peer.id!==seed.id&&trade.matchKey(peer,now)===key);
+   assert(peers.some(peer=>{
+    const editorial=links.links.find(row=>row.offer_id===peer.id);
+    if(!editorial||!identityKeys.every(k=>identityValue(peer,k)===identityValue(editorial,k)))return false;
+    return amazonModel.productLink(peer,links,now)?.url===expectedAmazon.url;
+   }),'Fallback must be the exact URL of a currently verified peer, not the stale mapping');
+  }
   await page.goto(origin+'/prodotto.html?id='+encodeURIComponent(entry.offer_id),{waitUntil:'domcontentloaded'});
-  await page.waitForSelector('#product-amazon a',{visible:true,timeout:30000});
+  await page.waitForSelector('#product-shops [data-product-shop]',{timeout:30000});
   assert.equal(await page.$eval('#product-title',e=>e.textContent),productMetadata.name(seed.canonical_title||seed.title));
-  const href=await page.$eval('#product-amazon a',e=>e.href);
-  if(entry.sitestripe_url)assert.equal(href,entry.sitestripe_url);
-  else{assert.equal(new URL(href).pathname,'/dp/'+entry.asin);assert.equal(new URL(href).searchParams.get('tag'),links.tracking_id);}
+  if(!expectedAmazon){
+   await page.waitForFunction(()=>document.querySelector('#product-amazon')?.textContent.includes('Corrispondenza esatta non ancora verificata'),{timeout:30000});
+   assert.equal(await page.$eval('#product-amazon',e=>e.querySelectorAll('a').length),0,'Rejected identity must not render an Amazon anchor: '+entry.offer_id);
+   assert((await page.$eval('#product-amazon',e=>e.textContent)).includes('Corrispondenza esatta non ancora verificata'));
+  }else{
+   await page.waitForSelector('#product-amazon a',{visible:true,timeout:30000});
+   const href=await page.$eval('#product-amazon a',e=>e.href);
+   assert.equal(href,expectedAmazon.url,'Rendered Amazon URL must match the exact current verified destination');
+   if(!drift){
+    if(entry.sitestripe_url)assert.equal(href,entry.sitestripe_url);
+    else{assert.equal(new URL(href).pathname,'/dp/'+entry.asin);assert.equal(new URL(href).searchParams.get('tag'),links.tracking_id);}
+   }
+  }
+  assert(await page.$eval('#product-amazon',e=>!e.textContent.includes('€')&&!e.textContent.includes('Disponibile al rilevamento')));
   assert(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth<=1));
  }
 
