@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-14T18:51:30.716851+00:00",
+  "generated_at": "2026-11-15T01:14:53.309994+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 15,
-  "with_third_store_lead": 23,
+  "at_target": 14,
+  "with_third_store_lead": 24,
   "categories": {
     "umido": 115,
     "snack": 60,
@@ -26,6 +26,7 @@
     "animaliapet:46976541622615",
     "animaliapet:46976542245207",
     "animaliapet:46976542441815",
+    "animaliapet:46976544145751",
     "animaliapet:46976544735575",
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
@@ -403,6 +404,7 @@
     "isola-dei-tesori:000138591",
     "isola-dei-tesori:000138592",
     "isola-dei-tesori:000138943",
+    "isola-dei-tesori:000140486",
     "isola-dei-tesori:000140881",
     "isola-dei-tesori:000142009",
     "isola-dei-tesori:000142010",
@@ -472,6 +474,7 @@
     "paco:4435",
     "paco:4519",
     "paco:4557",
+    "paco:4587",
     "paco:4728",
     "paco:4741",
     "paco:4742",
@@ -495,6 +498,7 @@
     "paco:5206",
     "paco:5207",
     "paco:5208",
+    "paco:5251",
     "paco:5264",
     "paco:5267",
     "paco:5268",
@@ -634,6 +638,28 @@
       ],
       "candidate_offer_ids": [
         "paco:3847"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-15300f54eb6acf57c2af",
+      "name": "Monge Monoprotein Coniglio 1.5Kg Crocchette Gatti",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-monoprotein-coniglio-1-5kg-crocchette-gatti-08009470011945-57c2af",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976544145751",
+        "isola-dei-tesori:000140486"
+      ],
+      "candidate_offer_ids": [
+        "paco:4587",
+        "paco:5251"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1112,26 +1138,6 @@
         "isola-dei-tesori:000124434",
         "paco:3004",
         "bauzaar:56820290978117"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-15300f54eb6acf57c2af",
-      "name": "Monge Monoprotein Coniglio 1.5Kg Crocchette Gatti",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-monoprotein-coniglio-1-5kg-crocchette-gatti-08009470011945-57c2af",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976544145751",
-        "paco:4587",
-        "isola-dei-tesori:000140486"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
