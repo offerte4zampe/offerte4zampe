@@ -35,6 +35,8 @@ on:
       - 'tests/test_product_catalog.py'
       - 'automation/package_integrity.py'
       - 'automation/audit_store_integrity.py'
+      - 'automation/variant_integrity.py'
+      - 'tests/test_missing_variant_integrity.py'
       - 'tests/test_store_integrity.py'
       - 'automation/reviewed_identity.py'
       - 'automation/reviewed-identities.json'
