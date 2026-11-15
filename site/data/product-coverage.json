@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-11-15T19:37:50.684024+00:00",
+  "generated_at": "2026-11-15T22:47:53.583103+00:00",
   "name_matching": {
     "evaluated_offers": 18213,
-    "eligible_offers": 8700,
-    "insufficient_characteristics": 9513,
+    "eligible_offers": 8707,
+    "insufficient_characteristics": 9506,
     "attached_without_gtin": 27
   },
-  "gtin_multi_shop_products": 548,
+  "gtin_multi_shop_products": 549,
   "characteristic_multi_shop_products": 27,
   "store_coverage": {
     "animaliapet": {
       "offers": 3528,
       "active_offers": 3514,
-      "missing_valid_gtin": 1787,
+      "missing_valid_gtin": 1786,
       "unverified_quantity": 0,
       "sales_unit_only": 1420,
       "offers_in_multishop_products": 296
@@ -23,7 +23,7 @@
       "missing_valid_gtin": 444,
       "unverified_quantity": 0,
       "sales_unit_only": 2174,
-      "offers_in_multishop_products": 525
+      "offers_in_multishop_products": 526
     },
     "hygge": {
       "offers": 134,
@@ -44,27 +44,27 @@
     "paco": {
       "offers": 1276,
       "active_offers": 797,
-      "missing_valid_gtin": 1140,
-      "unverified_quantity": 1140,
-      "sales_unit_only": 1140,
-      "offers_in_multishop_products": 81
+      "missing_valid_gtin": 1133,
+      "unverified_quantity": 1133,
+      "sales_unit_only": 1133,
+      "offers_in_multishop_products": 83
     },
     "webpet": {
       "offers": 1811,
-      "active_offers": 1214,
-      "missing_valid_gtin": 1340,
+      "active_offers": 1213,
+      "missing_valid_gtin": 1338,
       "unverified_quantity": 0,
       "sales_unit_only": 1586,
       "offers_in_multishop_products": 31
     }
   },
-  "products": 21009,
-  "active_products": 16491,
+  "products": 21013,
+  "active_products": 16488,
   "offers": 18213,
-  "multi_shop_products": 575,
+  "multi_shop_products": 576,
   "multi_shop_percent": 3.49,
   "denominator": "active canonical products, distinct merchants with verified quantities; GTIN and characteristic matching reported separately; duplicate offers in one shop do not count",
-  "unattached_offers": 7196,
+  "unattached_offers": 7188,
   "candidate_pairs": 327,
   "automatic_match_rules": "GTIN and quantity, or exact characteristic tokens after merchandising-only normalization; brand, recipe, life stage, selected variant and verified selling quantity preserved; images/descriptions are review support only"
 }

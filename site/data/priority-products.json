@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-15T19:37:50.684024+00:00",
+  "generated_at": "2026-11-15T22:47:53.583103+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 14,
-  "with_third_store_lead": 24,
+  "at_target": 15,
+  "with_third_store_lead": 23,
   "categories": {
     "umido": 113,
     "snack": 60,
@@ -31,7 +31,6 @@
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
     "animaliapet:46976548438359",
-    "animaliapet:46976548995415",
     "animaliapet:46976549028183",
     "animaliapet:46976549847383",
     "animaliapet:46976551944535",
@@ -172,7 +171,6 @@
     "bauzaar:56820207354181",
     "bauzaar:56820207452485",
     "bauzaar:56820207911237",
-    "bauzaar:56820214694213",
     "bauzaar:56820220920133",
     "bauzaar:56820221411653",
     "bauzaar:56820245233989",
@@ -461,7 +459,6 @@
     "paco:3070",
     "paco:3711",
     "paco:3770",
-    "paco:3830",
     "paco:3847",
     "paco:4051",
     "paco:4110",
@@ -541,6 +538,7 @@
     "paco:6221",
     "paco:6231",
     "paco:6249",
+    "paco:6323",
     "paco:820",
     "paco:882",
     "paco:955",
@@ -616,27 +614,6 @@
       ],
       "candidate_offer_ids": [
         "isola-dei-tesori:000138458"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-50ba42788741a2b0401f",
-      "name": "Farmina N&D Quinoa Feline Urinary Anatra e mirtilli rossi 1,5 kg",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-quinoa-feline-urinary-anatra-e-mirtilli-rossi-1-5-kg-08010276035820-b0401f",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820214694213",
-        "animaliapet:46976548995415"
-      ],
-      "candidate_offer_ids": [
-        "paco:3830"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1076,6 +1053,26 @@
         "isola-dei-tesori:000181339",
         "animaliapet:51332556292439",
         "bauzaar:56961723334981"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-50ba42788741a2b0401f",
+      "name": "Farmina N&D Quinoa Feline Urinary Anatra e mirtilli rossi 1,5 kg",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-quinoa-feline-urinary-anatra-e-mirtilli-rossi-1-5-kg-08010276035820-b0401f",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "bauzaar:56820214694213",
+        "animaliapet:46976548995415",
+        "paco:3830"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -2419,7 +2416,8 @@
       "missing_shops": 1,
       "offer_ids": [
         "bauzaar:56961829568837",
-        "animaliapet:46976544735575"
+        "animaliapet:46976544735575",
+        "paco:6323"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
