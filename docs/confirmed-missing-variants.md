@@ -30,3 +30,9 @@ I temi non riconosciuti non sono automaticamente coperti. La doppia prova docume
 Test negativi coprono cap API, elenco vuoto/duplicato, prodotto o URL diverso, variante nuovamente presente, HTML mancante o ambiguo, raccomandazioni, errori/reindirizzamenti e robots, cache scaduta/futura e riga cambiata. I test conservano originale e link affiliato senza promuovere la variante alternativa.
 
 Rollback: revert dei soli file della modifica e dell’eventuale nuova voce di prova, poi normale rigenerazione verificata dopo autorizzazione al rilascio. Non alterare raw feed, segreti o flag Amazon. Una PR e test verdi non autorizzano merge o deploy.
+
+## Smoke mobile e prove editoriali scadute rispetto al catalogo
+
+La prima CI ha rilevato un problema già presente nella base: il test richiedeva che ogni associazione editoriale Amazon rimanesse identica alla riga feed. Paco4587 ha ora quantità e GTIN non verificati, quindi il modello di produzione restituisce già correttamente `null`; il vecchio test si fermava prima di verificare tale comportamento.
+
+Lo smoke mantiene tutti i controlli su identità e destinazione delle associazioni valide. Quando i dati correnti differiscono, richiede invece il rifiuto del link diretto e verifica nella pagina l’assenza dell’ancora e il messaggio di corrispondenza non verificata. Un eventuale collegamento ereditato deve coincidere esattamente con quello di un altro negozio attualmente verificato dello stesso confronto. La fixture positiva richiede sempre almeno una corrispondenza diretta valida: nessun test viene saltato se tutte sono invalide. Due regressioni unitarie coprono deriva del formato/GTIN e fallback soltanto verso una controparte verificata. Nessun dato, link o codice Amazon di produzione viene modificato.

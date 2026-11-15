@@ -4,6 +4,29 @@ const config=JSON.parse(fs.readFileSync(new URL('../site/data/amazon-links.json'
 const now=Date.parse('2026-10-21T12:00:00Z');
 test('verified exact product uses direct tagged Amazon link without prices or stock',()=>{const value=productLink(offer,config,now);assert.deepEqual(value,{url:'https://www.amazon.it/dp/'+row.asin+'?tag='+config.tracking_id,checked_at:row.checked_at});});
 test('no fuzzy mapping, changed format, title, GTIN or brand',()=>{assert.equal(productLink({...offer,id:'other'},config,now),null);for(const key of ['title','brand','variant','gtin'])assert.equal(productLink({...offer,[key]:'changed'},config,now),null);});
+test('current feed identity drift rejects the editorial link, including an unverified selling pack',()=>{
+ const api=require('../site/assets/amazon-links.js'),time=Date.parse('2026-11-15T12:00:00Z');
+ const editorial={offer_id:'paco:4587',title:'Monge - Monge Adult Monoprotein Coniglio Per Gatti',brand:'Monge',variant:'Sacco da 1,5 kg',gtin:'08009470011945',asin:'B000000001',checked_at:'2026-11-01',evidence_url:'https://www.amazon.it/dp/B000000001'};
+ const registry={tracking_id:'offerte4zam02-21',links:[editorial]},exact={...editorial,id:editorial.offer_id,weight_kg:1.5,checked_at:'2026-11-15T01:13:00Z'};
+ assert(api.productLink(exact,registry,time));
+ for(const patch of [{variant:'Formato e ricetta da verificare nel negozio'}, {gtin:'4006381333931'},
+  {variant:'Formato e ricetta da verificare nel negozio',gtin:'',weight_kg:null,quantity_verified:false,quantity:{kind:'sales_unit',value:1,unit:'confezione',verified:false}}]){
+  const current={...exact,...patch};
+  assert.equal(api.productLink(current,registry,time),null);
+  assert.equal(api.comparisonLink(current,[current],registry,time),null);
+ }
+});
+test('a rejected editorial identity can use only the exact destination of a currently verified peer',()=>{
+ const api=require('../site/assets/amazon-links.js'),time=Date.parse('2026-11-15T12:00:00Z');
+ const seed={id:'paco:1',title:'Current item',brand:'Brand',variant:'1,5 kg',gtin:'4006381333931',weight_kg:1.5,checked_at:'2026-11-15T01:13:00Z'};
+ const peer={...seed,id:'bauzaar:2',title:'Same product at other shop',variant:'Sacco 1,5 kg'};
+ const editorial=(o,asin)=>({...o,offer_id:o.id,asin,checked_at:'2026-11-01',evidence_url:'https://www.amazon.it/dp/'+asin});
+ const registry={tracking_id:'offerte4zam02-21',links:[editorial({...seed,variant:'old selling pack'},'B000000001'),editorial(peer,'B000000002')]};
+ assert.equal(api.productLink(seed,registry,time),null);
+ const expected=api.productLink(peer,registry,time);assert(expected);
+ assert.deepEqual(api.comparisonLink(seed,[seed,peer],registry,time),expected);
+ assert.equal(api.comparisonLink(seed,[seed,{...peer,gtin:''}],registry,time),null);
+});
 test('expired, future, ambiguous or unsafe mapping never generates a link',()=>{for(const patch of [{checked_at:'2026-01-01'},{checked_at:'2027-01-01'},{asin:'bad'},{evidence_url:'https://www.amazon.it.evil.test/dp/'+row.asin}])assert.equal(productLink(offer,{...config,links:[{...row,...patch}]},now),null);assert.equal(productLink(offer,{...config,links:[row,row]},now),null);assert.equal(productLink(offer,null,now),null);});
 
 test('editorial registry has unique offer IDs and size-specific KONG destinations',()=>{
