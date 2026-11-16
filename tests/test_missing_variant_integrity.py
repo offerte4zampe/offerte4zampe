@@ -5,11 +5,25 @@ import json
 import unittest
 from types import SimpleNamespace
 
-from automation.audit_store_integrity import observe_offer, page_url, fingerprint, suppress_commercial_conflicts, report
+from automation.audit_store_integrity import observe_offer, page_url, fingerprint, suppress_commercial_conflicts, report, select, commercial_renewal_due
 from automation.variant_integrity import missing_candidate, verify_missing_variant, valid_missing_proof
 
 
 class MissingVariantTests(unittest.TestCase):
+    def test_missing_proof_renews_before_expiry_without_extending_suppression(self):
+        entry=self.entry()
+        cache={self.offer['id']:entry}
+        self.assertEqual(select([self.offer],cache,self.now+dt.timedelta(hours=11,minutes=59))['bauzaar'],[])
+        self.assertEqual(select([self.offer],cache,self.now+dt.timedelta(hours=12))['bauzaar'],[self.offer])
+        self.assertEqual(select([self.offer],cache,self.now+dt.timedelta(hours=25))['bauzaar'],[self.offer])
+        published,audit=suppress_commercial_conflicts({'offers':[self.offer]},cache,self.now+dt.timedelta(hours=25))
+        self.assertEqual(published['offers'],[self.offer])
+        self.assertEqual(audit['withheld'],[])
+        changed=dict(self.offer,price=self.offer['price']+1)
+        self.assertFalse(commercial_renewal_due(changed,entry,self.now+dt.timedelta(hours=12)))
+        invalid=copy.deepcopy(entry);invalid['evidence']['api_http_status']=403
+        self.assertFalse(commercial_renewal_due(self.offer,invalid,self.now+dt.timedelta(hours=12)))
+
     def setUp(self):
         self.now = dt.datetime(2026, 11, 15, 12, tzinfo=dt.timezone.utc)
         self.offer = dict(id='bauzaar:1', merchant_id='bauzaar', merchant='Bauzaar',

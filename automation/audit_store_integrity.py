@@ -128,16 +128,33 @@ def usable(entry,o,now,hours=24):
     except (KeyError,TypeError,ValueError):return False
 
 
+def commercial_renewal_due(o,entry,now):
+    """Prioritize a previously exact commercial contradiction after 12h.
+
+    Historical validation is only a scheduling hint. Publication still requires
+    new, usable evidence within the existing 24h suppression lifetime.
+    """
+    try:
+        stamp=dt.datetime.fromisoformat(entry['checked_at'])
+        if not stamp.tzinfo or now-stamp<dt.timedelta(hours=12):return False
+        # Reuse suppression's source, fingerprint, exact identity and proof
+        # checks at the observation time; expired proofs never suppress now.
+        _,audit=suppress_commercial_conflicts({'offers':[o]},{o['id']:entry},stamp)
+        return bool(audit['withheld'])
+    except (KeyError,TypeError,ValueError):return False
+
+
 def select(offers,cache,now,per_store=4):
     groups={s:[] for s in STORES}
     for o in offers:
         if o['merchant_id'] not in groups or not page_url(o):continue
         entry=cache.get(o['id'],{})
-        if usable(entry,o,now):continue
+        renew=commercial_renewal_due(o,entry,now)
+        if usable(entry,o,now) and not renew:continue
         # Rotate every eligible record, including failed attempts and sold-out rows.
         old=entry.get('checked_at','') if entry.get('fingerprint')==fingerprint(o) else ''
         bucket=hashlib.sha256((now.date().isoformat()+o['id']).encode()).hexdigest()
-        priority=0 if o.get('weight_conflict') or entry.get('discrepancies') else 1
+        priority=-1 if renew else (0 if o.get('weight_conflict') or entry.get('discrepancies') else 1)
         groups[o['merchant_id']].append((priority,old,bucket,o))
     return {s:[r[-1] for r in sorted(groups[s],key=lambda x:x[:3])[:per_store]] for s in STORES}
 
