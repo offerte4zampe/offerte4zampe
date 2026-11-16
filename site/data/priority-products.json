@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T22:47:53.583103+00:00",
+  "generated_at": "2026-11-16T06:23:43.643870+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,8 +7,8 @@
   "at_target": 15,
   "with_third_store_lead": 23,
   "categories": {
-    "umido": 113,
-    "snack": 60,
+    "umido": 109,
+    "snack": 64,
     "crocchette": 120,
     "lettiere": 7
   },
@@ -87,7 +87,6 @@
     "animaliapet:46976696779095",
     "animaliapet:46976700875095",
     "animaliapet:46976702284119",
-    "animaliapet:46976703594839",
     "animaliapet:46976711491927",
     "animaliapet:46976714670423",
     "animaliapet:46976728727895",
@@ -95,7 +94,6 @@
     "animaliapet:47343969141079",
     "animaliapet:47343990604119",
     "animaliapet:47344005284183",
-    "animaliapet:47392275661143",
     "animaliapet:47403696030039",
     "animaliapet:47555389129047",
     "animaliapet:48188453060951",
@@ -125,7 +123,6 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
-    "bauzaar:56819013976389",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
     "bauzaar:56819879543109",
@@ -139,6 +136,8 @@
     "bauzaar:56820043776325",
     "bauzaar:56820043874629",
     "bauzaar:56820044824901",
+    "bauzaar:56820046266693",
+    "bauzaar:56820046987589",
     "bauzaar:56820052656453",
     "bauzaar:56820056097093",
     "bauzaar:56820056162629",
@@ -220,6 +219,7 @@
     "bauzaar:56961120862533",
     "bauzaar:56961120993605",
     "bauzaar:56961151074629",
+    "bauzaar:56961154810181",
     "bauzaar:56961155760453",
     "bauzaar:56961218478405",
     "bauzaar:56961242104133",
@@ -330,7 +330,6 @@
     "bauzaar:58411832213829",
     "bauzaar:58411832246597",
     "bauzaar:58411832312133",
-    "bauzaar:58411833819461",
     "bauzaar:58411834179909",
     "bauzaar:58411836670277",
     "bauzaar:58411838308677",
@@ -348,11 +347,14 @@
     "bauzaar:58411852202309",
     "bauzaar:58411852235077",
     "bauzaar:58411852333381",
+    "bauzaar:58411852398917",
     "bauzaar:58411852464453",
+    "bauzaar:58411852529989",
     "bauzaar:58411852595525",
     "bauzaar:58411853152581",
     "bauzaar:58411853185349",
     "bauzaar:58411853939013",
+    "bauzaar:58411854004549",
     "bauzaar:58411854594373",
     "bauzaar:58411855348037",
     "bauzaar:58411855806789",
@@ -362,7 +364,6 @@
     "bauzaar:58411856298309",
     "bauzaar:58411857248581",
     "bauzaar:58411857281349",
-    "bauzaar:58411857346885",
     "isola-dei-tesori:000124487",
     "isola-dei-tesori:000124812",
     "isola-dei-tesori:000126195",
@@ -383,12 +384,16 @@
     "isola-dei-tesori:000138020",
     "isola-dei-tesori:000138021",
     "isola-dei-tesori:000138023",
+    "isola-dei-tesori:000138032",
+    "isola-dei-tesori:000138041",
     "isola-dei-tesori:000138153",
+    "isola-dei-tesori:000138178",
     "isola-dei-tesori:000138213",
     "isola-dei-tesori:000138273",
     "isola-dei-tesori:000138274",
     "isola-dei-tesori:000138288",
     "isola-dei-tesori:000138318",
+    "isola-dei-tesori:000138427",
     "isola-dei-tesori:000138458",
     "isola-dei-tesori:000138579",
     "isola-dei-tesori:000138584",
@@ -409,7 +414,6 @@
     "isola-dei-tesori:000142014",
     "isola-dei-tesori:000142020",
     "isola-dei-tesori:000142030",
-    "isola-dei-tesori:000142031",
     "isola-dei-tesori:000142033",
     "isola-dei-tesori:000142079",
     "isola-dei-tesori:000144422",
@@ -434,6 +438,8 @@
     "isola-dei-tesori:000503051",
     "isola-dei-tesori:000503053",
     "isola-dei-tesori:000503057",
+    "isola-dei-tesori:000503126",
+    "isola-dei-tesori:000503141",
     "isola-dei-tesori:000503149",
     "isola-dei-tesori:000503152",
     "isola-dei-tesori:000503389",
@@ -1796,6 +1802,44 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-00986db19d7e10b9048e",
+      "name": "Camon Snack Ossicini al Pollo 80 g",
+      "brand": "Camon",
+      "category": "snack",
+      "species": "cane",
+      "format": "80 g",
+      "url": "https://offerte4zampe.it/prodotto/camon-treats-e-snacks-per-cani-ossicini-arrotolati-con-pollo-80-g-08019808145754-b9048e",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "isola-dei-tesori:000138032",
+        "bauzaar:56820046266693"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-35a35bb5d3354d4ed2c8",
+      "name": "Camon Bauveg Snack Carotine Crispy 40 g.",
+      "brand": "Camon",
+      "category": "snack",
+      "species": "cane",
+      "format": "40 g",
+      "url": "https://offerte4zampe.it/prodotto/camon-snack-vegetali-40-g-carotine-crispy-08019808191157-4ed2c8",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "isola-dei-tesori:000138427",
+        "bauzaar:56961154810181"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-56587ba5352153c976c3",
       "name": "Camon Biscotti Animaletti 500 g",
       "brand": "Camon",
@@ -1809,6 +1853,25 @@
       "offer_ids": [
         "isola-dei-tesori:000134093",
         "bauzaar:56961151074629"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-73f85590bb0373f1fa3e",
+      "name": "Camon Snack Small Bones Treats 350 g.",
+      "brand": "Camon",
+      "category": "snack",
+      "species": "cane",
+      "format": "350 g",
+      "url": "https://offerte4zampe.it/prodotto/camon-dental-snack-vegetale-box-riso-e-patate-350-g-bones-08019808132907-f1fa3e",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "isola-dei-tesori:000138041",
+        "bauzaar:58411854004549"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -5061,6 +5124,26 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-7cb7e59a5c53231c2a66",
+      "name": "Camon Dental Snack Vegetali 100 g Snack straccetti di patata dolce - Light",
+      "brand": "Camon",
+      "category": "snack",
+      "species": "cane",
+      "format": "100 g",
+      "url": "https://offerte4zampe.it/prodotto/camon-dental-snack-vegetali-100-g-snack-straccetti-di-patata-dolce-light-08019808166094-1c2a66",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56820046987589"
+      ],
+      "candidate_offer_ids": [
+        "isola-dei-tesori:000138178"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-a545a78ad5b1fa521060",
       "name": "Lettiera agglomerante con carbone attivo Catsan Active Fresh 8 lt (7,7 kg)",
       "brand": "Catsan",
@@ -5784,26 +5867,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-283ffb556137e2dc6256",
-      "name": "Gourmet le Perle Filettini in Salsa 85 g Pollo - confezione da 26 pezzi",
-      "brand": "Gourmet",
-      "category": "umido",
-      "species": "gatto",
-      "format": "2,21 kg",
-      "url": "https://offerte4zampe.it/prodotto/gourmet-le-perle-filettini-in-salsa-85-g-pollo-confezione-da-26-pezzi-08002205354973-dc6256",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:58411857346885"
-      ],
-      "candidate_offer_ids": [
-        "isola-dei-tesori:000142031"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-2f4b63c88e83d1620458",
       "name": "Gourmet Perle Cat Adult Filettini in Salsa con Coniglio 85 g",
       "brand": "Gourmet",
@@ -5819,6 +5882,26 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411857248581"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-367f13223fee4018cf34",
+      "name": "Purina Gourmet Gold Tortini Umido Gatto 85g Tacchino e spinaci - confezione da 24 pezzi",
+      "brand": "Gourmet",
+      "category": "umido",
+      "species": "gatto",
+      "format": "2,04 kg",
+      "url": "https://offerte4zampe.it/prodotto/purina-gourmet-gold-tortini-umido-gatto-85g-tacchino-e-spinaci-confezione-da-24-pezzi-07613035948464-18cf34",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:58411852529989"
+      ],
+      "candidate_offer_ids": [
+        "isola-dei-tesori:000503126"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -5879,26 +5962,6 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411852464453"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-5aeab01efadbb952dcf5",
-      "name": "Gourmet Perle Cat Adult Filettini in Salsa con Pollo 85 g",
-      "brand": "Gourmet",
-      "category": "umido",
-      "species": "gatto",
-      "format": "85 g",
-      "url": "https://offerte4zampe.it/prodotto/gourmet-perle-cat-adult-filettini-in-salsa-con-pollo-85-g-08002205354973-52dcf5",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "isola-dei-tesori:000142031"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:58411857346885"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -5999,6 +6062,26 @@
       ],
       "candidate_offer_ids": [
         "isola-dei-tesori:000142030"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-ab1f52faa83c5c06e022",
+      "name": "Gourmet Gold Tortini Cat Adult con Manzo e Pomodori 85 g",
+      "brand": "Gourmet",
+      "category": "umido",
+      "species": "gatto",
+      "format": "85 g",
+      "url": "https://offerte4zampe.it/prodotto/gourmet-gold-tortini-cat-adult-con-manzo-e-pomodori-85-g-07613035948495-06e022",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "isola-dei-tesori:000503141"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:58411852398917"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -6339,86 +6422,6 @@
       ],
       "candidate_offer_ids": [
         "isola-dei-tesori:000181482"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-7ae851ed475dcab5f514",
-      "name": "Marpet Aequilibriavet Gatto Anatra 85 g",
-      "brand": "Marpet",
-      "category": "umido",
-      "species": "gatto",
-      "format": "85 g",
-      "url": "https://offerte4zampe.it/prodotto/marpet-aequilibriavet-gatto-anatra-85-g-08031701202013-b5f514",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "isola-dei-tesori:000142079"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56820266139973"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-06150d9c60ab9e5514ac",
-      "name": "Natua Country Dog Adult Patè Grain Free 100 g Prosciutto - confezione da 6 pezzi",
-      "brand": "Natua",
-      "category": "umido",
-      "species": "cane",
-      "format": "600 g",
-      "url": "https://offerte4zampe.it/prodotto/natua-country-dog-adult-pate-grain-free-100-g-prosciutto-confezione-da-6-pezzi-08057507370800-5514ac",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:58411833819461"
-      ],
-      "candidate_offer_ids": [
-        "animaliapet:46976703594839"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-06a3f83e64c61e7329e3",
-      "name": "Natua Natural Pollo in Jelly Lattina 150g Gatti",
-      "brand": "Natua",
-      "category": "umido",
-      "species": "cane e gatto",
-      "format": "150 g",
-      "url": "https://offerte4zampe.it/prodotto/natua-natural-pollo-in-jelly-lattina-150g-gatti-08057507371036-7329e3",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "animaliapet:47392275661143"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56819013976389"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-0d879ff8e79ffc89359c",
-      "name": "Natua Natural Cat Adult in Jelly cottura al vapore 150 g Pollo - confezione da 24 pezzi",
-      "brand": "Natua",
-      "category": "umido",
-      "species": "gatto",
-      "format": "3,6 kg",
-      "url": "https://offerte4zampe.it/prodotto/natua-natural-cat-adult-in-jelly-cottura-al-vapore-150-g-pollo-confezione-da-24-pezzi-08057507371036-89359c",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:56819013976389"
-      ],
-      "candidate_offer_ids": [
-        "animaliapet:47392275661143"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
