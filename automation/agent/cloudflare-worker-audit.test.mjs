@@ -51,3 +51,13 @@ test('account mismatch, missing worker and failed worker read are safe failures'
  const failed=transport({fail:true});
  assert.equal((await auditCloudflareWorker({token:'fake',transport:failed.fetch})).status,'workers_read_failed');
 });
+test('outbound defaults off and uses verified account when enabled',async()=>{
+ const t=transport();
+ const off=await auditCloudflareWorker({token:'fake',transport:t.fetch,outboundTransport:async()=>{throw Error('must not query');}});
+ assert.equal(off.outbound.status,'not_checked');
+ let calls=0;
+ const on=await auditCloudflareWorker({token:'fake',transport:transport().fetch,enableOutbound:true,outboundTransport:async(url,opt)=>{calls++;assert.ok(url.includes('/accounts/'+ACCOUNT+'/analytics_engine/sql'));assert.equal(opt.headers.Authorization,'Bearer fake');return reply({meta:[{name:'merchant'},{name:'captured_redirects'}],data:[{merchant:'paco',captured_redirects:'4'}]});}});
+ assert.equal(calls,1);assert.equal(on.outbound.captured_redirects_estimate,4);
+ const denied=await auditCloudflareWorker({token:'fake',transport:transport().fetch,enableOutbound:true,outboundTransport:async()=>new Response('',{status:403})});
+ assert.equal(denied.status,'worker_verified');assert.equal(denied.outbound.status,'outbound_not_authorized');
+});
