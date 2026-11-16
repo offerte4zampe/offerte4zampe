@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-11-16T06:23:43.643870+00:00",
+  "generated_at": "2026-11-16T22:00:00.467274+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 15,
-  "with_third_store_lead": 23,
+  "at_target": 14,
+  "with_third_store_lead": 24,
   "categories": {
-    "umido": 109,
+    "umido": 108,
     "snack": 64,
-    "crocchette": 120,
-    "lettiere": 7
+    "crocchette": 123,
+    "lettiere": 5
   },
   "priority_offer_ids": [
     "animaliapet:46976533594455",
@@ -27,6 +27,7 @@
     "animaliapet:46976541622615",
     "animaliapet:46976542245207",
     "animaliapet:46976542441815",
+    "animaliapet:46976542671191",
     "animaliapet:46976544735575",
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
@@ -73,6 +74,8 @@
     "animaliapet:46976682852695",
     "animaliapet:46976683016535",
     "animaliapet:46976683409751",
+    "animaliapet:46976683802967",
+    "animaliapet:46976685244759",
     "animaliapet:46976687210839",
     "animaliapet:46976687407447",
     "animaliapet:46976687571287",
@@ -119,6 +122,7 @@
     "animaliapet:55556426891607",
     "animaliapet:55556613865815",
     "bauzaar:56807970472261",
+    "bauzaar:56811242750277",
     "bauzaar:56811242783045",
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
@@ -132,7 +136,6 @@
     "bauzaar:56820022542661",
     "bauzaar:56820022575429",
     "bauzaar:56820030079301",
-    "bauzaar:56820031390021",
     "bauzaar:56820043776325",
     "bauzaar:56820043874629",
     "bauzaar:56820044824901",
@@ -180,6 +183,7 @@
     "bauzaar:56820268400965",
     "bauzaar:56820269351237",
     "bauzaar:56820277117253",
+    "bauzaar:56820291010885",
     "bauzaar:56820299530565",
     "bauzaar:56820410843461",
     "bauzaar:56820411007301",
@@ -205,6 +209,7 @@
     "bauzaar:56835014459717",
     "bauzaar:56835014492485",
     "bauzaar:56835073802565",
+    "bauzaar:56835073999173",
     "bauzaar:56835075375429",
     "bauzaar:56961097728325",
     "bauzaar:56961097761093",
@@ -256,7 +261,6 @@
     "bauzaar:56961736835397",
     "bauzaar:56961740472645",
     "bauzaar:56961759183173",
-    "bauzaar:56961770094917",
     "bauzaar:56961800503621",
     "bauzaar:56961821180229",
     "bauzaar:56961825374533",
@@ -432,7 +436,6 @@
     "isola-dei-tesori:000150282",
     "isola-dei-tesori:000150283",
     "isola-dei-tesori:000181083",
-    "isola-dei-tesori:000181482",
     "isola-dei-tesori:000464002",
     "isola-dei-tesori:000503046",
     "isola-dei-tesori:000503051",
@@ -463,6 +466,7 @@
     "paco:3065",
     "paco:3068",
     "paco:3070",
+    "paco:3273",
     "paco:3711",
     "paco:3770",
     "paco:3847",
@@ -513,7 +517,6 @@
     "paco:5568",
     "paco:5603",
     "paco:5621",
-    "paco:5689",
     "paco:5690",
     "paco:5801",
     "paco:5802",
@@ -746,6 +749,27 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:58411832246597"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-8536942fbef6aa37efab",
+      "name": "Monge Speciality Line All Breeds Puppy Agnello e Riso 12Kg Crocchette Cani",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-speciality-line-all-breeds-puppy-agnello-e-riso-12kg-crocchette-cani-08009470011198-37efab",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976542671191",
+        "bauzaar:56820291010885"
+      ],
+      "candidate_offer_ids": [
+        "paco:3273"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1200,26 +1224,6 @@
         "animaliapet:46976543850839",
         "bauzaar:58411855413573",
         "webpet:52569132564820"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "maintain_coverage",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-39cbfbc55f75477dca80",
-      "name": "Monge Lettiera Easy Green Mais 3.8Kg per Gatti",
-      "brand": "Monge",
-      "category": "lettiere",
-      "species": "gatto",
-      "format": "3,8 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-lettiera-easy-green-mais-3-8kg-per-gatti-08009470015011-7dca80",
-      "verified_shops": 3,
-      "target_shops": 3,
-      "missing_shops": 0,
-      "offer_ids": [
-        "animaliapet:46976541950295",
-        "isola-dei-tesori:000181425",
-        "bauzaar:56961724383557"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -3532,6 +3536,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-4ebcd480eedd035514b2",
+      "name": "Nature's Protection Red Coat Salmone 1,5kg Crocchette Cani Small Adult",
+      "brand": "Nature's Protection",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-red-coat-salmone-1-5kg-crocchette-cani-small-adult-04771317472304-5514b2",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976685244759",
+        "bauzaar:56835073999173"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-57a815d7924598effb02",
       "name": "Nature's Protection White Dogs Agnello Adult 1.5kg Crocchette Cani",
       "brand": "Nature's Protection",
@@ -3564,6 +3587,25 @@
       "offer_ids": [
         "animaliapet:46976682754391",
         "bauzaar:56835073802565"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-8ea46cc6b8009845c25c",
+      "name": "Nature's Protection White Dogs Pesce Bianco Small e Mini Adult 10kg Crocchette Cani",
+      "brand": "Nature's Protection",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-superior-care-adult-small-e-mini-white-dogs-grain-free-al-pesce-bianco-10-kg-10kg-04771317456687-45c25c",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976683802967",
+        "bauzaar:56811242750277"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -6382,46 +6424,6 @@
       ],
       "candidate_offer_ids": [
         "paco:6077"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-bc04c38eb9c619308122",
-      "name": "Life Dog Umido Mixer Crocc Grain Free 150 g Tonno - confezione da 6 pezzi",
-      "brand": "Life Dog",
-      "category": "umido",
-      "species": "cane",
-      "format": "900 g",
-      "url": "https://offerte4zampe.it/prodotto/life-dog-umido-mixer-crocc-grain-free-150-g-tonno-confezione-da-6-pezzi-08034105424067-308122",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:56820031390021"
-      ],
-      "candidate_offer_ids": [
-        "paco:5689"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-acae48c9dde919d0ca0a",
-      "name": "Lindocat Advanced Multi-Cat lettiera agglomerante in bentonite bianca con bicarbonato 12 lt (10,2 kg)",
-      "brand": "Lindocat",
-      "category": "lettiere",
-      "species": "gatto",
-      "format": "10,2 kg",
-      "url": "https://offerte4zampe.it/prodotto/lindocat-advanced-multi-cat-lettiera-agglomerante-in-bentonite-bianca-con-bicarbonato-12-lt-10-2-kg-08006455001151-d0ca0a",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "bauzaar:56961770094917"
-      ],
-      "candidate_offer_ids": [
-        "isola-dei-tesori:000181482"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
