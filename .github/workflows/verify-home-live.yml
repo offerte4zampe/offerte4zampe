@@ -2,52 +2,79 @@ name: Verify public homepage release
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/verify-home-live.yml', 'site/assets/style.css', 'site/index.html', 'site/assets/base.js', 'site/assets/seasonal-theme.mjs', 'site/assets/seasonal-theme.css', 'site/assets/black-week-hero.svg', 'site/assets/christmas-hero.svg']
+    paths: ['.github/workflows/verify-home-live.yml', 'site/data/home.json', 'site/assets/style.css', 'site/index.html', 'site/assets/base.js', 'site/assets/seasonal-theme.mjs', 'site/assets/seasonal-theme.css', 'site/assets/black-week-hero.svg', 'site/assets/christmas-hero.svg']
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 4
+    timeout-minutes: 9
     steps:
       - uses: actions/checkout@v4
-      - name: Compare repository snapshot to live website
+      - name: Require published homepage to match repository (retry during deployment)
         run: |
           python - <<'PY'
-          import json, urllib.request, urllib.error, re, time
+          import json
+          import re
+          import sys
+          import time
+          import urllib.request
           from pathlib import Path
+
           expected = json.loads(Path("site/data/home.json").read_text())
+          generated = expected.get("generated_at")
           chosen = expected.get("daily_pick_id")
-          print(json.dumps({"expected_generated_at":expected.get("generated_at"),"expected_daily_pick_id":chosen,"expected_comparisons":sum("comparison_savings_pct" in o for o in expected.get("offers",[]))}))
-          for path in ["/", "/data/home.json"]:
-              url = "https://offerte4zampe.it" + path
+          selected = next((o for o in expected.get("offers", []) if o.get("id") == chosen), None)
+          expected_comparisons = sum("comparison_savings_pct" in offer for offer in expected.get("offers", []))
+          if not generated or not chosen or not selected or not selected.get("product_url"):
+              print("::error::Repository home.json is missing generated_at or a valid daily pick.")
+              sys.exit(1)
+
+          def fetch(path):
+              request = urllib.request.Request(
+                  "https://offerte4zampe.it" + path,
+                  headers={
+                      "User-Agent": "Offerte4Zampe-Public-Release-Check/1.0",
+                      "Cache-Control": "no-cache",
+                      "Accept": "text/html,application/json",
+                  },
+              )
+              with urllib.request.urlopen(request, timeout=15) as response:
+                  if response.status != 200:
+                      raise RuntimeError(f"{path} returned HTTP {response.status}")
+                  return response.read(3500000)
+
+          # A catalog commit can arrive before Cloudflare finishes deploying.
+          # Give the public site a bounded grace period, then fail visibly.
+          for attempt in range(1, 13):
               try:
-                  req=urllib.request.Request(url,headers={"User-Agent":"Offerte4Zampe-Public-Release-Check/1.0","Accept":"text/html,application/json"})
-                  with urllib.request.urlopen(req,timeout=15) as response:
-                      status=response.status
-                      raw=response.read(3500000)
-                  if path=="/":
-                      doc=raw.decode("utf-8","replace")
-                      checks={"daily_label":"id=\"daily-pick-label\"".replace("\\","") in doc and "OFFERTA DEL GIORNO" in doc,
-                              "price_badge":"savings-badge" in doc,
-                              "selected_offer":bool(chosen and chosen in doc)}
-                  else:
-                      payload=json.loads(raw)
-                      checks={"generated_at_matches":payload.get("generated_at")==expected.get("generated_at"),
-                              "daily_pick_matches":payload.get("daily_pick_id")==chosen,
-                              "comparison_count":sum("comparison_savings_pct" in o for o in payload.get("offers",[]))}
-                  print(json.dumps({"path":path,"status":status,**checks},ensure_ascii=False))
-                  if path=="/" and not all(checks.values()):
-                      print("::warning::Public homepage differs from current GitHub snapshot.")
-                  if path!="/" and not (checks.get("generated_at_matches") and checks.get("daily_pick_matches")):
-                      print("::warning::Public homepage JSON differs from current GitHub snapshot.")
-              except urllib.error.HTTPError as e:
-                  print(json.dumps({"path":path,"http_status":e.code,"verification":"blocked_or_unavailable"}))
-                  print("::warning::Live check could not read the URL.")
-              except Exception as e:
-                  print(json.dumps({"path":path,"verification":"network_or_parse_error","kind":type(e).__name__}))
-                  print("::warning::Live check incomplete.")
+                  html = fetch("/").decode("utf-8", "replace")
+                  public = json.loads(fetch("/data/home.json"))
+                  checks = {
+                      "html_generated_at": re.search(r'data-home-generated="([^"]+)"', html).group(1) == generated
+                          if re.search(r'data-home-generated="([^"]+)"', html) else False,
+                      "daily_label": 'id="daily-pick-label"' in html and "OFFERTA DEL GIORNO" in html,
+                      "price_badge": "savings-badge" in html,
+                      "selected_offer_html": selected["product_url"] in html,
+                      "json_generated_at": public.get("generated_at") == generated,
+                      "json_daily_pick": public.get("daily_pick_id") == chosen,
+                      "json_comparisons": sum("comparison_savings_pct" in o for o in public.get("offers", [])) == expected_comparisons,
+                      "json_offers": public.get("offers") == expected.get("offers"),
+                  }
+                  print(json.dumps({"attempt": attempt, "expected_generated_at": generated,
+                                    "public_generated_at": public.get("generated_at"),
+                                    "checks": checks}, ensure_ascii=False), flush=True)
+                  if all(checks.values()):
+                      print("Public homepage and JSON match the GitHub snapshot.")
+                      break
+              except Exception as exc:
+                  print(json.dumps({"attempt": attempt, "error": str(exc), "type": type(exc).__name__}), flush=True)
+              if attempt < 12:
+                  time.sleep(20)
+          else:
+              print("::error::PUBLICATION_LAG: homepage or /data/home.json did not match the GitHub snapshot after 12 attempts (~4 minutes).")
+              sys.exit(1)
           PY
 
       - name: Verify published feature CSS
