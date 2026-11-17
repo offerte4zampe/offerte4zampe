@@ -37,6 +37,8 @@ jobs:
             git push
           fi
       - name: Validate and send only when enabled
+        # Set the repository variable only after Render's dry run and IP allowlist pass.
+        if: vars.BREVO_SEND_RUNTIME != 'render'
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           BREVO_LIST_ID: ${{ vars.BREVO_LIST_ID }}
