@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-11-17T07:52:31.446687+00:00",
+  "generated_at": "2026-11-17T20:53:49.894237+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
   "brand_cap": 15,
-  "at_target": 13,
-  "with_third_store_lead": 24,
+  "at_target": 16,
+  "with_third_store_lead": 21,
   "categories": {
     "umido": 109,
     "crocchette": 120,
@@ -27,12 +27,10 @@
     "animaliapet:46976541622615",
     "animaliapet:46976542245207",
     "animaliapet:46976542441815",
-    "animaliapet:46976544145751",
     "animaliapet:46976544735575",
     "animaliapet:46976545522007",
     "animaliapet:46976546013527",
     "animaliapet:46976548438359",
-    "animaliapet:46976548995415",
     "animaliapet:46976549028183",
     "animaliapet:46976549847383",
     "animaliapet:46976551944535",
@@ -75,7 +73,6 @@
     "animaliapet:46976682852695",
     "animaliapet:46976683016535",
     "animaliapet:46976683409751",
-    "animaliapet:46976685048151",
     "animaliapet:46976685244759",
     "animaliapet:46976687210839",
     "animaliapet:46976687407447",
@@ -123,7 +120,6 @@
     "animaliapet:55556613865815",
     "bauzaar:56807970472261",
     "bauzaar:56818660442437",
-    "bauzaar:56818662113605",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
     "bauzaar:56819033702725",
@@ -173,7 +169,6 @@
     "bauzaar:56820207354181",
     "bauzaar:56820207452485",
     "bauzaar:56820207911237",
-    "bauzaar:56820214694213",
     "bauzaar:56820220920133",
     "bauzaar:56820221411653",
     "bauzaar:56820245233989",
@@ -409,7 +404,6 @@
     "isola-dei-tesori:000138591",
     "isola-dei-tesori:000138592",
     "isola-dei-tesori:000138943",
-    "isola-dei-tesori:000140486",
     "isola-dei-tesori:000140881",
     "isola-dei-tesori:000142009",
     "isola-dei-tesori:000142010",
@@ -469,7 +463,6 @@
     "paco:3070",
     "paco:3711",
     "paco:3770",
-    "paco:3830",
     "paco:3847",
     "paco:4051",
     "paco:4110",
@@ -482,7 +475,6 @@
     "paco:4435",
     "paco:4519",
     "paco:4557",
-    "paco:4587",
     "paco:4728",
     "paco:4741",
     "paco:4742",
@@ -492,7 +484,6 @@
     "paco:4820",
     "paco:4821",
     "paco:4902",
-    "paco:4915",
     "paco:4983",
     "paco:5045",
     "paco:5046",
@@ -508,7 +499,6 @@
     "paco:5207",
     "paco:5208",
     "paco:5213",
-    "paco:5251",
     "paco:5264",
     "paco:5267",
     "paco:5268",
@@ -610,27 +600,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-50ba42788741a2b0401f",
-      "name": "Farmina N&D Quinoa Feline Urinary Anatra e mirtilli rossi 1,5 kg",
-      "brand": "Farmina",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-quinoa-feline-urinary-anatra-e-mirtilli-rossi-1-5-kg-08010276035820-b0401f",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820214694213",
-        "animaliapet:46976548995415"
-      ],
-      "candidate_offer_ids": [
-        "paco:3830"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-9ae54ff19d73e6a30eda",
       "name": "Farmina N&D Pumpkin Neutered Quaglia e Melograno 5Kg Crocchette Gatti Adulti",
       "brand": "Farmina",
@@ -647,28 +616,6 @@
       ],
       "candidate_offer_ids": [
         "paco:3847"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-15300f54eb6acf57c2af",
-      "name": "Monge Monoprotein Coniglio 1.5Kg Crocchette Gatti",
-      "brand": "Monge",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/monge-monoprotein-coniglio-1-5kg-crocchette-gatti-08009470011945-57c2af",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976544145751",
-        "isola-dei-tesori:000140486"
-      ],
-      "candidate_offer_ids": [
-        "paco:4587",
-        "paco:5251"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -858,27 +805,6 @@
       ],
       "candidate_offer_ids": [
         "paco:5568"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-9625acb3355a30fbed8b",
-      "name": "Nature's Protection White Dogs Agnello 10kg Small & Mini Adult Crocchette Cani",
-      "brand": "Nature's Protection",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "10 kg",
-      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-white-dogs-agnello-10kg-small-mini-adult-crocchette-cani-04771317456649-fbed8b",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976685048151",
-        "bauzaar:56818662113605"
-      ],
-      "candidate_offer_ids": [
-        "paco:4915"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1093,6 +1019,26 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-50ba42788741a2b0401f",
+      "name": "Farmina N&D Quinoa Feline Urinary Anatra e mirtilli rossi 1,5 kg",
+      "brand": "Farmina",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/farmina-n-d-quinoa-feline-urinary-anatra-e-mirtilli-rossi-1-5-kg-08010276035820-b0401f",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "bauzaar:56820214694213",
+        "animaliapet:46976548995415",
+        "paco:3830"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-d7e97154742246438ed4",
       "name": "Monge Gemon All Breeds Adult con Maiale e Riso 3 kg",
       "brand": "Gemon",
@@ -1107,6 +1053,26 @@
         "bauzaar:56961821671749",
         "animaliapet:49863005241687",
         "webpet:52568931336532"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-15300f54eb6acf57c2af",
+      "name": "Monge Monoprotein Coniglio 1.5Kg Crocchette Gatti",
+      "brand": "Monge",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/monge-monoprotein-coniglio-1-5kg-crocchette-gatti-08009470011945-57c2af",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976544145751",
+        "paco:4587",
+        "isola-dei-tesori:000140486"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
@@ -1248,6 +1214,26 @@
         "animaliapet:46976693371223",
         "paco:4914",
         "bauzaar:56811242783045"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "maintain_coverage",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-9625acb3355a30fbed8b",
+      "name": "Nature's Protection White Dogs Agnello 10kg Small & Mini Adult Crocchette Cani",
+      "brand": "Nature's Protection",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/nature-s-protection-white-dogs-agnello-10kg-small-mini-adult-crocchette-cani-04771317456649-fbed8b",
+      "verified_shops": 3,
+      "target_shops": 3,
+      "missing_shops": 0,
+      "offer_ids": [
+        "animaliapet:46976685048151",
+        "bauzaar:56818662113605",
+        "paco:4915"
       ],
       "candidate_offer_ids": [],
       "next_action": "maintain_coverage",
