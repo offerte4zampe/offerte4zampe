@@ -4,14 +4,23 @@ on:
     branches: [main]
     paths: ['.github/workflows/verify-home-live.yml', 'site/data/home.json', 'site/assets/style.css', 'site/index.html', 'site/assets/base.js', 'site/assets/seasonal-theme.mjs', 'site/assets/seasonal-theme.css', 'site/assets/black-week-hero.svg', 'site/assets/christmas-hero.svg']
   workflow_dispatch:
+  workflow_run:
+    workflows: ['Refresh real merchant catalogs', 'Refresh tested coupon page']
+    types: [completed]
+    branches: [main]
 permissions:
   contents: read
 jobs:
   verify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 9
     steps:
       - uses: actions/checkout@v4
+        with:
+          # workflow_run.head_sha precedes the generated snapshot pushed by the producer.
+          # Check current main; manual/push runs retain their exact triggering commit.
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.sha }}
       - name: Require published homepage to match repository (retry during deployment)
         run: |
           python - <<'PY'
