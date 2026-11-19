@@ -8,6 +8,36 @@ from automation.package_integrity import reconcile
 
 
 class StoreIntegrityTests(unittest.TestCase):
+    def test_commercial_renewal_has_fixed_budget_and_oldest_first_fairness(self):
+        critical=[];cache={}
+        for i in range(1,7):
+            o=dict(self.offer,id='bauzaar:'+str(i),url='https://www.bauzaar.it/products/food?variant='+str(i))
+            critical.append(o)
+            cache[o['id']]=dict(self.checked_entry(o,price=25),checked_at=(self.now-dt.timedelta(hours=12+i)).isoformat())
+        ordinary=[dict(self.offer,id='bauzaar:'+str(i),url='https://www.bauzaar.it/products/food?variant='+str(i),weight_conflict=True) for i in range(10,30)]
+        chosen=select(ordinary+critical,cache,self.now)['bauzaar']
+        self.assertEqual([o['id'] for o in chosen],['bauzaar:6','bauzaar:5','bauzaar:4','bauzaar:3'])
+        # Renewing the oldest observations lets the remaining critical rows rotate.
+        for o in chosen:cache[o['id']]['checked_at']=self.now.isoformat()
+        next_chosen=select(ordinary+critical,cache,self.now)['bauzaar']
+        self.assertEqual([o['id'] for o in next_chosen[:2]],['bauzaar:2','bauzaar:1'])
+        self.assertEqual(len(next_chosen),4)
+
+    def checked_entry(self,o,**proof):
+        return dict(status='verified',source=o['url'].split('?')[0]+'.js',fingerprint=fingerprint(o),
+                    checked_at=self.now.isoformat(),compared=list(proof),discrepancies=list(proof),
+                    evidence=dict(exact_variant=o['id'].split(':',1)[1],**proof))
+
+    def test_stock_and_price_renew_only_after_12h_with_bound_proof(self):
+        for proof in ({'price':25},{'available':False}):
+            e=self.checked_entry(self.offer,**proof);cache={self.offer['id']:e}
+            self.assertEqual(select([self.offer],cache,self.now+dt.timedelta(hours=11))['bauzaar'],[])
+            self.assertEqual(select([self.offer],cache,self.now+dt.timedelta(hours=12))['bauzaar'],[self.offer])
+            wrong=copy.deepcopy(e);wrong['source']='https://wrong.example/food.js'
+            self.assertEqual(select([self.offer],{self.offer['id']:wrong},self.now+dt.timedelta(hours=12))['bauzaar'],[])
+            wrong=copy.deepcopy(e);wrong['evidence']['exact_variant']='999'
+            self.assertEqual(select([self.offer],{self.offer['id']:wrong},self.now+dt.timedelta(hours=12))['bauzaar'],[])
+
     def setUp(self):
         self.now=dt.datetime(2026,10,28,15,tzinfo=dt.timezone.utc)
         self.offer=dict(id='bauzaar:1',merchant_id='bauzaar',merchant='Bauzaar',title='Patè 85 gr - confezione da 24 pezzi',variant='1ct',price=24,available=True,gtin='4006381333931',weight_kg=2.04,brand='Brand',url='https://www.bauzaar.it/products/food?variant=1')
