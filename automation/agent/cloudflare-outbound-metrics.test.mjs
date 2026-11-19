@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {outboundMetrics} from './cloudflare-outbound-metrics.mjs';
+const opts={token:'secret-test',accountId:'a'.repeat(32),now:Date.parse('2026-11-16T16:00:00Z')};
+const meta=[{name:'merchant',type:'String'},{name:'captured_redirects',type:'UInt64'}];
+const reply=data=>new Response(JSON.stringify({meta,data}),{headers:{'content-type':'application/json'}});
+test('fixed readonly query returns weighted merchant aggregates and no raw fields',async()=>{
+ const r=await outboundMetrics({...opts,transport:async(url,o)=>{assert.match(url,/analytics_engine\/sql$/);assert.equal(o.redirect,'manual');assert.equal(o.method,'POST');assert.match(o.body,/SUM\(_sample_interval\)/);assert.match(o.body,/2026-11-09 16:00:00/);assert.match(o.body,/timestamp < '2026-11-16 16:00:00'/);assert.doesNotMatch(o.body,/blob[2-9]|double|INSERT|DELETE|UPDATE/);return reply([{merchant:'bauzaar',captured_redirects:'12'},{merchant:'paco',captured_redirects:3}]);}});
+ assert.equal(r.captured_redirects_estimate,15);assert.equal(r.status,'outbound_available');assert.ok(!JSON.stringify(r).includes('secret-test'));
+});
+test('empty response remains no_rows without asserting zero all clicks',async()=>{const r=await outboundMetrics({...opts,transport:async()=>reply([])});assert.equal(r.status,'outbound_no_rows');assert.ok(!('captured_redirects_estimate' in r));});
+for(const status of [401,403,404,429,500,302])test('HTTP '+status+' never reports zero',async()=>{const r=await outboundMetrics({...opts,transport:async()=>new Response('',{status})});assert.notEqual(r.status,'outbound_available');assert.ok(!('merchants'in r));});
+for(const data of [[{merchant:'paco',captured_redirects:-1}],[{merchant:'paco',captured_redirects:'9007199254740992'}],[{merchant:'paco',captured_redirects:null}],[{merchant:'paco',captured_redirects:1},{merchant:'paco',captured_redirects:2}],[{merchant:'<script>',captured_redirects:2}],Array.from({length:101},(_,i)=>({merchant:'m'+i,captured_redirects:1}))])test('malformed/duplicate/truncated rows fail closed '+JSON.stringify(data).slice(0,75),async()=>{assert.equal((await outboundMetrics({...opts,transport:async()=>reply(data)})).status,'outbound_unavailable');});
+test('bad config and time make no network call',async()=>{const transport=()=>{throw Error('must not call');};assert.equal((await outboundMetrics({...opts,token:'',transport})).status,'outbound_not_configured');assert.equal((await outboundMetrics({...opts,now:NaN,transport})).status,'outbound_invalid_time');});
+test('malformed JSON, errors, missing schema, transport failures stay unknown',async()=>{for(const transport of [async()=>new Response('{',{headers:{'content-type':'application/json'}}),async()=>new Response(JSON.stringify({data:[],errors:['private error']}),{headers:{'content-type':'application/json'}}),async()=>new Response(JSON.stringify({data:[]}),{headers:{'content-type':'application/json'}}),async()=>{throw Error('secret-test');}])assert.equal((await outboundMetrics({...opts,transport})).status,'outbound_unavailable');});

@@ -1,3 +1,4 @@
+import {outboundMetrics} from './cloudflare-outbound-metrics.mjs';
 import {workerErrorMetrics} from './cloudflare-worker-errors.mjs';
 import {checkTelegramStatus} from './telegram-status-monitor.mjs';
 /** Account-scoped, read-only Cloudflare Worker audit via official Code Mode MCP.
@@ -44,7 +45,7 @@ function embedded(v){
  if(!t||t.length>1048576)return null;
  try{return JSON.parse(t);}catch{return null;}
 }
-export async function auditCloudflareWorker({token,accountId,transport=fetch,metricsTransport=fetch,enableMetrics=false}={}){
+export async function auditCloudflareWorker({token,accountId,transport=fetch,metricsTransport=fetch,enableMetrics=false,enableOutbound=false,outboundTransport=fetch}={}){
  if(typeof token!=='string'||!token.trim())return {status:'missing_token'};
  if(accountId && !/^[a-f0-9]{32}$/i.test(accountId))return {status:'invalid_account_id'};
  let sessionId;
@@ -78,9 +79,10 @@ export async function auditCloudflareWorker({token,accountId,transport=fetch,met
   const data=details?.result?.api_success!==undefined?details.result:details;
   if(exec?.id!==3||exec.result?.isError||data?.api_success!==true)return {status:'workers_read_failed'};
   if(data?.worker_found!==true)return {status:'worker_not_found'};
+  const outbound=enableOutbound?await outboundMetrics({token,accountId:resolved,transport:outboundTransport}):{status:'not_checked'};
   const metrics=enableMetrics?await workerErrorMetrics({token,accountId:resolved,transport:metricsTransport}):{status:'not_checked'};
   return {status:'worker_verified',worker:WORKER,modified_on:typeof data.modified_on==='string'?data.modified_on:null,
-   metrics,
+   metrics,outbound,
    workers_dev_host:typeof data.workers_dev_host==='string'&&/^zampachiara\.[a-z0-9-]{1,63}\.workers\.dev$/.test(data.workers_dev_host)?data.workers_dev_host:null,
    deploy_status:data.deploy_readable===true?(typeof data.latest_deploy_at==='string'?'available':'no_deployments'):'not_accessible',
    latest_deploy_at:typeof data.latest_deploy_at==='string'?data.latest_deploy_at:null,
@@ -91,8 +93,9 @@ export async function auditCloudflareWorker({token,accountId,transport=fetch,met
  }
 }
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
- const r=await auditCloudflareWorker({token:process.env.CLOUDFLARE_MCP_TOKEN,accountId:process.env.CLOUDFLARE_ACCOUNT_ID,enableMetrics:true});
+ const r=await auditCloudflareWorker({token:process.env.CLOUDFLARE_MCP_TOKEN,accountId:process.env.CLOUDFLARE_ACCOUNT_ID,enableMetrics:true,enableOutbound:true});
  console.log(JSON.stringify({...r,workers_dev_host:r.workers_dev_host?'configured':null}));
+ if(r.status==='worker_verified'&&r.outbound?.status!=='outbound_available')console.log('::warning::Outbound aggregates unknown or empty; no merchant-click or revenue claim.');
  if(r.status!=='worker_verified'||r.metrics?.alert===true||r.deploy_status==='no_deployments')process.exitCode=1;
  if(r.status==='worker_verified'){
   const telegram=await checkTelegramStatus({alternateHost:r.workers_dev_host});
