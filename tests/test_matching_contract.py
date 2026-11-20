@@ -3,7 +3,7 @@ import datetime as dt
 from pathlib import Path
 import tempfile
 import unittest
-from check_matching_snapshot_contract import verify_models, files, explicit_resolver
+from check_matching_snapshot_contract import verify_models, files, explicit_resolver, hold_oracle, apply_expected_hold_metadata, verify_production_hold_manifest
 from check_matching_merchant_review import verify,observation_fingerprint,verify_source_url
 
 class MatchingContractTests(unittest.TestCase):
@@ -12,6 +12,52 @@ class MatchingContractTests(unittest.TestCase):
         base={'offers':[{'id':'a:1','merchant_id':'a','price':10,'affiliate_url':'https://a.example/x?a=1&b=2','gtin':'','quantity':q,'product_id':'old','canonical_title':'Before'},{'id':'b:1','merchant_id':'b','price':11,'affiliate_url':'https://b.example/x','gtin':'123','quantity':q,'product_id':'target','canonical_title':'Before'}],'products':[],'registry':{}}
         expected=copy.deepcopy(base);expected['offers'][0]['product_id']='target';expected['offers'][0]['canonical_title']='Expected'
         return base,copy.deepcopy(expected),expected,[['a:1','b:1']]
+    def held_models(self):
+        base,actual,expected,joins=self.models()
+        row=copy.deepcopy(base['offers'][1]);row.update(id='c:1',merchant_id='c',product_id='target')
+        base['offers'].append(copy.deepcopy(row));actual['offers'].append(copy.deepcopy(row));expected['offers'].append(copy.deepcopy(row))
+        holds={'c:1':{'merchant_id':'c','review':{'review_state':'unverified','reason':'Independent manual commercial review pending','reviewed_at':'2026-11-20T08:00:00+00:00','review_due':'2026-11-27T08:00:00+00:00','sources':['https://c.example/exact']}}}
+        for model in (actual,expected):
+            model['offers'][2]['product_id']='held-c'
+            model['metrics']={'name_matching':{}}
+            apply_expected_hold_metadata(model,holds,dt.datetime(2026,11,20,12,tzinfo=dt.timezone.utc))
+        return base,actual,expected,joins,holds
+
+    def test_independent_join_and_review_hold_oracle_passes(self):
+        result=verify_models(*self.held_models())
+        self.assertEqual(result['exact_identity_moves'],2)
+
+    def test_unknown_extra_hold_new_id_and_held_raw_mutation_are_rejected(self):
+        for mode in ('extra_hold','extra_metadata','unknown_id','new_id','price','gtin','quantity','review_metadata','missing_hold'):
+            base,actual,expected,joins,holds=self.held_models()
+            if mode=='extra_hold':actual['offers'][1]['product_id']='extra-held-b'
+            elif mode=='extra_metadata':actual['offers'][1]['comparison_review']={'review_state':'unverified'}
+            elif mode=='unknown_id':holds['unknown:1']=copy.deepcopy(holds['c:1'])
+            elif mode=='new_id':actual['offers'][2]['id']='new:1'
+            elif mode=='review_metadata':actual['offers'][2]['comparison_review']['reason']='Unreviewed new metadata'
+            elif mode=='missing_hold':actual['offers'][2]['product_id']='target'
+            else:actual['offers'][2][mode]='changed raw field'
+            with self.subTest(mode=mode),self.assertRaises(AssertionError):verify_models(base,actual,expected,joins,holds)
+
+    def test_dormant_unknown_production_hold_and_changed_review_are_rejected(self):
+        *_,holds=self.held_models()
+        config={'schema_version':1,'holds':[{'offer_id':oid,'merchant_id':entry['merchant_id'],**entry['review']} for oid,entry in holds.items()]}
+        verify_production_hold_manifest(config,holds)
+        extra=copy.deepcopy(config);extra['holds'].append({**extra['holds'][0],'offer_id':'unknown:1','merchant_id':'unknown'})
+        changed=copy.deepcopy(config);changed['holds'][0]['reason']='Not the independently reviewed reason'
+        for invalid in (extra,changed):
+            with self.assertRaises(AssertionError):verify_production_hold_manifest(invalid,holds)
+
+    def test_independent_resolver_excludes_hold_from_original_resolution(self):
+        seen=[]
+        def original(offers,quantities,identities,*rest):
+            seen.extend(o['id'] for o in offers)
+            return identities,{},{}
+        rows=[{'id':i,'merchant_id':i.split(':')[0]} for i in ('a:1','c:1')]
+        holds={'c:1':{'merchant_id':'c','review':{}}}
+        identities,_,_=explicit_resolver(original,[],holds)(rows,{}, {'a:1':['gtin','1'],'c:1':['gtin','1']},None,None,None)
+        self.assertEqual(seen,['a:1']);self.assertEqual(identities['c:1'],['unattached','c:1'])
+
     def test_exact_explicit_move_passes(self):verify_models(*self.models())
     def test_commercial_and_derived_mutations_rejected(self):
         for key in ('price','affiliate_url','gtin','quantity','canonical_title','product_id'):

@@ -10,6 +10,17 @@ class MatchedPagesTests(unittest.TestCase):
         self.a = dict(id='a',gtin='8009470006276',brand='Monge',title='Food',variant='1 kg',weight_kg=1,price=10,merchant='A',merchant_id='a',url='https://example.com/a',available=True,checked_at=datetime.datetime.now(datetime.timezone.utc).isoformat())
         self.b = self.a | dict(id='b',merchant='B',merchant_id='b',price=12)
 
+    def test_manual_review_hold_blocks_static_comparison_without_removing_input(self):
+        import datetime as dt
+        now=dt.datetime.now(dt.timezone.utc).isoformat()
+        a=dict(id='a',merchant_id='a',merchant='A',title='Food',brand='Brand',gtin='4006381333931',weight_kg=2,price=20,available=True,checked_at=now,url='https://a.example/item')
+        b=dict(a,id='b',merchant_id='b',merchant='B',url='https://b.example/item')
+        self.assertEqual(len(groups([a,b])),1)
+        held=dict(b,comparison_review={'review_state':'unverified','review_due':'2020-01-01'})
+        self.assertEqual(groups([a,held]),{})
+        self.assertEqual(held['price'],b['price'])
+        self.assertEqual(held['url'],b['url'])
+
     def test_checksum_and_strict_identity(self):
         # Use a checksum-valid fixture, independent of a real product identity.
         code='1234567890128'

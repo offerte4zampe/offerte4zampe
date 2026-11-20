@@ -82,3 +82,16 @@ test('explicit characteristic groups retain provenance and require fresh verifie
  assert.equal(groupOffers([a,b],now).length,1);
  for(const extra of [{quantity_verified:false},{checked_at:'2026-10-01'},{product_matching_method:'unattached'},{product_id:'invalid'}])assert.equal(groupOffers([a,{...b,...extra}],now).length,2);
 });
+test('manual unverified comparison holds reject canonical, characteristic and GTIN-weight fallback joins while preserving outbound bytes',()=>{
+ const trade=require('../site/assets/trade.js');
+ const base={id:'bauzaar:56961508409669',merchant_id:'bauzaar',price:18.9,gtin:'8032611677953',brand:'PetUp',weight_kg:1,checked_at:'2026-10-18T11:00:00Z',product_id:'p-12345678901234567890',affiliate_url:'https://affiliate.example/exact?x=%2F&z=1'};
+ for(const extra of [{product_identity_verified:true},{product_matching_method:'gtin_with_name'},{product_matching_method:'name_characteristics'},{product_identity_verified:false}]){
+  const ordinary={...base,...extra};assert(matchKey(ordinary,now));
+  const held={...ordinary,comparison_review:{review_state:'unverified',review_due:'2020-01-01'}};
+  assert.equal(matchKey(held,now),'');
+  const peer={...ordinary,id:'isola-dei-tesori:000154414',merchant_id:'isola-dei-tesori'};
+  assert.deepEqual(groupOffers([held,peer],now).map(g=>g.length),[1,1]);
+  assert.equal(trade.merchantUrl(held),base.affiliate_url);
+  assert.equal(trade.goUrl(held,'product'),trade.goUrl(ordinary,'product'));
+ }
+});

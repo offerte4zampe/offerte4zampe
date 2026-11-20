@@ -50,6 +50,7 @@ def valid_gtin(code):
 def groups(offers):
     result = defaultdict(list)
     for o in offers:
+        if o.get('comparison_review',{}).get('review_state')=='unverified':continue
         weight = o.get('weight_kg')
         if (valid_gtin(o.get('gtin')) and isinstance(weight,(int,float)) and math.isfinite(weight) and weight>0
             and o.get('brand','').strip() and fresh(o) and isinstance(o.get('price'),(int,float)) and math.isfinite(o['price']) and o['price']>0

@@ -86,3 +86,9 @@ test('mismatched packs and lines are not activated',()=>{
  const activeIds=new Set(config.links.map(r=>r.offer_id));
  for(const p of selection.products.filter(p=>!p.publication_ready))for(const id of p.offer_ids)assert(!activeIds.has(id));
 });
+
+test('editorial proof is valid at the 30-day boundary and expires one millisecond later',()=>{
+ const cutoff=Date.parse(row.checked_at)+30*86400000;
+ assert(productLink(offer,config,cutoff));
+ assert.equal(productLink(offer,config,cutoff+1),null);
+});

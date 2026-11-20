@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "purpose": "Independent test oracle for the two manually reviewed unverified comparison relations; no merchant contradiction or equivalence approval is asserted",
+  "holds": [
+    {
+      "offer_id": "bauzaar:56961508409669",
+      "merchant_id": "bauzaar",
+      "expected_review": {
+        "review_state": "unverified",
+        "reason": "Exact requested PetUp black variant was missing in the dated 16 November API/main-product review. Current 20 November robots-aware recheck is inconclusive; current price/fingerprint changed. Commercial equivalence remains unverified; this is not a current missing-variant or price/stock assertion.",
+        "reviewed_at": "2026-11-20T08:47:39.550312+00:00",
+        "review_due": "2026-11-27T08:47:39.550312+00:00",
+        "sources": [
+          "https://www.bauzaar.it/products/guinzaglio-da-addestramento-in-nylon-petup?variant=56961508409669",
+          "https://www.isoladeitesori.it/prodotto/petup-guinzaglio-da-addestramento-18-mmx2mt-nero/000154414.html"
+        ]
+      }
+    },
+    {
+      "offer_id": "webpet:52569197674836",
+      "merchant_id": "webpet",
+      "expected_review": {
+        "review_state": "unverified",
+        "reason": "20 November selected WebPet variant W01980/EAN8050683000387 still declares two bags/200ml in its selling-pack section. Isola describes Robofood3; manufacturer page supplies AA600001 but no explicit EAN/version bridge. Same GTIN and similar features do not resolve the contradictory commercial pack.",
+        "reviewed_at": "2026-11-20T08:47:39.550312+00:00",
+        "review_due": "2026-11-27T08:47:39.550312+00:00",
+        "sources": [
+          "https://www.webpet.it/products/askoll-robofood-distributore-automatico-programmabile-di-mangime-per-pesci-in-acquari?variant=52569197674836",
+          "https://www.isoladeitesori.it/prodotto/askoll-robofood-distributore-cibo-per-pesci-programmabile/000166136.html",
+          "https://www.askollaquarium.com/it-it/acquari-e-accessori/alimentazione/robofood"
+        ]
+      }
+    }
+  ]
+}

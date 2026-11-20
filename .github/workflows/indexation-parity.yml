@@ -5,6 +5,9 @@ on:
     paths:
       - 'automation/build_product_catalog.py'
       - 'automation/name_matching.py'
+      - 'automation/comparison_review.py'
+      - 'automation/comparison-review-holds.json'
+      - 'tests/matching-review-hold-manifest.json'
       - 'automation/matching_candidates.py'
       - 'automation/matching_evidence.py'
       - 'tests/check_matching_snapshot_contract.py'
@@ -40,7 +43,17 @@ jobs:
           BASE="$(git merge-base HEAD origin/main)"
           git worktree add --detach "$RUNNER_TEMP/indexation-common" HEAD
           git show "$BASE:automation/name_matching.py" > "$RUNNER_TEMP/indexation-common/automation/name_matching.py"
-      - name: Compare real sitemap, offers and HTML with common resolver (all legacy assertions)
+          # Preserve the complete BASE policy in this isolation tree. The actual
+          # head policy is checked separately against an independent test oracle.
+          if git cat-file -e "$BASE:automation/comparison-review-holds.json" 2>/dev/null; then
+            git show "$BASE:automation/comparison-review-holds.json" > "$RUNNER_TEMP/indexation-common/automation/comparison-review-holds.json"
+          else
+            printf '%s\n' '{"schema_version":1,"holds":[]}' > "$RUNNER_TEMP/indexation-common/automation/comparison-review-holds.json"
+          fi
+          if git cat-file -e "$BASE:automation/comparison_review.py" 2>/dev/null; then
+            git show "$BASE:automation/comparison_review.py" > "$RUNNER_TEMP/indexation-common/automation/comparison_review.py"
+          fi
+      - name: Compare real sitemap, offers and HTML with common resolver and base review policy (all legacy assertions)
         shell: bash
         run: |
           set -euo pipefail
@@ -109,7 +122,7 @@ jobs:
               with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:f.write(summary)
           PY
 
-      - name: Verify actual matching, explicit identities, artifacts and merchant redirect responses
+      - name: Verify actual joins and reviewed holds against independent oracle, artifacts and redirects
         run: python tests/check_matching_snapshot_contract.py --base-ref origin/main --output matching-contract-result.json
       - uses: actions/upload-artifact@v4
         if: always()
