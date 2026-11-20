@@ -8,3 +8,12 @@ test('chunked preparation preserves eligibility, identity groups, text, order wi
 });
 test('empty catalog and invalid batch size',async()=>{const r=await prepare([]);assert.equal(r.data.length,0);await assert.rejects(()=>prepare([offer],{chunkSize:0}));});
 test('default yield permits a queued timer between preparation chunks',async()=>{let timer=false;const pending=setTimeout(()=>{timer=true},0);await prepare([offer,{...offer,id:'b'}],{chunkSize:1});assert(timer);clearTimeout(pending)});
+test('manual comparison review holds remain searchable but cannot enter identity shortcuts',async()=>{
+ const held={...offer,id:'held',comparison_review:{review_state:'unverified'}};
+ const peer={...offer,id:'peer'};
+ const result=await prepare([held,peer]);
+ assert.deepEqual(result.data.map(o=>o.id),['held','peer']);
+ assert(result.searchText.has('held'));
+ assert.equal(result.data[0].comparison_review.review_state,'unverified');
+ assert.deepEqual(result.identityIndex.get(identity(peer)).map(o=>o.id),['peer']);
+});

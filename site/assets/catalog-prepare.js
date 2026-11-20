@@ -9,7 +9,7 @@ async function prepare(offers,{chunkSize=500,yieldTask=yieldToMain,onChunk=null,
  for(let start=0;start<offers.length;start+=chunkSize){
   const began=performance.now(),end=Math.min(start+chunkSize,offers.length);
   for(let i=start;i<end;i++){const o=metadata.normalize(offers[i]);if(!valid(o,index))continue;data.push(o);
-   if(o.gtin&&o.weight_kg){const key=identity(o);if(!identityIndex.has(key))identityIndex.set(key,[]);identityIndex.get(key).push(o)}
+   if(o.gtin&&o.weight_kg&&o.comparison_review?.review_state!=='unverified'){const key=identity(o);if(!identityIndex.has(key))identityIndex.set(key,[]);identityIndex.get(key).push(o)}
    searchText.set(o.id,[o.title,o.variant,o.brand,o.category,o.sku,o.gtin].join(' ').toLocaleLowerCase('it'));
   }
   if(onChunk)onChunk(performance.now()-began);

@@ -93,6 +93,7 @@ function merchant(url){
  try{const u=new URL(url);if(u.protocol!=='https:'||u.username||u.password)return '';if(['www.amazon.it','amazon.it'].includes(u.hostname)&&/^\/dp\/[A-Z0-9]{10}\/?$/.test(u.pathname)&&u.searchParams.getAll('tag').length===1&&u.searchParams.get('tag')==='offerte4zam02-21')return 'Amazon';const shops={'www.pacopetshop.it':'Paco Pet Shop','pacopetshop.it':'Paco Pet Shop','www.isoladeitesori.it':'Isola dei Tesori','isoladeitesori.it':'Isola dei Tesori','www.bauzaar.it':'Bauzaar','bauzaar.it':'Bauzaar','webpet.it':'WebPet','www.webpet.it':'WebPet','animaliapet.eu':'Animaliapet','www.animaliapet.eu':'Animaliapet'};if(shops[u.hostname])return shops[u.hostname];if(u.hostname==='tc.tradetracker.net'&&u.searchParams.get('c')==='16143'&&u.searchParams.get('a')==='518044')return 'Bauzaar';if(u.hostname==='tc.tradetracker.net'&&u.searchParams.get('c')==='31221'&&u.searchParams.get('a')==='518044')return 'Isola dei Tesori';return ''}catch{return ''}
 }
 function matchKey(o,now=Date.now()){
+ if(o.comparison_review?.review_state==='unverified')return '';
  if(o.quantity_verified===false||o.weight_conflict)return '';
  if(o.identity_review&&(!Number.isFinite(Date.parse(o.identity_expires_at))||Date.parse(o.identity_expires_at)<now))return '';
  const observed=Date.parse(o.checked_at);

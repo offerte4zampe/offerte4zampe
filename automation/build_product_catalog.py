@@ -162,7 +162,7 @@ def fresh(o,now):
     except (TypeError,KeyError,ValueError):return False
 
 
-def build(catalog,old_registry=None,history=None,now=None):
+def build(catalog,old_registry=None,history=None,now=None,comparison_reviews=None):
     now=now or dt.datetime.now(dt.timezone.utc);old_registry=old_registry or {};history=history or {}
     try:
         from .name_matching import resolve
@@ -172,11 +172,19 @@ def build(catalog,old_registry=None,history=None,now=None):
         from .merchant_promotions import annotate
     except ImportError:
         from merchant_promotions import annotate
+    try:
+        from .comparison_review import review_holds
+    except ImportError:
+        from comparison_review import review_holds
+    held=review_holds(catalog['offers'],now,comparison_reviews)
     catalog={**catalog,'offers':[annotate(o) for o in catalog['offers']]}
     buckets=defaultdict(list)
     q_by_id={o['id']:quantity(o) for o in catalog['offers']}
-    identities={o['id']:identity(o,q_by_id[o['id']]) for o in catalog['offers']}
-    identities,name_methods,name_report=resolve(catalog['offers'],q_by_id,identities,normalized,canonical_brand,canonical_gtin)
+    identities={o['id']:(['unattached',o['id']] if o['id'] in held else identity(o,q_by_id[o['id']])) for o in catalog['offers']}
+    # Held rows cannot be sources or targets of name-based joins either.
+    eligible=[o for o in catalog['offers'] if o['id'] not in held]
+    identities,name_methods,name_report=resolve(eligible,q_by_id,identities,normalized,canonical_brand,canonical_gtin)
+    name_report['manual_review_holds']=len(held)
     for o in catalog['offers']:
         buckets[json.dumps(identities[o['id']],ensure_ascii=False,separators=(',',':'))].append(o)
     products=[];offers=[];registry={};by_bucket=defaultdict(list)
@@ -216,8 +224,10 @@ def build(catalog,old_registry=None,history=None,now=None):
                 offer['image_local']=p['image_local'];offer['image_source_offer']=p['image_source_offer']
             else:
                 offer.pop('image_local',None);offer.pop('image_source_offer',None)
+            offer.pop('comparison_review',None)  # Explicit manifest release must clear derived metadata.
+            if o['id'] in held:offer['comparison_review']=held[o['id']]
             offer['product_matching_method']=method
-            offer['offer_matching_method']=name_methods.get(o['id'],'gtin' if canonical_gtin(o.get('gtin')) else 'unattached')
+            offer['offer_matching_method']='comparison_review_hold' if o['id'] in held else name_methods.get(o['id'],'gtin' if canonical_gtin(o.get('gtin')) else 'unattached')
             offer['canonical_format']=p['format'];offer['product_identity_verified']=p['matching_method']=='gtin_quantity'
             offer['unit_prices']={unit:round(o['price']/value,6) for unit,value in [('kg',(q_by_id[o['id']]['weight_g'] or 0)/1000),('l',(q_by_id[o['id']]['volume_ml'] or 0)/1000),('pz',q_by_id[o['id']]['pieces'] or 0)] if value and q_by_id[o['id']]['verified']}
             offers.append(offer)

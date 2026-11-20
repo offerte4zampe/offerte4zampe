@@ -10,6 +10,7 @@ from build_catalog_index import build
 class CatalogIndexTests(unittest.TestCase):
     def test_shards_preserve_comparison_and_commercial_fields(self):
         offers = [dict(id=str(i), title='Cibo', brand='Marca', price=12, url='https://shop.example/item', affiliate_url='https://affiliate.example/exact', shipping_weight_kg=15, quantity_verified=False, feed_unit_pricing_measure='unused') for i in range(7)]
+        offers[0]['comparison_review']={'review_state':'unverified','reason':'Exact commercial identity under review'}
         source = dict(offers=offers, generated_at='2026-10-30', refresh_hours=6, sources=[{'id':'shop'}])
         with tempfile.TemporaryDirectory() as tmp:
             directory=Path(tmp)/'catalog-index'
@@ -25,5 +26,6 @@ class CatalogIndexTests(unittest.TestCase):
                 self.assertEqual(row['shipping_weight_kg'],15)
                 self.assertFalse(row['quantity_verified'])
                 self.assertNotIn('feed_unit_pricing_measure',row)
+            self.assertEqual(next(row for row in rows if row['id']=='0')['comparison_review'],offers[0]['comparison_review'])
             self.assertEqual(manifest,build(source,directory,3))
             self.assertIn('feed_unit_pricing_measure',offers[0])
