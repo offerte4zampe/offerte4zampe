@@ -64,7 +64,15 @@ export async function checkSuggestions(page,origin,catalog){
  await page.goto(origin+'/prodotto.html?id='+encodeURIComponent(mapping.offer_id),{waitUntil:'domcontentloaded'});
  await page.waitForSelector('#product-amazon a',{visible:true,timeout:30000});
  const amazon=await page.$eval('#product-amazon a',e=>({href:e.href,rel:e.rel,text:e.textContent}));
- const target=new URL(amazon.href);assert.equal(target.hostname,'www.amazon.it');assert.equal(target.pathname,'/dp/'+mapping.asin);assert.equal(target.searchParams.get('tag'),links.tracking_id);assert(amazon.rel.includes('sponsored'));assert.equal(amazon.text,'Verifica prezzo su Amazon ↗');
+ const target=new URL(amazon.href);assert.equal(target.protocol,'https:');assert.equal(target.username,'');assert.equal(target.password,'');assert.equal(target.port,'');
+ if(Object.hasOwn(mapping,'sitestripe_url')){
+  assert.equal(amazon.href,mapping.sitestripe_url,'Keep the exact owner-confirmed SiteStripe destination');
+  assert.equal(mapping.owner_variant_confirmed,true);assert.equal(mapping.resolved_asin,mapping.asin);assert.equal(mapping.resolved_tracking_id,links.tracking_id);
+  assert.equal(target.hostname,'link.amazon');assert.match(target.pathname,/^\/[A-Za-z0-9]{9}$/);assert.equal(target.search,'');assert.equal(target.hash,'');
+ }else{
+  assert.equal(target.hostname,'www.amazon.it');assert.equal(target.pathname,'/dp/'+mapping.asin);assert.equal(target.searchParams.get('tag'),links.tracking_id);
+ }
+ assert(amazon.rel.includes('sponsored'));assert.equal(amazon.text,'Verifica prezzo su Amazon ↗');
  assert(await page.$eval('#product-amazon',e=>!e.textContent.includes('€')&&!e.textContent.includes('Disponibile al rilevamento')));
  assert.equal(await page.$$eval('#product-shops [data-product-shop]',rows=>rows.length),new Set([...catalog.sources.map(s=>s.id),'zooplus','bitiba']).size);
  await page.select('#product-quantity','3');assert.equal(await page.$eval('#product-amazon a',e=>e.href),amazon.href);
