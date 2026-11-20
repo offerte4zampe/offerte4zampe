@@ -87,14 +87,16 @@ export async function checkSuggestions(page,origin,catalog){
  for(const entry of links.links){
   const seed=catalog.offers.find(o=>o.id===entry.offer_id);if(!seed){assert.equal(amazonModel.comparisonLink({id:entry.offer_id},catalog.offers,links,now),null,'Retired offer must not generate an affiliate destination');continue;}
   const drift=identityKeys.some(key=>identityValue(seed,key)!==identityValue(entry,key));
+  const checked=Date.parse(entry.checked_at),timeRejected=!Number.isFinite(checked)||checked>now+300000||now-checked>30*86400000;
+  const rejected=drift||timeRejected;
   const direct=amazonModel.productLink(seed,links,now);
-  if(drift)assert.equal(direct,null,'Changed editorial identity must not produce a direct Amazon link: '+entry.offer_id);
+  if(rejected)assert.equal(direct,null,'Changed or expired editorial evidence must not produce a direct Amazon link: '+entry.offer_id);
   else{
    for(const key of identityKeys)assert.equal(identityValue(seed,key),identityValue(entry,key),'Exact mapped identity required: '+entry.offer_id+' '+key);
    assert(direct,'Unchanged editorial mapping must remain valid: '+entry.offer_id);
   }
   const expectedAmazon=amazonModel.comparisonLink(seed,catalog.offers,links,now);
-  if(drift&&expectedAmazon){
+  if(rejected&&expectedAmazon){
    const key=trade.matchKey(seed,now);assert(key,'A fallback requires a verified current comparison identity');
    const peers=catalog.offers.filter(peer=>peer.id!==seed.id&&trade.matchKey(peer,now)===key);
    assert(peers.some(peer=>{
@@ -114,7 +116,7 @@ export async function checkSuggestions(page,origin,catalog){
    await page.waitForSelector('#product-amazon a',{visible:true,timeout:30000});
    const href=await page.$eval('#product-amazon a',e=>e.href);
    assert.equal(href,expectedAmazon.url,'Rendered Amazon URL must match the exact current verified destination');
-   if(!drift){
+   if(!rejected){
     if(entry.sitestripe_url)assert.equal(href,entry.sitestripe_url);
     else{assert.equal(new URL(href).pathname,'/dp/'+entry.asin);assert.equal(new URL(href).searchParams.get('tag'),links.tracking_id);}
    }
