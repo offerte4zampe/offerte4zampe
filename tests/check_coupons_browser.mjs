@@ -8,7 +8,9 @@ export async function checkCoupons(page, origin) {
   assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
 
   const records = JSON.parse(await fs.readFile(new URL('../automation/coupons.json', import.meta.url), 'utf8')).coupons;
-  const now = Date.now();
+  // The enclosing basket smoke freezes the page at the catalog snapshot.
+  // Read that same clock instead of comparing it with the runner's wall clock.
+  const now = await page.evaluate(() => Date.now());
   const active = records.filter(r => {
     if (r.publication_allowed !== true) return false;
     if (r.status === 'owner_confirmed') {
@@ -51,6 +53,32 @@ export async function checkCoupons(page, origin) {
         `Owner-confirmed coupon ${row.code} must display its current status`);
       assert.doesNotMatch(labels[0], /(?:provato|verificato|testato) nel carrello/i,
         `Owner-confirmed coupon ${row.code} was falsely labelled as cart-tested`);
+      // Cached HTML must also change state at the real recheck/expiry boundaries.
+      // Exercise both transitions even when the enclosing snapshot predates them.
+      const expiresAt = Date.parse(row.expires_at);
+      for (const [clock, hidden, label] of [
+        [recheckAt - 1, false, 'Codice concordato con il partner · confermato dal titolare'],
+        [recheckAt, false, 'Da riconfermare'],
+        [expiresAt, true, null],
+      ]) {
+        assert(Number.isFinite(clock));
+        try {
+          await page.evaluate(stamp => {
+            const previous = Date.now;
+            try { Date.now = () => stamp; document.dispatchEvent(new Event('visibilitychange')); }
+            finally { Date.now = previous; }
+          }, clock);
+          const state = await page.$$eval('.coupon', (cards, code) => {
+            const card = cards.find(c => c.querySelector('code')?.textContent.trim() === code);
+            return card ? {hidden: card.hidden, label: card.querySelector('.status')?.textContent.trim()} : null;
+          }, row.code);
+          assert(state, `Missing owner-confirmed coupon ${row.code}`);
+          assert.equal(state.hidden, hidden, `${row.code} expiry state`);
+          if (label !== null) assert.equal(state.label, label, `${row.code} recheck boundary`);
+        } finally {
+          await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
+        }
+      }
     } else if (row.status === 'cart_tested') {
       assert.match(labels[0], /provat[oa]|verificat[oa].*carrello/i,
         `Cart-tested coupon ${row.code} must keep its cart-test label`);
