@@ -25,6 +25,7 @@ except ImportError:
 FEED_URL='https://pf.tradetracker.net/?aid=518044&encoding=utf-8&type=json&fid=1216771&categoryType=2&additionalType=2'
 ORIGIN='https://www.pacopetshop.it'
 UA='Offerte4Zampe/1.0 (+https://offerte4zampe.it/contatti.html)'
+RECENT_ATTEMPT_WINDOW=dt.timedelta(hours=24)
 
 def diagnostic_warning(area, error):
     """Diagnostic reporting is best-effort, never an import dependency."""
@@ -123,7 +124,7 @@ def stamp(value):
     except (AttributeError,TypeError,ValueError): return None
 
 def verification_plan(rows, previous, peers, now, limit=80, priority_ids=frozenset(), diagnostics=None):
-    """Reuse recent identical evidence and rotate a bounded verification budget."""
+    """Reuse exact evidence; let older/untested rows precede recent failed attempts."""
     old={r['id']:r for r in previous if r.get('merchant_id')=='paco'}
     candidates=[]
     for i,row in enumerate(rows):
@@ -141,7 +142,11 @@ def verification_plan(rows, previous, peers, now, limit=80, priority_ids=frozens
         if attempted and attempted<=now:
             row['quantity_verification_attempted_at']=attempted.isoformat()
         else: attempted=dt.datetime.min.replace(tzinfo=dt.timezone.utc)
-        candidates.append((row.get('available') is not True,row['id'] not in priority_ids,row['feed_gtin'].lstrip('0') not in peers,attempted,row['id'],i))
+        # Repeated failures in the priority cohort must not monopolize all80
+        # slots. This only changes request order: recent attempts remain eligible
+        # as fallback, while proof reuse still requires the unchanged36h checks.
+        recent=dt.timedelta(0)<=now-attempted<RECENT_ATTEMPT_WINDOW
+        candidates.append((row.get('available') is not True,recent,row['id'] not in priority_ids,row['feed_gtin'].lstrip('0') not in peers,attempted,row['id'],i))
     if diagnostics is not None:
         try:
             diagnostics['skipped_limit'] = max(0, len(candidates) - limit)

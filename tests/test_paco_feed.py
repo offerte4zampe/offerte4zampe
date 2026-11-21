@@ -82,3 +82,29 @@ class PacoVerificationPlanTest(unittest.TestCase):
   self.assertEqual(verification_plan([a,b],[],{a['feed_gtin']},self.now,limit=1,priority_ids={'paco:9'}),[1])
   b['available']=False
   self.assertEqual(verification_plan([a,b],[],{a['feed_gtin']},self.now,limit=1,priority_ids={'paco:9'}),[0])
+
+ def test_recent_failed_priority_cohort_cannot_starve_unattempted_peer(self):
+  failed=dict(normalize(fixture(),self.now)[0],id='paco:priority',available=True)
+  other=dict(failed,id='paco:new')
+  prior=dict(failed,quantity_verification_attempted_at=(self.now-dt.timedelta(hours=6)).isoformat())
+  rows=[copy.deepcopy(failed),other]
+  self.assertEqual(verification_plan(rows,[prior],{failed['feed_gtin']},self.now,limit=1,priority_ids={failed['id']}),[1])
+  self.assertFalse(rows[0]['quantity_verified']);self.assertFalse(rows[1]['quantity_verified'])
+  self.assertEqual(rows[0]['gtin'],'');self.assertEqual(rows[1]['gtin'],'')
+
+ def test_recent_attempt_is_fallback_not_a_ban_and_stock_still_wins(self):
+  a=dict(normalize(fixture(),self.now)[0],available=True)
+  prior=dict(a,quantity_verification_attempted_at=(self.now-dt.timedelta(hours=6)).isoformat())
+  sold_out=dict(a,id='paco:sold-out',available=False)
+  self.assertEqual(verification_plan([copy.deepcopy(a),sold_out],[prior],{a['feed_gtin']},self.now,limit=1),[0])
+  self.assertEqual(verification_plan([copy.deepcopy(a)],[prior],set(),self.now,limit=1),[0])
+
+ def test_retry_priority_returns_at24h_and_changed_fingerprint_resets_attempt(self):
+  a=dict(normalize(fixture(),self.now)[0],id='paco:priority',available=True)
+  b=dict(a,id='paco:new')
+  for age,expected in [(dt.timedelta(hours=24)-dt.timedelta(microseconds=1),[1]),(dt.timedelta(hours=24),[0])]:
+   prior=dict(a,quantity_verification_attempted_at=(self.now-age).isoformat())
+   self.assertEqual(verification_plan([copy.deepcopy(a),copy.deepcopy(b)],[prior],{a['feed_gtin']},self.now,limit=1,priority_ids={a['id']}),expected)
+  for change in [{'price':a['price']+1},{'title':'Different product'},{'feed_gtin':'other'},{'url':a['url']+'?changed=1'}]:
+   prior=dict(a,quantity_verification_attempted_at=(self.now-dt.timedelta(hours=6)).isoformat(),**change)
+   self.assertEqual(verification_plan([copy.deepcopy(a),copy.deepcopy(b)],[prior],{a['feed_gtin']},self.now,limit=1,priority_ids={a['id']}),[0])
