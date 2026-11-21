@@ -70,7 +70,7 @@ class CouponTests(unittest.TestCase):
         now = dt.datetime(2026, 11, 7, 12, tzinfo=dt.timezone.utc)
         self.assertTrue(eligible(row, now))
         self.assertNotIn('cart_test', row)
-        html = render_card(row)
+        html = render_card(row, now)
         self.assertIn('CIOTOLA30', html)
         self.assertIn('Codice concordato con il partner · confermato dal titolare', html)
         self.assertNotIn('Provato nel carrello', html)
