@@ -4,9 +4,9 @@ import { readFileSync } from 'node:fs';
 import { romeDay, seasonForDate, campaignForSeason, applySeason } from '../site/assets/seasonal-theme.mjs';
 
 const at = iso => new Date(iso);
-test('Black Week 23-30 November, in Europe/Rome', () => {
-  assert.equal(seasonForDate(at('2026-11-22T22:59:59Z')), null);
-  assert.equal(seasonForDate(at('2026-11-22T23:00:00Z')), 'blackfriday');
+test('Black Week 21-30 November, in Europe/Rome', () => {
+  assert.equal(seasonForDate(at('2026-11-20T22:59:59Z')), null);
+  assert.equal(seasonForDate(at('2026-11-20T23:00:00Z')), 'blackfriday');
   assert.equal(seasonForDate(at('2026-11-27T10:00:00Z')), 'blackfriday');
   assert.equal(seasonForDate(at('2026-11-30T22:59:59Z')), 'blackfriday');
 });
@@ -22,7 +22,7 @@ test('preview can override calendar without persistence', () => {
   assert.equal(seasonForDate(date,'natale'), 'natale');
   assert.equal(seasonForDate(at('2026-12-25T14:00:00Z'),'off'), null);
   assert.equal(seasonForDate(date,'unexpected'), null);
-  assert.equal(romeDay(at('2026-11-22T23:00:00Z')), '2026-11-23');
+  assert.equal(romeDay(at('2026-11-20T23:00:00Z')), '2026-11-21');
 });
 test('campaign links are local and text promises no invented sale percentages', () => {
   for (const name of ['blackfriday','natale']) {

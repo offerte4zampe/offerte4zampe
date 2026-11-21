@@ -13,7 +13,7 @@ export function seasonForDate(date = new Date(), preview = null) {
   if (preview === 'blackfriday' || preview === 'natale') return preview;
   if (preview === 'off') return null;
   const day = romeDay(date);
-  if (day >= '2026-11-23' && day <= '2026-11-30') return 'blackfriday';
+  if (day >= '2026-11-21' && day <= '2026-11-30') return 'blackfriday';
   if (day >= '2026-12-01' && day <= '2027-01-06') return 'natale';
   return null;
 }

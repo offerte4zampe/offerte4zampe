@@ -36,6 +36,6 @@ if(typeof location!=='undefined'&&location.pathname.replace(/\.html$/,'')==='/co
  const script=document.createElement('script');
  script.id='o4z-season-module';
  script.type='module';
- script.src='/assets/seasonal-theme.mjs?v=2026-2';
+ script.src='/assets/seasonal-theme.mjs?v=2026-3';
  document.head.append(script);
 })();
