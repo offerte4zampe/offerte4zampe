@@ -44,7 +44,7 @@ export function applySeason({ date = new Date(), search = '', doc = document } =
   if (preview === season) root.dataset.o4zSeasonPreview = 'true';
   const css = doc.createElement('link');
   css.rel = 'stylesheet';
-  css.href = '/assets/seasonal-theme.css?v=2026-2';
+  css.href = '/assets/seasonal-theme.css?v=2026-3';
   css.dataset.o4zSeasonStyle = '';
   doc.head.append(css);
   const header = doc.querySelector('header');

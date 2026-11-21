@@ -162,3 +162,8 @@
   :root[data-o4z-season] .o4z-season-visual img{animation:none!important}
   :root[data-o4z-season] .o4z-season-link{transition:none}
 }
+
+/* Keep the mobile comparison focused on search while the campaign is active. */
+@media(max-width:650px){
+  body:has(#catalog-filters) .o4z-season-ribbon{display:none}
+}
