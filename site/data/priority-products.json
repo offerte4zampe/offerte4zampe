@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T06:44:02.419527+00:00",
+  "generated_at": "2026-11-22T19:35:14.044396+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,8 +7,8 @@
   "at_target": 14,
   "with_third_store_lead": 26,
   "categories": {
-    "umido": 103,
-    "crocchette": 127,
+    "umido": 100,
+    "crocchette": 130,
     "lettiere": 6,
     "snack": 64
   },
@@ -54,11 +54,11 @@
     "animaliapet:46976591200599",
     "animaliapet:46976591233367",
     "animaliapet:46976602571095",
-    "animaliapet:46976605061463",
-    "animaliapet:46976606044503",
     "animaliapet:46976607355223",
     "animaliapet:46976631013719",
+    "animaliapet:46976631308631",
     "animaliapet:46976635208023",
+    "animaliapet:46976639435095",
     "animaliapet:46976642679127",
     "animaliapet:46976649724247",
     "animaliapet:46976656310615",
@@ -117,6 +117,7 @@
     "animaliapet:50442349183319",
     "animaliapet:51708841918807",
     "animaliapet:51865187385687",
+    "animaliapet:51960142823767",
     "animaliapet:52116099727703",
     "animaliapet:52116150026583",
     "animaliapet:52652165235031",
@@ -192,6 +193,7 @@
     "bauzaar:56820269351237",
     "bauzaar:56820281377093",
     "bauzaar:56820299465029",
+    "bauzaar:56820299530565",
     "bauzaar:56820299661637",
     "bauzaar:56820401471813",
     "bauzaar:56820407632197",
@@ -295,12 +297,10 @@
     "bauzaar:56962044821829",
     "bauzaar:56962045804869",
     "bauzaar:56962081685829",
-    "bauzaar:56962082079045",
-    "bauzaar:56962082144581",
     "bauzaar:56962082439493",
     "bauzaar:56962082931013",
     "bauzaar:56962085421381",
-    "bauzaar:56962088304965",
+    "bauzaar:56962089255237",
     "bauzaar:56962093908293",
     "bauzaar:56962130051397",
     "bauzaar:56962141454661",
@@ -308,6 +308,7 @@
     "bauzaar:56962151481669",
     "bauzaar:57066997449029",
     "bauzaar:57287394165061",
+    "bauzaar:57291135779141",
     "bauzaar:57291899437381",
     "bauzaar:57291900354885",
     "bauzaar:57291900387653",
@@ -383,7 +384,6 @@
     "isola-dei-tesori:000126305",
     "isola-dei-tesori:000128091",
     "isola-dei-tesori:000128161",
-    "isola-dei-tesori:000128162",
     "isola-dei-tesori:000128826",
     "isola-dei-tesori:000128827",
     "isola-dei-tesori:000134015",
@@ -419,10 +419,8 @@
     "isola-dei-tesori:000138596",
     "isola-dei-tesori:000138943",
     "isola-dei-tesori:000140881",
-    "isola-dei-tesori:000142010",
     "isola-dei-tesori:000142012",
     "isola-dei-tesori:000142013",
-    "isola-dei-tesori:000142014",
     "isola-dei-tesori:000142020",
     "isola-dei-tesori:000142030",
     "isola-dei-tesori:000142031",
@@ -460,7 +458,6 @@
     "isola-dei-tesori:000582552",
     "paco:1030",
     "paco:1130",
-    "paco:1201",
     "paco:1245",
     "paco:1343",
     "paco:1353",
@@ -550,12 +547,15 @@
     "paco:6221",
     "paco:6231",
     "paco:6249",
+    "paco:6357",
     "paco:6358",
+    "paco:6410",
     "paco:820",
     "paco:88",
     "paco:955",
     "paco:961",
     "paco:964",
+    "paco:965",
     "paco:966",
     "webpet:52568955552084",
     "webpet:52568971936084",
@@ -801,6 +801,27 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-020ee6e13fdcbebb98e7",
+      "name": "Royal Canin Gastrointestinal Moderate Calorie 2Kg Crocchette Gatti Adulti",
+      "brand": "Royal Canin",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "2 kg",
+      "url": "https://offerte4zampe.it/prodotto/royal-canin-gastrointestinal-moderate-calorie-2kg-crocchette-gatti-adulti-03182550771290-bb98e7",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:46976631308631",
+        "bauzaar:56820299530565"
+      ],
+      "candidate_offer_ids": [
+        "paco:965"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-03b22452d20253955751",
       "name": "Royal Canin Veterinary Diet Dog Hypoallergenic 400 g",
       "brand": "Royal Canin",
@@ -838,6 +859,27 @@
       ],
       "candidate_offer_ids": [
         "paco:310"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-11088e1dc3dabc401f25",
+      "name": "Royal Canin Veterinary Diet Renal Canine 1,5 kg",
+      "brand": "Royal Canin",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/royal-canin-renal-small-dog-1-5kg-crocchette-cani-mini-adult-03182550915359-401f25",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56962089255237",
+        "animaliapet:46976639435095"
+      ],
+      "candidate_offer_ids": [
+        "paco:6357"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -990,6 +1032,27 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-6381849f7b1239245cdc",
+      "name": "Royal Canin Fussy Exigent 2kg Crocchette Gatti",
+      "brand": "Royal Canin",
+      "category": "crocchette",
+      "species": "gatto",
+      "format": "2 kg",
+      "url": "https://offerte4zampe.it/prodotto/royal-canin-fussy-exigent-adult-feline-health-nutrition-2-kg-03182551065701-245cdc",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "animaliapet:51960142823767",
+        "bauzaar:57291135779141"
+      ],
+      "candidate_offer_ids": [
+        "paco:6410"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-64f7de27f6ffd422f397",
       "name": "Royal Canin Gastrointestinal 2Kg Crocchette Cani Adulti",
       "brand": "Royal Canin",
@@ -1048,69 +1111,6 @@
       ],
       "candidate_offer_ids": [
         "paco:88"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-7d6d19bd93c3f048a04c",
-      "name": "Royal Canin Veterinary Diet Dog Hepatic 420 g",
-      "brand": "Royal Canin",
-      "category": "umido",
-      "species": "cane",
-      "format": "420 g",
-      "url": "https://offerte4zampe.it/prodotto/royal-canin-hepatic-420g-lattina-cani-09003579309469-48a04c",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "isola-dei-tesori:000128162",
-        "bauzaar:56962088304965"
-      ],
-      "candidate_offer_ids": [
-        "paco:1201"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-89897f2269748ce0b920",
-      "name": "Royal Canin Cat Adult Instinctive Jelly 85 g",
-      "brand": "Royal Canin",
-      "category": "umido",
-      "species": "gatto",
-      "format": "85 g",
-      "url": "https://offerte4zampe.it/prodotto/royal-canin-instinctive-in-jelly-85g-bustine-gatti-09003579309513-e0b920",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "isola-dei-tesori:000142014",
-        "animaliapet:46976606044503"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56962082079045"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-8f9bf96e4fa221e117f0",
-      "name": "Royal Canin Cat Adult Instinctive Gravy 85gr",
-      "brand": "Royal Canin",
-      "category": "umido",
-      "species": "gatto",
-      "format": "85 g",
-      "url": "https://offerte4zampe.it/prodotto/royal-canin-instinctive-in-salsa-85-g-09003579308936-e117f0",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "isola-dei-tesori:000142010",
-        "animaliapet:46976605061463"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56962082144581"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
