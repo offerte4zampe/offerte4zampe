@@ -92,7 +92,12 @@ def verify_quantity(row, page, now=None, diagnostics=None):
     match=re.search(r'data-product="([^"]+)"',page)
     if not match: return failure('missing_product_data')
     try:
-        p=json.loads(html.unescape(match[1]));attrs=list(p.get('attributes',{}).values())
+        p=json.loads(html.unescape(match[1]))
+        expected_id=str(row.get('id','')).removeprefix('paco:')
+        # A shared unit barcode and price cannot prove a different product page.
+        if str(p.get('id',''))!=expected_id or ('id_product' in p and str(p['id_product'])!=expected_id):
+            return failure('product_id_mismatch')
+        attrs=list(p.get('attributes',{}).values())
         if diagnostics is not None:
             try:
                 diagnostics['page_ean13'] = [
@@ -173,7 +178,7 @@ def collect():
     priority_ids=set(json.loads(priority_path.read_text()).get('priority_offer_ids',[])) if priority_path.exists() else set()
     diagnostic_plan = {}
     chosen=verification_plan(rows,previous,peers,now,priority_ids=priority_ids,diagnostics=diagnostic_plan)
-    failures = dict(ean_mismatch=0, price_mismatch=0, ambiguous_quantity=0,
+    failures = dict(product_id_mismatch=0, ean_mismatch=0, price_mismatch=0, ambiguous_quantity=0,
                     unparseable_weight=0, missing_product_data=0,
                     malformed_product_data=0, fetch_error=0, robots_disallowed=0)
     successful = 0

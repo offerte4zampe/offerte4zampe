@@ -9,7 +9,7 @@ class PacoFeedTest(unittest.TestCase):
  def test_feed_stock_tracking_price_without_unit_inference(self):
   r=normalize(fixture())[0];self.assertEqual(r['price'],20);self.assertFalse(r['available']);self.assertEqual(r['gtin'],'');self.assertIsNone(r['weight_kg']);self.assertIn('tt=24833_',r['affiliate_url']);self.assertIsNone(r['previous_price']);self.assertEqual(r['merchant_promotion']['reference_cents'],2400)
  def test_verified_multipack_and_mismatch(self):
-  r=normalize(fixture())[0];p={'price_amount':20,'attributes':{'1':{'name':'Pollo','ean13':'4006381333931'},'2':{'name':'24x85 gr','ean13':'4006381333931'}}}
+  r=normalize(fixture())[0];p={'id':123,'price_amount':20,'attributes':{'1':{'name':'Pollo','ean13':'4006381333931'},'2':{'name':'24x85 gr','ean13':'4006381333931'}}}
   page=lambda:'<div data-product="'+html.escape(json.dumps(p),quote=True)+'">'
   v=verify_quantity(r,page());self.assertEqual(v['weight_kg'],2.04);self.assertTrue(v['quantity_verified'])
   p['price_amount']=21;self.assertFalse(verify_quantity(r,page())['quantity_verified'])
@@ -38,7 +38,7 @@ class PacoVerificationPlanTest(unittest.TestCase):
   self.assertEqual(len(following),40);self.assertFalse(set(chosen)&set(following))
  def verified(self):
   row=normalize(fixture(),self.now)[0]
-  p={'price_amount':20,'attributes':{'1':{'name':'24x85 gr','ean13':row['feed_gtin']}}}
+  p={'id':123,'price_amount':20,'attributes':{'1':{'name':'24x85 gr','ean13':row['feed_gtin']}}}
   return verify_quantity(row,'<div data-product="'+html.escape(json.dumps(p),quote=True)+'">',self.now)
  def test_recent_exact_proof_reused_without_resetting_evidence_date(self):
   prior=self.verified();rows=normalize(fixture(),self.now+dt.timedelta(hours=6))
@@ -108,3 +108,16 @@ class PacoVerificationPlanTest(unittest.TestCase):
   for change in [{'price':a['price']+1},{'title':'Different product'},{'feed_gtin':'other'},{'url':a['url']+'?changed=1'}]:
    prior=dict(a,quantity_verification_attempted_at=(self.now-dt.timedelta(hours=6)).isoformat(),**change)
    self.assertEqual(verification_plan([copy.deepcopy(a),copy.deepcopy(b)],[prior],{a['feed_gtin']},self.now,limit=1,priority_ids={a['id']}),[0])
+
+class PacoSelectedProductIdentityTest(unittest.TestCase):
+ def test_wrong_missing_or_conflicting_product_id_never_proves_a_pack(self):
+  row=normalize(fixture())[0]
+  base={'id':123,'id_product':123,'id_product_attribute':5189,'price_amount':20,'attributes':{'7':{'name':'24x85 gr','ean13':row['feed_gtin']}}}
+  def verify(payload,diagnostics=None):
+   return verify_quantity(row,'<div data-product="'+html.escape(json.dumps(payload),quote=True)+'">',diagnostics=diagnostics)
+  self.assertTrue(verify(base)['quantity_verified'])
+  for patch in [{'id':999,'id_product':999},{'id':None},{'id':True},{'id_product':999}]:
+   diagnostics={};result=verify({**base,**patch},diagnostics)
+   self.assertFalse(result['quantity_verified']);self.assertEqual(result,row)
+   self.assertEqual(diagnostics['reason'],'product_id_mismatch')
+  missing=dict(base);missing.pop('id');self.assertFalse(verify(missing)['quantity_verified'])
