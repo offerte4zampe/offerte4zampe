@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T22:24:06.396565+00:00",
+  "generated_at": "2026-11-23T23:51:47.556611+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,8 +7,8 @@
   "at_target": 14,
   "with_third_store_lead": 26,
   "categories": {
-    "umido": 104,
-    "crocchette": 127,
+    "umido": 106,
+    "crocchette": 125,
     "lettiere": 5,
     "snack": 64
   },
@@ -54,11 +54,11 @@
     "animaliapet:46976591200599",
     "animaliapet:46976591233367",
     "animaliapet:46976602571095",
+    "animaliapet:46976605061463",
+    "animaliapet:46976606044503",
     "animaliapet:46976607355223",
     "animaliapet:46976631013719",
-    "animaliapet:46976631308631",
     "animaliapet:46976635208023",
-    "animaliapet:46976639435095",
     "animaliapet:46976642679127",
     "animaliapet:46976649724247",
     "animaliapet:46976656310615",
@@ -152,6 +152,7 @@
     "bauzaar:56820056457541",
     "bauzaar:56820058784069",
     "bauzaar:56820058816837",
+    "bauzaar:56820062093637",
     "bauzaar:56820067991877",
     "bauzaar:56820087849285",
     "bauzaar:56820088045893",
@@ -190,7 +191,6 @@
     "bauzaar:56820269351237",
     "bauzaar:56820281377093",
     "bauzaar:56820299465029",
-    "bauzaar:56820299530565",
     "bauzaar:56820299661637",
     "bauzaar:56820401471813",
     "bauzaar:56820407632197",
@@ -292,13 +292,13 @@
     "bauzaar:56962042593605",
     "bauzaar:56962044821829",
     "bauzaar:56962045804869",
-    "bauzaar:56962047148357",
     "bauzaar:56962081685829",
+    "bauzaar:56962082079045",
+    "bauzaar:56962082144581",
     "bauzaar:56962082439493",
     "bauzaar:56962082931013",
     "bauzaar:56962085421381",
     "bauzaar:56962088304965",
-    "bauzaar:56962089255237",
     "bauzaar:56962093908293",
     "bauzaar:56962130051397",
     "bauzaar:56962141454661",
@@ -418,8 +418,10 @@
     "isola-dei-tesori:000138596",
     "isola-dei-tesori:000138943",
     "isola-dei-tesori:000140881",
+    "isola-dei-tesori:000142010",
     "isola-dei-tesori:000142012",
     "isola-dei-tesori:000142013",
+    "isola-dei-tesori:000142014",
     "isola-dei-tesori:000142020",
     "isola-dei-tesori:000142030",
     "isola-dei-tesori:000142031",
@@ -496,7 +498,6 @@
     "paco:4820",
     "paco:4821",
     "paco:4902",
-    "paco:4982",
     "paco:4983",
     "paco:5045",
     "paco:5046",
@@ -541,6 +542,7 @@
     "paco:5996",
     "paco:6065",
     "paco:6066",
+    "paco:6071",
     "paco:6076",
     "paco:6077",
     "paco:6140",
@@ -550,14 +552,12 @@
     "paco:6221",
     "paco:6231",
     "paco:6249",
-    "paco:6357",
     "paco:6358",
     "paco:820",
     "paco:88",
     "paco:955",
     "paco:961",
     "paco:964",
-    "paco:965",
     "paco:966",
     "webpet:52568955552084",
     "webpet:52568971936084",
@@ -803,27 +803,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-020ee6e13fdcbebb98e7",
-      "name": "Royal Canin Gastrointestinal Moderate Calorie 2Kg Crocchette Gatti Adulti",
-      "brand": "Royal Canin",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "2 kg",
-      "url": "https://offerte4zampe.it/prodotto/royal-canin-gastrointestinal-moderate-calorie-2kg-crocchette-gatti-adulti-03182550771290-bb98e7",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976631308631",
-        "bauzaar:56820299530565"
-      ],
-      "candidate_offer_ids": [
-        "paco:965"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-03b22452d20253955751",
       "name": "Royal Canin Veterinary Diet Dog Hypoallergenic 400 g",
       "brand": "Royal Canin",
@@ -861,27 +840,6 @@
       ],
       "candidate_offer_ids": [
         "paco:310"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-11088e1dc3dabc401f25",
-      "name": "Royal Canin Veterinary Diet Renal Canine 1,5 kg",
-      "brand": "Royal Canin",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/royal-canin-renal-small-dog-1-5kg-crocchette-cani-mini-adult-03182550915359-401f25",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56962089255237",
-        "animaliapet:46976639435095"
-      ],
-      "candidate_offer_ids": [
-        "paco:6357"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1113,6 +1071,48 @@
       ],
       "candidate_offer_ids": [
         "paco:1201"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-89897f2269748ce0b920",
+      "name": "Royal Canin Cat Adult Instinctive Jelly 85 g",
+      "brand": "Royal Canin",
+      "category": "umido",
+      "species": "gatto",
+      "format": "85 g",
+      "url": "https://offerte4zampe.it/prodotto/royal-canin-instinctive-in-jelly-85g-bustine-gatti-09003579309513-e0b920",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "isola-dei-tesori:000142014",
+        "animaliapet:46976606044503"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56962082079045"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-8f9bf96e4fa221e117f0",
+      "name": "Royal Canin Cat Adult Instinctive Gravy 85gr",
+      "brand": "Royal Canin",
+      "category": "umido",
+      "species": "gatto",
+      "format": "85 g",
+      "url": "https://offerte4zampe.it/prodotto/royal-canin-instinctive-in-salsa-85-g-09003579308936-e117f0",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "isola-dei-tesori:000142010",
+        "animaliapet:46976605061463"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56962082144581"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -4192,6 +4192,25 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-aa798273bbbfe94185d8",
+      "name": "Prolife Smart Cane Adult Mini Manzo e Riso 7 kg",
+      "brand": "Prolife",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "7 kg",
+      "url": "https://offerte4zampe.it/prodotto/prolife-smart-cane-adult-mini-manzo-e-riso-7-kg-7kg-08015579034730-4185d8",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56820062093637",
+        "paco:6071"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-bb3fb6468e6aa371c94b",
       "name": "Prolife Sensitive Grain Free Mini Con Pesce E Patate Per Cani · Sacco da 7 kg",
       "brand": "Prolife",
@@ -4224,25 +4243,6 @@
       "offer_ids": [
         "paco:4073",
         "bauzaar:56820281377093"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-eb96ed3faa1204d8d420",
-      "name": "Prolife Sterilised Sensitive Mini Maiale e Riso 7 kg",
-      "brand": "Prolife",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "7 kg",
-      "url": "https://offerte4zampe.it/prodotto/prolife-sterilised-sensitive-mini-maiale-e-riso-7-kg-7kg-08015579034990-d8d420",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56962047148357",
-        "paco:4982"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
