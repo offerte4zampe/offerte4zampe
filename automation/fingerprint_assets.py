@@ -24,7 +24,7 @@ def restore(site):
         if u.netloc and u.hostname!='offerte4zampe.it':return raw
         original=reverse.get('/'+u.path.lstrip('/'))
         if not original:return raw
-        path=('/assets/' if u.path.startswith('/') else 'assets/')+original
+        path='/assets/'+original
         return urlunsplit((u.scheme,u.netloc,path,u.query,u.fragment))
     for path in site.rglob('*.html'):
         before=path.read_text();after=ATTR.sub(lambda m:m[1]+'='+m[2]+value(m[3])+m[2],before)
@@ -56,7 +56,7 @@ def build(site):
         filename=process(name)
         u=urlsplit(value)
         if u.path.startswith('/assets/'):path='/assets/'+filename
-        elif u.path.startswith('assets/'):path='assets/'+filename
+        elif u.path.startswith('assets/'):path='/assets/'+filename
         else:path=('./' if u.path.startswith('./') else '')+filename
         return urlunsplit((u.scheme,u.netloc,path,u.query,u.fragment))
     def process(name):
@@ -78,7 +78,7 @@ def build(site):
         if u.netloc and u.hostname!='offerte4zampe.it':return value
         key='/'+u.path.lstrip('/')
         if key in reverse:
-            original=reverse[key];path=('/assets/' if u.path.startswith('/') else 'assets/')+original
+            original=reverse[key];path='/assets/'+original
             value=urlunsplit((u.scheme,u.netloc,path,u.query,u.fragment))
         return resolve(value)
     for path in site.rglob('*.html'):
