@@ -95,3 +95,8 @@ test('manual unverified comparison holds reject canonical, characteristic and GT
   assert.equal(trade.goUrl(held,'product'),trade.goUrl(ordinary,'product'));
  }
 });
+
+test('canonical unknown quantity cannot enter any matching shortcut',()=>{
+ const base={id:'a',merchant_id:'a',gtin:'4006381333931',brand:'Brand',weight_kg:2,checked_at:new Date(now).toISOString(),quantity:{verified:false}};
+ for(const patch of [{},{quantity_verified:true},{product_identity_verified:true,product_id:'p-0123456789abcdefabcd'},{product_matching_method:'name_characteristics',product_id:'p-0123456789abcdefabcd'}])assert.equal(matchKey({...base,...patch},now),'');
+});

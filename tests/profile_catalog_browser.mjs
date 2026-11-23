@@ -3,8 +3,8 @@ const require=createRequire(import.meta.url),{prepare}=require('../site/assets/c
 export async function profileCatalog(page,origin,catalog){
  const metadata=require('../site/assets/catalog-metadata.js');
  const reference=catalog.offers.map(metadata.normalize).filter(o=>{try{return o.id&&typeof o.title==='string'&&Number.isFinite(o.price)&&o.price>0&&new URL(o.url).protocol==='https:'}catch{return false}});
- const expectedText=new Map(reference.map(o=>[o.id,[o.title,o.variant,o.brand,o.category,o.sku,o.gtin].join(' ').toLocaleLowerCase('it')]));
- const expectedIdentity=new Map();for(const o of reference)if(o.gtin&&o.weight_kg){const key=JSON.stringify([o.gtin,o.weight_kg,String(o.brand||'').trim().toLowerCase()]);if(!expectedIdentity.has(key))expectedIdentity.set(key,[]);expectedIdentity.get(key).push(o)}
+ const expectedText=new Map(reference.map(o=>[o.id,[o.title,o.variant,o.brand,o.category,o.sku,o.gtin].join(' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('it').trim()]));
+ const expectedIdentity=new Map();for(const o of reference)if(o.gtin&&o.weight_kg&&o.quantity_verified!==false&&o.quantity?.verified!==false&&o.comparison_review?.review_state!=='unverified'){const key=JSON.stringify([o.gtin,o.weight_kg,String(o.brand||'').trim().toLowerCase()]);if(!expectedIdentity.has(key))expectedIdentity.set(key,[]);expectedIdentity.get(key).push(o)}
  const prepared=await prepare(catalog.offers);assert.deepEqual(prepared.data,reference);assert.deepEqual(prepared.searchText,expectedText);assert.deepEqual(prepared.identityIndex,expectedIdentity);
  const {each}=require('../site/assets/catalog-cooperate.js'),trade=require('../site/assets/trade.js');
  const rules=JSON.parse(await fs.readFile(new URL('../site/data/shipping-rules.json',import.meta.url))),now=Date.parse(catalog.generated_at);

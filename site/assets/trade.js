@@ -25,10 +25,11 @@ function shippingRulesFromRows(rows,now=Date.now(),zone='IT'){
  }
  return {merchants};
 }
+function quantityUnverified(o){return o?.quantity_verified===false||o?.quantity?.verified===false;}
 function shipping(o,rules,quantity=1,territory='standard',now=Date.now()){
  const destination=territory==='standard'?'Italia continentale standard: esclusi isole, CAP disagiati, Livigno, Campione e servizi opzionali':'Località o servizi particolari';
  const unknown=reason=>({status:'unknown',destination,reason});
- if(!o||o.quantity_verified===false||o.quantity?.verified===false)return unknown('Formato della confezione non verificato: totale non confrontabile');
+ if(!o||quantityUnverified(o))return unknown('Formato della confezione non verificato: totale non confrontabile');
  if(!Number.isFinite(now)||!Number.isFinite(o.price)||o.price<=0||!Number.isSafeInteger(Math.round(o.price*quantity*100)))return unknown('Prezzo o quantità non validi: totale non calcolato');
  const stamp=Date.parse(o.checked_at);
  if(!Number.isFinite(stamp)||stamp>now+300000)return unknown('Data del prezzo non valida: totale non calcolato');
@@ -41,7 +42,7 @@ function shipping(o,rules,quantity=1,territory='standard',now=Date.now()){
  return {...result,status:'exact',destination};
 }
 function shippingExact(o,rules,quantity=1,territory='standard',now=Date.now()){
- if(o.quantity_verified===false)return {reason:'Formato della confezione non verificato: totale non confrontabile'};
+ if(quantityUnverified(o))return {reason:'Formato della confezione non verificato: totale non confrontabile'};
  const r=rules?.merchants?.[o.merchant_id];if(!r)return {reason:'Condizioni non disponibili'};
  const ruleDate=r.checked_at||rules.checked_at,observed=Date.parse(ruleDate),until=r.verified_until!==undefined?Date.parse(r.verified_until):observed+(rules.verification_max_age_days??7)*86400000;
  // Seven days is retained only for older cached payloads; new JSON/D1 rows own expiry.
@@ -74,7 +75,7 @@ function shippingExact(o,rules,quantity=1,territory='standard',now=Date.now()){
 // The feeds expose comparison/list prices, not a verified reduction basis.
 // Keep promotional percentages disabled until an evidenced source is integrated.
 function merchantPromotion(o,now=Date.now()){
- const p=o.merchant_promotion;if(!p||!['shopify_compare_at','feed_regular_price'].includes(p.kind)||o.available!==true||o.quantity_verified===false||o.weight_conflict)return null;
+ const p=o.merchant_promotion;if(!p||!['shopify_compare_at','feed_regular_price'].includes(p.kind)||o.available!==true||quantityUnverified(o)||o.weight_conflict)return null;
  if(p.offer_id!==o.id||o.url&&p.source_url!==o.url||p.observed_at!==o.checked_at||p.price_cents!==Math.round(o.price*100))return null;
  try{const u=new URL(p.source_url);if(u.protocol!=='https:'||u.username||u.password||!['webpet.it','www.webpet.it','animaliapet.eu','www.animaliapet.eu','bauzaar.it','www.bauzaar.it','pacopetshop.it','www.pacopetshop.it'].includes(u.hostname))return null}catch{return null}
  const stamp=Date.parse(p.observed_at),end=p.valid_until?Date.parse(p.valid_until):null;
@@ -94,7 +95,7 @@ function merchant(url){
 }
 function matchKey(o,now=Date.now()){
  if(o.comparison_review?.review_state==='unverified')return '';
- if(o.quantity_verified===false||o.weight_conflict)return '';
+ if(quantityUnverified(o)||o.weight_conflict)return '';
  if(o.identity_review&&(!Number.isFinite(Date.parse(o.identity_expires_at))||Date.parse(o.identity_expires_at)<now))return '';
  const observed=Date.parse(o.checked_at);
  if(['name_characteristics','gtin_with_name'].includes(o.product_matching_method)&&/^p-[a-f0-9]{20}$/.test(o.product_id||'')&&o.brand?.trim()&&Number.isFinite(observed)&&now-observed<=36*3600000&&observed<=now+300000)return JSON.stringify(['characteristics',o.product_id]);
@@ -119,5 +120,5 @@ function freshnessLabel(value,now=Date.now()){const t=Date.parse(value),hours=(n
 function productUrl(o){const slug=o?.product_slug;if(typeof slug==='string'&&/^[a-z0-9][a-z0-9-]{1,200}$/.test(slug))return '/prodotto/'+slug;const path=o?.product_url;return typeof path==='string'&&/^\/prodotto\/[a-z0-9][a-z0-9-]{1,200}$/.test(path)?path:'/confronta-cibo'}
 function goUrl(o,page='other'){return '/go/'+encodeURIComponent(o.id)+'?from='+(['home','catalog','product','basket','other'].includes(page)?page:'other')}
 function reportUrl(o){const p=new URLSearchParams();for(const [key,source,limit] of [['id','id',100],['title','title',240],['shop','merchant',100],['price','price',30],['checked','checked_at',60]])p.set(key,String(o[source]??'').slice(0,limit));return 'segnala-errore.html#'+p;}
-const api={merchantPromotion,merchantPromotionHTML,appendMerchantPromotion,formatTimestamp,relativeTime,freshnessLabel,productUrl,merchantUrl,goUrl,shippingRulesFromRows,shipping,discount,merchant,matchKey,groupOffers,reportUrl};if(typeof module!=='undefined')module.exports=api;else root.O4ZTrade=api;
+const api={quantityUnverified,merchantPromotion,merchantPromotionHTML,appendMerchantPromotion,formatTimestamp,relativeTime,freshnessLabel,productUrl,merchantUrl,goUrl,shippingRulesFromRows,shipping,discount,merchant,matchKey,groupOffers,reportUrl};if(typeof module!=='undefined')module.exports=api;else root.O4ZTrade=api;
 })(typeof window!=='undefined'?window:this);

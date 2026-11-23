@@ -48,5 +48,5 @@ function mount(input,provide,choose){
  else if(e.key==='Enter'&&active>=0){e.preventDefault();accept(active)}
  });
 }
-const api={candidates,catalog,mount};if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.O4ZSuggest=api;
+const api={normalizeSearch:norm,candidates,catalog,mount};if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.O4ZSuggest=api;
 })(typeof window!=='undefined'?window:null);
