@@ -69,3 +69,9 @@ test('bitiba remains unknown for every product until its own catalog is connecte
  assert.equal(v.shops.filter(s=>s.source.id==='bitiba').length,1);
  assert.equal(v.shops.find(s=>s.source.id==='bitiba').offers[0],listed);
 });
+
+test('nested unknown quantity is unmatched rather than missing and never inherits an exact peer',()=>{
+ const unknown={...a,id:'b',merchant_id:'b',gtin:'',feed_gtin:a.gtin,quantity:{verified:false},weight_kg:null};
+ const view=productView({offers:[a,unknown],sources},a.id,now);
+ const shop=view.shops.find(s=>s.source.id==='b');assert.equal(shop.state,'unmatched');assert.deepEqual(shop.offers,[]);assert.equal(shop.quotes.size,0);
+});
