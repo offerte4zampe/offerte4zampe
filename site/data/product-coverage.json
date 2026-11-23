@@ -1,34 +1,34 @@
 {
-  "generated_at": "2026-11-23T07:33:05.120179+00:00",
+  "generated_at": "2026-11-23T22:24:06.396565+00:00",
   "name_matching": {
-    "evaluated_offers": 18252,
-    "insufficient_characteristics": 9615,
-    "eligible_offers": 8637,
+    "evaluated_offers": 18249,
+    "insufficient_characteristics": 9603,
+    "eligible_offers": 8646,
     "attached_without_gtin": 27,
     "manual_review_holds": 2
   },
-  "gtin_multi_shop_products": 534,
+  "gtin_multi_shop_products": 539,
   "characteristic_multi_shop_products": 27,
   "store_coverage": {
     "animaliapet": {
-      "offers": 3568,
-      "active_offers": 3543,
-      "missing_valid_gtin": 1990,
+      "offers": 3569,
+      "active_offers": 3544,
+      "missing_valid_gtin": 2007,
       "unverified_quantity": 0,
-      "sales_unit_only": 1441,
+      "sales_unit_only": 1444,
       "offers_in_multishop_products": 289
     },
     "bauzaar": {
-      "offers": 7166,
-      "active_offers": 7166,
+      "offers": 7162,
+      "active_offers": 7162,
       "missing_valid_gtin": 450,
       "unverified_quantity": 6,
       "sales_unit_only": 2214,
-      "offers_in_multishop_products": 515
+      "offers_in_multishop_products": 520
     },
     "hygge": {
       "offers": 132,
-      "active_offers": 108,
+      "active_offers": 102,
       "missing_valid_gtin": 2,
       "unverified_quantity": 0,
       "sales_unit_only": 92,
@@ -40,32 +40,32 @@
       "missing_valid_gtin": 2898,
       "unverified_quantity": 0,
       "sales_unit_only": 2725,
-      "offers_in_multishop_products": 245
+      "offers_in_multishop_products": 244
     },
     "paco": {
       "offers": 1254,
       "active_offers": 941,
-      "missing_valid_gtin": 1154,
-      "unverified_quantity": 1154,
-      "sales_unit_only": 1154,
-      "offers_in_multishop_products": 67
+      "missing_valid_gtin": 1139,
+      "unverified_quantity": 1139,
+      "sales_unit_only": 1139,
+      "offers_in_multishop_products": 77
     },
     "webpet": {
       "offers": 1811,
       "active_offers": 1202,
-      "missing_valid_gtin": 1373,
+      "missing_valid_gtin": 1374,
       "unverified_quantity": 0,
       "sales_unit_only": 1586,
       "offers_in_multishop_products": 28
     }
   },
-  "products": 21525,
-  "active_products": 16698,
-  "offers": 18254,
-  "multi_shop_products": 561,
-  "multi_shop_percent": 3.36,
+  "products": 21554,
+  "active_products": 16680,
+  "offers": 18251,
+  "multi_shop_products": 566,
+  "multi_shop_percent": 3.39,
   "denominator": "active canonical products, distinct merchants with verified quantities; GTIN and characteristic matching reported separately; duplicate offers in one shop do not count",
-  "unattached_offers": 7632,
-  "candidate_pairs": 305,
+  "unattached_offers": 7636,
+  "candidate_pairs": 304,
   "automatic_match_rules": "GTIN and quantity, or exact characteristic tokens after merchandising-only normalization; brand, recipe, life stage, selected variant and verified selling quantity preserved; images/descriptions are review support only"
 }
