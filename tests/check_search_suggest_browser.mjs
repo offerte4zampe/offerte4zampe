@@ -151,4 +151,14 @@ export async function checkSuggestions(page,origin,catalog){
  assert.equal(productHistoryRequests.length,1,'Quantity changes must reuse loaded history');page.off('request',trackProductHistory);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth<=1));
 
+ // The same real catalog query must survive accents after leaving suggestions.
+ const queryIds=[];
+ for(const q of ['gourmet pate','gourmet patè']){
+  await page.goto(origin+'/confronta-cibo.html?q='+encodeURIComponent(q),{waitUntil:'domcontentloaded'});
+  await page.waitForSelector('#catalog-grid .catalog-card',{timeout:30000});
+  queryIds.push(await page.$$eval('#catalog-grid .product-title-link',es=>es.map(e=>e.getAttribute('href'))));
+ }
+ assert(queryIds[0].length>0,'Real unaccented pâté query must return results');
+ assert.deepEqual(queryIds[0],queryIds[1],'Accented and plain query must return the same cards');
+
 }
