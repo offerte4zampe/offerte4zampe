@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T08:28:41.248712+00:00",
+  "generated_at": "2026-11-25T21:40:12.324909+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -46,6 +46,7 @@
     "animaliapet:46976576454999",
     "animaliapet:46976578158935",
     "animaliapet:46976581566807",
+    "animaliapet:46976581763415",
     "animaliapet:46976583958871",
     "animaliapet:46976584810839",
     "animaliapet:46976585924951",
@@ -58,7 +59,6 @@
     "animaliapet:46976605552983",
     "animaliapet:46976607355223",
     "animaliapet:46976631013719",
-    "animaliapet:46976631308631",
     "animaliapet:46976635208023",
     "animaliapet:46976642679127",
     "animaliapet:46976649724247",
@@ -131,6 +131,7 @@
     "animaliapet:55556613865815",
     "bauzaar:56811242750277",
     "bauzaar:56811242783045",
+    "bauzaar:56817608163653",
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
@@ -158,7 +159,6 @@
     "bauzaar:56820056457541",
     "bauzaar:56820058784069",
     "bauzaar:56820058816837",
-    "bauzaar:56820062093637",
     "bauzaar:56820067991877",
     "bauzaar:56820087849285",
     "bauzaar:56820088045893",
@@ -196,8 +196,8 @@
     "bauzaar:56820268302661",
     "bauzaar:56820268400965",
     "bauzaar:56820269351237",
+    "bauzaar:56820281377093",
     "bauzaar:56820299465029",
-    "bauzaar:56820299530565",
     "bauzaar:56820299563333",
     "bauzaar:56820299661637",
     "bauzaar:56820401471813",
@@ -325,7 +325,6 @@
     "bauzaar:57356131074373",
     "bauzaar:57356131991877",
     "bauzaar:57356132122949",
-    "bauzaar:57412725604677",
     "bauzaar:57741776388421",
     "bauzaar:57822525915461",
     "bauzaar:57822526210373",
@@ -371,6 +370,7 @@
     "bauzaar:58411853185349",
     "bauzaar:58411853939013",
     "bauzaar:58411854004549",
+    "bauzaar:58411854496069",
     "bauzaar:58411854594373",
     "bauzaar:58411855348037",
     "bauzaar:58411855806789",
@@ -483,6 +483,7 @@
     "paco:3954",
     "paco:3955",
     "paco:4051",
+    "paco:4073",
     "paco:4110",
     "paco:4111",
     "paco:4134",
@@ -542,7 +543,6 @@
     "paco:5991",
     "paco:5993",
     "paco:6066",
-    "paco:6071",
     "paco:6076",
     "paco:6077",
     "paco:6140",
@@ -553,13 +553,14 @@
     "paco:6231",
     "paco:6249",
     "paco:6358",
+    "paco:6395",
     "paco:820",
     "paco:88",
     "paco:955",
     "paco:961",
     "paco:964",
-    "paco:965",
     "paco:966",
+    "webpet:52568941429076",
     "webpet:52568955552084",
     "webpet:52568971936084",
     "webpet:52569129189716",
@@ -567,8 +568,7 @@
     "webpet:52569129288020",
     "webpet:52569129648468",
     "webpet:52569129681236",
-    "webpet:52569129714004",
-    "webpet:52569137676628"
+    "webpet:52569129714004"
   ],
   "products": [
     {
@@ -820,27 +820,6 @@
       ],
       "candidate_offer_ids": [
         "webpet:52568955552084"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-020ee6e13fdcbebb98e7",
-      "name": "Royal Canin Gastrointestinal Moderate Calorie 2Kg Crocchette Gatti Adulti",
-      "brand": "Royal Canin",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "2 kg",
-      "url": "https://offerte4zampe.it/prodotto/royal-canin-gastrointestinal-moderate-calorie-2kg-crocchette-gatti-adulti-03182550771290-bb98e7",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976631308631",
-        "bauzaar:56820299530565"
-      ],
-      "candidate_offer_ids": [
-        "paco:965"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1135,6 +1114,27 @@
       ],
       "candidate_offer_ids": [
         "paco:1201"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-8099ba6d47ac0c592333",
+      "name": "Royal Canin Extra-Small Puppy 1,5 kg",
+      "brand": "Royal Canin",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/royal-canin-extra-small-puppy-1-5-kg-1-5kg-03182550793612-592333",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:58411854496069",
+        "animaliapet:46976581763415"
+      ],
+      "candidate_offer_ids": [
+        "paco:6395"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -4097,25 +4097,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-2440fb40d61ddc682996",
-      "name": "Prolife Lifestyle Gatto Kitten Pollo e Riso 1,5 kg",
-      "brand": "Prolife",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/prolife-lifestyle-gatto-kitten-pollo-e-riso-1-5-kg-1-5kg-08015579036086-682996",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:57412725604677",
-        "webpet:52569137676628"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-2febad48b621588b9b30",
       "name": "Prolife Grain Free Sensitive Dog Adult Medium/Large 400 g Maiale e patate - confezione da 6 pezzi",
       "brand": "Prolife",
@@ -4230,25 +4211,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-aa798273bbbfe94185d8",
-      "name": "Prolife Smart Cane Adult Mini Manzo e Riso 7 kg",
-      "brand": "Prolife",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "7 kg",
-      "url": "https://offerte4zampe.it/prodotto/prolife-smart-cane-adult-mini-manzo-e-riso-7-kg-7kg-08015579034730-4185d8",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820062093637",
-        "paco:6071"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-bb3fb6468e6aa371c94b",
       "name": "Prolife Sensitive Grain Free Mini Con Pesce E Patate Per Cani · Sacco da 7 kg",
       "brand": "Prolife",
@@ -4262,6 +4224,44 @@
       "offer_ids": [
         "paco:3954",
         "bauzaar:56820206240069"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-c2f01ef53332193d991d",
+      "name": "Prolife Sensitive Grain Free Medium Large Con Maiale E Patate Per Cani · Sacco da 10 kg",
+      "brand": "Prolife",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/prolife-sensitive-grain-free-medium-large-con-maiale-e-patate-per-cani-sacco-da-10-kg-08015579035362-3d991d",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "paco:4073",
+        "bauzaar:56820281377093"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-f5101755e43147bb8127",
+      "name": "Prolife Sterilised Sensitive Medium/Large Adult Monoproteico Anatra e Riso 10 kg - Crocchette monoproteiche cane",
+      "brand": "Prolife",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "10 kg",
+      "url": "https://offerte4zampe.it/prodotto/prolife-sterilised-sensitive-medium-large-adult-monoproteico-anatra-e-riso-10-kg-crocchette-monoproteiche-cane-10kg-08015579047457-bb8127",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:56817608163653",
+        "webpet:52568941429076"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
