@@ -9,6 +9,7 @@ except ImportError:
 
 # Only lexical equivalents: line names, recipes, ages and package markers remain.
 TOKEN_EQUIVALENTS = {
+    'biscottini':'biscotti',
     'dogs':'cane', 'dog':'cane', 'cani':'cane',
     'cats':'gatto', 'cat':'gatto', 'gatti':'gatto',
     'adulti':'adult', 'adulto':'adult', 'adulta':'adult',

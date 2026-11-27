@@ -1,9 +1,9 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "purpose": "Independently reviewed exact commercial identities and selling packs; source description discrepancies retained explicitly",
   "merchant_review": {
     "status": "verified",
-    "reviewer": "Assistant documentary review, independent first7 and last8 passes; not certification of physical stock or formulation batches",
+    "reviewer": "Assistant documentary review, independent first7 and last8 passes; not certification of physical stock or formulation batches; two O-life observations independently reviewed23November and fingerprint-gated27November",
     "evidence": [
       {
         "join": [
@@ -705,52 +705,6 @@
       },
       {
         "join": [
-          "isola-dei-tesori:000122044",
-          "bauzaar:56962031616325"
-        ],
-        "result": "same_exact_product_and_selling_pack",
-        "sources": [
-          {
-            "offer_id": "isola-dei-tesori:000122044",
-            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-uccelli-da-giardino-gran-mix-1kg/000122044.html",
-            "checked_at": "2026-11-14T15:05:17.394299+00:00",
-            "http_status": 200,
-            "source_sha256": "2822f08c7bcd17a302f4bc77a01bf5c1378d69225895ad22636ba823fac63bc9",
-            "selected_id": "000122044",
-            "brand": "Piccoli Amici",
-            "line": "Gran Mix Uccelli da Giardino",
-            "variant": "uccelli ornamentali da giardino; non differenziata; semi e cereali con grit di guscio di ostrica; semi di zucca, lino, girasole e granaverde di riso",
-            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
-            "evidence_excerpt": "Isola: scheda tecnica peso1kg e identitàSKU000122044; Bauzaar: variante56962031616325, misura netta1.0kg, descrizione confezione1kg; Descrizioni concordi sui componenti caratterizzanti; nessun multipack distinto dichiarato",
-            "identity_observation_sha256": "f48f41c1ba9d85bca17d946ee9e8cb0fc7e89ecf58cc5e97b384d25564c7ac64"
-          },
-          {
-            "offer_id": "bauzaar:56962031616325",
-            "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-uccelli-da-giardino.js",
-            "checked_at": "2026-11-14T15:05:28.255761+00:00",
-            "http_status": 200,
-            "source_sha256": "753bd995c94346f4839bfe417f6b7d5b315a24edd9ebcd247f5160988f32ee5e",
-            "selected_id": "56962031616325",
-            "brand": "Piccoli Amici",
-            "line": "Gran Mix Uccelli da Giardino",
-            "variant": "uccelli ornamentali da giardino; non differenziata; semi e cereali con grit di guscio di ostrica; semi di zucca, lino, girasole e granaverde di riso",
-            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
-            "evidence_excerpt": "Isola: scheda tecnica peso1kg e identitàSKU000122044; Bauzaar: variante56962031616325, misura netta1.0kg, descrizione confezione1kg; Descrizioni concordi sui componenti caratterizzanti; nessun multipack distinto dichiarato",
-            "identity_observation_sha256": "f4b8477e59e0276cb6ee1d8b8578919eb813e3e66d2d7e200e624c84b20168ec"
-          }
-        ],
-        "source_quality_flags": [
-          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
-          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
-        ],
-        "limits": [
-          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
-          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
-          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
-        ]
-      },
-      {
-        "join": [
           "isola-dei-tesori:000120167",
           "bauzaar:56962031780165"
         ],
@@ -843,52 +797,6 @@
       },
       {
         "join": [
-          "isola-dei-tesori:000120161",
-          "bauzaar:56962030698821"
-        ],
-        "result": "same_exact_product_and_selling_pack",
-        "sources": [
-          {
-            "offer_id": "isola-dei-tesori:000120161",
-            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-conigli-e-piccoli-roditori-fieno-italiano-semi-pressato-1-kg/000120161.html",
-            "checked_at": "2026-11-14T15:06:00.753517+00:00",
-            "http_status": 200,
-            "source_sha256": "2690d5980e704a4c445c1de8fe6db3487a3728259770422eb7c4143ad506aa85",
-            "selected_id": "000120161",
-            "brand": "Piccoli Amici",
-            "line": "Fieno Italiano Semi Pressato",
-            "variant": "conigli e piccoli roditori; non differenziata; fieno naturale italiano semi pressato",
-            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
-            "evidence_excerpt": "Isola: SKU000120161, scheda tecnica1kg; alimento semplice con fieno di prato; Bauzaar: variante56962030698821 e misura netta1.0kg; descrizione fieno naturale; Stesso prodotto commerciale/forma e target; nessun multipack dichiarato",
-            "identity_observation_sha256": "2e3d5dffa5b1dec68ddbb051b9c89fb8250bfd89ce1388e36815792e4315c3d1"
-          },
-          {
-            "offer_id": "bauzaar:56962030698821",
-            "url": "https://www.bauzaar.it/products/piccoli-amici-fieno-italiano-semi-pressato-per-conigli-e-piccoli-roditori.js",
-            "checked_at": "2026-11-14T15:06:06.454751+00:00",
-            "http_status": 200,
-            "source_sha256": "97dd0c00a7e455436c97ea56277bf037bfa1442bcd2b7b8d8ba7cb95be76bfc4",
-            "selected_id": "56962030698821",
-            "brand": "Piccoli Amici",
-            "line": "Fieno Italiano Semi Pressato",
-            "variant": "conigli e piccoli roditori; non differenziata; fieno naturale italiano semi pressato",
-            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
-            "evidence_excerpt": "Isola: SKU000120161, scheda tecnica1kg; alimento semplice con fieno di prato; Bauzaar: variante56962030698821 e misura netta1.0kg; descrizione fieno naturale; Stesso prodotto commerciale/forma e target; nessun multipack dichiarato",
-            "identity_observation_sha256": "e756f8005de20a9d7942ad1e73507469e8ebb2735eea5708cd10470c176e627f"
-          }
-        ],
-        "source_quality_flags": [
-          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
-          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
-        ],
-        "limits": [
-          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
-          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
-          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
-        ]
-      },
-      {
-        "join": [
           "isola-dei-tesori:000140881",
           "animaliapet:46976575734103"
         ],
@@ -924,52 +832,6 @@
           }
         ],
         "source_quality_flags": [],
-        "limits": [
-          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
-          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
-          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
-        ]
-      },
-      {
-        "join": [
-          "isola-dei-tesori:000120162",
-          "bauzaar:56962032435525"
-        ],
-        "result": "same_exact_product_and_selling_pack",
-        "sources": [
-          {
-            "offer_id": "isola-dei-tesori:000120162",
-            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-pellet-per-conigli-nani-adulti-25-kg/000120162.html",
-            "checked_at": "2026-11-14T15:06:39.888416+00:00",
-            "http_status": 200,
-            "source_sha256": "3f734912472b9285b1cbf9f15f5623e95ee9497b10fd0d44c1f1a19016899965",
-            "selected_id": "000120162",
-            "brand": "Piccoli Amici",
-            "line": "Pellet standard, non Gourmet",
-            "variant": "conigli nani; adulti; pellet standard con integrazione vitamine/minerali",
-            "selling_quantity": "2500 g per selling unit; no distinct multipack declared",
-            "evidence_excerpt": "Isola: SKU000120162, scheda tecnica2,5kg; farina erba medica20%; Bauzaar: variante56962032435525 e misura netta2.5kg; descrizione alimento in pellet per adulti; Identità commerciale standard confermata, distinta daSKU000120164 Gourmet800g; nessun multipack dichiarato",
-            "identity_observation_sha256": "87790243f927b9aea23e7be854687d4e8beba8d15fe169941682271edb904a46"
-          },
-          {
-            "offer_id": "bauzaar:56962032435525",
-            "url": "https://www.bauzaar.it/products/piccoli-amici-pellet-per-conigli-nani-adulti.js",
-            "checked_at": "2026-11-14T15:06:45.605239+00:00",
-            "http_status": 200,
-            "source_sha256": "f3b3f6a9f2e6ef0a2d16aca77b57e4124111b2aafce8407156a826647a95b86d",
-            "selected_id": "56962032435525",
-            "brand": "Piccoli Amici",
-            "line": "Pellet standard, non Gourmet",
-            "variant": "conigli nani; adulti; pellet standard con integrazione vitamine/minerali",
-            "selling_quantity": "2500 g per selling unit; no distinct multipack declared",
-            "evidence_excerpt": "Isola: SKU000120162, scheda tecnica2,5kg; farina erba medica20%; Bauzaar: variante56962032435525 e misura netta2.5kg; descrizione alimento in pellet per adulti; Identità commerciale standard confermata, distinta daSKU000120164 Gourmet800g; nessun multipack dichiarato",
-            "identity_observation_sha256": "59f667674ec9656c1b0dbf7755234f7ef290f3ed791669cf4aa7b738174b25e3"
-          }
-        ],
-        "source_quality_flags": [
-          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
-          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
-        ],
         "limits": [
           "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
           "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
@@ -1084,6 +946,206 @@
           "Non affermata composizione identica tra negozi/produttore; possibili versioni/formulazioni o testi errati.",
           "Approvazione solo identitàcommerciale eformatovendita, nonlottofisico né conformitànutrizionale."
         ]
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000134207",
+          "bauzaar:56819870925125"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "reviewer": "Independent matching auditor, original merchant pages 23November2026",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000134207",
+            "url": "https://www.isoladeitesori.it/prodotto/o-life-dog-adult-biscottini-con-agnello-ortica-e-semi-di-lino-200gr/000134207.html",
+            "checked_at": "2026-11-23T22:12:12.672756+00:00",
+            "source_sha256": "0e6f51ec6da6428030394ef33fc5200cd2dbc246ab4408fe5424f1913456885a",
+            "brand": "O-life",
+            "line": "Dog Adult biscotti",
+            "selling_quantity": "200g netti per unità di vendita; pezzi interni non dichiarati",
+            "evidence_excerpt": "Variante selezionata della ricetta esatta; formato200g del prodotto e destinazione cane adulto confermati.",
+            "product_url": "https://www.isoladeitesori.it/prodotto/o-life-dog-adult-biscottini-con-agnello-ortica-e-semi-di-lino-200gr/000134207.html",
+            "product_canonical_url": "https://www.isoladeitesori.it/prodotto/o-life-dog-adult-biscottini-con-agnello-ortica-e-semi-di-lino-200gr/000134207.html",
+            "package_review": {
+              "shipping_weight_ignored": true,
+              "known_total_net_weight_g": 200,
+              "piece_count": null,
+              "multipack_not_inferred": true
+            },
+            "identity_observation_sha256": "456772040c6f9c69c442ce0290322c11b1ae5be09a2e3c4c21eecf7f326b7905",
+            "selected_id": "000134207",
+            "variant": "agnello, ortica e semi di lino; cane adulto; biscotti/biscottini; formato200g; nessun multipack distinto dichiarato",
+            "selected": {
+              "name": "O-life Dog Adult Biscottini con Agnello ortica e semi di lino 200gr",
+              "sku": "000134207",
+              "mpn": "000134207",
+              "brand": {
+                "@type": "Thing",
+                "name": "O-life"
+              },
+              "offers": {
+                "url": {},
+                "@type": "Offer",
+                "priceCurrency": "EUR",
+                "price": "4.20",
+                "availability": "http://schema.org/InStock"
+              }
+            },
+            "recipe_review": {
+              "declared_recipe": "agnello, ortica e semi di lino",
+              "same_exact_selected_recipe": true,
+              "full_nutritional_composition_equality_claimed": false,
+              "shipping_weight_ignored": true
+            }
+          },
+          {
+            "offer_id": "bauzaar:56819870925125",
+            "url": "https://www.bauzaar.it/products/o-life-dog-adult-biscotti-per-cani-200-gr.js",
+            "checked_at": "2026-11-23T22:12:01.101735+00:00",
+            "source_sha256": "0af2688d7422a64f2d6a4024ff4dab1c16218ae8960fad151946b9c34bb64d11",
+            "brand": "O-life",
+            "line": "Dog Adult biscotti",
+            "selling_quantity": "200g netti per unità di vendita; pezzi interni non dichiarati",
+            "evidence_excerpt": "Variante selezionata della ricetta esatta; formato200g del prodotto e destinazione cane adulto confermati.",
+            "product_url": "https://www.bauzaar.it/products/o-life-dog-adult-biscotti-per-cani-200-gr?variant=56819870925125",
+            "product_canonical_url": "https://www.bauzaar.it/products/o-life-dog-adult-biscotti-per-cani-200-gr",
+            "package_review": {
+              "shipping_weight_ignored": true,
+              "known_total_net_weight_g": 200,
+              "piece_count": null,
+              "multipack_not_inferred": true
+            },
+            "identity_observation_sha256": "b6207c9b70eabbba6f018fd969dfcbdd2dd3587e34ea403ff21db3da725d6579",
+            "selected_id": "56819870925125",
+            "variant": "agnello, ortica e semi di lino; cane adulto; biscotti/biscottini; formato200g; nessun multipack distinto dichiarato",
+            "selected": {
+              "id": 56819870925125,
+              "title": "Agnello, ortica e semi di lino",
+              "name": "O-life Dog Adult biscotti per cani 200 gr - Agnello, ortica e semi di lino",
+              "sku": "9896790",
+              "barcode": "8053636453674",
+              "available": true,
+              "price": 420,
+              "unit_price_measurement": {
+                "measured_type": "count",
+                "quantity_value": "1.0",
+                "quantity_unit": "item",
+                "reference_value": 1,
+                "reference_unit": "item"
+              }
+            },
+            "recipe_review": {
+              "declared_recipe": "agnello, ortica e semi di lino",
+              "same_exact_selected_recipe": true,
+              "full_nutritional_composition_equality_claimed": false,
+              "shipping_weight_ignored": true
+            }
+          }
+        ],
+        "source_quality_flags": [
+          "Biscuit count inside200g package not declared; no count invented.",
+          "No full nutritional formulation equality claimed; commercial recipe/form/age and whole selling pack are the reviewed attributes."
+        ]
+      },
+      {
+        "join": [
+          "isola-dei-tesori:000134209",
+          "bauzaar:56819870826821"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "reviewer": "Independent matching auditor, original merchant pages 23November2026",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000134209",
+            "url": "https://www.isoladeitesori.it/prodotto/o-life-dog-adult-biscottini-con-tacchino-mela-e-curcuma-200gr/000134209.html",
+            "checked_at": "2026-11-23T22:12:22.663284+00:00",
+            "source_sha256": "62306f5ad33aba09a9063af087f9ca07ccfa41867a50f3e73138f08df2ad660d",
+            "brand": "O-life",
+            "line": "Dog Adult biscotti",
+            "selling_quantity": "200g netti per unità di vendita; pezzi interni non dichiarati",
+            "evidence_excerpt": "Variante selezionata della ricetta esatta; formato200g del prodotto e destinazione cane adulto confermati.",
+            "product_url": "https://www.isoladeitesori.it/prodotto/o-life-dog-adult-biscottini-con-tacchino-mela-e-curcuma-200gr/000134209.html",
+            "product_canonical_url": "https://www.isoladeitesori.it/prodotto/o-life-dog-adult-biscottini-con-tacchino-mela-e-curcuma-200gr/000134209.html",
+            "package_review": {
+              "shipping_weight_ignored": true,
+              "known_total_net_weight_g": 200,
+              "piece_count": null,
+              "multipack_not_inferred": true
+            },
+            "identity_observation_sha256": "4e5680eac8e80a1266d7cf88d066080a5e5f80c5baa36b5f944a2938d45a888f",
+            "selected_id": "000134209",
+            "variant": "tacchino, mela e curcuma; cane adulto; biscotti/biscottini; formato200g; nessun multipack distinto dichiarato",
+            "selected": {
+              "name": "O-life Dog Adult Biscottini con Tacchino mela e curcuma 200gr",
+              "sku": "000134209",
+              "mpn": "000134209",
+              "brand": {
+                "@type": "Thing",
+                "name": "O-life"
+              },
+              "offers": {
+                "url": {},
+                "@type": "Offer",
+                "priceCurrency": "EUR",
+                "price": "4.20",
+                "availability": "http://schema.org/InStock"
+              }
+            },
+            "recipe_review": {
+              "declared_recipe": "tacchino, mela e curcuma",
+              "same_exact_selected_recipe": true,
+              "full_nutritional_composition_equality_claimed": false,
+              "shipping_weight_ignored": true
+            }
+          },
+          {
+            "offer_id": "bauzaar:56819870826821",
+            "url": "https://www.bauzaar.it/products/o-life-dog-adult-biscotti-per-cani-200-gr.js",
+            "checked_at": "2026-11-23T22:12:22.661789+00:00",
+            "source_sha256": "0af2688d7422a64f2d6a4024ff4dab1c16218ae8960fad151946b9c34bb64d11",
+            "brand": "O-life",
+            "line": "Dog Adult biscotti",
+            "selling_quantity": "200g netti per unità di vendita; pezzi interni non dichiarati",
+            "evidence_excerpt": "Variante selezionata della ricetta esatta; formato200g del prodotto e destinazione cane adulto confermati.",
+            "product_url": "https://www.bauzaar.it/products/o-life-dog-adult-biscotti-per-cani-200-gr?variant=56819870826821",
+            "product_canonical_url": "https://www.bauzaar.it/products/o-life-dog-adult-biscotti-per-cani-200-gr",
+            "package_review": {
+              "shipping_weight_ignored": true,
+              "known_total_net_weight_g": 200,
+              "piece_count": null,
+              "multipack_not_inferred": true
+            },
+            "identity_observation_sha256": "111b94b1e07a85bc118147825bc4e3070621f85e579a7d17944758438e1e8132",
+            "selected_id": "56819870826821",
+            "variant": "tacchino, mela e curcuma; cane adulto; biscotti/biscottini; formato200g; nessun multipack distinto dichiarato",
+            "selected": {
+              "id": 56819870826821,
+              "title": "Tacchino, mela e curcuma",
+              "name": "O-life Dog Adult biscotti per cani 200 gr - Tacchino, mela e curcuma",
+              "sku": "9896792",
+              "barcode": "8053636453681",
+              "available": true,
+              "price": 420,
+              "unit_price_measurement": {
+                "measured_type": "count",
+                "quantity_value": "1.0",
+                "quantity_unit": "item",
+                "reference_value": 1,
+                "reference_unit": "item"
+              }
+            },
+            "recipe_review": {
+              "declared_recipe": "tacchino, mela e curcuma",
+              "same_exact_selected_recipe": true,
+              "full_nutritional_composition_equality_claimed": false,
+              "shipping_weight_ignored": true
+            }
+          }
+        ],
+        "source_quality_flags": [
+          "Biscuit count inside200g package not declared; no count invented.",
+          "No full nutritional formulation equality claimed; commercial recipe/form/age and whole selling pack are the reviewed attributes."
+        ]
       }
     ]
   },
@@ -1117,10 +1179,6 @@
       "bauzaar:56962031550789"
     ],
     [
-      "isola-dei-tesori:000122044",
-      "bauzaar:56962031616325"
-    ],
-    [
       "isola-dei-tesori:000120167",
       "bauzaar:56962031780165"
     ],
@@ -1129,16 +1187,8 @@
       "bauzaar:56962031124805"
     ],
     [
-      "isola-dei-tesori:000120161",
-      "bauzaar:56962030698821"
-    ],
-    [
       "isola-dei-tesori:000140881",
       "animaliapet:46976575734103"
-    ],
-    [
-      "isola-dei-tesori:000120162",
-      "bauzaar:56962032435525"
     ],
     [
       "isola-dei-tesori:000120164",
@@ -1147,7 +1197,206 @@
     [
       "isola-dei-tesori:000141050",
       "animaliapet:47739940831575"
+    ],
+    [
+      "isola-dei-tesori:000134207",
+      "bauzaar:56819870925125"
+    ],
+    [
+      "isola-dei-tesori:000134209",
+      "bauzaar:56819870826821"
     ]
   ],
-  "pending_joins": []
+  "pending_joins": [],
+  "dormant_joins": [
+    {
+      "join": [
+        "isola-dei-tesori:000122044",
+        "bauzaar:56962031616325"
+      ],
+      "missing_offer_ids": [
+        "isola-dei-tesori:000122044"
+      ],
+      "reason": "One exact offer observation is absent from the published input at the referenced commit. Published suppression, link-health and quarantine reports do not establish the upstream cause; no old offer is restored.",
+      "archived_at": "2026-11-27T21:17:10.851885+00:00",
+      "archived_reviewer": "Assistant documentary review, independent first7 and last8 passes; not certification of physical stock or formulation batches",
+      "input_snapshot": {
+        "commit": "3230cdc27d436dd3d6af79b9df804cf50ae76bb6",
+        "generated_at": "2026-11-27T08:24:52.039862+00:00",
+        "identity_snapshot_sha256": "89b75479962975f8d6c9d05090dd1e9f3ab4874c65cb06afb441fe5ae05b48f2"
+      },
+      "archived_review": {
+        "join": [
+          "isola-dei-tesori:000122044",
+          "bauzaar:56962031616325"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000122044",
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-uccelli-da-giardino-gran-mix-1kg/000122044.html",
+            "checked_at": "2026-11-14T15:05:17.394299+00:00",
+            "http_status": 200,
+            "source_sha256": "2822f08c7bcd17a302f4bc77a01bf5c1378d69225895ad22636ba823fac63bc9",
+            "selected_id": "000122044",
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Uccelli da Giardino",
+            "variant": "uccelli ornamentali da giardino; non differenziata; semi e cereali con grit di guscio di ostrica; semi di zucca, lino, girasole e granaverde di riso",
+            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: scheda tecnica peso1kg e identitàSKU000122044; Bauzaar: variante56962031616325, misura netta1.0kg, descrizione confezione1kg; Descrizioni concordi sui componenti caratterizzanti; nessun multipack distinto dichiarato",
+            "identity_observation_sha256": "f48f41c1ba9d85bca17d946ee9e8cb0fc7e89ecf58cc5e97b384d25564c7ac64"
+          },
+          {
+            "offer_id": "bauzaar:56962031616325",
+            "url": "https://www.bauzaar.it/products/piccoli-amici-gran-mix-mangime-per-uccelli-da-giardino.js",
+            "checked_at": "2026-11-14T15:05:28.255761+00:00",
+            "http_status": 200,
+            "source_sha256": "753bd995c94346f4839bfe417f6b7d5b315a24edd9ebcd247f5160988f32ee5e",
+            "selected_id": "56962031616325",
+            "brand": "Piccoli Amici",
+            "line": "Gran Mix Uccelli da Giardino",
+            "variant": "uccelli ornamentali da giardino; non differenziata; semi e cereali con grit di guscio di ostrica; semi di zucca, lino, girasole e granaverde di riso",
+            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: scheda tecnica peso1kg e identitàSKU000122044; Bauzaar: variante56962031616325, misura netta1.0kg, descrizione confezione1kg; Descrizioni concordi sui componenti caratterizzanti; nessun multipack distinto dichiarato",
+            "identity_observation_sha256": "f4b8477e59e0276cb6ee1d8b8578919eb813e3e66d2d7e200e624c84b20168ec"
+          }
+        ],
+        "source_quality_flags": [
+          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
+          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
+        ],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      }
+    },
+    {
+      "join": [
+        "isola-dei-tesori:000120161",
+        "bauzaar:56962030698821"
+      ],
+      "missing_offer_ids": [
+        "isola-dei-tesori:000120161"
+      ],
+      "reason": "One exact offer observation is absent from the published input at the referenced commit. Published suppression, link-health and quarantine reports do not establish the upstream cause; no old offer is restored.",
+      "archived_at": "2026-11-27T21:17:10.851885+00:00",
+      "archived_reviewer": "Assistant documentary review, independent first7 and last8 passes; not certification of physical stock or formulation batches",
+      "input_snapshot": {
+        "commit": "3230cdc27d436dd3d6af79b9df804cf50ae76bb6",
+        "generated_at": "2026-11-27T08:24:52.039862+00:00",
+        "identity_snapshot_sha256": "89b75479962975f8d6c9d05090dd1e9f3ab4874c65cb06afb441fe5ae05b48f2"
+      },
+      "archived_review": {
+        "join": [
+          "isola-dei-tesori:000120161",
+          "bauzaar:56962030698821"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000120161",
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-conigli-e-piccoli-roditori-fieno-italiano-semi-pressato-1-kg/000120161.html",
+            "checked_at": "2026-11-14T15:06:00.753517+00:00",
+            "http_status": 200,
+            "source_sha256": "2690d5980e704a4c445c1de8fe6db3487a3728259770422eb7c4143ad506aa85",
+            "selected_id": "000120161",
+            "brand": "Piccoli Amici",
+            "line": "Fieno Italiano Semi Pressato",
+            "variant": "conigli e piccoli roditori; non differenziata; fieno naturale italiano semi pressato",
+            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120161, scheda tecnica1kg; alimento semplice con fieno di prato; Bauzaar: variante56962030698821 e misura netta1.0kg; descrizione fieno naturale; Stesso prodotto commerciale/forma e target; nessun multipack dichiarato",
+            "identity_observation_sha256": "2e3d5dffa5b1dec68ddbb051b9c89fb8250bfd89ce1388e36815792e4315c3d1"
+          },
+          {
+            "offer_id": "bauzaar:56962030698821",
+            "url": "https://www.bauzaar.it/products/piccoli-amici-fieno-italiano-semi-pressato-per-conigli-e-piccoli-roditori.js",
+            "checked_at": "2026-11-14T15:06:06.454751+00:00",
+            "http_status": 200,
+            "source_sha256": "97dd0c00a7e455436c97ea56277bf037bfa1442bcd2b7b8d8ba7cb95be76bfc4",
+            "selected_id": "56962030698821",
+            "brand": "Piccoli Amici",
+            "line": "Fieno Italiano Semi Pressato",
+            "variant": "conigli e piccoli roditori; non differenziata; fieno naturale italiano semi pressato",
+            "selling_quantity": "1000 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120161, scheda tecnica1kg; alimento semplice con fieno di prato; Bauzaar: variante56962030698821 e misura netta1.0kg; descrizione fieno naturale; Stesso prodotto commerciale/forma e target; nessun multipack dichiarato",
+            "identity_observation_sha256": "e756f8005de20a9d7942ad1e73507469e8ebb2735eea5708cd10470c176e627f"
+          }
+        ],
+        "source_quality_flags": [
+          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
+          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
+        ],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      }
+    },
+    {
+      "join": [
+        "isola-dei-tesori:000120162",
+        "bauzaar:56962032435525"
+      ],
+      "missing_offer_ids": [
+        "bauzaar:56962032435525"
+      ],
+      "reason": "One exact offer observation is absent from the published input at the referenced commit. Published suppression, link-health and quarantine reports do not establish the upstream cause; no old offer is restored.",
+      "archived_at": "2026-11-27T21:17:10.851885+00:00",
+      "archived_reviewer": "Assistant documentary review, independent first7 and last8 passes; not certification of physical stock or formulation batches",
+      "input_snapshot": {
+        "commit": "3230cdc27d436dd3d6af79b9df804cf50ae76bb6",
+        "generated_at": "2026-11-27T08:24:52.039862+00:00",
+        "identity_snapshot_sha256": "89b75479962975f8d6c9d05090dd1e9f3ab4874c65cb06afb441fe5ae05b48f2"
+      },
+      "archived_review": {
+        "join": [
+          "isola-dei-tesori:000120162",
+          "bauzaar:56962032435525"
+        ],
+        "result": "same_exact_product_and_selling_pack",
+        "sources": [
+          {
+            "offer_id": "isola-dei-tesori:000120162",
+            "url": "https://www.isoladeitesori.it/prodotto/piccoli-amici-pellet-per-conigli-nani-adulti-25-kg/000120162.html",
+            "checked_at": "2026-11-14T15:06:39.888416+00:00",
+            "http_status": 200,
+            "source_sha256": "3f734912472b9285b1cbf9f15f5623e95ee9497b10fd0d44c1f1a19016899965",
+            "selected_id": "000120162",
+            "brand": "Piccoli Amici",
+            "line": "Pellet standard, non Gourmet",
+            "variant": "conigli nani; adulti; pellet standard con integrazione vitamine/minerali",
+            "selling_quantity": "2500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120162, scheda tecnica2,5kg; farina erba medica20%; Bauzaar: variante56962032435525 e misura netta2.5kg; descrizione alimento in pellet per adulti; Identità commerciale standard confermata, distinta daSKU000120164 Gourmet800g; nessun multipack dichiarato",
+            "identity_observation_sha256": "87790243f927b9aea23e7be854687d4e8beba8d15fe169941682271edb904a46"
+          },
+          {
+            "offer_id": "bauzaar:56962032435525",
+            "url": "https://www.bauzaar.it/products/piccoli-amici-pellet-per-conigli-nani-adulti.js",
+            "checked_at": "2026-11-14T15:06:45.605239+00:00",
+            "http_status": 200,
+            "source_sha256": "f3b3f6a9f2e6ef0a2d16aca77b57e4124111b2aafce8407156a826647a95b86d",
+            "selected_id": "56962032435525",
+            "brand": "Piccoli Amici",
+            "line": "Pellet standard, non Gourmet",
+            "variant": "conigli nani; adulti; pellet standard con integrazione vitamine/minerali",
+            "selling_quantity": "2500 g per selling unit; no distinct multipack declared",
+            "evidence_excerpt": "Isola: SKU000120162, scheda tecnica2,5kg; farina erba medica20%; Bauzaar: variante56962032435525 e misura netta2.5kg; descrizione alimento in pellet per adulti; Identità commerciale standard confermata, distinta daSKU000120164 Gourmet800g; nessun multipack dichiarato",
+            "identity_observation_sha256": "59f667674ec9656c1b0dbf7755234f7ef290f3ed791669cf4aa7b738174b25e3"
+          }
+        ],
+        "source_quality_flags": [
+          "Boilerplate Bauzaar presenta il brand come esclusiva del negozio, mentre Isola riporta D.M.O. Pet Care come produttore: claim commerciale non usato per provare identità.",
+          "Bauzaar non espone una composizione completa confrontabile: equivalenza commerciale basata su identificazione esatta, linea/target/formato e attributi coerenti, non digest ingredienti."
+        ],
+        "limits": [
+          "Approvazione documentale di identità commerciale, non verifica di acquisto o certificazione nutrizionale.",
+          "EAN Isola non esposto nella pagina selezionata: non trasferito, non dedotto, non usato da solo come prova.",
+          "Quantità totale verificata sul formato di vendita; nessun moltiplicatore multipack aggiunto per inferenza."
+        ]
+      }
+    }
+  ]
 }
