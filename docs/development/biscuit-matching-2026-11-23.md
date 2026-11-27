@@ -12,3 +12,5 @@ Verifiche obbligatorie prima del rilascio: gate stretto delle14 coppie presenti 
 
 
 Rivalidazione sul catalogo27 novembre21:19UTC (commit7363678):18.336 offerte,589→591 confronti,16.749→16.747 prodotti attivi,3,52→3,53%. Gate14+3, due soli ID mossi, ogni altro gruppo e ogni campo commerciale invariati,12 confronti storici/3 assenze/2 hold invariati. Date delle prove originali conservate. Questi numeri restano una simulazione fino alla generazione e verifica pubblica post-merge.
+
+Rivalidazione finale dopo il collector Paco, input2e5cfbf e snapshot27 novembre21:25:43UTC:18.336 offerte,591→593 confronti,16.747→16.745 prodotti attivi,3,53→3,54%. Gate14+3 e confronto stretto confermano i medesimi due soli ID mossi; tutti gli altri gruppi,12 storici,3 assenze e2 hold invariati. Nessuna data fonte rinnovata.
