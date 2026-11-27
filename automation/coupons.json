@@ -67,8 +67,8 @@
       "benefit": "−20%",
       "title": "Sui prodotti Monopro",
       "description": "Sconto sui prodotti Monopro senza spesa minima.",
-      "status": "cart_tested",
-      "publication_allowed": true,
+      "status": "expired",
+      "publication_allowed": false,
       "starts_at": "2026-11-06T00:00:00Z",
       "expires_at": "2026-11-13T23:00:00Z",
       "expires_label": "13 novembre 2026",
@@ -86,6 +86,37 @@
         "before_cents": 300,
         "after_cents": 240,
         "note": "MP20 visibile sulla riga: riduzione di 0,60 €. Acquisto singolo; codice e articolo rimossi, carrello vuoto confermato."
+      },
+      "suspended_reason": "Termine ufficiale registrato 13/11/2026 superato; nessun rinnovo della prova."
+    },
+    {
+      "code": "BLACK15",
+      "shop": "bauzaar",
+      "merchant": "Bauzaar",
+      "benefit": "−15%",
+      "title": "Su tutto l’assortimento Bauzaar",
+      "description": "Codice Black Friday senza spesa minima dichiarata.",
+      "status": "cart_tested",
+      "publication_allowed": true,
+      "starts_at": "2026-11-27T00:00:00Z",
+      "expires_at": "2026-11-30T23:00:00Z",
+      "expires_label": "30 novembre 2026 (ora non specificata)",
+      "verified_at": "2026-11-27T00:00:00Z",
+      "checked_date": "27/11/2026",
+      "recheck_after": "2026-11-29T00:00:00Z",
+      "source_url": "https://www.bauzaar.it/pages/promozioni",
+      "destination_url": "https://www.bauzaar.it/pages/promozioni",
+      "conditions": "Il negozio dichiara -15% su tutto l’assortimento, senza spesa minima, non cumulabile e fino a esaurimento scorte; termine 30/11/2026, ora non specificata. Prova positiva limitata al prodotto e alla variante registrati. Spedizione esclusa.",
+      "cart_test": {
+        "code": "BLACK15",
+        "product": "Monopro lo specialista Dog Adult All Breeds Biscotti Grain Free 100 gr",
+        "variant": "Tacchino · 1 confezione · variante 56819967164741",
+        "currency": "EUR",
+        "before_cents": 360,
+        "after_cents": 306,
+        "product_url": "https://www.bauzaar.it/products/monopro-lo-specialista-dog-adult-all-breeds-snack-grain-free-100-gr?variant=56819967164741",
+        "observed_date": "2026-11-27",
+        "note": "Browser autorizzato, acquisto singolo senza login: unico articolo da 3,60 EUR; BLACK15 (-0,54 EUR) visibile, totale 3,06 EUR, IVA inclusa e spedizione calcolata al checkout. Codice rimosso: totale tornato 3,60 EUR. Articolo rimosso: carrello vuoto confermato. Nessun checkout o acquisto. verified_at conservativo a inizio giornata UTC, non ora esatta della prova."
       }
     },
     {
@@ -123,13 +154,14 @@
       "benefit": "−20%",
       "title": "Sui prodotti Stuzzy",
       "description": "Codice pubblicato nella pagina promozioni ufficiale; non ancora provato nel carrello.",
-      "status": "candidate_unverified",
+      "status": "expired",
       "publication_allowed": false,
       "source_url": "https://www.bauzaar.it/pages/promozioni",
       "destination_url": "https://www.bauzaar.it/collections/stuzzy",
       "conditions": "Valido sui prodotti Stuzzy; nessuna spesa minima indicata; non cumulabile; scorte limitate; termine indicato 13/11/2026. Da provare nel carrello.",
       "source_checked_date": "07/11/2026",
-      "expires_label": "13 novembre 2026 (ora non specificata)"
+      "expires_label": "13 novembre 2026 (ora non specificata)",
+      "suspended_reason": "Termine ufficiale registrato 13/11/2026 superato; nessun rinnovo della prova."
     },
     {
       "code": "PP20",
@@ -138,13 +170,14 @@
       "benefit": "−20%",
       "title": "Sui prodotti Purina Pro Plan",
       "description": "Codice pubblicato nella pagina promozioni ufficiale; non ancora provato nel carrello.",
-      "status": "candidate_unverified",
+      "status": "expired",
       "publication_allowed": false,
       "source_url": "https://www.bauzaar.it/pages/promozioni",
       "destination_url": "https://www.bauzaar.it/collections/purina-pro-plan",
       "conditions": "Valido sui prodotti Purina Pro Plan; nessuna spesa minima indicata; non cumulabile; scorte limitate; termine indicato 13/11/2026. Da provare nel carrello.",
       "source_checked_date": "07/11/2026",
-      "expires_label": "13 novembre 2026 (ora non specificata)"
+      "expires_label": "13 novembre 2026 (ora non specificata)",
+      "suspended_reason": "Termine ufficiale registrato 13/11/2026 superato; nessun rinnovo della prova."
     },
     {
       "code": "FD20",
@@ -153,14 +186,15 @@
       "benefit": "−20%",
       "title": "Sui prodotti Fish4Dogs",
       "description": "Codice pubblicato nella pagina promozioni ufficiale; non ancora provato nel carrello.",
-      "status": "source_conflict",
+      "status": "expired",
       "publication_allowed": false,
       "source_url": "https://www.bauzaar.it/pages/promozioni",
       "destination_url": "https://www.bauzaar.it/collections/fish4dogs",
       "conditions": "La descrizione ufficiale e il pulsante riportano FD20, ma il riquadro del codice copiabile mostra FC20. Conflitto della fonte: non usare né pubblicare finché il negozio non lo chiarisce.",
       "source_checked_date": "07/11/2026",
       "observed_code_box": "FC20",
-      "expires_label": "13 novembre 2026 (ora non specificata)"
+      "expires_label": "13 novembre 2026 (ora non specificata)",
+      "suspended_reason": "Termine ufficiale registrato 13/11/2026 superato; nessun rinnovo della prova."
     },
     {
       "code": "RELAX",
