@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T08:24:52.039862+00:00",
+  "generated_at": "2026-11-27T21:14:28.526935+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,8 +7,8 @@
   "at_target": 14,
   "with_third_store_lead": 26,
   "categories": {
-    "umido": 104,
-    "crocchette": 129,
+    "umido": 106,
+    "crocchette": 127,
     "lettiere": 6,
     "snack": 61
   },
@@ -45,6 +45,7 @@
     "animaliapet:46976576454999",
     "animaliapet:46976578158935",
     "animaliapet:46976581566807",
+    "animaliapet:46976581763415",
     "animaliapet:46976583958871",
     "animaliapet:46976584810839",
     "animaliapet:46976585924951",
@@ -57,9 +58,7 @@
     "animaliapet:46976605552983",
     "animaliapet:46976607355223",
     "animaliapet:46976631013719",
-    "animaliapet:46976631308631",
     "animaliapet:46976635208023",
-    "animaliapet:46976639435095",
     "animaliapet:46976642679127",
     "animaliapet:46976649724247",
     "animaliapet:46976656310615",
@@ -100,6 +99,7 @@
     "animaliapet:47343969141079",
     "animaliapet:47343990604119",
     "animaliapet:47344005284183",
+    "animaliapet:47392275661143",
     "animaliapet:47403696030039",
     "animaliapet:47555389129047",
     "animaliapet:48188453060951",
@@ -131,6 +131,7 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
+    "bauzaar:56819013976389",
     "bauzaar:56819016335685",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
@@ -170,7 +171,6 @@
     "bauzaar:56820106821957",
     "bauzaar:56820107510085",
     "bauzaar:56820175307077",
-    "bauzaar:56820177502533",
     "bauzaar:56820204175685",
     "bauzaar:56820205683013",
     "bauzaar:56820205912389",
@@ -193,7 +193,6 @@
     "bauzaar:56820269351237",
     "bauzaar:56820281377093",
     "bauzaar:56820299465029",
-    "bauzaar:56820299530565",
     "bauzaar:56820299563333",
     "bauzaar:56820299661637",
     "bauzaar:56820401471813",
@@ -300,7 +299,7 @@
     "bauzaar:56962082439493",
     "bauzaar:56962082931013",
     "bauzaar:56962085421381",
-    "bauzaar:56962089255237",
+    "bauzaar:56962088304965",
     "bauzaar:56962093908293",
     "bauzaar:56962130051397",
     "bauzaar:56962141454661",
@@ -364,6 +363,7 @@
     "bauzaar:58411853185349",
     "bauzaar:58411853939013",
     "bauzaar:58411854004549",
+    "bauzaar:58411854496069",
     "bauzaar:58411854594373",
     "bauzaar:58411855348037",
     "bauzaar:58411855806789",
@@ -382,6 +382,7 @@
     "isola-dei-tesori:000126305",
     "isola-dei-tesori:000128091",
     "isola-dei-tesori:000128161",
+    "isola-dei-tesori:000128162",
     "isola-dei-tesori:000128826",
     "isola-dei-tesori:000128827",
     "isola-dei-tesori:000132011",
@@ -455,6 +456,7 @@
     "paco:1118",
     "paco:1130",
     "paco:1195",
+    "paco:1201",
     "paco:1245",
     "paco:1343",
     "paco:1353",
@@ -532,7 +534,6 @@
     "paco:5974",
     "paco:5975",
     "paco:5976",
-    "paco:5978",
     "paco:5991",
     "paco:5993",
     "paco:5996",
@@ -547,14 +548,13 @@
     "paco:6182",
     "paco:6221",
     "paco:6231",
-    "paco:6357",
     "paco:6358",
+    "paco:6395",
     "paco:820",
     "paco:88",
     "paco:955",
     "paco:961",
     "paco:964",
-    "paco:965",
     "paco:966",
     "webpet:52568955552084",
     "webpet:52568971936084",
@@ -799,27 +799,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-020ee6e13fdcbebb98e7",
-      "name": "Royal Canin Gastrointestinal Moderate Calorie 2Kg Crocchette Gatti Adulti",
-      "brand": "Royal Canin",
-      "category": "crocchette",
-      "species": "gatto",
-      "format": "2 kg",
-      "url": "https://offerte4zampe.it/prodotto/royal-canin-gastrointestinal-moderate-calorie-2kg-crocchette-gatti-adulti-03182550771290-bb98e7",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "animaliapet:46976631308631",
-        "bauzaar:56820299530565"
-      ],
-      "candidate_offer_ids": [
-        "paco:965"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-03b22452d20253955751",
       "name": "Royal Canin Veterinary Diet Dog Hypoallergenic 400 g",
       "brand": "Royal Canin",
@@ -857,27 +836,6 @@
       ],
       "candidate_offer_ids": [
         "paco:310"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-11088e1dc3dabc401f25",
-      "name": "Royal Canin Veterinary Diet Renal Canine 1,5 kg",
-      "brand": "Royal Canin",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "1,5 kg",
-      "url": "https://offerte4zampe.it/prodotto/royal-canin-renal-small-dog-1-5kg-crocchette-cani-mini-adult-03182550915359-401f25",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56962089255237",
-        "animaliapet:46976639435095"
-      ],
-      "candidate_offer_ids": [
-        "paco:6357"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -1109,6 +1067,48 @@
       ],
       "candidate_offer_ids": [
         "paco:88"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-7d6d19bd93c3f048a04c",
+      "name": "Royal Canin Veterinary Diet Dog Hepatic 420 g",
+      "brand": "Royal Canin",
+      "category": "umido",
+      "species": "cane",
+      "format": "420 g",
+      "url": "https://offerte4zampe.it/prodotto/royal-canin-hepatic-420g-lattina-cani-09003579309469-48a04c",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "isola-dei-tesori:000128162",
+        "bauzaar:56962088304965"
+      ],
+      "candidate_offer_ids": [
+        "paco:1201"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-8099ba6d47ac0c592333",
+      "name": "Royal Canin Extra-Small Puppy 1,5 kg",
+      "brand": "Royal Canin",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "1,5 kg",
+      "url": "https://offerte4zampe.it/prodotto/royal-canin-extra-small-puppy-1-5-kg-1-5kg-03182550793612-592333",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "bauzaar:58411854496069",
+        "animaliapet:46976581763415"
+      ],
+      "candidate_offer_ids": [
+        "paco:6395"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
@@ -2040,25 +2040,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-75dae1b33e8176c90690",
-      "name": "Exclusion Diet Metabolic & Mobility Medium/Large Breed Maiale e Fibre 12 kg",
-      "brand": "Exclusion Diet",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/exclusion-diet-metabolic-mobility-medium-large-breed-maiale-e-fibre-12-kg-12kg-08011259002730-c90690",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820107510085",
-        "paco:5213"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-763b4a22f0acb5682121",
       "name": "Exclusion Diet Hypoallergenic Pesce E Patate Per Cani · Sacco da 12 kg · Taglia Media e Grande",
       "brand": "Exclusion Diet",
@@ -2756,25 +2737,6 @@
       "offer_ids": [
         "isola-dei-tesori:000150111",
         "bauzaar:56820056424773"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-ad8becf2e497498e22b6",
-      "name": "Hill's Prescription Diet Metabolic mini Canine 6 kg",
-      "brand": "Hill's Prescription Diet",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "6 kg",
-      "url": "https://offerte4zampe.it/prodotto/hill-s-prescription-diet-metabolic-mini-canine-6-kg-6kg-00052742335414-8e22b6",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820418150725",
-        "paco:4051"
       ],
       "candidate_offer_ids": [],
       "next_action": "find_additional_store",
@@ -4320,25 +4282,6 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
-      "product_id": "p-23ab972b70726317cb2d",
-      "name": "Purina Pro Plan Veterinary Diets UR urinary 12 kg",
-      "brand": "Purina Veterinary Diets",
-      "category": "crocchette",
-      "species": "cane",
-      "format": "12 kg",
-      "url": "https://offerte4zampe.it/prodotto/purina-pro-plan-veterinary-diets-ur-urinary-12-kg-12kg-07613035155121-17cb2d",
-      "verified_shops": 2,
-      "target_shops": 3,
-      "missing_shops": 1,
-      "offer_ids": [
-        "bauzaar:56820177502533",
-        "paco:5978"
-      ],
-      "candidate_offer_ids": [],
-      "next_action": "find_additional_store",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
       "product_id": "p-3b6f206d393b247c2c09",
       "name": "Terra Canis secco Canireo Grain Free Selvaggina 2,5 kg",
       "brand": "Terra Canis",
@@ -5709,6 +5652,26 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-75dae1b33e8176c90690",
+      "name": "Exclusion Diet Metabolic & Mobility Medium/Large Breed Maiale e Fibre 12 kg",
+      "brand": "Exclusion Diet",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "12 kg",
+      "url": "https://offerte4zampe.it/prodotto/exclusion-diet-metabolic-mobility-medium-large-breed-maiale-e-fibre-12-kg-12kg-08011259002730-c90690",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56820107510085"
+      ],
+      "candidate_offer_ids": [
+        "paco:5213"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-c20792af8d30899a5eda",
       "name": "Exclusion Diet Hepatic Monoprotein All Breeds 400 g Maiale - confezione da 24 pezzi - Umido monoproteico cane",
       "brand": "Exclusion Diet",
@@ -6132,6 +6095,26 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-ad8becf2e497498e22b6",
+      "name": "Hill's Prescription Diet Metabolic mini Canine 6 kg",
+      "brand": "Hill's Prescription Diet",
+      "category": "crocchette",
+      "species": "cane",
+      "format": "6 kg",
+      "url": "https://offerte4zampe.it/prodotto/hill-s-prescription-diet-metabolic-mini-canine-6-kg-6kg-00052742335414-8e22b6",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "bauzaar:56820418150725"
+      ],
+      "candidate_offer_ids": [
+        "paco:4051"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-c16badeee88d20ad107c",
       "name": "ItalianWay Cat Sfilaccetti in salsa Weight Management Sterilized 85 g Maiale e mirtilli - confezione da 28 pezzi",
       "brand": "Italian Way",
@@ -6427,6 +6410,26 @@
       ],
       "candidate_offer_ids": [
         "bauzaar:56820266139973"
+      ],
+      "next_action": "verify_feed_package",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-06a3f83e64c61e7329e3",
+      "name": "Natua Natural Pollo in Jelly Lattina 150g Gatti",
+      "brand": "Natua",
+      "category": "umido",
+      "species": "cane e gatto",
+      "format": "150 g",
+      "url": "https://offerte4zampe.it/prodotto/natua-natural-pollo-in-jelly-lattina-150g-gatti-08057507371036-7329e3",
+      "verified_shops": 1,
+      "target_shops": 3,
+      "missing_shops": 2,
+      "offer_ids": [
+        "animaliapet:47392275661143"
+      ],
+      "candidate_offer_ids": [
+        "bauzaar:56819013976389"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
