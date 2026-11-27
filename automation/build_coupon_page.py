@@ -80,7 +80,7 @@ def render_card(row, now=None):
     if row.get('status') == 'owner_confirmed':
         label = ('Da riconfermare' if now >= stamp(row['recheck_after'])
                  else 'Codice concordato con il partner · confermato dal titolare')
-        return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-until="{h(row['expires_at'])}" data-recheck-after="{h(row['recheck_after'])}">
+        return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-from="{h(row['starts_at'])}" data-valid-until="{h(row['expires_at'])}" data-recheck-after="{h(row['recheck_after'])}">
 <div class="shop"><div><strong>{h(row['merchant'])}</strong><small>Negozio partner</small></div></div>
 <div class="discount">{h(row['benefit'])}</div><h2>{h(row['title'])}</h2><p class="description">{h(row['description'])}</p>
 <span class="status">{h(label)}</span>
@@ -91,7 +91,7 @@ def render_card(row, now=None):
     p = row['cart_test']
     money = lambda n: f'{n/100:.2f}'.replace('.', ',') + ' €'
     until = min(stamp(row['expires_at']), stamp(row['recheck_after']), stamp(row['verified_at']) + dt.timedelta(hours=48)).isoformat()
-    return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-until="{h(until)}">
+    return f'''<article class="coupon" data-shop="{h(row['shop'])}" data-valid-from="{h(max(stamp(row['starts_at']), stamp(row['verified_at'])).isoformat())}" data-valid-until="{h(until)}">
 <div class="shop"><span class="shop-logo"><img src="assets/shops/bauzaar.svg" alt="Logo Bauzaar" width="112" height="62"></span><div><strong>{h(row['merchant'])}</strong><small>Negozio partner</small></div></div>
 <div class="discount">{h(row['benefit'])}</div><h2>{h(row['title'])}</h2><p class="description">{h(row['description'])}</p><span class="status">Provato nel carrello · {h(row['checked_date'])}</span>
 <div class="card-tail"><div class="code-row"><code>{h(row['code'])}</code><button class="copy" data-code="{h(row['code'])}" aria-label="Copia il codice {h(row['code'])}">Copia codice</button></div>
@@ -116,7 +116,7 @@ def build(now=None):
     out = out.replace('Gli altri collegamenti restano diretti.', 'Il link Hygge Pet Food è affiliato tramite Awin. Gli altri collegamenti restano diretti.')
     out = out.replace(' aria-current="page"', '')
     out = out.replace('</head>', '<link rel="stylesheet" href="assets/coupons.css?v=1"></head>')
-    out = out.replace('</body>', '<script src="assets/coupons.js?v=1" defer></script></body>')
+    out = out.replace('</body>', '<script src="assets/coupons.js?v=2" defer></script></body>')
     (ROOT/'site/codici-sconto.html').write_text(out)
     print('Cart-tested coupons published:', len(rows))
 

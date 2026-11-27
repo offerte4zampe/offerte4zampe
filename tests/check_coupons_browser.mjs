@@ -30,6 +30,28 @@ export async function checkCoupons(page, origin) {
       && r.cart_test.after_cents > 0 && r.cart_test.after_cents < r.cart_test.before_cents
       && Boolean(r.cart_test.product) && Boolean(r.cart_test.variant);
   });
+  // Cached HTML must fail closed with a clock before its evidence.
+  const cached = await page.$$eval('.coupon', cards => cards.map(c => ({
+    code: c.querySelector('code').textContent.trim(),
+    from: Date.parse(c.dataset.validFrom), until: Date.parse(c.dataset.validUntil),
+  })));
+  for (const card of cached) {
+    assert(Number.isFinite(card.from) && Number.isFinite(card.until));
+    for (const [clock, hidden] of [[card.from - 1, true], [card.from, false], [card.until, true]]) {
+      try {
+        await page.evaluate(stamp => {
+          const previous = Date.now;
+          try { Date.now = () => stamp; document.dispatchEvent(new Event('visibilitychange')); }
+          finally { Date.now = previous; }
+        }, clock);
+        const actual = await page.$$eval('.coupon', (cards, code) =>
+          cards.find(c => c.querySelector('code').textContent.trim() === code).hidden, card.code);
+        assert.equal(actual, hidden, `${card.code} cached validity boundary`);
+      } finally {
+        await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
+      }
+    }
+  }
   const visibleCodes = await page.$$eval('.coupon:not([hidden]) code', es => es.map(e => e.textContent.trim()).sort());
   assert.deepEqual(visibleCodes, active.map(r => r.code).sort());
   assert.equal(await page.$$eval('.coupon:not([hidden])', es => es.length), active.length);
@@ -93,3 +115,4 @@ export async function checkCoupons(page, origin) {
     assert(await page.$eval('main', (e, code) => e.textContent.includes(code), row.code));
   }
 }
+
