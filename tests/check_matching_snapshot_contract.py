@@ -19,6 +19,8 @@ import sys
 import tempfile
 
 ROOT=Path(__file__).resolve().parents[1]
+from check_matching_merchant_review import verify as verify_merchant_manifest
+
 MANIFEST=ROOT/'tests/matching-join-manifest.json'
 HOLD_MANIFEST=ROOT/'tests/matching-review-hold-manifest.json'
 GENERATORS=['automation/build_product_pages.py','automation/build_home_data.py','automation/build_sitemaps.py']
@@ -188,6 +190,13 @@ def main():
             assert files(base_tree)==files(actual), 'Static input HTML/sitemap/shards differ'
             catalog=json.loads(gzip.decompress((base_tree/inputs[0]).read_bytes()))
             input_rows={o['id']:o for o in catalog['offers']}
+            # Resolve only explicitly documented dormant records against this
+            # unchanged input. Active/new pairs retain the exact merchant gate.
+            review_plan=verify_merchant_manifest(manifest,catalog)
+            joins=review_plan['manifest']['joins']
+            initial['dormant_join_states']=review_plan['dormant_states']
+            effective_manifest=tmp/'effective-matching-manifest.json'
+            effective_manifest.write_text(json.dumps(review_plan['manifest'],ensure_ascii=False))
             initial['manifest_offer_status']=[{'source':source,'target':target,'source_gtin':input_rows[source].get('gtin'),'target_gtin':input_rows[target].get('gtin'),'source_product_id':input_rows[source].get('product_id'),'target_product_id':input_rows[target].get('product_id')} for source,target in joins]
             clock=tmp/'clock';clock.mkdir()
             (clock/'sitecustomize.py').write_text('import datetime as d,os\nr=d.datetime\nclass F(r):\n @classmethod\n def now(cls,tz=None):\n  x=r.fromisoformat(os.environ["MATCHING_FIXED_NOW"]);return x.astimezone(tz) if tz else x.replace(tzinfo=None)\n @classmethod\n def utcnow(cls):return cls.now(d.timezone.utc).replace(tzinfo=None)\nd.datetime=F\n')
@@ -196,7 +205,7 @@ def main():
             initial['verification_as_of']=verification_now
             env={**os.environ,'PRICE_TRACKING_ENABLED':'false','MATCHING_FIXED_NOW':verification_now,'PYTHONPATH':str(clock)}
             for tree in trees:
-                command=[sys.executable,str(Path(__file__).resolve()),'--worker',str(tree),'--manifest',str(Path(args.manifest).resolve()),'--hold-manifest',str(Path(args.hold_manifest).resolve())]
+                command=[sys.executable,str(Path(__file__).resolve()),'--worker',str(tree),'--manifest',str(effective_manifest),'--hold-manifest',str(Path(args.hold_manifest).resolve())]
                 if tree==expected:command+=['--base-resolver',str(base_tree/'automation/name_matching.py')]
                 elif tree==common:command+=['--comparison-policy',str(base_policy)]
                 subprocess.run(command,cwd=tree,env=env,check=True,stdout=subprocess.DEVNULL)
@@ -204,7 +213,7 @@ def main():
             b,c,a,e=[json.loads(gzip.decompress((tree/'contract-model.json.gz').read_bytes())) for tree in trees]
             for field in ('offers','products','registry'):assert b[field]==c[field], 'Legacy isolation model differs: '+field
             assert files(base_tree)==files(common), 'Legacy isolation HTML/sitemap/shards differ'
-            issues=[];result={'base_sha':base,'head_sha':head,'snapshot':catalog['generated_at'],'verification_as_of':verification_now,'offers':len(a['offers']),'legacy_isolation':'passed','merchant_review':manifest['merchant_review']['status'],'merge_ready':False}
+            issues=[];result={'base_sha':base,'head_sha':head,'snapshot':catalog['generated_at'],'verification_as_of':verification_now,'offers':len(a['offers']),'legacy_isolation':'passed','merchant_review':manifest['merchant_review']['status'],'merge_ready':False,'dormant_join_states':review_plan['dormant_states']}
             base_ids={o['id']:o['product_id'] for o in b['offers']}
             diagnostic={**initial,'actual_moved':sorted(o['id'] for o in a['offers'] if base_ids[o['id']]!=o['product_id']),'manifest_sources':sorted(pair[0] for pair in joins),'explicit_review_holds':sorted(holds)}
             output.with_suffix('.diagnostic.json').write_text(json.dumps(diagnostic,indent=2)+'\n')

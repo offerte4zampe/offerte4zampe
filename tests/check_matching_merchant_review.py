@@ -56,7 +56,7 @@ def verify_source_url(source,offer):
             assert str(source['selected_id']).strip()==selected, 'Evidence selected identifier differs'
 
 
-def verify(manifest,catalog=None,now=None):
+def _verify_active(manifest,catalog=None,now=None):
     now=now or dt.datetime.now(dt.timezone.utc)
     offers={o['id']:o for o in catalog['offers']} if catalog is not None else None
     review=manifest['merchant_review']
@@ -88,6 +88,87 @@ def verify(manifest,catalog=None,now=None):
         assert observed==set(pair), 'Both exact offer observations required'
         checked[pair]=row
     assert set(checked)=={tuple(pair) for pair in manifest['joins']}, 'Every explicit join needs evidence'
+
+
+def identity_snapshot_fingerprint(catalog):
+    rows={o['id']:observation_fingerprint(o) for o in catalog['offers']}
+    assert len(rows)==len(catalog['offers']), 'Duplicate catalog offer ID'
+    return hashlib.sha256(json.dumps(rows,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+
+
+def review_plan(manifest,catalog=None,now=None):
+    """An explicit archive is not permission to ignore a changed observation.
+
+    Present pairs keep the exact existing gate. Historical evidence is checked
+    at the archive date; a returning complete pair must pass it at today's date.
+    This is a test/review policy, never a production identity resolver or hold.
+    """
+    import copy
+    import re
+    now=now or dt.datetime.now(dt.timezone.utc)
+    dormant=manifest.get('dormant_joins',[])
+    assert isinstance(dormant,list), 'Invalid dormant archive'
+    effective=copy.deepcopy(manifest);effective.pop('dormant_joins',None)
+    if not dormant:return {'manifest':effective,'dormant_states':[]}
+    assert manifest.get('schema_version')==3, 'Dormant archive requires schema3'
+    assert catalog is not None, 'Dormant archive requires a real input catalog'
+    rows={o['id']:o for o in catalog['offers']}
+    assert len(rows)==len(catalog['offers']), 'Duplicate catalog offer ID'
+    seen_pairs=set();seen_sources=set()
+    for pair in manifest['joins']:
+        assert isinstance(pair,list) and len(pair)==2 and len(set(pair))==2, 'Invalid active join'
+        assert frozenset(pair) not in seen_pairs and pair[0] not in seen_sources, 'Duplicate active pair/source'
+        seen_pairs.add(frozenset(pair));seen_sources.add(pair[0])
+    states=[];identity_digest=None
+    for entry in dormant:
+        assert isinstance(entry,dict), 'Invalid dormant record'
+        pair=entry.get('join')
+        assert isinstance(pair,list) and len(pair)==2 and all(isinstance(x,str) and x for x in pair) and len(set(pair))==2, 'Invalid dormant join'
+        assert frozenset(pair) not in seen_pairs and pair[0] not in seen_sources, 'Duplicate/overlapping dormant pair/source'
+        seen_pairs.add(frozenset(pair));seen_sources.add(pair[0])
+        assert isinstance(entry.get('reason'),str) and 15<=len(entry['reason'])<=2000, 'Explicit dormant reason required'
+        archived=dt.datetime.fromisoformat(entry['archived_at'].replace('Z','+00:00'))
+        assert archived.tzinfo and archived<=now, 'Future/naive archive date'
+        snapshot=entry['input_snapshot'];generated=dt.datetime.fromisoformat(snapshot['generated_at'].replace('Z','+00:00'))
+        assert generated.tzinfo and generated<=archived, 'Invalid archived snapshot date'
+        assert re.fullmatch(r'[0-9a-f]{40}',snapshot.get('commit','')), 'Archived input commit required'
+        assert re.fullmatch(r'[0-9a-f]{64}',snapshot.get('identity_snapshot_sha256','')), 'Archived identity snapshot digest required'
+        missing=entry['missing_offer_ids']
+        assert isinstance(missing,list) and missing and len(set(missing))==len(missing) and set(missing)<=set(pair), 'Explicit archived absences required'
+        historical=entry['archived_review']
+        assert historical.get('join')==pair, 'Archived review pair differs'
+        assert all(re.fullmatch(r'[0-9a-f]{64}',source.get('source_sha256','')) for source in historical.get('sources',[])), 'Archived source body digest required'
+        reviewer=entry.get('archived_reviewer')
+        assert isinstance(reviewer,str) and reviewer.strip(), 'Archived reviewer required'
+        single={'joins':[pair],'merchant_review':{'status':'verified','reviewer':reviewer,'evidence':[historical]}}
+        _verify_active(single,None,archived)
+        if catalog.get('generated_at')==snapshot['generated_at']:
+            if identity_digest is None:identity_digest=identity_snapshot_fingerprint(catalog)
+            assert identity_digest==snapshot['identity_snapshot_sha256'], 'Archived input identity digest differs'
+        current_missing=[oid for oid in pair if oid not in rows]
+        if current_missing:
+            assert set(current_missing)==set(missing), 'Dormant absence set changed; explicit review/update required'
+            for source in historical['sources']:
+                oid=source['offer_id']
+                if oid in rows:
+                    assert observation_fingerprint(rows[oid])==source['identity_observation_sha256'], 'Dormant present observation changed: '+oid
+                    verify_source_url(source,rows[oid])
+            states.append({'join':pair,'state':'dormant_absent','missing_offer_ids':current_missing,'archived_at':entry['archived_at']})
+        else:
+            # Presence is never a wildcard: both fingerprints, URLs, sources and
+            # the original30-day review validity are checked before reactivation.
+            _verify_active(single,catalog,now)
+            effective['joins'].append(copy.deepcopy(pair))
+            effective['merchant_review']['evidence'].append(copy.deepcopy(historical))
+            states.append({'join':pair,'state':'returned_unchanged_review_valid','missing_offer_ids':[],'archived_at':entry['archived_at']})
+    return {'manifest':effective,'dormant_states':states}
+
+
+def verify(manifest,catalog=None,now=None):
+    now=now or dt.datetime.now(dt.timezone.utc)
+    plan=review_plan(manifest,catalog,now)
+    _verify_active(plan['manifest'],catalog,now)
+    return plan
 
 if __name__=='__main__':
     root=Path(__file__).resolve().parents[1]

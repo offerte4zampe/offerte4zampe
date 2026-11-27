@@ -192,3 +192,15 @@ class CanonicalProductTests(unittest.TestCase):
         self.assertEqual(result['products'][0]['id'],p['id'])
         self.assertEqual(result['products'][0]['slug'],'historical-stable-catbest-slug')
         self.assertEqual(result['products'][0]['history'][0]['sum'],20)
+
+    def test_reviewed_biscuit_inflection_preserves_recipe_age_and_pack(self):
+        a=dict(self.a,brand='O-life',title='O-life Dog Adult biscotti per cani 200 gr Agnello ortica e semi di lino',variant='',weight_kg=.2)
+        b=dict(a,id='b:1',merchant_id='b',gtin='',title='O-life Dog Adult Biscottini con Agnello ortica e semi di lino 200gr')
+        model=self.model([a,b])
+        self.assertEqual(model['metrics']['multi_shop_products'],1)
+        self.assertEqual(next(o for o in model['offers'] if o['id']=='b:1')['offer_matching_method'],'name_characteristics')
+        for patch in [{'title':'O-life Dog Adult Biscottini con Tacchino mela e curcuma 200gr'},
+                      {'title':b['title'].replace('Adult','Puppy')},
+                      {'weight_kg':.4},{'quantity_verified':False},
+                      {'title':b['title'].replace('O-life','Altra linea'),'brand':'Other'}]:
+            self.assertEqual(self.model([a,dict(b,**patch)])['metrics']['multi_shop_products'],0)
