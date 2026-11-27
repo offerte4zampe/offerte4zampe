@@ -359,3 +359,10 @@ header{z-index:200}
  .brandlogo{background-color:#216d68}
  .daily-pick .spotlight-product .btn{background:#216d68;color:#fff;border-color:#8ed6c9}
 }
+
+/* Keep every stale-source warning readable without displacing mobile results. */
+@media(max-width:650px){
+ #catalog-freshness{font-size:12px;line-height:1.35;padding:10px 12px;margin:0 0 8px}
+ #catalog-freshness p{display:inline;margin:0}
+ #catalog-freshness p+p:before{content:" · "}
+}

@@ -14,3 +14,13 @@ test('unverified feed variants cannot enter a cart or yield a total from saved r
  assert.equal(orderShipping([{offer:o,quantity:1}],rules,'standard',now).total,undefined);
  assert.equal(scenarios([{id:o.id,quantity:1}],[o],rules,'standard',now)[0].total,undefined);
 });
+
+test('canonical unknown pack blocks add, saved-list resolution and virtual order totals',()=>{
+ const o=offer('nested','a',{quantity:{verified:false}}),saved=[{id:o.id,quantity:1}];
+ assert.equal(add([],o,[o]).items.length,0);
+ assert.equal(orderShipping([{offer:o,quantity:1}],rules,'standard',now).total,undefined);
+ assert.equal(scenarios(saved,[o],rules,'standard',now)[0].total,undefined);
+ const contradictory={...o,quantity_verified:true};
+ assert.equal(add([],contradictory,[contradictory]).items.length,0);
+ assert.equal(orderShipping([{offer:contradictory,quantity:1}],rules,'standard',now).total,undefined);
+});
