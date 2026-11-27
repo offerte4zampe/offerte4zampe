@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 
 export async function checkCoupons(page, origin) {
+  page.on('pageerror', error => console.error('coupon-smoke-pageerror', error.stack));
   await page.goto(origin + '/codici-sconto.html', { waitUntil: 'domcontentloaded' });
   assert.equal(await page.$$eval('main h1', es => es.length), 1);
   assert.equal(await page.$eval('link[rel=canonical]', e => e.href), 'https://offerte4zampe.it/codici-sconto');
