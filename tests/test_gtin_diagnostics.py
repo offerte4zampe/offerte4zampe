@@ -68,7 +68,7 @@ class GtinDiagnosticsTest(unittest.TestCase):
 
     def test_paco_result_is_identical_with_and_without_diagnostics(self):
         row=normalize(fixture())[0]
-        product={'price_amount':20,'attributes':{'1':{'name':'24x85 gr','ean13':row['feed_gtin']}}}
+        product={'id':123,'price_amount':20,'attributes':{'1':{'name':'24x85 gr','ean13':row['feed_gtin']}}}
         def page():
             return '<div data-product="'+html.escape(json.dumps(product),quote=True)+'">'
         for reason,edit in [
@@ -78,7 +78,7 @@ class GtinDiagnosticsTest(unittest.TestCase):
             ('ambiguous_quantity',lambda:product['attributes'].update({'2':{'name':'2 kg','ean13':row['feed_gtin']}})),
             ('unparseable_weight',lambda:product['attributes']['1'].update(name='0 kg')),
         ]:
-            product={'price_amount':20,'attributes':{'1':{'name':'24x85 gr','ean13':row['feed_gtin']}}}
+            product={'id':123,'price_amount':20,'attributes':{'1':{'name':'24x85 gr','ean13':row['feed_gtin']}}}
             edit()
             seen={}
             now=dt.datetime(2026,11,7,12,tzinfo=dt.timezone.utc)

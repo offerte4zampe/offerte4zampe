@@ -69,7 +69,7 @@ class PrivateMerchantEvidenceTests(unittest.TestCase):
         now=dt.datetime(2026,11,7,12,tzinfo=dt.timezone.utc)
         row={'id':'paco:123','feed_gtin':'4006381333931','sku':'S1',
              'title':'Test','price':20,'quantity_verified':False}
-        payload={'price_amount':20,
+        payload={'id':123,'price_amount':20,
                  'attributes':{'variant-1':{'ean13':'4006381333932',
                                             'name':'24x85 gr'}}}
         page='<div data-product="'+html.escape(json.dumps(payload),quote=True)+'">'
