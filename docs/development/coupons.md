@@ -45,3 +45,18 @@ Prova reale nel browser: Monopro biscotti Dog Adult All Breeds Grain Free 100 g,
 ## 12 novembre 2026 — scadenza della verifica MP20
 
 MP20 escluso automaticamente dal 12/11 00:00 UTC per raggiungimento delle 48 ore; controllo HTTP pubblico conferma assenza della scheda MP20 e presenza di CIOTOLA30. Nessun rinnovo di verified_at e nessuna nuova prova nel carrello effettuata. Fonte Bauzaar continua a dichiarare la promozione fino al 13/11: questo non rinnova l'evidenza. Otto test coupon superati; rigenerazione locale include solo CIOTOLA30. Nessuna modifica alla pagina necessaria: esclusione già online. Fonti pubbliche Isola e Paco consultate; rilettura dettagli Paco bloccata da HTTP 403. Pannelli affiliati non verificati e candidati non testati ancora esclusi. Nessun acquisto, account, newsletter o messaggio.
+
+
+## 27 novembre 2026 — BLACK15, prova reale e proposta di aggiornamento
+
+Fonte ufficiale Bauzaar: BLACK15 -15% su tutto l’assortimento, senza minimo, non cumulabile, scorte limitate, fino al 30/11 (ora non specificata). Browser autorizzato: biscotti Monopro Grain Free 100 g Tacchino, variante 56819967164741, una confezione in acquisto singolo; 3,60 EUR prima, BLACK15 (-0,54 EUR) visibile e totale 3,06 EUR dopo. Spedizione calcolata separatamente al checkout; nessun login necessario nella prova. Codice rimosso e totale ripristinato a 3,60 EUR; articolo rimosso, carrello vuoto confermato. Nessun checkout, acquisto, iscrizione o messaggio. verified_at conservativo 27/11 00:00 UTC; esclusione 29/11 00:00 UTC (48 ore), anche se la promozione dura fino al 30/11. La prova su una variante non certifica ogni articolo.
+
+MP20, STY20, PP20 e FD20 marcati expired: termine registrato 13/11 superato, già esclusi dalla pagina; prove storiche e link conservati. CIOTOLA30 e la sua conferma precedente restano invariati, senza rinnovo: etichetta Da riconfermare. Fonti pubbliche Paco e Isola consultate; nessun nuovo codice verificato per quei negozi. Pannelli affiliati non verificati in questo ciclo. Candidati senza prova restano esclusi.
+
+Proposta su branch/PR, nessun merge/deploy autorizzato da questa esecuzione. Rigenerazione e test locali da annotare prima della revisione; CI candidata e deploy di produzione da distinguere.
+
+Validazione locale: 8 test coupon PASS; controlli BLACK15 attivo il 27/11, attivo un secondo prima del 29/11 00:00 UTC, escluso al limite esatto PASS. Pagina rigenerata con 2 schede. Il primo passaggio dei test ha rilevato che la fixture storica MP20 ereditava lo stato operativo expired: impostati esplicitamente status e publication_allowed nella sola fixture, senza alterare la policy. Main e produzione non modificati.
+
+CI iniziale mobile fallita: con clock catalogo26Nov la pagina generata27Nov mostrava BLACK15 prima della prova. Corretto il client coupon con data-valid-from=max(starts_at,verified_at), esclusione fail-closed per valore mancante e cache script v2. Aggiunti test browser sul documento in cache: prima dell’inizio, inizio esatto, scadenza esatta e ripristino. Nessuna estensione della validità o modifica del clock per aggirare il controllo.
+
+Secondo candidato: regression e Workers PASS; mobile ha superato gli assert coupon ma segnalato errori null.textContent nel successivo smoke complessivo. Il controller coupon ora acquisisce i propri elementi entro .coupon-page e non si inizializza senza la relativa interfaccia, conservando riferimenti locali per gli eventi di visibilità. Nessun errore filtrato o assert disabilitato. Nuova CI richiesta.

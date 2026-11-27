@@ -11,7 +11,8 @@ class CouponTests(unittest.TestCase):
         self.records = records
         self.row = copy.deepcopy(next(r for r in records if r['code'] == 'MP20'))
         # Fixed historical fixture, independent of daily coupon renewals.
-        self.row.update(verified_at='2026-11-06T00:00:00Z',
+        self.row.update(status='cart_tested', publication_allowed=True,
+                        verified_at='2026-11-06T00:00:00Z',
                         recheck_after='2026-11-08T00:00:00Z')
         self.row['cart_test'].update(before_cents=600, after_cents=480)
         self.now = dt.datetime(2026, 11, 6, 12, tzinfo=dt.timezone.utc)
