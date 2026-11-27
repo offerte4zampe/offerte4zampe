@@ -13,6 +13,15 @@ test('canonical HTML contains actual prices, totals and Product schema without c
  assert(html.includes('Shop A'));assert(html.includes('Shop B'));assert(html.includes('21,00'));assert(html.includes('26,00'));assert(html.includes('AggregateOffer'));assert(html.includes('index,follow'));assert(!html.includes('assets/product.js'));assert(html.includes('<base href="/">'));
  assert(html.indexOf('Shop A')<html.indexOf('Shop B'),'total includes shipping, not just product price');
 });
+test('canonical page removes relative and root-relative fingerprinted legacy entrypoints only',async()=>{
+ for(const src of ['assets/product.js?v=1','/assets/product.js?v=1','assets/product.abcdef123456.js?v=1','/assets/product.abcdef123456.js?v=1']){
+  const base=env(),fetch=base.ASSETS.fetch;
+  base.ASSETS.fetch=async req=>new URL(req.url).pathname==='/prodotto'?new Response(template.replace('assets/product.js?v=1',src).replace('</head>','<script src="/assets/product-model.abcdef123456.js" defer></script></head>')):fetch(req);
+  const html=await (await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+product.slug),base,now)).text();
+  assert(!html.includes('src="'+src+'"'),'Legacy entrypoint remains: '+src);
+  assert(html.includes('/assets/product-model.abcdef123456.js'),'Shared product model must remain');
+ }
+});
 test('robots stays consistent with sitemap snapshot when offers expire',async()=>{
  const future=now+37*3600000;
  const indexed=await canonicalProduct(new Request('https://offerte4zampe.it/prodotto/'+product.slug),env(product),future);
