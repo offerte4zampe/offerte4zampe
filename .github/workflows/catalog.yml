@@ -7,6 +7,8 @@ on:
     branches: [main]
     paths:
       - 'automation/image_policy.py'
+      - 'automation/fingerprint_assets.py'
+      - 'tests/test_fingerprint_assets.py'
       - 'automation/image-rights.json'
       - 'automation/cache_product_images.py'
       - 'automation/import_partner_feed.py'
