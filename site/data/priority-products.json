@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T21:25:43.388995+00:00",
+  "generated_at": "2026-11-27T21:38:08.996939+00:00",
   "selection_basis": "Operational opportunity and category/brand diversity; no search-demand data used.",
   "target": 300,
   "selected": 300,
@@ -7,10 +7,10 @@
   "at_target": 14,
   "with_third_store_lead": 26,
   "categories": {
-    "umido": 108,
+    "umido": 106,
     "crocchette": 125,
     "lettiere": 6,
-    "snack": 61
+    "snack": 63
   },
   "priority_offer_ids": [
     "animaliapet:46976533594455",
@@ -99,7 +99,6 @@
     "animaliapet:47343969141079",
     "animaliapet:47343990604119",
     "animaliapet:47344005284183",
-    "animaliapet:47392275661143",
     "animaliapet:47403696030039",
     "animaliapet:47555389129047",
     "animaliapet:48188453060951",
@@ -131,10 +130,11 @@
     "bauzaar:56818660442437",
     "bauzaar:56818663555397",
     "bauzaar:56818664046917",
-    "bauzaar:56819013976389",
     "bauzaar:56819016335685",
     "bauzaar:56819033702725",
     "bauzaar:56819869909317",
+    "bauzaar:56819870826821",
+    "bauzaar:56819870925125",
     "bauzaar:56819879543109",
     "bauzaar:56819879575877",
     "bauzaar:56819879641413",
@@ -390,6 +390,8 @@
     "isola-dei-tesori:000134144",
     "isola-dei-tesori:000134149",
     "isola-dei-tesori:000134150",
+    "isola-dei-tesori:000134207",
+    "isola-dei-tesori:000134209",
     "isola-dei-tesori:000136205",
     "isola-dei-tesori:000136206",
     "isola-dei-tesori:000136207",
@@ -3826,6 +3828,44 @@
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
     },
     {
+      "product_id": "p-38e0cf7f4f15b68a1470",
+      "name": "O-life Dog Adult Biscottini con Tacchino mela e curcuma 200gr",
+      "brand": "O-life",
+      "category": "snack",
+      "species": "cane",
+      "format": "200 g",
+      "url": "https://offerte4zampe.it/prodotto/o-life-dog-adult-biscotti-per-cani-200-g-tacchino-mela-e-curcuma-08053636453681-8a1470",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "isola-dei-tesori:000134209",
+        "bauzaar:56819870826821"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
+      "product_id": "p-c351424923812b625092",
+      "name": "O-life Dog Adult Biscottini con Agnello ortica e semi di lino 200gr",
+      "brand": "O-life",
+      "category": "snack",
+      "species": "cane",
+      "format": "200 g",
+      "url": "https://offerte4zampe.it/prodotto/o-life-dog-adult-biscotti-per-cani-200-g-agnello-ortica-e-semi-di-lino-08053636453674-625092",
+      "verified_shops": 2,
+      "target_shops": 3,
+      "missing_shops": 1,
+      "offer_ids": [
+        "isola-dei-tesori:000134207",
+        "bauzaar:56819870925125"
+      ],
+      "candidate_offer_ids": [],
+      "next_action": "find_additional_store",
+      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
+    },
+    {
       "product_id": "p-289a0291cc0351585706",
       "name": "Oasy Cat Mature Bocconcini in salsa 85 g Salmone - confezione da 12 pezzi",
       "brand": "Oasy",
@@ -6390,46 +6430,6 @@
       ],
       "candidate_offer_ids": [
         "paco:5689"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-7ae851ed475dcab5f514",
-      "name": "Marpet Aequilibriavet Gatto Anatra 85 g",
-      "brand": "Marpet",
-      "category": "umido",
-      "species": "gatto",
-      "format": "85 g",
-      "url": "https://offerte4zampe.it/prodotto/marpet-aequilibriavet-gatto-anatra-85-g-08031701202013-b5f514",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "isola-dei-tesori:000142079"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56820266139973"
-      ],
-      "next_action": "verify_feed_package",
-      "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
-    },
-    {
-      "product_id": "p-06a3f83e64c61e7329e3",
-      "name": "Natua Natural Pollo in Jelly Lattina 150g Gatti",
-      "brand": "Natua",
-      "category": "umido",
-      "species": "cane e gatto",
-      "format": "150 g",
-      "url": "https://offerte4zampe.it/prodotto/natua-natural-pollo-in-jelly-lattina-150g-gatti-08057507371036-7329e3",
-      "verified_shops": 1,
-      "target_shops": 3,
-      "missing_shops": 2,
-      "offer_ids": [
-        "animaliapet:47392275661143"
-      ],
-      "candidate_offer_ids": [
-        "bauzaar:56819013976389"
       ],
       "next_action": "verify_feed_package",
       "candidate_warning": "Shared feed GTIN is a lead only; package, variant, price and freshness must be verified."
